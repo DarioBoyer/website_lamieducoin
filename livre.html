@@ -274,61 +274,9 @@
             padding: 30px;
             text-align: center;
         }
-
-        /* Navigation de retour */
-        .back-nav {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 1000;
-        }
-
-        .back-btn {
-            background: #8B4513;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 25px;
-            text-decoration: none;
-            font-family: 'Georgia', serif;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: all 0.3s ease;
-        }
-
-        .back-btn:hover {
-            background: #D2691E;
-            transform: translateY(-2px);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .recipe-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .recipe-info {
-                grid-template-columns: 1fr;
-            }
-            
-            .braid-diagram {
-                flex-direction: column;
-            }
-            
-            .cover h1 {
-                font-size: 2em;
-            }
-            
-            .page {
-                padding: 20px;
-            }
-        }
     </style>
 </head>
 <body>
-    <div class="back-nav">
-        <a href="index.html" class="back-btn">← Retour au site</a>
-    </div>
-
     <div class="book">
         <!-- Couverture -->
         <div class="cover">
@@ -717,7 +665,7 @@
                         <ul>
                             <li>400g farine T65</li>
                             <li>100g farine de seigle</li>
-                            <li>350ml eau tiède (70%)</li>
+                            <li>350ml eau (70%)</li>
                             <li>10g sel (2%)</li>
                             <li>8g levure sèche (1.6%)</li>
                         </ul>
@@ -726,14 +674,15 @@
                     <div class="instructions">
                         <h5>📝 Instructions</h5>
                         <ol>
-                            <li>Mélanger les farines et le sel</li>
+                            <li>Mélanger farines et sel</li>
                             <li>Dissoudre levure dans l'eau tiède</li>
-                            <li>Incorporer, pétrir 10 min</li>
+                            <li>Incorporer, pétrir 12 min</li>
                             <li>Première levée: 2h</li>
-                            <li>Façonner en boule</li>
-                            <li>Deuxième levée: 1h30</li>
-                            <li>Entailler en croix</li>
-                            <li>Cuire à 230°C puis 210°C, 35-40 min</li>
+                            <li>Dégazer, former une boule</li>
+                            <li>Deuxième levée: 1h30 en banneton</li>
+                            <li>Préchauffer four à 240°C</li>
+                            <li>Renverser, scarifier en croix</li>
+                            <li>Cuire 35-40 min, baisser à 220°C après 10 min</li>
                         </ol>
                     </div>
                 </div>
@@ -743,6 +692,997 @@
                     <p><strong>Ingrédients:</strong> 400g T80, 100g seigle, 360ml eau, 10g sel, 200g levain (40%)</p>
                     <p><strong>Temps:</strong> 1ère levée 5-7h, 2e levée 2-4h au frais</p>
                 </div>
+            </div>
+        </div>
+
+        <!-- Page 3: Viennoiseries -->
+        <div class="page">
+            <h2>Viennoiseries</h2>
+
+            <!-- Croissants -->
+            <div class="recipe-card">
+                <div class="recipe-header">
+                    <div class="recipe-icon">🥐</div>
+                    <div class="recipe-title">
+                        <h4>Croissants Français</h4>
+                        <p class="recipe-subtitle">Feuilletés, beurrés, dorés et croustillants</p>
+                    </div>
+                </div>
+                
+                <div class="recipe-info">
+                    <div class="info-box">
+                        <div class="icon">⏱️</div>
+                        <div class="label">Préparation</div>
+                        <div class="value">8h (dont repos)</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="icon">🔥</div>
+                        <div class="label">Cuisson</div>
+                        <div class="value">15-18 min</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="icon">🍞</div>
+                        <div class="label">Rendement</div>
+                        <div class="value">12 croissants</div>
+                    </div>
+                </div>
+                
+                <div class="recipe-content">
+                    <div class="ingredients">
+                        <h5>🛒 Ingrédients</h5>
+                        <p><strong>Détrempe (pâte):</strong></p>
+                        <ul>
+                            <li>500g farine T45 ou à pâtisserie</li>
+                            <li>260ml lait tiède (52%)</li>
+                            <li>50g sucre (10%)</li>
+                            <li>50g beurre ramolli (10%)</li>
+                            <li>12g sel (2.4%)</li>
+                            <li>12g levure sèche (2.4%)</li>
+                        </ul>
+                        <p><strong>Beurrage:</strong></p>
+                        <ul>
+                            <li>250g beurre froid (50% du poids de farine)</li>
+                        </ul>
+                        <p><strong>Finition:</strong></p>
+                        <ul>
+                            <li>1 œuf + 1 c. à soupe lait (dorure)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="instructions">
+                        <h5>📝 Instructions</h5>
+                        <ol>
+                            <li>Dissoudre levure et sucre dans le lait</li>
+                            <li>Mélanger farine et sel</li>
+                            <li>Incorporer liquide et beurre ramolli, pétrir 5 min</li>
+                            <li>Former un carré, emballer, réfrigérer 2h</li>
+                            <li><strong>Beurrage:</strong> Abaisser le beurre froid entre 2 feuilles en carré 15x15cm</li>
+                            <li>Abaisser la détrempe en carré 30x30cm</li>
+                            <li>Placer beurre au centre en losange, rabattre les coins</li>
+                            <li><strong>Tours:</strong> Abaisser en rectangle 60x20cm</li>
+                            <li>Faire un tour simple (plier en 3), réfrigérer 30 min</li>
+                            <li>Répéter 2 fois (3 tours simples total)</li>
+                            <li>Abaisser à 3-4mm d'épaisseur en rectangle</li>
+                            <li>Découper en triangles (base 10cm, hauteur 20cm)</li>
+                            <li>Faire une petite incision au centre de la base</li>
+                            <li>Rouler de la base vers la pointe</li>
+                            <li>Courber en croissant, déposer sur plaque</li>
+                            <li>Levée: 2h à température ambiante</li>
+                            <li>Badigeonner de dorure délicatement</li>
+                            <li>Cuire à 200°C, 15-18 min jusqu'à doré</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="tips-box">
+                    <h5>💡 Conseils Essentiels</h5>
+                    <ul style="padding-left: 20px; margin-top: 10px;">
+                        <li>Le beurre doit avoir la même consistance que la pâte (malléable mais froid)</li>
+                        <li>Travaillez rapidement pour éviter que le beurre ne fonde</li>
+                        <li>Si le beurre transperce, farinez légèrement et réfrigérez</li>
+                        <li>Ne sautez pas les temps de repos au frigo entre les tours</li>
+                        <li>Les croissants doivent presque doubler de volume avant cuisson</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Brioche -->
+            <div class="recipe-card">
+                <div class="recipe-header">
+                    <div class="recipe-icon">🧈</div>
+                    <div class="recipe-title">
+                        <h4>Brioche Maison</h4>
+                        <p class="recipe-subtitle">Moelleuse, beurrée et légèrement sucrée</p>
+                    </div>
+                </div>
+                
+                <div class="recipe-info">
+                    <div class="info-box">
+                        <div class="icon">⏱️</div>
+                        <div class="label">Préparation</div>
+                        <div class="value">4h</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="icon">🔥</div>
+                        <div class="label">Cuisson</div>
+                        <div class="value">30-35 min</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="icon">🍞</div>
+                        <div class="label">Rendement</div>
+                        <div class="value">1 brioche (700g)</div>
+                    </div>
+                </div>
+                
+                <div class="recipe-content">
+                    <div class="ingredients">
+                        <h5>🛒 Ingrédients</h5>
+                        <ul>
+                            <li>500g farine T45 ou tout usage</li>
+                            <li>200ml lait tiède (40%)</li>
+                            <li>100g beurre ramolli (20%)</li>
+                            <li>3 œufs (150g - 30%)</li>
+                            <li>60g sucre (12%)</li>
+                            <li>10g sel (2%)</li>
+                            <li>10g levure sèche (2%)</li>
+                        </ul>
+                        <p><strong>Dorure:</strong> 1 jaune + 1 c. à soupe lait</p>
+                    </div>
+                    
+                    <div class="instructions">
+                        <h5>📝 Instructions</h5>
+                        <ol>
+                            <li>Mélanger farine, sucre et sel</li>
+                            <li>Dissoudre levure dans lait tiède</li>
+                            <li>Ajouter œufs battus au lait</li>
+                            <li>Incorporer aux secs, pétrir 8 min</li>
+                            <li>Ajouter beurre progressivement, pétrir 5 min</li>
+                            <li>Première levée: 2h (double de volume)</li>
+                            <li>Dégazer, façonner (tresse, nanterre, boule)</li>
+                            <li>Placer dans moule beurré</li>
+                            <li>Deuxième levée: 1h30</li>
+                            <li>Badigeonner de dorure</li>
+                            <li>Cuire à 180°C, 30-35 min</li>
+                            <li>Démouler tiède</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="levain-variant">
+                    <h5>🌿 Variante au Levain</h5>
+                    <p><strong>Ingrédients modifiés:</strong> Remplacer levure par 150g levain liquide, réduire lait à 150ml, ajouter 5g miel</p>
+                    <p><strong>Temps:</strong> 1ère levée 4-6h, 2e levée 3-4h</p>
+                </div>
+                
+                <div class="tips-box">
+                    <h5>💡 Variantes Populaires</h5>
+                    <p><strong>Brioche Nanterre:</strong> 8 boules côte à côte dans un moule à cake</p>
+                    <p><strong>Brioche à Tête:</strong> Grande boule avec petite boule sur le dessus</p>
+                    <p><strong>Brioche Tressée:</strong> Tresse à 3 branches</p>
+                </div>
+            </div>
+
+            <!-- Pain aux Noix -->
+            <div class="recipe-card">
+                <div class="recipe-header">
+                    <div class="recipe-icon">🌰</div>
+                    <div class="recipe-title">
+                        <h4>Pain aux Noix</h4>
+                        <p class="recipe-subtitle">Rustique aux saveurs automnales</p>
+                    </div>
+                </div>
+                
+                <div class="recipe-info">
+                    <div class="info-box">
+                        <div class="icon">⏱️</div>
+                        <div class="label">Préparation</div>
+                        <div class="value">4h</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="icon">🔥</div>
+                        <div class="label">Cuisson</div>
+                        <div class="value">35 min</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="icon">🍞</div>
+                        <div class="label">Rendement</div>
+                        <div class="value">1 pain (750g)</div>
+                    </div>
+                </div>
+                
+                <div class="recipe-content">
+                    <div class="ingredients">
+                        <h5>🛒 Ingrédients</h5>
+                        <ul>
+                            <li>450g farine T65</li>
+                            <li>50g farine de seigle</li>
+                            <li>320ml eau (64%)</li>
+                            <li>10g sel (2%)</li>
+                            <li>8g levure sèche (1.6%)</li>
+                            <li>150g cerneaux de noix (30%)</li>
+                            <li>10g miel (2%)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="instructions">
+                        <h5>📝 Instructions</h5>
+                        <ol>
+                            <li>Torréfier noix 5 min à 160°C</li>
+                            <li>Mélanger farines et sel</li>
+                            <li>Dissoudre levure et miel dans l'eau</li>
+                            <li>Incorporer, pétrir 10 min</li>
+                            <li>Ajouter noix, pétrir 2 min</li>
+                            <li>Première levée: 2h</li>
+                            <li>Façonner en boule</li>
+                            <li>Deuxième levée: 1h30</li>
+                            <li>Scarifier, cuire à 230°C, 35 min</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="levain-variant">
+                    <h5>🌿 Variante au Levain</h5>
+                    <p><strong>Ingrédients:</strong> 450g T80, 50g seigle, 330ml eau, 10g sel, 180g levain (36%), 150g noix, 10g miel</p>
+                    <p><strong>Temps:</strong> 1ère levée 5-6h, 2e levée 2-3h</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION II: PAINS SANS GLUTEN -->
+        <div class="page">
+            <h2>II. Recettes Sans Gluten</h2>
+            
+            <div style="background: #fff3cd; padding: 20px; border-radius: 10px; margin-bottom: 30px;">
+                <h4 style="color: #856404; margin-bottom: 15px;">⚠️ Notes Importantes</h4>
+                <ul style="color: #856404;">
+                    <li>Les pains sans gluten nécessitent des liants (gomme xanthane ou gomme de guar)</li>
+                    <li>L'hydratation est plus élevée (pâte plus liquide)</li>
+                    <li>Pas de pétrissage traditionnel, seulement mélange</li>
+                    <li>Une seule levée généralement suffisante</li>
+                </ul>
+            </div>
+
+            <!-- Pain Sans Gluten Classique -->
+            <div class="recipe-card">
+                <div class="recipe-header">
+                    <div class="recipe-icon">🌾</div>
+                    <div class="recipe-title">
+                        <h4>Pain Sans Gluten Classique</h4>
+                        <p class="recipe-subtitle">Base polyvalente pour tous les jours</p>
+                    </div>
+                </div>
+                
+                <div class="recipe-info">
+                    <div class="info-box">
+                        <div class="icon">⏱️</div>
+                        <div class="label">Préparation</div>
+                        <div class="value">2h</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="icon">🔥</div>
+                        <div class="label">Cuisson</div>
+                        <div class="value">40-45 min</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="icon">🍞</div>
+                        <div class="label">Rendement</div>
+                        <div class="value">1 pain (600g)</div>
+                    </div>
+                </div>
+                
+                <div class="recipe-content">
+                    <div class="ingredients">
+                        <h5>🛒 Ingrédients</h5>
+                        <ul>
+                            <li>300g farine de riz blanc</li>
+                            <li>100g farine de sarrasin</li>
+                            <li>100g fécule de tapioca</li>
+                            <li>400ml eau tiède (80%)</li>
+                            <li>12g gomme xanthane (2.4%)</li>
+                            <li>10g sel (2%)</li>
+                            <li>12g levure sèche (2.4%)</li>
+                            <li>20g sucre (4%)</li>
+                            <li>40ml huile végétale (8%)</li>
+                            <li>3 œufs</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="instructions">
+                        <h5>📝 Instructions</h5>
+                        <ol>
+                            <li>Mélanger farines, fécule, gomme et sel</li>
+                            <li>Dissoudre levure et sucre dans l'eau</li>
+                            <li>Ajouter œufs battus et huile</li>
+                            <li>Verser sur ingrédients secs</li>
+                            <li>Mélanger vigoureusement 3 min</li>
+                            <li>Verser dans moule huilé</li>
+                            <li>Lisser avec spatule humide</li>
+                            <li>Levée: 1h à 1h15</li>
+                            <li>Cuire à 190°C, 40-45 min</li>
+                            <li>Refroidir complètement</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="levain-variant">
+                    <h5>🌿 Variante au Levain Sans Gluten</h5>
+                    <p><strong>Ingrédients modifiés:</strong> Même mélange, 350ml eau, 200g levain sans gluten, pas de levure ni sucre, augmenter gomme à 15g</p>
+                    <p><strong>Temps:</strong> Levée 3-5h</p>
+                </div>
+                
+                <div class="tips-box">
+                    <h5>💡 Astuce</h5>
+                    <p>Le pain sans gluten est meilleur réchauffé. Conservez-le tranché au congélateur.</p>
+                </div>
+            </div>
+
+            <!-- Baguette Sans Gluten -->
+            <div class="recipe-card">
+                <div class="recipe-header">
+                    <div class="recipe-icon">🥖</div>
+                    <div class="recipe-title">
+                        <h4>Baguette Sans Gluten</h4>
+                        <p class="recipe-subtitle">Croûte croustillante, mie aérée</p>
+                    </div>
+                </div>
+                
+                <div class="recipe-info">
+                    <div class="info-box">
+                        <div class="icon">⏱️</div>
+                        <div class="label">Préparation</div>
+                        <div class="value">2h</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="icon">🔥</div>
+                        <div class="label">Cuisson</div>
+                        <div class="value">25-30 min</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="icon">🍞</div>
+                        <div class="label">Rendement</div>
+                        <div class="value">2 baguettes</div>
+                    </div>
+                </div>
+                
+                <div class="recipe-content">
+                    <div class="ingredients">
+                        <h5>🛒 Ingrédients</h5>
+                        <ul>
+                            <li>250g farine de riz</li>
+                            <li>150g farine de sorgho</li>
+                            <li>100g fécule de pomme de terre</li>
+                            <li>380ml eau tiède (76%)</li>
+                            <li>10g gomme xanthane (2%)</li>
+                            <li>10g sel (2%)</li>
+                            <li>10g levure sèche (2%)</li>
+                            <li>10g sucre (2%)</li>
+                            <li>30ml huile d'olive (6%)</li>
+                            <li>4 blancs d'œufs</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="instructions">
+                        <h5>📝 Instructions</h5>
+                        <ol>
+                            <li>Mélanger farines, fécule, gomme et sel</li>
+                            <li>Dissoudre levure et sucre dans l'eau</li>
+                            <li>Battre blancs en neige légère</li>
+                            <li>Ajouter huile à l'eau, incorporer aux secs</li>
+                            <li>Incorporer délicatement les blancs</li>
+                            <li>Verser dans 2 moules à baguette</li>
+                            <li>Faire 3 entailles</li>
+                            <li>Levée: 1h</li>
+                            <li>Vaporiser d'eau, cuire à 220°C, 25-30 min</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pain Sans Gluten aux Graines -->
+            <div class="recipe-card">
+                <div class="recipe-header">
+                    <div class="recipe-icon">🌰</div>
+                    <div class="recipe-title">
+                        <h4>Pain Sans Gluten aux Graines</h4>
+                        <p class="recipe-subtitle">Riche en nutriments et saveurs</p>
+                    </div>
+                </div>
+                
+                <div class="recipe-info">
+                    <div class="info-box">
+                        <div class="icon">⏱️</div>
+                        <div class="label">Préparation</div>
+                        <div class="value">2h15</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="icon">🔥</div>
+                        <div class="label">Cuisson</div>
+                        <div class="value">45 min</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="icon">🍞</div>
+                        <div class="label">Rendement</div>
+                        <div class="value">1 pain (700g)</div>
+                    </div>
+                </div>
+                
+                <div class="recipe-content">
+                    <div class="ingredients">
+                        <h5>🛒 Ingrédients</h5>
+                        <ul>
+                            <li>200g farine de riz brun</li>
+                            <li>150g farine de quinoa</li>
+                            <li>100g farine de millet</li>
+                            <li>50g fécule de tapioca</li>
+                            <li>420ml eau (84%)</li>
+                            <li>12g gomme xanthane (2.4%)</li>
+                            <li>10g sel (2%)</li>
+                            <li>12g levure sèche (2.4%)</li>
+                            <li>20g miel (4%)</li>
+                            <li>40ml huile (8%)</li>
+                            <li>3 œufs</li>
+                            <li>100g graines mélangées</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="instructions">
+                        <h5>📝 Instructions</h5>
+                        <ol>
+                            <li>Torréfier graines 5 min</li>
+                            <li>Mélanger farines, fécule, gomme et sel</li>
+                            <li>Dissoudre levure et miel dans l'eau</li>
+                            <li>Ajouter œufs et huile</li>
+                            <li>Incorporer aux secs, mélanger 3 min</li>
+                            <li>Ajouter 75g de graines</li>
+                            <li>Verser dans moule</li>
+                            <li>Saupoudrer 25g graines dessus</li>
+                            <li>Levée: 1h15</li>
+                            <li>Cuire à 190°C, 45 min</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION III: TECHNIQUES DE FAÇONNAGE -->
+        <div class="page">
+            <h2>III. Techniques de Façonnage</h2>
+            
+            <!-- Tresse à 3 Branches -->
+            <div class="technique-section">
+                <h3>🤝 Tresse à 3 Branches</h3>
+                <p style="margin: 15px 0;">La technique de tressage la plus classique</p>
+                
+                <div class="visual-diagram">
+                    <h5 style="color: #8B4513; margin-bottom: 20px;">Étapes Visuelles</h5>
+                    <div class="braid-diagram">
+                        <div class="braid-step">
+                            <div style="font-weight: bold; color: #D2691E;">Étape 1</div>
+                            <div class="braid-visual">|||</div>
+                            <p>3 boudins égaux</p>
+                        </div>
+                        <div class="arrow">→</div>
+                        <div class="braid-step">
+                            <div style="font-weight: bold; color: #D2691E;">Étape 2</div>
+                            <div class="braid-visual">╱|╲</div>
+                            <p>Souder le haut</p>
+                        </div>
+                        <div class="arrow">→</div>
+                        <div class="braid-step">
+                            <div style="font-weight: bold; color: #D2691E;">Étape 3</div>
+                            <div class="braid-visual">⋈</div>
+                            <p>Droite→centre, gauche→centre</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 10px; margin-top: 20px;">
+                    <h5 style="color: #8B4513; margin-bottom: 15px;">Instructions Détaillées</h5>
+                    <ol>
+                        <li>Diviser en 3 parts égales (peser)</li>
+                        <li>Rouler en boudins de 30-40cm</li>
+                        <li>Pincer les 3 boudins à une extrémité</li>
+                        <li>Passer droite par-dessus centre</li>
+                        <li>Passer gauche par-dessus nouveau centre</li>
+                        <li>Répéter jusqu'au bout</li>
+                        <li>Pincer l'extrémité et replier dessous</li>
+                        </ol>
+                </div>
+            </div>
+
+            <!-- Tresse à 4 Branches -->
+            <div class="technique-section">
+                <h3>🎨 Tresse à 4 Branches</h3>
+                <p style="margin: 15px 0;">Plus complexe mais spectaculaire</p>
+                
+                <div style="background: white; padding: 20px; border-radius: 10px; margin-top: 20px;">
+                    <h5 style="color: #8B4513; margin-bottom: 15px;">Instructions Détaillées</h5>
+                    <ol>
+                        <li>4 boudins de 35-45cm</li>
+                        <li>Numéroter de gauche à droite: 1, 2, 3, 4</li>
+                        <li>Passer #4 SOUS #3, puis SUR #2</li>
+                        <li>Passer #1 SUR le nouveau #2</li>
+                        <li>Répéter: extrême droite sous-sur, extrême gauche sur</li>
+                        <li>Pincer et rentrer les extrémités</li>
+                    </ol>
+                </div>
+                
+                <div class="tips-box">
+                    <h5>💡 Astuce</h5>
+                    <p>Pratiquez avec 4 cordes d'abord. La clé: toujours partir des extrêmes!</p>
+                </div>
+            </div>
+
+            <!-- Technique Croissants -->
+            <div class="technique-section">
+                <h3>🥐 Découper et Rouler les Croissants</h3>
+                <p style="margin: 15px 0;">La technique pour des croissants parfaits</p>
+                
+                <div style="background: white; padding: 20px; border-radius: 10px; margin-top: 20px;">
+                    <h5 style="color: #8B4513; margin-bottom: 15px;">Étapes de Découpage</h5>
+                    <ol>
+                        <li><strong>Abaisser:</strong> Pâte feuilletée en rectangle 60cm x 20cm, épaisseur 3-4mm</li>
+                        <li><strong>Égaliser:</strong> Couper les bords pour obtenir des arêtes droites</li>
+                        <li><strong>Mesurer:</strong> Marquer tous les 10cm sur le bord supérieur</li>
+                        <li><strong>Décaler:</strong> Marquer à 5cm puis tous les 10cm sur le bord inférieur</li>
+                        <li><strong>Découper:</strong> Tracer des lignes diagonales pour former des triangles</li>
+                        <li><strong>Dimensions finales:</strong> Base 10cm, hauteur 20cm</li>
+                    </ol>
+                    
+                    <h5 style="color: #8B4513; margin: 20px 0 15px 0;">Technique de Roulage</h5>
+                    <ol>
+                        <li><strong>Incision:</strong> Faire une petite entaille (1cm) au centre de la base</li>
+                        <li><strong>Écarter:</strong> Tirer légèrement les 2 coins de la base vers l'extérieur</li>
+                        <li><strong>Étirer:</strong> Allonger délicatement le triangle de 2-3cm</li>
+                        <li><strong>Rouler:</strong> Partir de la base, rouler vers la pointe en gardant une légère tension</li>
+                        <li><strong>Pointe:</strong> La pointe doit se retrouver dessous le croissant</li>
+                        <li><strong>Former:</strong> Courber légèrement en forme de croissant (croissant de lune)</li>
+                        <li><strong>Position:</strong> Poser sur plaque, pointe vers le bas</li>
+                    </ol>
+                </div>
+                
+                <div class="tips-box">
+                    <h5>💡 Secrets de Professionnel</h5>
+                    <ul style="padding-left: 20px; margin-top: 10px;">
+                        <li><strong>Température:</strong> Pâte et beurre doivent être froids mais souples</li>
+                        <li><strong>Tension:</strong> Rouler fermement mais sans écraser</li>
+                        <li><strong>Régularité:</strong> Tous les triangles doivent avoir les mêmes dimensions</li>
+                        <li><strong>L'incision à la base:</strong> Permet une meilleure ouverture et plus de feuilletage</li>
+                        <li><strong>Ne pas trop courber:</strong> Une légère courbe suffit, sinon ils s'ouvrent trop à la cuisson</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Autres Techniques -->
+            <div class="technique-section">
+                <h3>🌸 Autres Techniques</h3>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+                    <div style="background: white; padding: 20px; border-radius: 10px;">
+                        <h5 style="color: #8B4513; margin-bottom: 10px;">🌀 Couronne</h5>
+                        <p>Former un long boudin (60-70cm), torsader si désiré, former un cercle, souder les extrémités</p>
+                    </div>
+                    
+                    <div style="background: white; padding: 20px; border-radius: 10px;">
+                        <h5 style="color: #8B4513; margin-bottom: 10px;">🔄 Épi de Blé</h5>
+                        <p>Baguette + ciseaux à 45°, coupes alternées tous les 5cm, basculer les morceaux vers l'extérieur</p>
+                    </div>
+                    
+                    <div style="background: white; padding: 20px; border-radius: 10px;">
+                        <h5 style="color: #8B4513; margin-bottom: 10px;">🌀 Escargot</h5>
+                        <p>Long boudin enroulé en spirale serrée. Idéal pour pains aux raisins</p>
+                    </div>
+                    
+                    <div style="background: white; padding: 20px; border-radius: 10px;">
+                        <h5 style="color: #8B4513; margin-bottom: 10px;">🎭 Fougasse</h5>
+                        <p>Pâte aplatie avec fentes découpées pour créer un motif de feuille</p>
+                    </div>
+                    
+                    <div style="background: white; padding: 20px; border-radius: 10px;">
+                        <h5 style="color: #8B4513; margin-bottom: 10px;">⚜️ Boule</h5>
+                        <p>Replier les bords vers le dessous, sceller au centre, retourner</p>
+                    </div>
+                    
+                    <div style="background: white; padding: 20px; border-radius: 10px;">
+                        <h5 style="color: #8B4513; margin-bottom: 10px;">🌊 Bâtard</h5>
+                        <p>Pain ovale épais entre baguette et boule. Extrémités effilées</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION IV: GUIDE DES FARINES -->
+        <div class="page">
+            <h2>IV. Guide des Farines</h2>
+            
+            <h3>📊 Correspondance Europe-Québec</h3>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type Européen</th>
+                        <th>Équivalent Québec</th>
+                        <th>Protéines</th>
+                        <th>Utilisation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>T45</strong></td>
+                        <td>Farine à pâtisserie</td>
+                        <td>8-9%</td>
+                        <td>Viennoiseries, gâteaux</td>
+                    </tr>
+                    <tr>
+                        <td><strong>T55</strong></td>
+                        <td>Farine tout usage</td>
+                        <td>10-12%</td>
+                        <td>Pain blanc, usage général</td>
+                    </tr>
+                    <tr>
+                        <td><strong>T65</strong></td>
+                        <td>Farine à pain</td>
+                        <td>11-13%</td>
+                        <td>Baguettes, pains tradition</td>
+                    </tr>
+                    <tr>
+                        <td><strong>T80</strong></td>
+                        <td>Farine bise</td>
+                        <td>11-13%</td>
+                        <td>Pains rustiques</td>
+                    </tr>
+                    <tr>
+                        <td><strong>T110</strong></td>
+                        <td>Farine complète</td>
+                        <td>13-14%</td>
+                        <td>Pains complets</td>
+                    </tr>
+                    <tr>
+                        <td><strong>T150</strong></td>
+                        <td>Farine intégrale</td>
+                        <td>13-15%</td>
+                        <td>Pains intégraux</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="margin-top: 40px;">🔍 Identifier les Farines au Québec</h3>
+            
+            <div style="background: #f8f9fa; padding: 25px; border-radius: 10px; margin: 20px 0;">
+                <h4 style="color: #8B4513; margin-bottom: 15px;">Lecture du Tableau Nutritionnel</h4>
+                
+                <div style="background: white; padding: 20px; border-radius: 8px; margin: 15px 0;">
+                    <h5 style="color: #D2691E; margin-bottom: 10px;">1. Teneur en Protéines</h5>
+                    <ul>
+                        <li><strong>8-9%:</strong> Farine à pâtisserie (T45)</li>
+                        <li><strong>10-11%:</strong> Tout usage (T55)</li>
+                        <li><strong>12-14%:</strong> Farine à pain (T65-T80)</li>
+                        <li><strong>13-15%:</strong> Complète/intégrale (T110-T150)</li>
+                    </ul>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 8px; margin: 15px 0;">
+                    <h5 style="color: #D2691E; margin-bottom: 10px;">2. Teneur en Fibres</h5>
+                    <ul>
+                        <li><strong>< 1g/30g:</strong> Blanche raffinée (T45-T55)</li>
+                        <li><strong>1-2g/30g:</strong> Semi-complète (T65-T80)</li>
+                        <li><strong>2-3g/30g:</strong> Complète (T110)</li>
+                        <li><strong>> 3g/30g:</strong> Intégrale (T150)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 40px;">🌾 Farines Spéciales</h3>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Farine</th>
+                        <th>Proportion</th>
+                        <th>Effet</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Seigle</strong></td>
+                        <td>10-30%</td>
+                        <td>Mie dense, saveur acidulée</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Épeautre</strong></td>
+                        <td>30-100%</td>
+                        <td>Goût noisette, digeste</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Kamut</strong></td>
+                        <td>30-50%</td>
+                        <td>Couleur dorée, légèrement sucré</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sarrasin</strong></td>
+                        <td>20-30%</td>
+                        <td>Saveur terreuse, sans gluten</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Avoine</strong></td>
+                        <td>15-25%</td>
+                        <td>Texture moelleuse</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- SECTION V: TRUCS ET ASTUCES -->
+        <div class="page">
+            <h2>V. Trucs et Astuces du Métier</h2>
+            
+            <h3>⚖️ Système Baker's Percentage</h3>
+            
+            <div style="background: #e3f2fd; padding: 25px; border-radius: 10px; margin: 20px 0;">
+                <h4 style="color: #1565C0; margin-bottom: 15px;">Principe de Base</h4>
+                <p>Tout est calculé en % par rapport à la farine (toujours 100%)</p>
+                
+                <table style="margin-top: 20px;">
+                    <tr style="background: #f5f5f5;">
+                        <td style="padding: 10px; font-weight: bold;">Ingrédient</td>
+                        <td style="padding: 10px; font-weight: bold;">%</td>
+                        <td style="padding: 10px; font-weight: bold;">Pour 500g farine</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px;">Farine</td>
+                        <td style="padding: 10px;">100%</td>
+                        <td style="padding: 10px;">500g</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px;">Eau</td>
+                        <td style="padding: 10px;">60-75%</td>
+                        <td style="padding: 10px;">300-375g</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px;">Sel</td>
+                        <td style="padding: 10px;">2%</td>
+                        <td style="padding: 10px;">10g</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px;">Levure sèche</td>
+                        <td style="padding: 10px;">1-2%</td>
+                        <td style="padding: 10px;">5-10g</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px;">Levain</td>
+                        <td style="padding: 10px;">20-40%</td>
+                        <td style="padding: 10px;">100-200g</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h3 style="margin-top: 40px;">💧 Hydratation par Type</h3>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type de Pain</th>
+                        <th>Hydratation</th>
+                        <th>Texture</th>
+                        <th>Difficulté</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Pain de Mie</td>
+                        <td>55-60%</td>
+                        <td>Mie serrée</td>
+                        <td>Facile</td>
+                    </tr>
+                    <tr>
+                        <td>Pain Blanc</td>
+                        <td>60-65%</td>
+                        <td>Mie régulière</td>
+                        <td>Facile</td>
+                    </tr>
+                    <tr>
+                        <td>Baguette</td>
+                        <td>65-70%</td>
+                        <td>Alvéolée</td>
+                        <td>Moyenne</td>
+                    </tr>
+                    <tr>
+                        <td>Pain de Campagne</td>
+                        <td>70-75%</td>
+                        <td>Grosses alvéoles</td>
+                        <td>Moyenne</td>
+                    </tr>
+                    <tr>
+                        <td>Ciabatta</td>
+                        <td>75-80%</td>
+                        <td>Très alvéolée</td>
+                        <td>Difficile</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="margin-top: 40px;">🌡️ Températures de Cuisson</h3>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>T° Initiale</th>
+                        <th>T° Finale</th>
+                        <th>Durée</th>
+                        <th>Vapeur</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Baguette</td>
+                        <td>240°C</td>
+                        <td>220°C</td>
+                        <td>20-25 min</td>
+                        <td>Oui (10 min)</td>
+                    </tr>
+                    <tr>
+                        <td>Pain Blanc</td>
+                        <td>230°C</td>
+                        <td>210°C</td>
+                        <td>25-30 min</td>
+                        <td>Oui (10 min)</td>
+                    </tr>
+                    <tr>
+                        <td>Pain de Campagne</td>
+                        <td>240-250°C</td>
+                        <td>220°C</td>
+                        <td>35-45 min</td>
+                        <td>Oui (15 min)</td>
+                    </tr>
+                    <tr>
+                        <td>Pain de Mie</td>
+                        <td>180°C</td>
+                        <td>180°C</td>
+                        <td>30-35 min</td>
+                        <td>Non</td>
+                    </tr>
+                    <tr>
+                        <td>Brioche/Viennoiseries</td>
+                        <td>180-200°C</td>
+                        <td>170-180°C</td>
+                        <td>15-35 min</td>
+                        <td>Non</td>
+                    </tr>
+                    <tr>
+                        <td>Pain Sans Gluten</td>
+                        <td>190°C</td>
+                        <td>190°C</td>
+                        <td>40-50 min</td>
+                        <td>Non</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="margin-top: 40px;">💡 Astuces Professionnelles</h3>
+            
+            <div class="tips-box">
+                <h5>🌊 Créer de la Vapeur</h5>
+                <p><strong>Méthode 1:</strong> Récipient d'eau bouillante au fond du four</p>
+                <p><strong>Méthode 2:</strong> Vaporiser l'intérieur du four avec un spray</p>
+                <p><strong>Méthode 3:</strong> Cocotte en fonte avec couvercle</p>
+            </div>
+            
+            <div class="tips-box">
+                <h5>❄️ Autolyse</h5>
+                <p>Mélanger farine + eau (sans sel ni levure), repos 20-60 min</p>
+                <p><strong>Avantages:</strong> Développe le gluten, améliore saveur et texture, réduit le pétrissage</p>
+            </div>
+            
+            <div class="tips-box">
+                <h5>🧊 Fermentation au Froid</h5>
+                <p>Réfrigérer la pâte 12-72h pour saveurs complexes et meilleure digestibilité</p>
+                <p><strong>Conseil:</strong> Sortir 1-2h avant façonnage</p>
+            </div>
+            
+            <div class="tips-box">
+                <h5>✂️ Scarification</h5>
+                <p><strong>Outils:</strong> Lame de rasoir, grignette, couteau aiguisé</p>
+                <p><strong>Technique:</strong> Angle 30-45°, profondeur 0.5-1cm, juste avant cuisson</p>
+            </div>
+            
+            <div class="tips-box">
+                <h5>🌡️ Test de Cuisson</h5>
+                <p><strong>Méthode 1:</strong> Tapotement → son creux = cuit</p>
+                <p><strong>Méthode 2:</strong> Thermomètre → 90-95°C (blanc), 95-100°C (complet)</p>
+            </div>
+            
+            <div class="tips-box">
+                <h5>🌾 Créer un Levain</h5>
+                <p><strong>Jour 1:</strong> 50g farine + 50g eau, couvrir 24h</p>
+                <p><strong>Jours 2-7:</strong> Jeter moitié, ajouter 50g farine + 50g eau quotidiennement</p>
+                <p><strong>Test:</strong> Le levain flotte dans l'eau quand il est prêt</p>
+            </div>
+            
+            <div class="tips-box">
+                <h5>🔄 Conversion Levure ↔ Levain</h5>
+                <p><strong>Levure → Levain:</strong> 10g levure sèche ≈ 150-200g levain</p>
+                <p>Multiplier temps de levée par 3-4</p>
+            </div>
+
+            <h3 style="margin-top: 40px;">🎯 Problèmes et Solutions</h3>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Problème</th>
+                        <th>Cause</th>
+                        <th>Solution</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Pain dense</td>
+                        <td>Levure inactive, pétrissage insuffisant</td>
+                        <td>Tester levure, pétrir plus</td>
+                    </tr>
+                    <tr>
+                        <td>Pain plat</td>
+                        <td>Sur-levée, trop hydraté</td>
+                        <td>Réduire temps ou eau</td>
+                    </tr>
+                    <tr>
+                        <td>Croûte pâle</td>
+                        <td>Four pas assez chaud</td>
+                        <td>Augmenter température</td>
+                    </tr>
+                    <tr>
+                        <td>Mie friable</td>
+                        <td>Manque d'hydratation</td>
+                        <td>Ajouter 5-10% eau</td>
+                    </tr>
+                    <tr>
+                        <td>Goût de levure</td>
+                        <td>Trop de levure</td>
+                        <td>Réduire levure, lever au frais</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="margin-top: 40px;">⚗️ Conversions Rapides</h3>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+                <div style="background: #e8f5e9; padding: 20px; border-radius: 10px;">
+                    <h5 style="color: #2E7D32; margin-bottom: 15px;">Levure</h5>
+                    <ul>
+                        <li>7g levure sèche = 21g fraîche</li>
+                        <li>1 sachet = 500-600g farine</li>
+                        <li>Fraîche × 0.33 = sèche</li>
+                        <li>Sèche × 3 = fraîche</li>
+                    </ul>
+                </div>
+                
+                <div style="background: #fff3e0; padding: 20px; border-radius: 10px;">
+                    <h5 style="color: #E65100; margin-bottom: 15px;">Volume/Poids</h5>
+                    <ul>
+                        <li>1 tasse farine = 125g</li>
+                        <li>1 tasse eau = 240ml</li>
+                        <li>1 c. à soupe = 15ml</li>
+                        <li>1 c. à thé = 5ml</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 40px;">🏆 Les 10 Commandements</h3>
+            
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 15px;">
+                <ol style="line-height: 2.2; font-size: 1.1em; padding-left: 25px;">
+                    <li>Tes ingrédients toujours tu pèseras</li>
+                    <li>Ta levure toujours tu testeras</li>
+                    <li>Le sel et la levure jamais ensemble</li>
+                    <li>Le pétrissage jusqu'au test de membrane</li>
+                    <li>La patience durant la levée tu respecteras</li>
+                    <li>Ton four bien chaud tu préchaufferas</li>
+                    <li>La vapeur en début tu créeras</li>
+                    <li>Le son creux tu écouteras</li>
+                    <li>Le refroidissement tu attendras</li>
+                    <li>De tes erreurs tu apprendras</li>
+                </ol>
             </div>
         </div>
 
