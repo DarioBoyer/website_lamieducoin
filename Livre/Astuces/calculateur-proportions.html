@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculateur de Proportions - Le Grand Livre du Pain</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .recipe-container { max-width: 1000px; margin: 0 auto; }
+        .recipe-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; padding: 40px; border-radius: 15px 15px 0 0;
+            text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .recipe-icon { font-size: 4em; margin-bottom: 15px; }
+        .recipe-title h1 { font-size: 2.5em; font-weight: bold; margin-bottom: 10px; }
+        .recipe-subtitle { font-size: 1.2em; opacity: 0.9; margin: 0; }
+        .recipe-content {
+            background: white; padding: 40px;
+            border-radius: 0 0 15px 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .calculator-box {
+            background: rgba(255,255,255,0.15); padding: 25px;
+            border-radius: 10px; backdrop-filter: blur(10px);
+        }
+        .form-label { font-weight: bold; font-size: 1.05em; margin-bottom: 10px; }
+        .form-select, .form-control {
+            padding: 12px; font-size: 1em; border-radius: 8px;
+            border: 1px solid #ddd; font-weight: bold;
+        }
+        .result-card {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px; border-radius: 8px; margin-bottom: 12px;
+        }
+        .result-label { font-weight: 600; }
+        .result-value { font-weight: bold; font-size: 1.2em; }
+        .info-box {
+            padding: 15px; border-radius: 5px; margin-top: 20px;
+        }
+        .back-to-top-btn {
+            position: fixed; bottom: 30px; right: 30px; background: #764ba2;
+            color: white; width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s ease; z-index: 1000;
+        }
+        .back-to-top-btn:hover {
+            background: #667eea; transform: translateY(-5px); color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="top"></div>
+    <div class="recipe-container">
+        <div class="recipe-header">
+            <div class="recipe-icon">🧮</div>
+            <div class="recipe-title">
+                <h1>Calculateur de Proportions du Boulanger</h1>
+                <p class="recipe-subtitle">Calculez automatiquement vos ingrédients selon les règles de la boulangerie artisanale</p>
+            </div>
+        </div>
+        <div class="recipe-content">
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 15px; margin-bottom: 30px;">
+                <div class="calculator-box">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label" style="color: white;">
+                                🌾 Type de Farine:
+                            </label>
+                            <select id="flourType" onchange="updateWaterInfo()" class="form-select">
+                                <option value="0">Farine blanche T55/T65 (base)</option>
+                                <option value="5">Farine complète T80/T110 (+5%)</option>
+                                <option value="10">Farine intégrale T150 (+10%)</option>
+                                <option value="8">Farine de seigle (+8%)</option>
+                                <option value="15">Farine sans gluten (+15%)</option>
+                            </select>
+                            <p id="flourInfo" style="margin-top: 8px; font-size: 0.9em; opacity: 0.9; min-height: 40px;"></p>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label class="form-label" style="color: white;">
+                                🧫 Type de Fermentation:
+                            </label>
+                            <select id="fermentType" onchange="calculate()" class="form-select">
+                                <option value="levure">Levure sèche (1.5%)</option>
+                                <option value="levain">Levain naturel (30%)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label" style="color: white;">
+                                📊 Farine (g):
+                            </label>
+                            <input type="number" id="flourWeight" value="500" min="50" max="10000" step="10" 
+                                   oninput="calculateFromFlour()" class="form-control">
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label class="form-label" style="color: white;">
+                                💧 Eau (ml):
+                            </label>
+                            <input type="number" id="waterAmount" value="325" min="50" max="10000" step="5" 
+                                   oninput="calculateFromWater()" class="form-control">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label" style="color: white;">
+                            💧 Hydratation: <span id="hydrationPercent" style="color: #ffd700;">65%</span>
+                        </label>
+                        <input type="range" id="hydrationSlider" min="50" max="90" value="65" step="1" 
+                               oninput="updateHydration()" class="form-range">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 5px;">
+                            <span>50% (Dense)</span>
+                            <span>90% (Très hydratée)</span>
+                        </div>
+                    </div>
+                    
+                    <div id="calculationResults" style="background: white; color: #333; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                        <h4 style="color: #667eea; margin-bottom: 20px; text-align: center; border-bottom: 2px solid #667eea; padding-bottom: 10px;">
+                            📋 Proportions Calculées
+                        </h4>
+                        
+                        <div class="result-card" style="background: #f0f7ff; border-left: 4px solid #667eea;">
+                            <span class="result-label">🌾 Farine:</span>
+                            <span id="resultFlour" class="result-value" style="color: #667eea;">500 g</span>
+                        </div>
+                        
+                        <div class="result-card" style="background: #e3f2fd; border-left: 4px solid #2196F3;">
+                            <span class="result-label">💧 Eau <span id="waterPercent" style="font-size: 0.9em; color: #666;">(65%)</span>:</span>
+                            <span id="resultWater" class="result-value" style="color: #2196F3;">325 ml</span>
+                        </div>
+                        
+                        <div class="result-card" style="background: #fff3e0; border-left: 4px solid #FF9800;">
+                            <span class="result-label">🧂 Sel <span style="font-size: 0.9em; color: #666;">(2%)</span>:</span>
+                            <span id="resultSalt" class="result-value" style="color: #FF9800;">10 g</span>
+                        </div>
+                        
+                        <div class="result-card" style="background: #f1f8e9; border-left: 4px solid #8BC34A;">
+                            <span class="result-label">🧫 <span id="fermentLabel">Levure sèche</span> <span id="fermentPercent" style="font-size: 0.9em; color: #666;">(1.5%)</span>:</span>
+                            <span id="resultFerment" class="result-value" style="color: #8BC34A;">7.5 g</span>
+                        </div>
+                        
+                        <div class="info-box" style="background: #f0f7ff; border-left: 4px solid #2196F3;">
+                            <p style="margin: 0; color: #1565C0; font-weight: bold;">
+                                💡 <span id="hydrationInfo">Hydratation standard - Pain classique avec belle mie</span>
+                            </p>
+                        </div>
+                        
+                        <div id="flourAdjustmentInfo" class="info-box" style="background: #fff3e0; border-left: 4px solid #FF9800; display: none;">
+                            <p style="margin: 0; color: #E65100; font-weight: bold;">
+                                🌾 <span id="flourAdjustmentText"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <a href="#top" class="back-to-top-btn" title="Retour en haut">↑</a>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let isCalculating = false;
+        
+        const flourTypes = {
+            '0': { name: 'Farine blanche', info: 'Hydratation standard - parfaite pour débuter' },
+            '5': { name: 'Farine complète', info: 'Contient plus de son, absorbe +5% d\'eau pour texture optimale' },
+            '10': { name: 'Farine intégrale', info: 'Grains entiers, nécessite +10% d\'eau pour éviter sécheresse' },
+            '8': { name: 'Farine de seigle', info: 'Moins de gluten, absorbe +8% d\'eau, texture plus dense' },
+            '15': { name: 'Farine sans gluten', info: 'Pas de gluten = besoin de +15% d\'eau pour lier la pâte' }
+        };
+        
+        function updateWaterInfo() {
+            const flourType = document.getElementById('flourType').value;
+            const info = flourTypes[flourType];
+            document.getElementById('flourInfo').textContent = info.info;
+            calculate();
+        }
+        
+        function calculateFromFlour() {
+            if (isCalculating) return;
+            isCalculating = true;
+            
+            const flourWeight = parseFloat(document.getElementById('flourWeight').value) || 0;
+            const flourTypeAdd = parseFloat(document.getElementById('flourType').value);
+            const baseHydration = parseFloat(document.getElementById('hydrationSlider').value);
+            const totalHydration = baseHydration + flourTypeAdd;
+            
+            const waterAmount = Math.round(flourWeight * totalHydration / 100);
+            document.getElementById('waterAmount').value = waterAmount;
+            
+            calculate();
+            isCalculating = false;
+        }
+        
+        function calculateFromWater() {
+            if (isCalculating) return;
+            isCalculating = true;
+            
+            const waterAmount = parseFloat(document.getElementById('waterAmount').value) || 0;
+            const flourTypeAdd = parseFloat(document.getElementById('flourType').value);
+            const baseHydration = parseFloat(document.getElementById('hydrationSlider').value);
+            const totalHydration = baseHydration + flourTypeAdd;
+            
+            const flourWeight = Math.round(waterAmount * 100 / totalHydration);
+            document.getElementById('flourWeight').value = flourWeight;
+            
+            calculate();
+            isCalculating = false;
+        }
+        
+        function updateHydration() {
+            if (isCalculating) return;
+            
+            const hydration = document.getElementById('hydrationSlider').value;
+            document.getElementById('hydrationPercent').textContent = hydration + '%';
+            calculateFromFlour();
+        }
+        
+        function calculate() {
+            const flourWeight = parseFloat(document.getElementById('flourWeight').value) || 0;
+            const waterAmount = parseFloat(document.getElementById('waterAmount').value) || 0;
+            const flourTypeAdd = parseFloat(document.getElementById('flourType').value);
+            const fermentType = document.getElementById('fermentType').value;
+            const baseHydration = parseFloat(document.getElementById('hydrationSlider').value);
+            
+            if (flourWeight === 0) return;
+            
+            const salt = Math.round(flourWeight * 2 / 100 * 10) / 10;
+            
+            let ferment, fermentPercent, fermentLabel;
+            if (fermentType === 'levure') {
+                fermentPercent = 1.5;
+                ferment = Math.round(flourWeight * 1.5 / 100 * 10) / 10;
+                fermentLabel = 'Levure sèche';
+            } else {
+                fermentPercent = 30;
+                ferment = Math.round(flourWeight * 30 / 100);
+                fermentLabel = 'Levain actif';
+            }
+            
+            const actualHydration = Math.round(waterAmount / flourWeight * 100);
+            const totalHydration = baseHydration + flourTypeAdd;
+            
+            document.getElementById('resultFlour').textContent = flourWeight + ' g';
+            document.getElementById('resultWater').textContent = waterAmount + ' ml';
+            document.getElementById('waterPercent').textContent = '(' + actualHydration + '%)';
+            document.getElementById('resultSalt').textContent = salt + ' g';
+            document.getElementById('resultFerment').textContent = ferment + ' g';
+            document.getElementById('fermentLabel').textContent = fermentLabel;
+            document.getElementById('fermentPercent').textContent = '(' + fermentPercent + '%)';
+            
+            let hydrationText = '';
+            if (actualHydration < 60) {
+                hydrationText = 'Pâte ferme - Idéal pour pain de mie, bagels';
+            } else if (actualHydration < 65) {
+                hydrationText = 'Hydratation standard - Pain classique avec belle mie';
+            } else if (actualHydration < 70) {
+                hydrationText = 'Bonne hydratation - Baguettes, pains artisanaux';
+            } else if (actualHydration < 75) {
+                hydrationText = 'Hydratation élevée - Pain campagne, grosses alvéoles';
+            } else if (actualHydration < 80) {
+                hydrationText = 'Très hydratée - Ciabatta, pâte collante';
+            } else {
+                hydrationText = 'Hydratation extrême - Focaccia, nécessite expérience';
+            }
+            document.getElementById('hydrationInfo').textContent = hydrationText;
+            
+            if (flourTypeAdd > 0) {
+                const flourTypeName = flourTypes[flourTypeAdd.toString()].name;
+                document.getElementById('flourAdjustmentInfo').style.display = 'block';
+                document.getElementById('flourAdjustmentText').textContent = 
+                    flourTypeName + ': +' + flourTypeAdd + '% d\'eau ajoutée (' + baseHydration + '% + ' + flourTypeAdd + '% = ' + totalHydration + '%)';
+            } else {
+                document.getElementById('flourAdjustmentInfo').style.display = 'none';
+            }
+        }
+        
+        updateWaterInfo();
+        calculate();
+        
+        const backToTopBtn = document.querySelector('.back-to-top-btn');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) { backToTopBtn.style.display = 'flex'; }
+            else { backToTopBtn.style.display = 'none'; }
+        });
+        backToTopBtn.style.display = 'none';
+    </script>
+</body>
+</html>

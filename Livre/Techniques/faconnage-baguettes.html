@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Façonnage de Baguettes - Le Grand Livre du Pain</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .technique-container { max-width: 1100px; margin: 0 auto; }
+        .technique-header {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            color: white; padding: 40px; border-radius: 15px 15px 0 0;
+            text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .technique-icon { font-size: 4em; margin-bottom: 15px; }
+        .technique-title h1 { font-size: 2.5em; font-weight: bold; margin-bottom: 10px; }
+        .technique-subtitle { font-size: 1.2em; opacity: 0.9; margin: 0; }
+        .technique-content {
+            background: white; padding: 40px;
+            border-radius: 0 0 15px 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .visual-diagram {
+            background: #f8f9fa; padding: 30px; border-radius: 15px;
+            margin: 30px 0; border: 3px solid #D2691E;
+        }
+        .visual-diagram h4, .visual-diagram h5 {
+            color: #8B4513; margin-bottom: 20px; font-weight: bold;
+        }
+        .braid-diagram {
+            display: flex; justify-content: space-around;
+            align-items: center; flex-wrap: wrap; gap: 20px;
+        }
+        .braid-step {
+            text-align: center; padding: 20px; background: white;
+            border-radius: 10px; min-width: 150px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .arrow {
+            font-size: 2em; color: #D2691E; font-weight: bold;
+        }
+        .tips-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; padding: 25px; border-radius: 15px; margin-top: 20px;
+        }
+        .tips-box p { margin: 0; line-height: 1.6; }
+        .back-to-top-btn {
+            position: fixed; bottom: 30px; right: 30px; background: #D2691E;
+            color: white; width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s ease; z-index: 1000;
+        }
+        .back-to-top-btn:hover {
+            background: #8B4513; transform: translateY(-5px); color: white;
+        }
+        @media (max-width: 768px) {
+            .technique-header { padding: 30px 20px; }
+            .technique-title h1 { font-size: 2em; }
+            .technique-content { padding: 25px; }
+            .braid-diagram { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div id="top"></div>
+    <div class="technique-container">
+        <div class="technique-header">
+            <div class="technique-icon">🎯</div>
+            <div class="technique-title">
+                <h1>Façonnage de Baguettes</h1>
+                <p class="technique-subtitle">Technique professionnelle étape par étape</p>
+            </div>
+        </div>
+        
+        <div class="technique-content">
+            <div class="visual-diagram">
+                <h4>Technique Professionnelle Étape par Étape</h4>
+                
+                <!-- Pré-façonnage -->
+                <div style="margin-bottom: 40px;">
+                    <h5>1️⃣ Pré-façonnage</h5>
+                    <div class="braid-diagram">
+                        <div class="braid-step">
+                            <div style="font-weight: bold; color: #D2691E;">A</div>
+                            <div style="font-size: 2em; margin: 15px 0;">
+                                <svg width="80" height="60" viewBox="0 0 80 60">
+                                    <rect x="20" y="20" width="40" height="20" fill="#fff9e6" stroke="#8B4513" stroke-width="2" rx="3"/>
+                                    <circle cx="30" cy="30" r="2" fill="#D2691E"/>
+                                    <circle cx="40" cy="30" r="2" fill="#D2691E"/>
+                                    <circle cx="50" cy="30" r="2" fill="#D2691E"/>
+                                </svg>
+                            </div>
+                            <p>Dégazer<br>légèrement</p>
+                        </div>
+                        <div class="arrow">→</div>
+                        <div class="braid-step">
+                            <div style="font-weight: bold; color: #D2691E;">B</div>
+                            <div style="font-size: 2em; margin: 15px 0;">
+                                <svg width="80" height="60" viewBox="0 0 80 60">
+                                    <rect x="15" y="20" width="50" height="20" fill="#fff9e6" stroke="#8B4513" stroke-width="2" rx="3"/>
+                                </svg>
+                            </div>
+                            <p>Former<br>rectangle</p>
+                        </div>
+                        <div class="arrow">→</div>
+                        <div class="braid-step">
+                            <div style="font-weight: bold; color: #D2691E;">C</div>
+                            <div style="font-size: 2em; margin: 15px 0;">
+                                <svg width="80" height="60" viewBox="0 0 80 60">
+                                    <rect x="25" y="20" width="30" height="20" fill="#fff9e6" stroke="#8B4513" stroke-width="2" rx="3"/>
+                                    <path d="M 25,30 L 40,30" stroke="#D2691E" stroke-width="1" stroke-dasharray="2,2"/>
+                                    <path d="M 40,30 L 55,30" stroke="#D2691E" stroke-width="1" stroke-dasharray="2,2"/>
+                                </svg>
+                            </div>
+                            <p>Plier en 3<br>Repos 15min</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Façonnage Final -->
+                <div style="margin-bottom: 40px;">
+                    <h5>2️⃣ Façonnage Final</h5>
+                    <div class="braid-diagram">
+                        <div class="braid-step">
+                            <div style="font-weight: bold; color: #D2691E;">A</div>
+                            <div style="font-size: 2em; margin: 15px 0;">
+                                <svg width="80" height="80" viewBox="0 0 80 80">
+                                    <rect x="20" y="30" width="40" height="20" fill="#fff9e6" stroke="#8B4513" stroke-width="2" rx="3"/>
+                                    <path d="M 20,40 L 60,40" stroke="#D2691E" stroke-width="1" stroke-dasharray="3,3"/>
+                                </svg>
+                            </div>
+                            <p>Aplatir en<br>rectangle</p>
+                        </div>
+                        <div class="arrow">→</div>
+                        <div class="braid-step">
+                            <div style="font-weight: bold; color: #D2691E;">B</div>
+                            <div style="font-size: 2em; margin: 15px 0;">
+                                <svg width="80" height="80" viewBox="0 0 80 80">
+                                    <path d="M 20,30 L 60,30 L 40,40 L 20,30" fill="#fff9e6" stroke="#8B4513" stroke-width="2"/>
+                                    <path d="M 60,30 Q 50,35 40,40" stroke="#D2691E" stroke-width="2" fill="none"/>
+                                </svg>
+                            </div>
+                            <p>Plier bord sup.<br>au centre</p>
+                        </div>
+                        <div class="arrow">→</div>
+                        <div class="braid-step">
+                            <div style="font-weight: bold; color: #D2691E;">C</div>
+                            <div style="font-size: 2em; margin: 15px 0;">
+                                <svg width="80" height="80" viewBox="0 0 80 80">
+                                    <rect x="25" y="35" width="30" height="10" fill="#fff9e6" stroke="#8B4513" stroke-width="3" rx="5"/>
+                                    <path d="M 40,45 L 40,50" stroke="#D2691E" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <p>Plier en 2<br>& souder</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Allongement -->
+                <div style="margin-bottom: 40px;">
+                    <h5>3️⃣ Allongement</h5>
+                    <div style="background: white; padding: 20px; border-radius: 10px;">
+                        <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                            <svg width="100%" height="100" viewBox="0 0 300 100" style="max-width: 300px;">
+                                <rect x="100" y="40" width="100" height="20" fill="#fff9e6" stroke="#8B4513" stroke-width="3" rx="10"/>
+                                <path d="M 80,50 L 100,50" stroke="#D2691E" stroke-width="3" marker-end="url(#arrowhead)"/>
+                                <path d="M 200,50 L 220,50" stroke="#D2691E" stroke-width="3" marker-end="url(#arrowhead)"/>
+                                <circle cx="70" cy="50" r="8" fill="#FFE4B5" stroke="#8B4513" stroke-width="2"/>
+                                <circle cx="230" cy="50" r="8" fill="#FFE4B5" stroke="#8B4513" stroke-width="2"/>
+                                <rect x="50" y="75" width="200" height="15" fill="#fff9e6" stroke="#8B4513" stroke-width="2" rx="7"/>
+                                <text x="150" y="25" text-anchor="middle" fill="#8B4513" font-size="12">Rouler du centre vers l'extérieur</text>
+                                <text x="150" y="95" text-anchor="middle" fill="#D2691E" font-size="10" font-style="italic">Baguette allongée - extrémités effilées</text>
+                                <defs>
+                                    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+                                        <polygon points="0 0, 10 3.5, 0 7" fill="#D2691E"/>
+                                    </marker>
+                                </defs>
+                            </svg>
+                        </div>
+                        <div class="tips-box">
+                            <p><strong>💡 Technique:</strong> Mains écartées progressivement, pression uniforme, mouvement de va-et-vient</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Entaillage -->
+                <div>
+                    <h5>4️⃣ Entaillage (Grignage)</h5>
+                    <div style="background: white; padding: 20px; border-radius: 10px;">
+                        <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                            <svg width="100%" height="120" viewBox="0 0 350 120" style="max-width: 350px;">
+                                <rect x="25" y="50" width="300" height="30" fill="#fff9e6" stroke="#8B4513" stroke-width="3" rx="15"/>
+                                <line x1="60" y1="45" x2="90" y2="75" stroke="#D2691E" stroke-width="3"/>
+                                <line x1="110" y1="45" x2="140" y2="75" stroke="#D2691E" stroke-width="3"/>
+                                <line x1="160" y1="45" x2="190" y2="75" stroke="#D2691E" stroke-width="3"/>
+                                <line x1="210" y1="45" x2="240" y2="75" stroke="#D2691E" stroke-width="3"/>
+                                <line x1="260" y1="45" x2="290" y2="75" stroke="#D2691E" stroke-width="3"/>
+                                <text x="175" y="25" text-anchor="middle" fill="#8B4513" font-size="14" font-weight="bold">5 entailles diagonales à 45°</text>
+                                <text x="175" y="105" text-anchor="middle" fill="#D2691E" font-size="11">Profondeur: 5-7mm • Chevauchement: 1/3</text>
+                            </svg>
+                        </div>
+                        <div class="tips-box">
+                            <p><strong>🔪 Outils:</strong> Lame de rasoir, grignette ou couteau bien aiguisé</p>
+                            <p><strong>⚡ Astuce:</strong> Un geste rapide et confiant donne de meilleurs résultats qu'un mouvement hésitant</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <a href="#top" class="back-to-top-btn" title="Retour en haut">↑</a>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const backToTopBtn = document.querySelector('.back-to-top-btn');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) { backToTopBtn.style.display = 'flex'; }
+            else { backToTopBtn.style.display = 'none'; }
+        });
+        backToTopBtn.style.display = 'none';
+    </script>
+</body>
+</html>

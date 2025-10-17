@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hydratation par Type - Le Grand Livre du Pain</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .recipe-container { max-width: 900px; margin: 0 auto; }
+        .recipe-header {
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+            color: white; padding: 40px; border-radius: 15px 15px 0 0;
+            text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .recipe-icon { font-size: 4em; margin-bottom: 15px; }
+        .recipe-title h1 { font-size: 2.5em; font-weight: bold; margin-bottom: 10px; }
+        .recipe-subtitle { font-size: 1.2em; opacity: 0.9; margin: 0; }
+        .recipe-content {
+            background: white; padding: 40px;
+            border-radius: 0 0 15px 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%; border-collapse: collapse; margin-top: 15px;
+        }
+        table th, table td {
+            padding: 15px; text-align: left; border-bottom: 1px solid #ddd;
+        }
+        table th {
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+            color: white; font-weight: bold;
+        }
+        table tr:hover {
+            background: #e3f2fd;
+        }
+        .difficulty-easy { color: #4CAF50; font-weight: bold; }
+        .difficulty-medium { color: #FF9800; font-weight: bold; }
+        .difficulty-hard { color: #f44336; font-weight: bold; }
+        .tips-box {
+            background: #fff3cd; border-left: 4px solid #ffc107;
+            padding: 20px; margin: 20px 0; border-radius: 5px;
+        }
+        .tips-box h5 { color: #856404; margin-bottom: 15px; }
+        .back-to-top-btn {
+            position: fixed; bottom: 30px; right: 30px; background: #2196F3;
+            color: white; width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s ease; z-index: 1000;
+        }
+        .back-to-top-btn:hover {
+            background: #1976D2; transform: translateY(-5px); color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="top"></div>
+    <div class="recipe-container">
+        <div class="recipe-header">
+            <div class="recipe-icon">💧</div>
+            <div class="recipe-title">
+                <h1>Hydratation par Type de Pain</h1>
+                <p class="recipe-subtitle">Guide des taux d'hydratation pour chaque style de pain</p>
+            </div>
+        </div>
+        <div class="recipe-content">
+            <h3 style="color: #2196F3; margin-bottom: 20px;">📊 Tableau de Référence</h3>
+            
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Type de Pain</th>
+                        <th>Hydratation</th>
+                        <th>Texture</th>
+                        <th>Difficulté</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Pain de Mie</strong></td>
+                        <td>55-60%</td>
+                        <td>Mie serrée, tendre</td>
+                        <td class="difficulty-easy">Facile</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pain Blanc</strong></td>
+                        <td>60-65%</td>
+                        <td>Mie régulière</td>
+                        <td class="difficulty-easy">Facile</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Baguette</strong></td>
+                        <td>65-70%</td>
+                        <td>Alvéolée</td>
+                        <td class="difficulty-medium">Moyenne</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pain Campagne</strong></td>
+                        <td>70-75%</td>
+                        <td>Grosses alvéoles</td>
+                        <td class="difficulty-medium">Moyenne</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ciabatta</strong></td>
+                        <td>75-80%</td>
+                        <td>Très alvéolée</td>
+                        <td class="difficulty-hard">Difficile</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Focaccia</strong></td>
+                        <td>80-85%</td>
+                        <td>Moelleuse, huileuse</td>
+                        <td class="difficulty-hard">Difficile</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="tips-box">
+                <h5>💡 Qu'est-ce que l'hydratation ?</h5>
+                <p>L'hydratation est le rapport entre le poids de l'eau et le poids de la farine, exprimé en pourcentage.</p>
+                <p style="margin-top: 10px;"><strong>Formule:</strong> (Poids eau ÷ Poids farine) × 100</p>
+                <p style="margin-top: 10px;"><strong>Exemple:</strong> 650g d'eau pour 1000g de farine = (650 ÷ 1000) × 100 = 65%</p>
+            </div>
+            
+            <h3 style="color: #2196F3; margin-top: 40px;">🎯 Guide de Choix</h3>
+            
+            <div class="row mt-3">
+                <div class="col-md-6 mb-3">
+                    <div style="background: #e8f5e9; padding: 20px; border-radius: 10px; border-left: 4px solid #4CAF50;">
+                        <h5 style="color: #2E7D32;">🟢 Hydratation Faible (55-65%)</h5>
+                        <ul style="margin-top: 10px;">
+                            <li>Pâte facile à manipuler</li>
+                            <li>Mie plus serrée et tendre</li>
+                            <li>Parfait pour débuter</li>
+                            <li>Pain de mie, sandwich</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <div style="background: #fff3e0; padding: 20px; border-radius: 10px; border-left: 4px solid #FF9800;">
+                        <h5 style="color: #E65100;">🟡 Hydratation Moyenne (65-75%)</h5>
+                        <ul style="margin-top: 10px;">
+                            <li>Bon compromis</li>
+                            <li>Belle structure alvéolée</li>
+                            <li>Croûte croustillante</li>
+                            <li>Baguettes, pains artisanaux</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-md-12 mb-3">
+                    <div style="background: #ffebee; padding: 20px; border-radius: 10px; border-left: 4px solid #f44336;">
+                        <h5 style="color: #C62828;">🔴 Hydratation Élevée (75-85%)</h5>
+                        <ul style="margin-top: 10px;">
+                            <li>Pâte très collante et difficile</li>
+                            <li>Alvéoles irrégulières et grandes</li>
+                            <li>Nécessite expérience et technique</li>
+                            <li>Ciabatta, focaccia, pain rustique</li>
+                            <li>Utilisez la technique des pliages</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tips-box" style="background: #e3f2fd; border-left-color: #2196F3;">
+                <h5 style="color: #1565C0;">🎓 Conseils pour Ajuster l'Hydratation</h5>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>Trop collante :</strong> Ajoutez de la farine 10g à la fois</li>
+                    <li><strong>Trop sèche :</strong> Ajoutez de l'eau 5ml à la fois</li>
+                    <li><strong>Farines complètes :</strong> Augmentez l'hydratation de 5-10%</li>
+                    <li><strong>Climat humide :</strong> Réduisez légèrement l'eau</li>
+                    <li><strong>Climat sec :</strong> Augmentez légèrement l'eau</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <a href="#top" class="back-to-top-btn" title="Retour en haut">↑</a>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const backToTopBtn = document.querySelector('.back-to-top-btn');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) { backToTopBtn.style.display = 'flex'; }
+            else { backToTopBtn.style.display = 'none'; }
+        });
+        backToTopBtn.style.display = 'none';
+    </script>
+</body>
+</html>

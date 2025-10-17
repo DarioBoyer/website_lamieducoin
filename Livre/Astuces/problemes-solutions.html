@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problèmes et Solutions - Le Grand Livre du Pain</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .recipe-container { max-width: 1000px; margin: 0 auto; }
+        .recipe-header {
+            background: linear-gradient(135deg, #f44336 0%, #e91e63 100%);
+            color: white; padding: 40px; border-radius: 15px 15px 0 0;
+            text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .recipe-icon { font-size: 4em; margin-bottom: 15px; }
+        .recipe-title h1 { font-size: 2.5em; font-weight: bold; margin-bottom: 10px; }
+        .recipe-subtitle { font-size: 1.2em; opacity: 0.9; margin: 0; }
+        .recipe-content {
+            background: white; padding: 40px;
+            border-radius: 0 0 15px 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%; border-collapse: collapse; margin-top: 15px;
+        }
+        table th, table td {
+            padding: 15px; text-align: left; border-bottom: 1px solid #ddd;
+        }
+        table th {
+            background: linear-gradient(135deg, #f44336 0%, #e91e63 100%);
+            color: white; font-weight: bold;
+        }
+        table tr:hover {
+            background: #ffebee;
+        }
+        table td:first-child {
+            font-weight: bold;
+            color: #d32f2f;
+        }
+        .back-to-top-btn {
+            position: fixed; bottom: 30px; right: 30px; background: #f44336;
+            color: white; width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s ease; z-index: 1000;
+        }
+        .back-to-top-btn:hover {
+            background: #e91e63; transform: translateY(-5px); color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="top"></div>
+    <div class="recipe-container">
+        <div class="recipe-header">
+            <div class="recipe-icon">🎯</div>
+            <div class="recipe-title">
+                <h1>Problèmes et Solutions</h1>
+                <p class="recipe-subtitle">Diagnostiquer et résoudre les problèmes courants en boulangerie</p>
+            </div>
+        </div>
+        <div class="recipe-content">
+            <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 20px; margin-bottom: 30px; border-radius: 5px;">
+                <p style="color: #856404; font-size: 1.1em; margin: 0;">
+                    <strong>💡 Important:</strong> Chaque "erreur" est une opportunité d'apprentissage. 
+                    Analysez ce qui s'est passé pour progresser!
+                </p>
+            </div>
+            
+            <h3 style="color: #f44336; margin-bottom: 20px;">🔍 Guide de Dépannage</h3>
+            
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Problème</th>
+                        <th style="width: 30%;">Cause Probable</th>
+                        <th style="width: 45%;">Solution</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Pain dense, compact</td>
+                        <td>Levure inactive ou sous-pétri</td>
+                        <td>Tester la levure dans de l'eau tiède avec sucre. Pétrir jusqu'au test de la membrane réussi</td>
+                    </tr>
+                    <tr>
+                        <td>Pain plat, ne lève pas</td>
+                        <td>Sur-levée ou four trop froid</td>
+                        <td>Réduire temps de levée, vérifier que le four est bien préchauffé (30-45 min avant)</td>
+                    </tr>
+                    <tr>
+                        <td>Croûte pâle</td>
+                        <td>Four pas assez chaud</td>
+                        <td>Augmenter température de 10-20°C, préchauffer plus longtemps</td>
+                    </tr>
+                    <tr>
+                        <td>Croûte trop foncée</td>
+                        <td>Four trop chaud ou trop de sucre</td>
+                        <td>Baisser température, couvrir avec papier aluminium si nécessaire</td>
+                    </tr>
+                    <tr>
+                        <td>Mie friable</td>
+                        <td>Manque d'eau</td>
+                        <td>Ajouter 5-10% d'eau à la recette (augmenter hydratation)</td>
+                    </tr>
+                    <tr>
+                        <td>Mie collante</td>
+                        <td>Trop d'eau ou sous-cuit</td>
+                        <td>Cuire 5-10 min de plus, vérifier avec thermomètre (93-99°C au cœur)</td>
+                    </tr>
+                    <tr>
+                        <td>Goût de levure</td>
+                        <td>Trop de levure</td>
+                        <td>Réduire à 1-1.5% de levure sèche par rapport au poids de farine</td>
+                    </tr>
+                    <tr>
+                        <td>Pâte trop collante</td>
+                        <td>Trop d'eau ou farine faible en gluten</td>
+                        <td>Ajouter farine 10g à la fois, ou utiliser technique des rabats</td>
+                    </tr>
+                    <tr>
+                        <td>Pâte trop sèche</td>
+                        <td>Pas assez d'eau</td>
+                        <td>Ajouter eau 5ml à la fois en pétrissant</td>
+                    </tr>
+                    <tr>
+                        <td>Ne tient pas la forme</td>
+                        <td>Gluten sous-développé</td>
+                        <td>Pétrir plus longtemps, faire des rabats pendant la levée</td>
+                    </tr>
+                    <tr>
+                        <td>Pain s'affaisse après cuisson</td>
+                        <td>Sur-levée ou trop hydraté</td>
+                        <td>Réduire temps de levée, vérifier avec test du doigt</td>
+                    </tr>
+                    <tr>
+                        <td>Grosses bulles d'air</td>
+                        <td>Dégazage insuffisant</td>
+                        <td>Bien dégazer après première levée avant façonnage</td>
+                    </tr>
+                    <tr>
+                        <td>Croûte se détache</td>
+                        <td>Refroidissement trop rapide</td>
+                        <td>Laisser refroidir lentement sur grille, éviter courants d'air</td>
+                    </tr>
+                    <tr>
+                        <td>Pain craquelé sur les côtés</td>
+                        <td>Levée trop rapide</td>
+                        <td>Réduire température de levée, privilégier levée lente au frigo</td>
+                    </tr>
+                    <tr>
+                        <td>Manque d'alvéoles</td>
+                        <td>Hydratation trop faible</td>
+                        <td>Augmenter hydratation à 70-75%, utiliser technique des rabats</td>
+                    </tr>
+                    <tr>
+                        <td>Pain trop salé</td>
+                        <td>Excès de sel</td>
+                        <td>Respecter 2% maximum de sel par rapport au poids de farine</td>
+                    </tr>
+                    <tr>
+                        <td>Pain rassis rapidement</td>
+                        <td>Manque d'hydratation ou conservation inadéquate</td>
+                        <td>Augmenter hydratation, conserver dans sac en tissu ou boîte à pain</td>
+                    </tr>
+                    <tr>
+                        <td>Texture caoutchouteuse</td>
+                        <td>Sur-pétri</td>
+                        <td>Réduire temps de pétrissage, privilégier technique douce</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3 style="color: #f44336; margin-top: 40px;">🔧 Prévention des Problèmes</h3>
+            
+            <div class="row mt-3">
+                <div class="col-md-6 mb-3">
+                    <div style="background: #e8f5e9; padding: 20px; border-radius: 10px; border-left: 4px solid #4CAF50;">
+                        <h5 style="color: #2E7D32;">✅ Bonnes Pratiques</h5>
+                        <ul style="margin-top: 10px;">
+                            <li>Toujours peser les ingrédients</li>
+                            <li>Tester la levure avant utilisation</li>
+                            <li>Respecter les temps de repos</li>
+                            <li>Préchauffer le four suffisamment</li>
+                            <li>Prendre des notes de vos essais</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <div style="background: #ffebee; padding: 20px; border-radius: 10px; border-left: 4px solid #f44336;">
+                        <h5 style="color: #c62828;">❌ À Éviter</h5>
+                        <ul style="margin-top: 10px;">
+                            <li>Sel et levure en contact direct</li>
+                            <li>Eau trop chaude (tue la levure)</li>
+                            <li>Ouvrir le four pendant cuisson</li>
+                            <li>Trancher le pain encore chaud</li>
+                            <li>Se décourager après un échec</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="background: #e3f2fd; border-left: 4px solid #2196F3; padding: 25px; margin-top: 30px; border-radius: 5px;">
+                <h4 style="color: #1565C0; margin-bottom: 15px;">🎓 Conseil d'Expert</h4>
+                <p style="color: #1565C0; font-size: 1.1em; line-height: 1.8; margin: 0;">
+                    La plupart des problèmes en boulangerie viennent de <strong>trois facteurs</strong> : 
+                    température (four, eau, pièce), temps (levée, pétrissage, cuisson), et proportions 
+                    (eau, levure, sel). Maîtrisez ces trois éléments et vous maîtriserez la boulangerie! 🎯
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <a href="#top" class="back-to-top-btn" title="Retour en haut">↑</a>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const backToTopBtn = document.querySelector('.back-to-top-btn');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) { backToTopBtn.style.display = 'flex'; }
+            else { backToTopBtn.style.display = 'none'; }
+        });
+        backToTopBtn.style.display = 'none';
+    </script>
+</body>
+</html>

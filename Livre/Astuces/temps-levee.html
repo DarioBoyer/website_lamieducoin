@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temps de Levée - Le Grand Livre du Pain</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .recipe-container { max-width: 900px; margin: 0 auto; }
+        .recipe-header {
+            background: linear-gradient(135deg, #00BCD4 0%, #0097A7 100%);
+            color: white; padding: 40px; border-radius: 15px 15px 0 0;
+            text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .recipe-icon { font-size: 4em; margin-bottom: 15px; }
+        .recipe-title h1 { font-size: 2.5em; font-weight: bold; margin-bottom: 10px; }
+        .recipe-subtitle { font-size: 1.2em; opacity: 0.9; margin: 0; }
+        .recipe-content {
+            background: white; padding: 40px;
+            border-radius: 0 0 15px 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%; border-collapse: collapse; margin-top: 15px;
+        }
+        table th, table td {
+            padding: 15px; text-align: left; border-bottom: 1px solid #ddd;
+        }
+        table th {
+            background: linear-gradient(135deg, #00BCD4 0%, #0097A7 100%);
+            color: white; font-weight: bold;
+        }
+        table tr:hover {
+            background: #e0f7fa;
+        }
+        .tips-box {
+            background: #fff3cd; border-left: 4px solid #ffc107;
+            padding: 20px; margin: 20px 0; border-radius: 5px;
+        }
+        .tips-box h5 { color: #856404; margin-bottom: 15px; }
+        .back-to-top-btn {
+            position: fixed; bottom: 30px; right: 30px; background: #00BCD4;
+            color: white; width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s ease; z-index: 1000;
+        }
+        .back-to-top-btn:hover {
+            background: #0097A7; transform: translateY(-5px); color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="top"></div>
+    <div class="recipe-container">
+        <div class="recipe-header">
+            <div class="recipe-icon">⏰</div>
+            <div class="recipe-title">
+                <h1>Temps de Levée selon Température</h1>
+                <p class="recipe-subtitle">Adapter vos temps de levée à la température ambiante</p>
+            </div>
+        </div>
+        <div class="recipe-content">
+            <div style="background: #e0f7fa; padding: 20px; border-radius: 10px; margin-bottom: 30px;">
+                <p style="font-size: 1.1em; color: #00695C; margin: 0;">
+                    <strong>💡 Principe:</strong> Plus la température est élevée, plus la levée est rapide. 
+                    Mais attention : trop chaud tue la levure, et trop rapide nuit à la saveur!
+                </p>
+            </div>
+            
+            <h3 style="color: #00BCD4; margin-bottom: 20px;">📊 Tableau de Référence</h3>
+            
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Température</th>
+                        <th>Vitesse</th>
+                        <th>Temps (base 1h à 24°C)</th>
+                        <th>Qualité</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>4-6°C</strong> (frigo)</td>
+                        <td>Très lente</td>
+                        <td>12-24h</td>
+                        <td style="color: #4CAF50; font-weight: bold;">⭐ Excellente saveur</td>
+                    </tr>
+                    <tr>
+                        <td><strong>18-20°C</strong></td>
+                        <td>Lente</td>
+                        <td>2-3h</td>
+                        <td style="color: #8BC34A; font-weight: bold;">✅ Bonne saveur</td>
+                    </tr>
+                    <tr>
+                        <td><strong>24-26°C</strong></td>
+                        <td>Normale</td>
+                        <td>1-1h30</td>
+                        <td style="color: #FFC107; font-weight: bold;">👍 Standard</td>
+                    </tr>
+                    <tr>
+                        <td><strong>28-30°C</strong></td>
+                        <td>Rapide</td>
+                        <td>45 min</td>
+                        <td style="color: #FF9800; font-weight: bold;">⚠️ Saveur moins développée</td>
+                    </tr>
+                    <tr>
+                        <td><strong>&gt;35°C</strong></td>
+                        <td>Trop rapide</td>
+                        <td>30 min</td>
+                        <td style="color: #f44336; font-weight: bold;">❌ Risque levure morte</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="tips-box">
+                <h5>🎯 Comment Ajuster ?</h5>
+                <p><strong>Règle approximative:</strong> Pour chaque 5°C de différence, le temps de levée double ou diminue de moitié.</p>
+                <p style="margin-top: 10px;"><strong>Exemple:</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li>Recette dit 1h à 24°C</li>
+                    <li>Votre cuisine est à 19°C (5°C de moins)</li>
+                    <li>Temps nécessaire: environ 2h</li>
+                </ul>
+            </div>
+            
+            <h3 style="color: #00BCD4; margin-top: 40px;">🏠 Créer une Étuve Maison</h3>
+            
+            <div class="row mt-3">
+                <div class="col-md-6 mb-3">
+                    <div style="background: #fff3e0; padding: 20px; border-radius: 10px; border-left: 4px solid #FF9800; height: 100%;">
+                        <h5 style="color: #E65100;">💡 Four Éteint + Lumière</h5>
+                        <p><strong>Température:</strong> 24-28°C</p>
+                        <p style="margin-top: 10px;">Allumez simplement la lumière du four et placez votre pâte à l'intérieur. La chaleur de l'ampoule suffit!</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <div style="background: #e3f2fd; padding: 20px; border-radius: 10px; border-left: 4px solid #2196F3; height: 100%;">
+                        <h5 style="color: #1565C0;">☕ Micro-ondes + Eau Chaude</h5>
+                        <p><strong>Température:</strong> 26-30°C</p>
+                        <p style="margin-top: 10px;">Faites bouillir une tasse d'eau au micro-ondes, placez votre pâte à côté (ne pas chauffer la pâte!)</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <div style="background: #f1f8e9; padding: 20px; border-radius: 10px; border-left: 4px solid #8BC34A; height: 100%;">
+                        <h5 style="color: #558B2F;">❄️ Sur le Frigo</h5>
+                        <p><strong>Température:</strong> 24-26°C</p>
+                        <p style="margin-top: 10px;">Le dessus du frigo est légèrement chaud grâce au moteur. Endroit idéal pour une levée douce.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <div style="background: #fce4ec; padding: 20px; border-radius: 10px; border-left: 4px solid #E91E63; height: 100%;">
+                        <h5 style="color: #C2185B;">🌡️ Étuve Professionnelle</h5>
+                        <p><strong>Température:</strong> Réglable</p>
+                        <p style="margin-top: 10px;">Certains fours ont une fonction étuve. Sinon, four préchauffé 2 min à 50°C puis éteint.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="background: #e8f5e9; border-left: 4px solid #4CAF50; padding: 25px; margin-top: 30px; border-radius: 5px;">
+                <h5 style="color: #2E7D32; margin-bottom: 15px;">✨ Levée au Froid (Technique Avancée)</h5>
+                <p style="color: #2E7D32; line-height: 1.8; margin: 0;">
+                    La <strong>fermentation longue au réfrigérateur</strong> (12-72h) est la méthode préférée des 
+                    boulangers artisanaux. Elle développe des arômes complexes, améliore la digestibilité, 
+                    et donne une croûte plus colorée. Sortez la pâte 1-2h avant de façonner pour qu'elle 
+                    revienne à température ambiante. 🌟
+                </p>
+            </div>
+            
+            <div class="tips-box" style="background: #ffebee; border-left-color: #f44336;">
+                <h5 style="color: #c62828;">⚠️ Températures Critiques</h5>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>&lt;10°C:</strong> Levure inactive (dormante)</li>
+                    <li><strong>24-26°C:</strong> Température idéale pour levure</li>
+                    <li><strong>35-40°C:</strong> Levure très active mais risque</li>
+                    <li><strong>&gt;50°C:</strong> Levure morte</li>
+                </ul>
+            </div>
+            
+            <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 25px; margin-top: 20px; border-radius: 5px;">
+                <h4 style="color: #856404; margin-bottom: 15px;">🎓 Conseil d'Expert</h4>
+                <p style="color: #856404; font-size: 1.1em; line-height: 1.8; margin: 0;">
+                    Ne vous fiez pas uniquement à l'horloge! Utilisez le <strong>test du doigt</strong> : 
+                    enfoncez légèrement un doigt dans la pâte. Si l'empreinte rebondit lentement, c'est parfait. 
+                    Si elle rebondit vite, continuez la levée. Si elle ne rebondit pas, c'est trop tard (sur-levée). ⏱️
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <a href="#top" class="back-to-top-btn" title="Retour en haut">↑</a>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const backToTopBtn = document.querySelector('.back-to-top-btn');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) { backToTopBtn.style.display = 'flex'; }
+            else { backToTopBtn.style.display = 'none'; }
+        });
+        backToTopBtn.style.display = 'none';
+    </script>
+</body>
+</html>

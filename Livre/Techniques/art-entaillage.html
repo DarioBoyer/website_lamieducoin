@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'Art de l'Entaillage - Le Grand Livre du Pain</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .technique-container { max-width: 1000px; margin: 0 auto; }
+        .technique-header {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            color: white; padding: 40px; border-radius: 15px 15px 0 0;
+            text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .technique-icon { font-size: 4em; margin-bottom: 15px; }
+        .technique-title h1 { font-size: 2.5em; font-weight: bold; margin-bottom: 10px; }
+        .technique-subtitle { font-size: 1.2em; opacity: 0.9; margin: 0; }
+        .technique-content {
+            background: white; padding: 40px;
+            border-radius: 0 0 15px 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%; border-collapse: collapse; margin: 20px 0;
+        }
+        th {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            color: white; padding: 15px; text-align: left;
+            border: 1px solid #ddd;
+        }
+        td {
+            padding: 12px; border: 1px solid #ddd;
+            background: #fff;
+        }
+        tbody tr:nth-child(even) td {
+            background: #f8f9fa;
+        }
+        tbody tr:hover td {
+            background: #fdf1e8;
+        }
+        .tips-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; padding: 25px; border-radius: 15px; margin: 30px 0;
+        }
+        .tips-box h5 { margin-bottom: 15px; font-weight: bold; }
+        .tips-box ul { padding-left: 20px; }
+        .tips-box li { margin-bottom: 10px; line-height: 1.6; }
+        .pro-tips {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; padding: 25px; border-radius: 15px; margin-top: 30px;
+        }
+        .pro-tips h4 { margin-bottom: 15px; font-weight: bold; }
+        .pro-tips ul { line-height: 2; padding-left: 25px; }
+        .back-to-top-btn {
+            position: fixed; bottom: 30px; right: 30px; background: #D2691E;
+            color: white; width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s ease; z-index: 1000;
+        }
+        .back-to-top-btn:hover {
+            background: #8B4513; transform: translateY(-5px); color: white;
+        }
+        @media (max-width: 768px) {
+            .technique-header { padding: 30px 20px; }
+            .technique-title h1 { font-size: 2em; }
+            .technique-content { padding: 25px; }
+            table { font-size: 0.9em; }
+            th, td { padding: 8px; }
+        }
+    </style>
+</head>
+<body>
+    <div id="top"></div>
+    <div class="technique-container">
+        <div class="technique-header">
+            <div class="technique-icon">🔪</div>
+            <div class="technique-title">
+                <h1>L'Art de l'Entaillage (Grignage)</h1>
+                <p class="technique-subtitle">Guide complet des techniques d'incision</p>
+            </div>
+        </div>
+        
+        <div class="technique-content">
+            <div style="background: #f8f9fa; padding: 25px; border-radius: 10px; margin-bottom: 30px;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type de Pain</th>
+                            <th>Motif</th>
+                            <th>Angle</th>
+                            <th>Profondeur</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Baguette</strong></td>
+                            <td>5 entailles diagonales</td>
+                            <td>45°</td>
+                            <td>5-7mm</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pain de Campagne</strong></td>
+                            <td>Croix ou carré</td>
+                            <td>90°</td>
+                            <td>1cm</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Boule</strong></td>
+                            <td>Carré, étoile, spirale</td>
+                            <td>90°</td>
+                            <td>8-10mm</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pain de Mie</strong></td>
+                            <td>1 ligne centrale</td>
+                            <td>90°</td>
+                            <td>5mm</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fougasse</strong></td>
+                            <td>Fentes en losange</td>
+                            <td>90°</td>
+                            <td>Traversant</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="tips-box">
+                <h5>💡 Outils d'Entaillage</h5>
+                <ul>
+                    <li><strong>Lame de rasoir:</strong> Le plus précis, geste rapide</li>
+                    <li><strong>Grignette:</strong> Lame sur manche, professionnelle</li>
+                    <li><strong>Couteau bien aiguisé:</strong> Alternative acceptable</li>
+                    <li><strong>Ciseaux:</strong> Pour épi de blé uniquement</li>
+                </ul>
+            </div>
+            
+            <div class="pro-tips">
+                <h4>🎨 Conseils de Pro pour le Façonnage</h4>
+                <ul>
+                    <li>Travailler sur surface <strong>légèrement farinée</strong> (pas trop)</li>
+                    <li>Mains sèches pour meilleure prise</li>
+                    <li>Gestes <strong>fermes et décisifs</strong></li>
+                    <li>Respecter les temps de <strong>détente</strong> de la pâte</li>
+                    <li>Pratiquer sur petites quantités d'abord</li>
+                    <li>Observer l'évolution pendant la levée</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <a href="#top" class="back-to-top-btn" title="Retour en haut">↑</a>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const backToTopBtn = document.querySelector('.back-to-top-btn');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) { backToTopBtn.style.display = 'flex'; }
+            else { backToTopBtn.style.display = 'none'; }
+        });
+        backToTopBtn.style.display = 'none';
+    </script>
+</body>
+</html>

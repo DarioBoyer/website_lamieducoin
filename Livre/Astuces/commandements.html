@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les 10 Commandements du Boulanger - Le Grand Livre du Pain</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .recipe-container { max-width: 900px; margin: 0 auto; }
+        .recipe-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; padding: 40px; border-radius: 15px 15px 0 0;
+            text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .recipe-icon { font-size: 4em; margin-bottom: 15px; }
+        .recipe-title h1 { font-size: 2.5em; font-weight: bold; margin-bottom: 10px; }
+        .recipe-subtitle { font-size: 1.2em; opacity: 0.9; margin: 0; }
+        .recipe-content {
+            background: white; padding: 40px;
+            border-radius: 0 0 15px 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .commandment {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; padding: 25px; border-radius: 10px;
+            margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .commandment-number {
+            font-size: 3em; font-weight: bold; opacity: 0.3;
+            float: left; margin-right: 15px; line-height: 1;
+        }
+        .commandment-text {
+            font-size: 1.3em; line-height: 1.6; font-weight: 500;
+        }
+        .commandment strong {
+            color: #ffd700; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        .back-to-top-btn {
+            position: fixed; bottom: 30px; right: 30px; background: #764ba2;
+            color: white; width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s ease; z-index: 1000;
+        }
+        .back-to-top-btn:hover {
+            background: #667eea; transform: translateY(-5px); color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="top"></div>
+    <div class="recipe-container">
+        <div class="recipe-header">
+            <div class="recipe-icon">🏆</div>
+            <div class="recipe-title">
+                <h1>Les 10 Commandements du Boulanger</h1>
+                <p class="recipe-subtitle">Les règles d'or pour réussir tous vos pains</p>
+            </div>
+        </div>
+        <div class="recipe-content">
+            <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 20px; margin-bottom: 30px; border-radius: 5px;">
+                <p style="color: #856404; font-size: 1.1em; margin: 0;">
+                    <strong>✨ Ces 10 principes fondamentaux</strong> sont le fruit de siècles de tradition 
+                    boulangère. Respectez-les et vous réussirez tous vos pains!
+                </p>
+            </div>
+            
+            <div class="commandment">
+                <div class="commandment-number">I</div>
+                <div class="commandment-text">
+                    Tes ingrédients toujours tu <strong>pèseras</strong>
+                    <p style="font-size: 0.85em; margin-top: 10px; opacity: 0.9;">
+                        La précision est la clé. Une balance de cuisine est indispensable.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="commandment">
+                <div class="commandment-number">II</div>
+                <div class="commandment-text">
+                    Ta levure toujours tu <strong>testeras</strong>
+                    <p style="font-size: 0.85em; margin-top: 10px; opacity: 0.9;">
+                        Mélange avec eau tiède et sucre. Si elle mousse en 10 min, elle est bonne.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="commandment">
+                <div class="commandment-number">III</div>
+                <div class="commandment-text">
+                    Le sel et la levure <strong>jamais ensemble</strong> tu ne mettras
+                    <p style="font-size: 0.85em; margin-top: 10px; opacity: 0.9;">
+                        Le sel tue la levure au contact direct. Ajoute-les séparément.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="commandment">
+                <div class="commandment-number">IV</div>
+                <div class="commandment-text">
+                    Le pétrissage jusqu'au <strong>test de membrane</strong> tu poursuivras
+                    <p style="font-size: 0.85em; margin-top: 10px; opacity: 0.9;">
+                        La pâte doit s'étirer en membrane translucide sans se déchirer.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="commandment">
+                <div class="commandment-number">V</div>
+                <div class="commandment-text">
+                    La patience tu <strong>respecteras</strong>
+                    <p style="font-size: 0.85em; margin-top: 10px; opacity: 0.9;">
+                        Précipiter une levée nuit à la saveur. Laisse le temps faire son œuvre.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="commandment">
+                <div class="commandment-number">VI</div>
+                <div class="commandment-text">
+                    Ton four bien chaud tu <strong>préchaufferas</strong>
+                    <p style="font-size: 0.85em; margin-top: 10px; opacity: 0.9;">
+                        Au moins 30-45 minutes avant la cuisson. C'est essentiel!
+                    </p>
+                </div>
+            </div>
+            
+            <div class="commandment">
+                <div class="commandment-number">VII</div>
+                <div class="commandment-text">
+                    La vapeur pour croûte croustillante tu <strong>créeras</strong>
+                    <p style="font-size: 0.85em; margin-top: 10px; opacity: 0.9;">
+                        Eau, glaçons, vaporisateur ou cocotte : choisis ta méthode.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="commandment">
+                <div class="commandment-number">VIII</div>
+                <div class="commandment-text">
+                    Le son creux du pain cuit tu <strong>écouteras</strong>
+                    <p style="font-size: 0.85em; margin-top: 10px; opacity: 0.9;">
+                        Tapote le dessous : un son creux signifie que le pain est cuit.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="commandment">
+                <div class="commandment-number">IX</div>
+                <div class="commandment-text">
+                    Le refroidissement complet tu <strong>attendras</strong>
+                    <p style="font-size: 0.85em; margin-top: 10px; opacity: 0.9;">
+                        Au moins 30 minutes. La mie continue de se former en refroidissant.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="commandment">
+                <div class="commandment-number">X</div>
+                <div class="commandment-text">
+                    De tes erreurs toujours tu <strong>apprendras</strong>
+                    <p style="font-size: 0.85em; margin-top: 10px; opacity: 0.9;">
+                        Chaque pain est une leçon. Note, ajuste, et persévère!
+                    </p>
+                </div>
+            </div>
+            
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; margin-top: 40px; border-radius: 15px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                <h4 style="margin-bottom: 20px; font-size: 1.8em;">🌟 La Philosophie du Boulanger 🌟</h4>
+                <p style="font-size: 1.2em; line-height: 1.8; margin-bottom: 20px;">
+                    "La boulangerie n'est pas qu'une science, c'est un <strong>art</strong>. 
+                    Elle demande <strong>précision</strong>, <strong>patience</strong>, et <strong>passion</strong>."
+                </p>
+                <p style="font-size: 1.1em; font-style: italic; opacity: 0.9; margin: 0;">
+                    Le pain que tu fais avec amour nourrira non seulement le corps, mais aussi l'âme. 🍞❤️
+                </p>
+            </div>
+            
+            <div style="background: #e8f5e9; border-left: 4px solid #4CAF50; padding: 25px; margin-top: 30px; border-radius: 5px;">
+                <h5 style="color: #2E7D32; margin-bottom: 15px;">📜 Bonus : Les 3 Vertus du Boulanger</h5>
+                <ol style="color: #2E7D32; font-size: 1.1em; line-height: 2; padding-left: 25px;">
+                    <li><strong>Humilité</strong> : Accepte que chaque pâte soit différente</li>
+                    <li><strong>Observation</strong> : Apprends à lire ta pâte, pas juste ton minuteur</li>
+                    <li><strong>Persévérance</strong> : Le premier pain raté n'est que le début du succès</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    
+    <a href="#top" class="back-to-top-btn" title="Retour en haut">↑</a>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const backToTopBtn = document.querySelector('.back-to-top-btn');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) { backToTopBtn.style.display = 'flex'; }
+            else { backToTopBtn.style.display = 'none'; }
+        });
+        backToTopBtn.style.display = 'none';
+    </script>
+</body>
+</html>

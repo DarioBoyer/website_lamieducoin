@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversions Rapides - Le Grand Livre du Pain</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .recipe-container { max-width: 900px; margin: 0 auto; }
+        .recipe-header {
+            background: linear-gradient(135deg, #9C27B0 0%, #673AB7 100%);
+            color: white; padding: 40px; border-radius: 15px 15px 0 0;
+            text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .recipe-icon { font-size: 4em; margin-bottom: 15px; }
+        .recipe-title h1 { font-size: 2.5em; font-weight: bold; margin-bottom: 10px; }
+        .recipe-subtitle { font-size: 1.2em; opacity: 0.9; margin: 0; }
+        .recipe-content {
+            background: white; padding: 40px;
+            border-radius: 0 0 15px 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .conversion-box {
+            padding: 25px; border-radius: 10px; margin-bottom: 20px;
+        }
+        .conversion-box h5 { margin-bottom: 15px; font-size: 1.3em; }
+        .conversion-box ul { list-style: none; padding: 0; }
+        .conversion-box li {
+            padding: 10px 0; border-bottom: 1px solid rgba(0,0,0,0.1);
+            font-size: 1.05em;
+        }
+        .conversion-box li:last-child { border-bottom: none; }
+        .conversion-box strong { color: #9C27B0; }
+        .back-to-top-btn {
+            position: fixed; bottom: 30px; right: 30px; background: #9C27B0;
+            color: white; width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s ease; z-index: 1000;
+        }
+        .back-to-top-btn:hover {
+            background: #673AB7; transform: translateY(-5px); color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="top"></div>
+    <div class="recipe-container">
+        <div class="recipe-header">
+            <div class="recipe-icon">⚗️</div>
+            <div class="recipe-title">
+                <h1>Conversions Rapides</h1>
+                <p class="recipe-subtitle">Tableaux de conversion pour la boulangerie</p>
+            </div>
+        </div>
+        <div class="recipe-content">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="conversion-box" style="background: #e8f5e9; border-left: 4px solid #4CAF50;">
+                        <h5 style="color: #2E7D32;">🧫 Levure</h5>
+                        <ul>
+                            <li><strong>7g sèche = 21g fraîche</strong></li>
+                            <li>Fraîche × 0.33 = sèche</li>
+                            <li>Sèche × 3 = fraîche</li>
+                            <li>1 sachet = 7-8g sèche</li>
+                            <li>1 cube = 42g fraîche</li>
+                        </ul>
+                        <div style="background: #c8e6c9; padding: 15px; border-radius: 5px; margin-top: 15px;">
+                            <p style="margin: 0; font-weight: bold; color: #1B5E20;">
+                                💡 La levure fraîche contient environ 70% d'eau
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="conversion-box" style="background: #fff3e0; border-left: 4px solid #FF9800;">
+                        <h5 style="color: #E65100;">📏 Volume/Poids</h5>
+                        <ul>
+                            <li>1 tasse farine = <strong>125g</strong></li>
+                            <li>1 tasse eau = <strong>240ml</strong></li>
+                            <li>1 c. à soupe = <strong>15ml</strong></li>
+                            <li>1 c. à thé = <strong>5ml</strong></li>
+                            <li>1 œuf moyen = <strong>50g</strong></li>
+                        </ul>
+                        <div style="background: #ffe0b2; padding: 15px; border-radius: 5px; margin-top: 15px;">
+                            <p style="margin: 0; font-weight: bold; color: #E65100;">
+                                ⚠️ Toujours privilégier la pesée en grammes
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="conversion-box" style="background: #e3f2fd; border-left: 4px solid #2196F3;">
+                        <h5 style="color: #1565C0;">🌡️ Températures</h5>
+                        <ul>
+                            <li>0°C = <strong>32°F</strong></li>
+                            <li>180°C = <strong>350°F</strong></li>
+                            <li>200°C = <strong>400°F</strong></li>
+                            <li>220°C = <strong>425°F</strong></li>
+                            <li>240°C = <strong>475°F</strong></li>
+                        </ul>
+                        <div style="background: #bbdefb; padding: 15px; border-radius: 5px; margin-top: 15px;">
+                            <p style="margin: 0; font-weight: bold; color: #0D47A1;">
+                                📐 Formule: °F = (°C × 9/5) + 32
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="conversion-box" style="background: #f3e5f5; border-left: 4px solid #9C27B0;">
+                        <h5 style="color: #6A1B9A;">💧 Liquides</h5>
+                        <ul>
+                            <li>1 litre = <strong>1000ml</strong></li>
+                            <li>1 tasse = <strong>240ml</strong></li>
+                            <li>1/2 tasse = <strong>120ml</strong></li>
+                            <li>1/4 tasse = <strong>60ml</strong></li>
+                            <li>1 c. à soupe = <strong>15ml</strong></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-md-12">
+                    <div class="conversion-box" style="background: #fce4ec; border-left: 4px solid #E91E63;">
+                        <h5 style="color: #C2185B;">🧈 Matières Grasses</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <ul>
+                                    <li>1 c. à soupe beurre = <strong>15g</strong></li>
+                                    <li>1/4 tasse beurre = <strong>60g</strong></li>
+                                    <li>1/2 tasse beurre = <strong>115g</strong></li>
+                                    <li>1 tasse beurre = <strong>230g</strong></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <ul>
+                                    <li>1 c. à soupe huile = <strong>15ml</strong></li>
+                                    <li>1/4 tasse huile = <strong>60ml</strong></li>
+                                    <li>1/2 tasse huile = <strong>120ml</strong></li>
+                                    <li>1 tasse huile = <strong>240ml</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-12">
+                    <div class="conversion-box" style="background: #fff9c4; border-left: 4px solid #FBC02D;">
+                        <h5 style="color: #F57F17;">🍬 Sucre et Sel</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p style="font-weight: bold; color: #F57F17; margin-bottom: 10px;">Sucre Blanc:</p>
+                                <ul>
+                                    <li>1 c. à thé = <strong>4g</strong></li>
+                                    <li>1 c. à soupe = <strong>12g</strong></li>
+                                    <li>1/4 tasse = <strong>50g</strong></li>
+                                    <li>1 tasse = <strong>200g</strong></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <p style="font-weight: bold; color: #F57F17; margin-bottom: 10px;">Sel:</p>
+                                <ul>
+                                    <li>1 c. à thé = <strong>5g</strong></li>
+                                    <li>1 c. à soupe = <strong>15g</strong></li>
+                                    <li>1/4 tasse = <strong>60g</strong></li>
+                                    <li>Pincée = <strong>~1g</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 25px; margin-top: 30px; border-radius: 5px;">
+                <h4 style="color: #856404; margin-bottom: 15px;">⚖️ Règle d'Or</h4>
+                <p style="color: #856404; font-size: 1.1em; line-height: 1.8; margin: 0;">
+                    En boulangerie, la <strong>précision est essentielle</strong>. Investissez dans une balance 
+                    de cuisine précise (au gramme près) et mesurez toujours vos ingrédients en poids plutôt 
+                    qu'en volume. Une cuillère de farine peut varier de 10 à 20g selon comment vous la remplissez! 
+                    📊
+                </p>
+            </div>
+            
+            <div style="background: #e8f5e9; border-left: 4px solid #4CAF50; padding: 25px; margin-top: 20px; border-radius: 5px;">
+                <h5 style="color: #2E7D32; margin-bottom: 15px;">🎯 Mémo Rapide</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p style="margin-bottom: 8px;"><strong>Farine:</strong> 1 tasse = 125g</p>
+                        <p style="margin-bottom: 8px;"><strong>Eau:</strong> 1ml = 1g</p>
+                        <p style="margin-bottom: 8px;"><strong>Levure sèche:</strong> 1 sachet = 7g</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p style="margin-bottom: 8px;"><strong>Sel:</strong> 1 c. à thé = 5g</p>
+                        <p style="margin-bottom: 8px;"><strong>Sucre:</strong> 1 c. à soupe = 12g</p>
+                        <p style="margin-bottom: 8px;"><strong>Beurre:</strong> 1 c. à soupe = 15g</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <a href="#top" class="back-to-top-btn" title="Retour en haut">↑</a>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const backToTopBtn = document.querySelector('.back-to-top-btn');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) { backToTopBtn.style.display = 'flex'; }
+            else { backToTopBtn.style.display = 'none'; }
+        });
+        backToTopBtn.style.display = 'none';
+    </script>
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Températures de Cuisson - Le Grand Livre du Pain</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .recipe-container { max-width: 900px; margin: 0 auto; }
+        .recipe-header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white; padding: 40px; border-radius: 15px 15px 0 0;
+            text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .recipe-icon { font-size: 4em; margin-bottom: 15px; }
+        .recipe-title h1 { font-size: 2.5em; font-weight: bold; margin-bottom: 10px; }
+        .recipe-subtitle { font-size: 1.2em; opacity: 0.9; margin: 0; }
+        .recipe-content {
+            background: white; padding: 40px;
+            border-radius: 0 0 15px 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%; border-collapse: collapse; margin-top: 15px;
+        }
+        table th, table td {
+            padding: 15px; text-align: left; border-bottom: 1px solid #ddd;
+        }
+        table th {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white; font-weight: bold;
+        }
+        table tr:hover {
+            background: #fff5f5;
+        }
+        .tips-box {
+            background: #fff3cd; border-left: 4px solid #ffc107;
+            padding: 20px; margin: 20px 0; border-radius: 5px;
+        }
+        .tips-box h5 { color: #856404; margin-bottom: 15px; }
+        .back-to-top-btn {
+            position: fixed; bottom: 30px; right: 30px; background: #ff6b6b;
+            color: white; width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s ease; z-index: 1000;
+        }
+        .back-to-top-btn:hover {
+            background: #ee5a6f; transform: translateY(-5px); color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="top"></div>
+    <div class="recipe-container">
+        <div class="recipe-header">
+            <div class="recipe-icon">🌡️</div>
+            <div class="recipe-title">
+                <h1>Températures de Cuisson</h1>
+                <p class="recipe-subtitle">Guide des températures et temps de cuisson par type de pain</p>
+            </div>
+        </div>
+        <div class="recipe-content">
+            <h3 style="color: #ff6b6b; margin-bottom: 20px;">🔥 Tableau de Référence</h3>
+            
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Type de Pain</th>
+                        <th>Température Initiale</th>
+                        <th>Durée</th>
+                        <th>Vapeur</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Baguette</strong></td>
+                        <td>240°C → 220°C</td>
+                        <td>20-25 min</td>
+                        <td>✅ Oui (10 min)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pain Blanc</strong></td>
+                        <td>230°C → 210°C</td>
+                        <td>25-30 min</td>
+                        <td>✅ Oui (10 min)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pain Campagne</strong></td>
+                        <td>240°C → 220°C</td>
+                        <td>35-45 min</td>
+                        <td>✅ Oui (15 min)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Brioche</strong></td>
+                        <td>180-200°C</td>
+                        <td>15-35 min</td>
+                        <td>❌ Non</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Croissants</strong></td>
+                        <td>200-210°C</td>
+                        <td>15-18 min</td>
+                        <td>❌ Non</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pain Sans Gluten</strong></td>
+                        <td>190°C</td>
+                        <td>40-50 min</td>
+                        <td>❌ Non</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Focaccia</strong></td>
+                        <td>220-230°C</td>
+                        <td>20-25 min</td>
+                        <td>❌ Non</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pain de Mie</strong></td>
+                        <td>180-190°C</td>
+                        <td>30-35 min</td>
+                        <td>❌ Non</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="tips-box">
+                <h5>🎯 Comment Savoir si le Pain est Cuit ?</h5>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>Test du son creux :</strong> Tapotez le dessous, il doit sonner creux</li>
+                    <li><strong>Couleur :</strong> Croûte bien dorée (pas trop pâle ni brûlée)</li>
+                    <li><strong>Thermomètre :</strong> Cœur à 93-99°C (200-210°F)</li>
+                    <li><strong>Fermeté :</strong> La croûte doit être ferme au toucher</li>
+                </ul>
+            </div>
+            
+            <h3 style="color: #ff6b6b; margin-top: 40px;">💡 Conseils de Cuisson</h3>
+            
+            <div class="row mt-3">
+                <div class="col-md-6 mb-3">
+                    <div style="background: #fff5f5; padding: 20px; border-radius: 10px; border-left: 4px solid #ff6b6b;">
+                        <h5 style="color: #d32f2f;">🔥 Préchauffage</h5>
+                        <p>Toujours préchauffer le four <strong>30-45 minutes</strong> avant la cuisson</p>
+                        <p style="margin-top: 10px;">Un four bien chaud = meilleure croûte et meilleure levée au four</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <div style="background: #e3f2fd; padding: 20px; border-radius: 10px; border-left: 4px solid #2196F3;">
+                        <h5 style="color: #1565C0;">💨 Vapeur d'Eau</h5>
+                        <p>La vapeur crée une <strong>croûte croustillante</strong> et permet au pain de lever davantage</p>
+                        <p style="margin-top: 10px;">Créez de la vapeur pendant les 10-15 premières minutes</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <div style="background: #fff3e0; padding: 20px; border-radius: 10px; border-left: 4px solid #FF9800;">
+                        <h5 style="color: #E65100;">📍 Position dans le Four</h5>
+                        <p>Placez la grille au <strong>tiers inférieur</strong> du four</p>
+                        <p style="margin-top: 10px;">Permet une chaleur intense par le dessous pour une bonne croûte</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <div style="background: #f1f8e9; padding: 20px; border-radius: 10px; border-left: 4px solid #8BC34A;">
+                        <h5 style="color: #558B2F;">⏰ Refroidissement</h5>
+                        <p>Laissez refroidir <strong>au moins 30 minutes</strong> sur grille</p>
+                        <p style="margin-top: 10px;">La mie continue de se former pendant le refroidissement</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tips-box" style="background: #ffebee; border-left-color: #f44336;">
+                <h5 style="color: #c62828;">⚠️ Problèmes Courants</h5>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>Croûte trop pâle :</strong> Augmentez la température de 10-20°C</li>
+                    <li><strong>Croûte trop foncée :</strong> Baissez la température ou couvrez avec du papier alu</li>
+                    <li><strong>Cuit à l'extérieur, cru à l'intérieur :</strong> Baissez la température et prolongez la cuisson</li>
+                    <li><strong>Croûte molle :</strong> Pas assez de vapeur en début de cuisson</li>
+                    <li><strong>Pain plat :</strong> Four pas assez chaud, préchauffez plus longtemps</li>
+                </ul>
+            </div>
+            
+            <div class="tips-box" style="background: #e8f5e9; border-left-color: #4CAF50;">
+                <h5 style="color: #2E7D32;">🌟 Astuce Pro : La Technique du Four Tombant</h5>
+                <p>Commencez à <strong>haute température</strong> (240°C) pour le développement initial, puis réduisez à <strong>220°C</strong> pour finir la cuisson.</p>
+                <p style="margin-top: 10px;">Cette technique permet une bonne "poussée au four" (oven spring) suivie d'une cuisson uniforme.</p>
+            </div>
+        </div>
+    </div>
+    
+    <a href="#top" class="back-to-top-btn" title="Retour en haut">↑</a>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const backToTopBtn = document.querySelector('.back-to-top-btn');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) { backToTopBtn.style.display = 'flex'; }
+            else { backToTopBtn.style.display = 'none'; }
+        });
+        backToTopBtn.style.display = 'none';
+    </script>
+</body>
+</html>

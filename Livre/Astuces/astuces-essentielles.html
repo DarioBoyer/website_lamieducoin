@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astuces Essentielles - Le Grand Livre du Pain</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .recipe-container { max-width: 1000px; margin: 0 auto; }
+        .recipe-header {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            color: white; padding: 40px; border-radius: 15px 15px 0 0;
+            text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .recipe-icon { font-size: 4em; margin-bottom: 15px; }
+        .recipe-title h1 { font-size: 2.5em; font-weight: bold; margin-bottom: 10px; }
+        .recipe-subtitle { font-size: 1.2em; opacity: 0.9; margin: 0; }
+        .recipe-content {
+            background: white; padding: 40px;
+            border-radius: 0 0 15px 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .tips-box {
+            background: #fff9f0; padding: 25px;
+            border-radius: 10px; border-left: 5px solid #D2691E;
+            margin-bottom: 20px;
+        }
+        .tips-box h5 {
+            color: #8B4513; margin-bottom: 15px; font-size: 1.3em;
+        }
+        .tips-box p { line-height: 1.6; margin-bottom: 8px; }
+        .tips-box ul { margin-left: 20px; margin-top: 10px; }
+        .tips-box ul li { margin-bottom: 5px; }
+        .back-to-top-btn {
+            position: fixed; bottom: 30px; right: 30px; background: #D2691E;
+            color: white; width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s ease; z-index: 1000;
+        }
+        .back-to-top-btn:hover {
+            background: #8B4513; transform: translateY(-5px); color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="top"></div>
+    <div class="recipe-container">
+        <div class="recipe-header">
+            <div class="recipe-icon">💡</div>
+            <div class="recipe-title">
+                <h1>Astuces Essentielles du Boulanger</h1>
+                <p class="recipe-subtitle">Les techniques fondamentales pour réussir vos pains</p>
+            </div>
+        </div>
+        <div class="recipe-content">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="tips-box">
+                        <h5>🌊 Créer de la Vapeur</h5>
+                        <p><strong>Méthode 1:</strong> Récipient métallique d'eau bouillante au fond du four</p>
+                        <p><strong>Méthode 2:</strong> Vaporiser les parois du four avec spray</p>
+                        <p><strong>Méthode 3:</strong> Cocotte en fonte avec couvercle (Dutch oven)</p>
+                        <p><strong>Méthode 4:</strong> Glaçons dans lèchefrite (30 secondes avant)</p>
+                        <div style="background: #fff3cd; padding: 15px; border-radius: 5px; margin-top: 15px;">
+                            <p style="margin: 0; font-weight: bold; color: #856404;">
+                                💡 La vapeur permet une croûte croustillante et favorise la levée au four
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="tips-box">
+                        <h5>❄️ Autolyse</h5>
+                        <p>Mélanger farine + eau uniquement</p>
+                        <p><strong>Repos:</strong> 20-60 min (sans sel ni levure)</p>
+                        <p style="margin-top: 15px;"><strong>Avantages:</strong></p>
+                        <ul>
+                            <li>Développe le gluten naturellement</li>
+                            <li>Améliore la saveur</li>
+                            <li>Réduit temps de pétrissage</li>
+                            <li>Meilleure extensibilité</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="tips-box">
+                        <h5>🧊 Fermentation au Froid</h5>
+                        <p>Réfrigérer la pâte 12-72h</p>
+                        <p style="margin-top: 15px;"><strong>Avantages:</strong></p>
+                        <ul>
+                            <li>Saveurs plus complexes</li>
+                            <li>Meilleure digestibilité</li>
+                            <li>Croûte plus colorée</li>
+                            <li>Conservation prolongée</li>
+                        </ul>
+                        <p style="margin-top: 15px;"><strong>Conseil:</strong> Sortir 1-2h avant façonnage</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="tips-box">
+                        <h5>🌾 Créer un Levain Maison</h5>
+                        <p><strong>Jour 1:</strong> 50g farine + 50g eau, repos 24h</p>
+                        <p><strong>Jours 2-7:</strong> Jeter moitié, nourrir 50g+50g quotidien</p>
+                        <p><strong>Test de maturité:</strong> Levain flotte dans l'eau = prêt</p>
+                        <p><strong>Entretien:</strong> Nourrir 1x/semaine au frigo</p>
+                        <div style="background: #e8f5e9; padding: 15px; border-radius: 5px; margin-top: 15px;">
+                            <p style="margin: 0; font-weight: bold; color: #2E7D32;">
+                                🌟 Un levain mature donne un pain avec plus de saveur et une meilleure conservation
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="tips-box">
+                        <h5>🔄 Conversion Levure ↔ Levain</h5>
+                        <p><strong>10g levure sèche ≈ 150-200g levain</strong></p>
+                        <p>Temps de levée: ×3 à ×4</p>
+                        <p style="margin-top: 15px;"><strong>Exemple:</strong></p>
+                        <ul>
+                            <li>Levure: 1h30 → Levain: 4-6h</li>
+                            <li>Levure: 1h → Levain: 3-4h</li>
+                        </ul>
+                        <p style="margin-top: 15px; font-style: italic; color: #666;">
+                            Le levain nécessite plus de temps mais offre une saveur incomparable
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="tips-box">
+                        <h5>🔬 Test de la Membrane</h5>
+                        <p>Pour savoir si la pâte est bien pétrie:</p>
+                        <ol style="padding-left: 20px; margin-top: 10px;">
+                            <li>Prélever petit morceau</li>
+                            <li>Étirer délicatement</li>
+                            <li>Membrane translucide = parfait</li>
+                            <li>Déchire = pétrir encore</li>
+                        </ol>
+                        <div style="background: #e3f2fd; padding: 15px; border-radius: 5px; margin-top: 15px;">
+                            <p style="margin: 0; font-weight: bold; color: #1565C0;">
+                                📐 Ce test s'appelle le "windowpane test" en anglais
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="tips-box">
+                        <h5>🙌 Technique des Rabats</h5>
+                        <p>Pendant la levée, plier la pâte sur elle-même</p>
+                        <p><strong>Fréquence:</strong> Toutes les 30 minutes (3-4 fois)</p>
+                        <p style="margin-top: 15px;"><strong>Avantages:</strong></p>
+                        <ul>
+                            <li>Renforce le réseau de gluten</li>
+                            <li>Meilleure structure du pain</li>
+                            <li>Redistribue les nutriments pour la levure</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="tips-box">
+                        <h5>🎯 Test du Doigt</h5>
+                        <p>Pour savoir si la levée est terminée:</p>
+                        <ol style="padding-left: 20px; margin-top: 10px;">
+                            <li>Enfoncez légèrement un doigt dans la pâte</li>
+                            <li><strong>Rebondit vite:</strong> Pas assez levée</li>
+                            <li><strong>Rebondit lentement:</strong> Parfait!</li>
+                            <li><strong>Ne rebondit pas:</strong> Sur-levée</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 25px; margin-top: 30px; border-radius: 5px;">
+                <h4 style="color: #856404; margin-bottom: 15px;">🎓 Le Secret du Boulanger</h4>
+                <p style="color: #856404; font-size: 1.1em; line-height: 1.8; margin: 0;">
+                    La réussite en boulangerie repose sur <strong>l'observation et la patience</strong>. 
+                    Chaque pâte est unique et peut réagir différemment selon la température, l'humidité, 
+                    et même votre toucher. Apprenez à <strong>écouter votre pâte</strong> plutôt que de 
+                    suivre aveuglément les temps indiqués. C'est l'expérience qui fera de vous un 
+                    véritable boulanger! 🍞
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <a href="#top" class="back-to-top-btn" title="Retour en haut">↑</a>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const backToTopBtn = document.querySelector('.back-to-top-btn');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) { backToTopBtn.style.display = 'flex'; }
+            else { backToTopBtn.style.display = 'none'; }
+        });
+        backToTopBtn.style.display = 'none';
+    </script>
+</body>
+</html>
