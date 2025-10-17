@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pain Sous-Marin 12 Pouces - Le Grand Livre du Pain</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        
+        .recipe-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .recipe-header {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px 15px 0 0;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .recipe-icon {
+            font-size: 4em;
+            margin-bottom: 15px;
+        }
+        
+        .recipe-title h1 {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .recipe-subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin: 0;
+        }
+        
+        .info-cards {
+            background: white;
+            padding: 30px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .info-card {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            min-width: 150px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .info-card .icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .info-card .label {
+            color: #6c757d;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+        
+        .info-card .value {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #8B4513;
+        }
+        
+        .recipe-content {
+            background: white;
+            padding: 40px;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .ingredients-section, .instructions-section {
+            margin-bottom: 30px;
+        }
+        
+        .ingredients-section h3, .instructions-section h3 {
+            color: #8B4513;
+            border-bottom: 3px solid #D2691E;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .ingredients-list {
+            background: #fff9f0;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 5px solid #D2691E;
+        }
+        
+        .ingredients-list ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .ingredients-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #f0e6d6;
+            font-size: 1.1em;
+        }
+        
+        .ingredients-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .ingredients-list li::before {
+            content: "✓ ";
+            color: #D2691E;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .instructions-section ol {
+            counter-reset: step-counter;
+            list-style: none;
+            padding: 0;
+        }
+        
+        .instructions-section li {
+            counter-increment: step-counter;
+            position: relative;
+            padding: 20px 20px 20px 70px;
+            margin-bottom: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-size: 1.05em;
+            line-height: 1.6;
+        }
+        
+        .instructions-section li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #D2691E;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .tips-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .tips-box h3 {
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .tips-box p {
+            font-size: 1.1em;
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        .nav-buttons {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+        }
+        
+        .btn-custom {
+            background: #8B4513;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin: 0 10px;
+        }
+        
+        .btn-custom:hover {
+            background: #D2691E;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .back-to-top-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #D2691E;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .back-to-top-btn:hover {
+            background: #8B4513;
+            transform: translateY(-5px);
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .recipe-header {
+                padding: 30px 20px;
+            }
+            
+            .recipe-title h1 {
+                font-size: 2em;
+            }
+            
+            .recipe-content {
+                padding: 25px;
+            }
+            
+            .info-cards {
+                padding: 20px;
+            }
+            
+            .instructions-section li {
+                padding-left: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="top"></div>
+    
+    <div class="recipe-container">
+        <!-- En-tête de la recette -->
+        <div class="recipe-header">
+            <div class="recipe-icon">🥖</div>
+            <div class="recipe-title">
+                <h1>Pain Sous-Marin 12 Pouces</h1>
+                <p class="recipe-subtitle">Style Subway - moelleux et parfait pour vos sandwichs</p>
+            </div>
+        </div>
+        
+        <!-- Informations rapides -->
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="icon">⏱️</div>
+                <div class="label">Préparation</div>
+                <div class="value">3 heures</div>
+            </div>
+            <div class="info-card">
+                <div class="icon">🔥</div>
+                <div class="label">Cuisson</div>
+                <div class="value">18-20 min</div>
+            </div>
+            <div class="info-card">
+                <div class="icon">🍞</div>
+                <div class="label">Rendement</div>
+                <div class="value">4 pains 12"</div>
+            </div>
+        </div>
+        
+        <!-- Contenu principal -->
+        <div class="recipe-content">
+            <!-- Ingrédients -->
+            <div class="ingredients-section">
+                <h3>🛒 Ingrédients</h3>
+                <div class="ingredients-list">
+                    <ul>
+                        <li><strong>500g</strong> farine à pain</li>
+                        <li><strong>300ml</strong> eau tiède (60%)</li>
+                        <li><strong>30g</strong> beurre ramolli (6%)</li>
+                        <li><strong>15g</strong> sucre (3%)</li>
+                        <li><strong>10g</strong> sel (2%)</li>
+                        <li><strong>10g</strong> levure sèche (2%)</li>
+                        <li><strong>10g</strong> lait en poudre (2%)</li>
+                        <li>Herbes italiennes (optionnel)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Instructions -->
+            <div class="instructions-section">
+                <h3>📝 Instructions Détaillées</h3>
+                <ol>
+                    <li>Dissoudre la levure et le sucre dans l'eau tiède</li>
+                    <li>Mélanger la farine, le sel et le lait en poudre dans un grand bol</li>
+                    <li>Incorporer le mélange d'eau et pétrir pendant 8 minutes</li>
+                    <li>Ajouter le beurre ramolli et pétrir pendant 3 minutes supplémentaires</li>
+                    <li>Première levée : laisser reposer 1h30 dans un endroit chaud</li>
+                    <li>Diviser la pâte en 4 pâtons égaux</li>
+                    <li>Façonner en boudins de 30cm (12 pouces) - <a href="../techniques-faconnage.html#faconnage-baguettes" style="color: #D2691E; font-weight: bold;">👉 voir la technique</a></li>
+                    <li>Aplatir légèrement chaque pain avec la paume de la main</li>
+                    <li>Deuxième levée : laisser reposer 1 heure</li>
+                    <li>Faire 3 entailles diagonales sur le dessus de chaque pain</li>
+                    <li>Badigeonner généreusement avec un mélange eau + huile</li>
+                    <li>Cuire à 200°C (392°F) pendant 18-20 minutes jusqu'à coloration dorée</li>
+                </ol>
+            </div>
+            
+            <!-- Astuce spéciale -->
+            <div class="tips-box">
+                <h3>💡 Secret Subway</h3>
+                <p>Pour obtenir la texture parfaite des pains Subway : ne pas trop lever la pâte (maximum 1,5 fois le volume initial), aplatir légèrement les pains avant la deuxième levée, et badigeonner avec un mélange d'eau et d'huile avant la cuisson pour une croûte moelleuse et brillante.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bouton retour en haut -->
+    <a href="#top" class="back-to-top-btn" title="Retour en haut">↑</a>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Afficher/masquer le bouton retour en haut
+        const backToTopBtn = document.querySelector('.back-to-top-btn');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.style.display = 'flex';
+            } else {
+                backToTopBtn.style.display = 'none';
+            }
+        });
+        
+        backToTopBtn.style.display = 'none';
+        
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

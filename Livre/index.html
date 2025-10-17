@@ -3,171 +3,538 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Le Grand Livre du Pain - Sommaire</title>
+    <title>Le Grand Livre du Pain - Navigation Interactive</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .cover-modern {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            margin-bottom: 0;
+        }
+        
+        .cover-modern::before {
+            content: '🌾';
+            position: absolute;
+            font-size: 180px;
+            opacity: 0.1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .cover-modern h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cover-modern .subtitle {
+            font-size: 1.1em;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
+            opacity: 0.95;
+        }
+        
+        /* Navigation Tabs */
+        .nav-section {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-tabs {
+            border-bottom: 3px solid #D2691E;
+        }
+        
+        .nav-tabs .nav-link {
+            color: #8B4513;
+            font-weight: 600;
+            border: none;
+            padding: 15px 25px;
+            transition: all 0.3s;
+        }
+        
+        .nav-tabs .nav-link:hover {
+            color: #D2691E;
+            background: #fdf1e8;
+        }
+        
+        .nav-tabs .nav-link.active {
+            color: white;
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            border: none;
+        }
+        
+        /* Category Cards */
+        .category-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .category-card:hover {
+            border-color: #D2691E;
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .category-card.active {
+            border-color: #D2691E;
+            background: #fdf1e8;
+        }
+        
+        .category-card h5 {
+            color: #8B4513;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .category-card .icon {
+            font-size: 1.5em;
+        }
+        
+        /* Content Display */
+        .content-display {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            min-height: 400px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .content-display iframe {
+            width: 100%;
+            border: none;
+            border-radius: 10px;
+            min-height: 600px;
+        }
+        
+        .welcome-message {
+            text-align: center;
+            padding: 60px 20px;
+            color: #8B4513;
+        }
+        
+        .welcome-message h3 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        
+        .welcome-message p {
+            font-size: 1.1em;
+            color: #666;
+        }
+        
+        /* Recipe List */
+        .recipe-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .recipe-list li {
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+        }
+        
+        .recipe-list li:hover {
+            background: #fdf1e8;
+            border-left-color: #D2691E;
+            transform: translateX(5px);
+        }
+        
+        .recipe-list li.active {
+            background: #fdf1e8;
+            border-left-color: #D2691E;
+            font-weight: 600;
+        }
+        
+        /* Loading Animation */
+        .loading {
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #D2691E;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cover-modern h1 {
+                font-size: 1.8em;
+            }
+            
+            .nav-tabs .nav-link {
+                padding: 10px 15px;
+                font-size: 0.9em;
+            }
+            
+            .content-display {
+                padding: 15px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="book">
-        <!-- COUVERTURE -->
-        <div class="cover" style="padding: 40px 20px; min-height: auto;">
-            <h1 style="font-size: 2em; margin: 20px 0;">🍞 Le Grand Livre du Pain</h1>
-        </div>
+    <!-- COUVERTURE -->
+    <div class="cover-modern">
+        <h1>🍞 Le Grand Livre du Pain</h1>
+        <p class="subtitle">L'art de la boulangerie artisanale à la maison</p>
+    </div>
 
-        <!-- SOMMAIRE -->
-        <div class="page">
-            <h2>📚 Sommaire</h2>
-            
-            <div class="sommaire-section">
-                <div class="sommaire-card">
-                    <div class="sommaire-icon">🥖</div>
-                    <h3>Section I</h3>
-                    <h4><a href="recettes-traditionnelles.html">Recettes de Pain Traditionnels</a></h4>
-                    <ul>
-                        <li><a href="recettes-traditionnelles.html#pain-blanc-classique">Pain Blanc Classique</a> (+ variante levain)</li>
-                        <li><a href="recettes-traditionnelles.html#baguette-francaise">Baguette Française</a> (+ variante levain)</li>
-                        <li><a href="recettes-traditionnelles.html#baguette-tradition">Baguette Tradition</a> (avec poolish)</li>
-                        <li><a href="recettes-traditionnelles.html#pain-de-campagne">Pain de Campagne</a> (+ variante levain)</li>
-                        <li><a href="recettes-traditionnelles.html#pain-aux-noix">Pain aux Noix</a> (+ variante levain)</li>
-                        <li><a href="recettes-traditionnelles.html#pain-au-fromage">Pain au Fromage</a> (+ guide des fromages)</li>
-                        <li><a href="recettes-traditionnelles.html#petits-pains-salade">Petits Pains à Salade</a> (Kaiser Rolls)</li>
-                        <li><a href="recettes-traditionnelles.html#pain-sous-marin">Pain Sous-Marin 12 Pouces</a> (Style Subway)</li>
-                    </ul>
-                </div>
-
-                <div class="sommaire-card">
-                    <div class="sommaire-icon">🌾</div>
-                    <h3>Section II</h3>
-                    <h4><a href="sans-gluten.html">Recettes Sans Gluten</a></h4>
-                    <ul>
-                        <li>Notes importantes sur les pains sans gluten</li>
-                        <li><a href="sans-gluten.html#pain-sans-gluten-classique">Pain Sans Gluten Classique</a></li>
-                        <li><a href="sans-gluten.html#baguette-sans-gluten">Baguette Sans Gluten</a></li>
-                        <li><a href="sans-gluten.html#pain-sans-gluten-graines">Pain Sans Gluten aux Graines</a></li>
-                        <li>Guide des farines sans gluten</li>
-                        <li>Techniques spécifiques</li>
-                    </ul>
-                </div>
-
-                <div class="sommaire-card">
-                    <div class="sommaire-icon">🥐</div>
-                    <h3>Viennoiseries</h3>
-                    <h4><a href="viennoiseries.html">Croissants & Brioches</a></h4>
-                    <ul>
-                        <li><a href="viennoiseries.html#croissants-francais">Croissants Français</a> (feuilletage complet)</li>
-                        <li><a href="viennoiseries.html#pains-au-chocolat">Pains au Chocolat</a></li>
-                        <li><a href="viennoiseries.html#brioche-maison">Brioche Maison</a> (3 variantes)</li>
-                        <li>Technique de feuilletage illustrée</li>
-                        <li>Secrets de réussite</li>
-                    </ul>
-                </div>
-
-                <div class="sommaire-card">
-                    <div class="sommaire-icon">🌟</div>
-                    <h3>Recettes Spéciales</h3>
-                    <h4><a href="recettes-speciales.html">Pains Italiens & Grilled Cheese</a></h4>
-                    <ul>
-                        <li><a href="recettes-speciales.html#pain-grilled-cheese">Le Meilleur Pain pour Grilled Cheese</a></li>
-                        <li><a href="recettes-speciales.html#miche-a-soupe">Miche à Soupe</a> (Bread Bowl)</li>
-                        <li><a href="recettes-speciales.html#focaccia-italienne">Focaccia Italienne</a> (5 variantes)</li>
-                        <li><a href="recettes-speciales.html#fougasse-provencale">Fougasse Provençale</a> (5 variantes)</li>
-                        <li>Techniques de découpe illustrées</li>
-                        <li>Astuces de garniture</li>
-                    </ul>
-                </div>
-
-                <div class="sommaire-card">
-                    <div class="sommaire-icon">🤝</div>
-                    <h3>Section III</h3>
-                    <h4><a href="techniques-faconnage.html">Techniques de Façonnage</a></h4>
-                    <ul>
-                        <li><a href="techniques-faconnage.html#tresse-3-branches">Tresse à 3 Branches</a> (avec diagramme)</li>
-                        <li><a href="techniques-faconnage.html#tresse-4-branches">Tresse à 4 Branches</a></li>
-                        <li><a href="techniques-faconnage.html#technique-croissants">Façonnage des Croissants</a> (illustré)</li>
-                        <li><a href="techniques-faconnage.html#couronne">Couronne</a>, <a href="techniques-faconnage.html#epi-de-ble">Épi de Blé</a></li>
-                        <li><a href="techniques-faconnage.html#escargot">Escargot</a>, <a href="techniques-faconnage.html#fougasse">Fougasse</a></li>
-                        <li><a href="techniques-faconnage.html#faconnage-baguettes">Façonnage de Baguettes</a> (pas-à-pas)</li>
-                        <li><a href="techniques-faconnage.html#art-entaillage">L'Art de l'Entaillage</a> (Grignage)</li>
-                    </ul>
-                </div>
-
-                <div class="sommaire-card">
-                    <div class="sommaire-icon">🌾</div>
-                    <h3>Section IV</h3>
-                    <h4><a href="guide-farines.html">Guide des Farines</a></h4>
-                    <ul>
-                        <li>Correspondance Europe-Québec (T45 à T150)</li>
-                        <li>Comment identifier les farines au Québec</li>
-                        <li>Teneur en protéines et fibres</li>
-                        <li>Farines spéciales (seigle, épeautre, kamut...)</li>
-                        <li>Tableaux de conversion</li>
-                    </ul>
-                </div>
-
-                <div class="sommaire-card">
-                    <div class="sommaire-icon">💡</div>
-                    <h3>Section V</h3>
-                    <h4><a href="trucs-astuces.html">Trucs et Astuces du Métier</a></h4>
-                    <ul>
-                        <li>Baker's Percentage</li>
-                        <li>Hydratation par type de pain</li>
-                        <li>Températures de cuisson</li>
-                        <li>Créer de la vapeur</li>
-                        <li>Autolyse, fermentation au froid</li>
-                        <li>Créer un levain maison</li>
-                        <li>Conversion levure ↔ levain</li>
-                        <li>Problèmes et solutions</li>
-                        <li>Les 10 Commandements du boulanger</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="info-box-highlight" style="margin-top: 40px;">
-                <h3>✨ Particularités de ce livre</h3>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
-                    <div class="feature-box">
-                        <h4>🌿 Variantes au Levain</h4>
-                        <p>Chaque recette traditionnelle inclut sa variante au levain avec temps de levée adaptés</p>
-                    </div>
-                    <div class="feature-box">
-                        <h4>🌾 Section Sans Gluten</h4>
-                        <p>Recettes complètes avec les bonnes proportions de gomme xanthane et mélanges de farines</p>
-                    </div>
-                    <div class="feature-box">
-                        <h4>📊 Baker's Percentage</h4>
-                        <p>Toutes les recettes incluent les pourcentages pour ajuster facilement les quantités</p>
-                    </div>
-                    <div class="feature-box">
-                        <h4>🎨 Techniques Illustrées</h4>
-                        <p>Diagrammes visuels pour le tressage, le façonnage des croissants et plus</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="navigation-footer">
-                <p style="text-align: center; font-size: 1.2em; margin-top: 40px;">
-                    <strong>Commencez votre voyage dans l'art du pain artisanal! 👇</strong>
-                </p>
-                <div class="nav-buttons">
-                    <a href="recettes-traditionnelles.html" class="nav-btn">Recettes Traditionnelles →</a>
-                    <a href="sans-gluten.html" class="nav-btn">Pains Sans Gluten →</a>
-                    <a href="viennoiseries.html" class="nav-btn">Viennoiseries →</a>
-                    <a href="recettes-speciales.html" class="nav-btn">Recettes Spéciales →</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- FOOTER -->
-        <div class="footer">
-            <h3 style="margin-bottom: 15px;">🍞 Le Grand Livre du Pain 🍞</h3>
-            <p>Recettes Complètes avec Levure et Levain</p>
-            <p style="margin-top: 20px;">Incluant les Pains Sans Gluten</p>
-            <p style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.3); font-size: 0.85em;">
-                © 2024 - Compilé avec passion pour tous les amoureux du pain
-            </p>
-            <p style="margin-top: 10px; font-style: italic;">
-                "Le pain est la base de la vie, et le faire soi-même est un acte d'amour"
-            </p>
+    <!-- NAVIGATION PAR ONGLETS -->
+    <div class="nav-section">
+        <div class="container-fluid">
+            <ul class="nav nav-tabs" id="mainTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab">
+                        🏠 Accueil
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="recettes-tab" data-bs-toggle="tab" data-bs-target="#recettes" type="button" role="tab">
+                        🥖 Recettes
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="techniques-tab" data-bs-toggle="tab" data-bs-target="#techniques" type="button" role="tab">
+                        🤝 Techniques
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="astuces-tab" data-bs-toggle="tab" data-bs-target="#astuces" type="button" role="tab">
+                        💡 Astuces
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="guide-tab" data-bs-toggle="tab" data-bs-target="#guide" type="button" role="tab">
+                        🌾 Guide Farines
+                    </button>
+                </li>
+            </ul>
         </div>
     </div>
+
+    <!-- CONTENU DES ONGLETS -->
+    <div class="tab-content" id="mainTabContent">
+        <!-- ONGLET ACCUEIL -->
+        <div class="tab-pane fade show active" id="home" role="tabpanel">
+            <div class="container-fluid mt-4">
+                <div class="welcome-message">
+                    <h3>✨ Bienvenue dans Le Grand Livre du Pain ✨</h3>
+                    <p>Sélectionnez une catégorie ci-dessus pour explorer les recettes, techniques et astuces</p>
+                    <p class="mt-4">🥖 8 Recettes Traditionnelles • 🌾 3 Recettes Sans Gluten • 🥐 3 Viennoiseries • 🌟 4 Recettes Spéciales</p>
+                    <p>🤝 7 Techniques de Façonnage • 💡 Trucs et Astuces • 🌾 Guide Complet des Farines</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ONGLET RECETTES -->
+        <div class="tab-pane fade" id="recettes" role="tabpanel">
+            <div class="container-fluid mt-4">
+                <div class="row">
+                    <!-- Menu des catégories de recettes -->
+                    <div class="col-lg-3 col-md-4 mb-4">
+                        <div class="category-card active" data-category="traditionnelles">
+                            <h5><span class="icon">�</span> Traditionnelles</h5>
+                        </div>
+                        <div class="category-card" data-category="sans-gluten">
+                            <h5><span class="icon">🌾</span> Sans Gluten</h5>
+                        </div>
+                        <div class="category-card" data-category="viennoiseries">
+                            <h5><span class="icon">🥐</span> Viennoiseries</h5>
+                        </div>
+                        <div class="category-card" data-category="speciales">
+                            <h5><span class="icon">🌟</span> Spéciales</h5>
+                        </div>
+                    </div>
+
+                    <!-- Liste des recettes et affichage -->
+                    <div class="col-lg-9 col-md-8">
+                        <div class="row">
+                            <!-- Liste des recettes -->
+                            <div class="col-lg-4 mb-3">
+                                <h5 class="mb-3" style="color: #8B4513;">Sélectionnez une recette:</h5>
+                                <ul class="recipe-list" id="recipeList">
+                                    <!-- Sera rempli dynamiquement -->
+                                </ul>
+                            </div>
+
+                            <!-- Affichage du contenu -->
+                            <div class="col-lg-8">
+                                <div class="content-display" id="recipeDisplay">
+                                    <div class="welcome-message">
+                                        <h4>Sélectionnez une recette pour l'afficher</h4>
+                                        <p>👈 Choisissez une catégorie puis une recette</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ONGLET TECHNIQUES -->
+        <div class="tab-pane fade" id="techniques" role="tabpanel">
+            <div class="container-fluid mt-4">
+                <div class="row">
+                    <div class="col-lg-3 mb-3">
+                        <h5 class="mb-3" style="color: #8B4513;">Techniques de Façonnage:</h5>
+                        <ul class="recipe-list" id="techniquesList">
+                            <li data-technique="techniques-faconnage.html#tresse-3-branches">Tresse à 3 Branches</li>
+                            <li data-technique="techniques-faconnage.html#tresse-4-branches">Tresse à 4 Branches</li>
+                            <li data-technique="techniques-faconnage.html#technique-croissants">Façonnage Croissants</li>
+                            <li data-technique="techniques-faconnage.html#couronne">Couronne</li>
+                            <li data-technique="techniques-faconnage.html#epi-de-ble">Épi de Blé</li>
+                            <li data-technique="techniques-faconnage.html#escargot">Escargot</li>
+                            <li data-technique="techniques-faconnage.html#fougasse">Fougasse</li>
+                            <li data-technique="techniques-faconnage.html#faconnage-baguettes">Façonnage Baguettes</li>
+                            <li data-technique="techniques-faconnage.html#art-entaillage">L'Art de l'Entaillage</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="content-display" id="techniqueDisplay">
+                            <div class="welcome-message">
+                                <h4>Sélectionnez une technique pour l'afficher</h4>
+                                <p>👈 Choisissez une technique de façonnage</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ONGLET ASTUCES -->
+        <div class="tab-pane fade" id="astuces" role="tabpanel">
+            <div class="container-fluid mt-4">
+                <div class="row">
+                    <div class="col-lg-3 mb-3">
+                        <h5 class="mb-3" style="color: #8B4513;">Trucs et Astuces:</h5>
+                        <ul class="recipe-list" id="astucesList">
+                            <li data-astuce="trucs-astuces.html#bakers-percentage">Baker's Percentage</li>
+                            <li data-astuce="trucs-astuces.html#hydratation">Hydratation</li>
+                            <li data-astuce="trucs-astuces.html#temperatures">Températures</li>
+                            <li data-astuce="trucs-astuces.html#vapeur">Créer de la Vapeur</li>
+                            <li data-astuce="trucs-astuces.html#autolyse">Autolyse</li>
+                            <li data-astuce="trucs-astuces.html#levain-maison">Levain Maison</li>
+                            <li data-astuce="trucs-astuces.html#conversion">Conversion Levure/Levain</li>
+                            <li data-astuce="trucs-astuces.html#problemes">Problèmes et Solutions</li>
+                            <li data-astuce="trucs-astuces.html#commandements">10 Commandements</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="content-display" id="astuceDisplay">
+                            <div class="welcome-message">
+                                <h4>Sélectionnez une astuce pour l'afficher</h4>
+                                <p>👈 Choisissez un truc ou une astuce</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ONGLET GUIDE FARINES -->
+        <div class="tab-pane fade" id="guide" role="tabpanel">
+            <div class="container-fluid mt-4">
+                <div class="content-display" id="guideDisplay">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <p class="mt-3">Chargement du guide des farines...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Données des recettes par catégorie
+        const recipes = {
+            traditionnelles: [
+                { name: 'Pain Blanc Classique', file: 'Recettes/pain-blanc-classique.html' },
+                { name: 'Baguette Française', file: 'Recettes/baguette-francaise.html' },
+                { name: 'Baguette Tradition', file: 'Recettes/baguette-tradition.html' },
+                { name: 'Pain de Campagne', file: 'Recettes/pain-de-campagne.html' },
+                { name: 'Pain aux Noix', file: 'Recettes/pain-aux-noix.html' },
+                { name: 'Pain au Fromage', file: 'Recettes/pain-au-fromage.html' },
+                { name: 'Petits Pains à Salade', file: 'Recettes/petits-pains-salade.html' },
+                { name: 'Pain Sous-Marin 12"', file: 'Recettes/pain-sous-marin.html' }
+            ],
+            'sans-gluten': [
+                { name: 'Pain Sans Gluten Classique', file: 'Recettes/pain-sans-gluten-classique.html' },
+                { name: 'Baguette Sans Gluten', file: 'Recettes/baguette-sans-gluten.html' },
+                { name: 'Pain Sans Gluten aux Graines', file: 'Recettes/pain-sans-gluten-graines.html' }
+            ],
+            viennoiseries: [
+                { name: 'Croissants Français', file: 'Recettes/croissants-francais.html' },
+                { name: 'Pains au Chocolat', file: 'Recettes/pains-au-chocolat.html' },
+                { name: 'Brioche Maison', file: 'Recettes/brioche-maison.html' }
+            ],
+            speciales: [
+                { name: 'Pain Grilled Cheese', file: 'Recettes/pain-grilled-cheese.html' },
+                { name: 'Miche à Soupe', file: 'Recettes/miche-a-soupe.html' },
+                { name: 'Focaccia Italienne', file: 'Recettes/focaccia-italienne.html' },
+                { name: 'Fougasse Provençale', file: 'Recettes/fougasse-provencale.html' }
+            ]
+        };
+
+        // Gestion des catégories de recettes
+        document.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('click', function() {
+                // Retirer active de toutes les cartes
+                document.querySelectorAll('.category-card').forEach(c => c.classList.remove('active'));
+                // Ajouter active à la carte cliquée
+                this.classList.add('active');
+                
+                const category = this.dataset.category;
+                loadRecipeList(category);
+            });
+        });
+
+        // Charger la liste des recettes
+        function loadRecipeList(category) {
+            const recipeList = document.getElementById('recipeList');
+            recipeList.innerHTML = '';
+            
+            if (recipes[category]) {
+                recipes[category].forEach((recipe, index) => {
+                    const li = document.createElement('li');
+                    li.textContent = recipe.name;
+                    li.dataset.file = recipe.file;
+                    if (index === 0) li.classList.add('active');
+                    
+                    li.addEventListener('click', function() {
+                        document.querySelectorAll('#recipeList li').forEach(item => item.classList.remove('active'));
+                        this.classList.add('active');
+                        loadRecipe(this.dataset.file);
+                    });
+                    
+                    recipeList.appendChild(li);
+                });
+                
+                // Charger automatiquement la première recette
+                if (recipes[category].length > 0) {
+                    loadRecipe(recipes[category][0].file);
+                }
+            }
+        }
+
+        // Charger une recette dans l'iframe
+        function loadRecipe(file) {
+            const display = document.getElementById('recipeDisplay');
+            display.innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p class="mt-3">Chargement de la recette...</p>
+                </div>
+            `;
+            
+            setTimeout(() => {
+                display.innerHTML = `<iframe src="${file}" onload="this.style.height='800px'"></iframe>`;
+            }, 300);
+        }
+
+        // Gestion des techniques
+        document.querySelectorAll('#techniquesList li').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('#techniquesList li').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+                
+                const technique = this.dataset.technique;
+                const display = document.getElementById('techniqueDisplay');
+                display.innerHTML = `
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <p class="mt-3">Chargement de la technique...</p>
+                    </div>
+                `;
+                
+                setTimeout(() => {
+                    display.innerHTML = `<iframe src="${technique}" onload="this.style.height='800px'"></iframe>`;
+                }, 300);
+            });
+        });
+
+        // Gestion des astuces
+        document.querySelectorAll('#astucesList li').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('#astucesList li').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+                
+                const astuce = this.dataset.astuce;
+                const display = document.getElementById('astuceDisplay');
+                display.innerHTML = `
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <p class="mt-3">Chargement de l'astuce...</p>
+                    </div>
+                `;
+                
+                setTimeout(() => {
+                    display.innerHTML = `<iframe src="${astuce}" onload="this.style.height='800px'"></iframe>`;
+                }, 300);
+            });
+        });
+
+        // Charger le guide des farines automatiquement
+        document.getElementById('guide-tab').addEventListener('shown.bs.tab', function() {
+            const display = document.getElementById('guideDisplay');
+            if (!display.querySelector('iframe')) {
+                setTimeout(() => {
+                    display.innerHTML = `<iframe src="guide-farines.html" onload="this.style.height='800px'"></iframe>`;
+                }, 500);
+            }
+        });
+
+        // Initialiser la première catégorie de recettes
+        document.addEventListener('DOMContentLoaded', function() {
+            loadRecipeList('traditionnelles');
+        });
+    </script>
 </body>
 </html>

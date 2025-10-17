@@ -1,0 +1,39 @@
+/* Styles spécifiques pour les pages de recettes affichées dans des iframes */
+/* Ce fichier est uniquement chargé dans les pages de recettes individuelles */
+
+/* Supprimer les marges du body pour éviter les barres de défilement dans l'iframe */
+body {
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    overflow: hidden !important;
+}
+
+html {
+    overflow: hidden !important;
+    margin: 0;
+    padding: 0;
+}
+
+/* Ajuster le conteneur .book dans les iframes */
+.book {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+    background: transparent !important;
+}
+
+/* Ajuster la page dans les iframes */
+.page {
+    padding: 10px 20px !important;
+    margin: 0 !important;
+}
+
+/* Ajuster la position du bouton retour en haut */
+.back-to-top {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+}

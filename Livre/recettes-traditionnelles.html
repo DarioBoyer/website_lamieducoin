@@ -1,579 +1,152 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recettes Traditionnelles - Le Grand Livre du Pain</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .recipe-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        .recipe-header {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: -30px -30px 25px -30px;
+        }
+        .info-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 0.9em;
+        }
+        .ingredients-box {
+            background: #f8f9fa;
+            border-left: 4px solid #D2691E;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .ingredients-box li {
+            list-style: none;
+            padding: 5px 0;
+        }
+        .ingredients-box li:before {
+            content: " ";
+            color: #D2691E;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        .instructions-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .instructions-section li {
+            margin-bottom: 15px;
+            padding-left: 10px;
+        }
+        .instructions-section ol {
+            counter-reset: step-counter;
+            list-style: none;
+            padding-left: 0;
+        }
+        .instructions-section ol li {
+            counter-increment: step-counter;
+            position: relative;
+            padding-left: 45px;
+        }
+        .instructions-section ol li:before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #D2691E;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .levain-variant {
+            background: linear-gradient(135deg, #2e7d32 0%, #66bb6a 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 25px;
+        }
+        .tips-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 25px;
+        }
+        .quick-nav {
+            position: sticky;
+            top: 20px;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .quick-nav a {
+            display: block;
+            padding: 10px;
+            color: #8B4513;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s;
+            margin-bottom: 5px;
+        }
+        .quick-nav a:hover {
+            background: #f8f9fa;
+            padding-left: 15px;
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #D2691E;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .back-to-top.show {
+            opacity: 1;
+        }
+        .section-header {
+            background: linear-gradient(135deg, #D2691E 0%, #FF8C42 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <div class="book">
-        <div class="page-nav">
-            <a href="index.html" class="home-link">🏠 Accueil</a>
-            <div>
-                <a href="sans-gluten.html">Sans Gluten →</a>
-                <a href="viennoiseries.html">Viennoiseries →</a>
-                <a href="techniques-faconnage.html">Techniques →</a>
-            </div>
-        </div>
-
-        <div class="page">
-            <div id="top"></div>
-            <h2>I. Recettes de Pain Traditionnels</h2>
-            
-            <div style="background: #e3f2fd; padding: 20px; border-radius: 10px; margin-bottom: 30px;">
-                <h4 style="color: #1565C0; margin-bottom: 15px;">🌿 Toutes les recettes incluent une variante au levain</h4>
-                <p style="color: #1565C0;">Chaque recette traditionnelle est accompagnée de sa version au levain naturel pour des saveurs plus complexes et une meilleure conservation.</p>
-            </div>
-
-            <!-- Pain Blanc Classique -->
-            <div id="pain-blanc-classique" class="recipe-card">
-                <div class="recipe-header">
-                    <div class="recipe-icon">🥖</div>
-                    <div class="recipe-title">
-                        <h4>Pain Blanc Classique</h4>
-                        <p class="recipe-subtitle">Le grand classique de la boulangerie</p>
-                    </div>
-                    <a href="#top" class="back-to-top">↑ Haut</a>
-                </div>
-                
-                <div class="recipe-info">
-                    <div class="info-box">
-                        <div class="icon">⏱️</div>
-                        <div class="label">Préparation</div>
-                        <div class="value">3h30</div>
-                    </div>
-                    <div class="info-box">
-                        <div class="icon">🔥</div>
-                        <div class="label">Cuisson</div>
-                        <div class="value">25-30 min</div>
-                    </div>
-                    <div class="info-box">
-                        <div class="icon">🍞</div>
-                        <div class="label">Rendement</div>
-                        <div class="value">1 pain (600g)</div>
-                    </div>
-                </div>
-                
-                <div class="recipe-content">
-                    <div class="ingredients">
-                        <h5>🛒 Ingrédients - Version Levure</h5>
-                        <ul>
-                            <li>500 g farine T55 ou à pain</li>
-                            <li>300 ml eau tiède (60%)</li>
-                            <li>10 g sel (2%)</li>
-                            <li>7 g levure sèche (1.4%)</li>
-                            <li>5 g sucre (1%)</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="instructions">
-                        <h5>📝 Instructions</h5>
-                        <ol>
-                            <li>Mélanger farine et sel</li>
-                            <li>Dissoudre levure et sucre dans l'eau</li>
-                            <li>Incorporer, pétrir 10 min</li>
-                            <li>Première levée: 1h30</li>
-                            <li>Façonner, placer en moule</li>
-                            <li>Deuxième levée: 1h</li>
-                            <li>Préchauffer à 230°C</li>
-                            <li>Entailler, vaporiser, cuire 25-30 min (<a href="techniques-faconnage.html#art-entaillage" style="color: #D2691E; font-weight: bold;">🔪 technique</a>)</li>
-                        </ol>
-                    </div>
-                </div>
-                
-                <div class="levain-variant">
-                    <h5>🌿 Variante au Levain</h5>
-                    <p><strong>Ingrédients:</strong> 500g T65, 320ml eau, 10g sel, 150g levain actif (30%)</p>
-                    <p><strong>Temps:</strong> 1ère levée 4-6h, 2e levée 2-3h</p>
-                </div>
-                
-                <div class="tips-box">
-                    <h5>💡 Astuce</h5>
-                    <p>Récipient d'eau bouillante au four les 10 premières minutes pour croûte croustillante.</p>
-                </div>
-            </div>
-
-            <!-- Baguette Française -->
-            <div id="baguette-francaise" class="recipe-card">
-                <div class="recipe-header">
-                    <div class="recipe-icon">🥖</div>
-                    <div class="recipe-title">
-                        <h4>Baguette Française Classique</h4>
-                        <p class="recipe-subtitle">Baguette blanche traditionnelle</p>
-                    </div>
-                    <a href="#top" class="back-to-top">↑ Haut</a>
-                </div>
-                
-                <div class="recipe-info">
-                    <div class="info-box">
-                        <div class="icon">⏱️</div>
-                        <div class="label">Préparation</div>
-                        <div class="value">3h</div>
-                    </div>
-                    <div class="info-box">
-                        <div class="icon">🔥</div>
-                        <div class="label">Cuisson</div>
-                        <div class="value">20-25 min</div>
-                    </div>
-                    <div class="info-box">
-                        <div class="icon">🍞</div>
-                        <div class="label">Rendement</div>
-                        <div class="value">3 baguettes</div>
-                    </div>
-                </div>
-                
-                <div class="recipe-content">
-                    <div class="ingredients">
-                        <h5>🛒 Ingrédients</h5>
-                        <ul>
-                            <li>500 g farine T55</li>
-                            <li>320 ml eau tiède (64%)</li>
-                            <li>10 g sel (2%)</li>
-                            <li>5 g levure sèche (1%)</li>
-                            <li>5 g sucre (1%)</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="instructions">
-                        <h5>📝 Instructions</h5>
-                        <ol>
-                            <li>Mélanger farine et sel</li>
-                            <li>Dissoudre levure et sucre dans l'eau</li>
-                            <li>Incorporer, pétrir 10 min</li>
-                            <li>Première levée: 1h30</li>
-                            <li>Diviser en 3, façonner en baguettes</li>
-                            <li>Deuxième levée: 45 min</li>
-                            <li>5 entailles en diagonale (<a href="techniques-faconnage.html#faconnage-baguettes" style="color: #D2691E; font-weight: bold;">👉 technique</a>)</li>
-                            <li>Cuire à 240°C avec vapeur, 20-25 min</li>
-                        </ol>
-                    </div>
-                </div>
-                
-                <div class="levain-variant">
-                    <h5>🌿 Variante au Levain</h5>
-                    <p><strong>Ingrédients:</strong> 500g T65, 330ml eau, 10g sel, 150g levain</p>
-                    <p><strong>Temps:</strong> 1ère levée 4-5h, 2e levée 2h</p>
-                </div>
-            </div>
-
-            <!-- Baguette Tradition -->
-            <div id="baguette-tradition" class="recipe-card">
-                <div class="recipe-header">
-                    <div class="recipe-icon">🌾</div>
-                    <div class="recipe-title">
-                        <h4>Baguette Tradition</h4>
-                        <p class="recipe-subtitle">Avec poolish - saveur complexe</p>
-                    </div>
-                    <a href="#top" class="back-to-top">↑ Haut</a>
-                </div>
-                
-                <div class="recipe-info">
-                    <div class="info-box">
-                        <div class="icon">⏱️</div>
-                        <div class="label">Préparation</div>
-                        <div class="value">16h (dont poolish)</div>
-                    </div>
-                    <div class="info-box">
-                        <div class="icon">🔥</div>
-                        <div class="label">Cuisson</div>
-                        <div class="value">22-25 min</div>
-                    </div>
-                    <div class="info-box">
-                        <div class="icon">🍞</div>
-                        <div class="label">Rendement</div>
-                        <div class="value">3 baguettes</div>
-                    </div>
-                </div>
-                
-                <div class="recipe-content">
-                    <div class="ingredients">
-                        <h5>🛒 Ingrédients</h5>
-                        <p><strong>Poolish (12h avant):</strong></p>
-                        <ul>
-                            <li>150g farine T65</li>
-                            <li>150ml eau</li>
-                            <li>1g levure sèche</li>
-                        </ul>
-                        <p><strong>Pâte finale:</strong></p>
-                        <ul>
-                            <li>350g farine T65</li>
-                            <li>170ml eau</li>
-                            <li>10g sel</li>
-                            <li>4g levure sèche</li>
-                            <li>Le poolish</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="instructions">
-                        <h5>📝 Instructions</h5>
-                        <ol>
-                            <li>Poolish: mélanger, couvrir, 12-16h à 20°C</li>
-                            <li>Mélanger farine et sel</li>
-                            <li>Dissoudre levure dans l'eau</li>
-                            <li>Ajouter poolish et eau</li>
-                            <li>Pétrir 12 min</li>
-                            <li>1ère levée: 2h avec rabats à 1h</li>
-                            <li>Diviser en 3, façonner</li>
-                            <li>2e levée: 1h</li>
-                            <li>5 entailles, cuire à 250°C puis 230°C (<a href="techniques-faconnage.html#faconnage-baguettes" style="color: #D2691E; font-weight: bold;">👉 technique</a>)</li>
-                        </ol>
-                    </div>
-                </div>
-                
-                <div class="tips-box">
-                    <h5>💡 Info Légale</h5>
-                    <p>Baguette "Tradition": farine, eau, sel, levure/levain uniquement. Aucun additif.</p>
-                </div>
-            </div>
-
-            <!-- Pain de Campagne -->
-            <div id="pain-de-campagne" class="recipe-card">
-                <div class="recipe-header">
-                    <div class="recipe-icon">🌾</div>
-                    <div class="recipe-title">
-                        <h4>Pain de Campagne</h4>
-                        <p class="recipe-subtitle">Rustique avec mie alvéolée</p>
-                    </div>
-                    <a href="#top" class="back-to-top">↑ Haut</a>
-                </div>
-                
-                <div class="recipe-info">
-                    <div class="info-box">
-                        <div class="icon">⏱️</div>
-                        <div class="label">Préparation</div>
-                        <div class="value">4h</div>
-                    </div>
-                    <div class="info-box">
-                        <div class="icon">🔥</div>
-                        <div class="label">Cuisson</div>
-                        <div class="value">35-40 min</div>
-                    </div>
-                    <div class="info-box">
-                        <div class="icon">🍞</div>
-                        <div class="label">Rendement</div>
-                        <div class="value">1 pain (800g)</div>
-                    </div>
-                </div>
-                
-                <div class="recipe-content">
-                    <div class="ingredients">
-                        <h5>🛒 Ingrédients</h5>
-                        <ul>
-                            <li>400g farine T65</li>
-                            <li>100g farine de seigle</li>
-                            <li>350ml eau (70%)</li>
-                            <li>10g sel (2%)</li>
-                            <li>8g levure sèche (1.6%)</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="instructions">
-                        <h5>📝 Instructions</h5>
-                        <ol>
-                            <li>Mélanger farines et sel</li>
-                            <li>Dissoudre levure dans l'eau</li>
-                            <li>Incorporer, pétrir 12 min</li>
-                            <li>Première levée: 2h</li>
-                            <li>Dégazer, former boule</li>
-                            <li>Deuxième levée: 1h30 en banneton</li>
-                            <li>Préchauffer à 240°C</li>
-                            <li>Scarifier en croix (<a href="techniques-faconnage.html#art-entaillage" style="color: #D2691E; font-weight: bold;">🔪 technique</a>)</li>
-                            <li>Cuire 35-40 min, baisser à 220°C après 10 min</li>
-                        </ol>
-                    </div>
-                </div>
-                
-                <div class="levain-variant">
-                    <h5>🌿 Variante au Levain</h5>
-                    <p><strong>Ingrédients:</strong> 400g T80, 100g seigle, 360ml eau, 10g sel, 200g levain (40%)</p>
-                    <p><strong>Temps:</strong> 1ère levée 5-7h, 2e levée 2-4h au frais</p>
-                </div>
-            </div>
-
-            <!-- Pain aux Noix -->
-            <div id="pain-aux-noix" class="recipe-card">
-                <div class="recipe-header">
-                    <div class="recipe-icon">🌰</div>
-                    <div class="recipe-title">
-                        <h4>Pain aux Noix</h4>
-                        <p class="recipe-subtitle">Saveurs automnales</p>
-                    </div>
-                    <a href="#top" class="back-to-top">↑ Haut</a>
-                </div>
-                
-                <div class="recipe-info">
-                    <div class="info-box">
-                        <div class="icon">⏱️</div>
-                        <div class="label">Préparation</div>
-                        <div class="value">4h</div>
-                    </div>
-                    <div class="info-box">
-                        <div class="icon">🔥</div>
-                        <div class="label">Cuisson</div>
-                        <div class="value">35 min</div>
-                    </div>
-                    <div class="info-box">
-                        <div class="icon">🍞</div>
-                        <div class="label">Rendement</div>
-                        <div class="value">1 pain (750g)</div>
-                    </div>
-                </div>
-                
-                <div class="recipe-content">
-                    <div class="ingredients">
-                        <h5>🛒 Ingrédients</h5>
-                        <ul>
-                            <li>450g farine T65</li>
-                            <li>50g farine de seigle</li>
-                            <li>320ml eau (64%)</li>
-                            <li>10g sel (2%)</li>
-                            <li>8g levure sèche (1.6%)</li>
-                            <li>150g noix concassées (30%)</li>
-                            <li>10g miel (2%)</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="instructions">
-                        <h5>📝 Instructions</h5>
-                        <ol>
-                            <li>Torréfier noix 5 min à 160°C</li>
-                            <li>Mélanger farines et sel</li>
-                            <li>Dissoudre levure et miel dans l'eau</li>
-                            <li>Incorporer, pétrir 10 min</li>
-                            <li>Ajouter noix, pétrir 2 min</li>
-                            <li>Première levée: 2h</li>
-                            <li>Façonner en boule</li>
-                            <li>Deuxième levée: 1h30</li>
-                            <li>Scarifier, cuire à 230°C, 35 min (<a href="techniques-faconnage.html#art-entaillage" style="color: #D2691E; font-weight: bold;">🔪 technique</a>)</li>
-                        </ol>
-                    </div>
-                </div>
-                
-                <div class="levain-variant">
-                    <h5>🌿 Variante au Levain</h5>
-                    <p><strong>Ingrédients:</strong> 450g T80, 50g seigle, 330ml eau, 10g sel, 180g levain, 150g noix, 10g miel</p>
-                    <p><strong>Temps:</strong> 1ère levée 5-6h, 2e levée 2-3h</p>
-                </div>
-            </div>
-
-            <!-- Pain au Fromage -->
-            <div id="pain-au-fromage" class="recipe-card">
-                <div class="recipe-header">
-                    <div class="recipe-icon">🧀</div>
-                    <div class="recipe-title">
-                        <h4>Pain au Fromage</h4>
-                        <p class="recipe-subtitle">Fromage fondant dans chaque bouchée</p>
-                    </div>
-                    <a href="#top" class="back-to-top">↑ Haut</a>
-                </div>
-                
-                <div class="recipe-info">
-                    <div class="info-box">
-                        <div class="icon">⏱️</div>
-                        <div class="label">Préparation</div>
-                        <div class="value">3h30</div>
-                    </div>
-                    <div class="info-box">
-                        <div class="icon">🔥</div>
-                        <div class="label">Cuisson</div>
-                        <div class="value">35-40 min</div>
-                    </div>
-                    <div class="info-box">
-                        <div class="icon">🍞</div>
-                        <div class="label">Rendement</div>
-                        <div class="value">2 pains (750g)</div>
-                    </div>
-                </div>
-                
-                <div class="recipe-content">
-                    <div class="ingredients">
-                        <h5>🛒 Ingrédients</h5>
-                        <ul>
-                            <li>500g farine à pain</li>
-                            <li>300ml eau tiède (60%)</li>
-                            <li>10g sel (2%)</li>
-                            <li>10g levure sèche (2%)</li>
-                            <li>15g sucre (3%)</li>
-                            <li>30ml huile d'olive (6%)</li>
-                            <li>250g fromage en cubes (50%)</li>
-                        </ul>
-                        <p><strong>Meilleurs fromages:</strong></p>
-                        <ul>
-                            <li>🥇 Comté ou Gruyère</li>
-                            <li>🥈 Cheddar fort</li>
-                            <li>🥉 Mélange: Comté+Cheddar+Emmental</li>
-                            <li>✨ Fourme d'Ambert (bleu)</li>
-                            <li>🌿 Chèvre + noix</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="instructions">
-                        <h5>📝 Instructions</h5>
-                        <ol>
-                            <li>Dissoudre levure et sucre dans l'eau</li>
-                            <li>Mélanger farine et sel</li>
-                            <li>Incorporer eau et huile, pétrir 10 min</li>
-                            <li>Première levée: 1h30</li>
-                            <li>Aplatir, répartir 200g fromage</li>
-                            <li>Replier, pétrir 2 min</li>
-                            <li>Diviser en 2, façonner</li>
-                            <li>Placer en moules, ajouter fromage dessus</li>
-                            <li>Deuxième levée: 1h</li>
-                            <li>Scarifier, cuire à 200°C, 35-40 min (<a href="techniques-faconnage.html#art-entaillage" style="color: #D2691E; font-weight: bold;">🔪 technique</a>)</li>
-                        </ol>
-                    </div>
-                </div>
-                
-                <div class="tips-box">
-                    <h5>💡 Guide Fromages</h5>
-                    <p><strong>À éviter:</strong> Mozzarella fraîche, fromages trop crémeux</p>
-                    <p><strong>Cubes de 1cm, ne pas râper. Quantité: 40-50% du poids de farine</strong></p>
-                </div>
-            </div>
-
-            <!-- Petits Pains à Salade -->
-            <div id="petits-pains-salade" class="recipe-card">
-                <div class="recipe-header">
-                    <div class="recipe-icon">🥐</div>
-                    <div class="recipe-title">
-                        <h4>Petits Pains à Salade (Kaiser Rolls)</h4>
-                        <p class="recipe-subtitle">Parfaits pour burgers et sandwichs</p>
-                    </div>
-                    <a href="#top" class="back-to-top">↑ Haut</a>
-                </div>
-                
-                <div class="recipe-info">
-                    <div class="info-box">
-                        <div class="icon">⏱️</div>
-                        <div class="label">Préparation</div>
-                        <div class="value">2h30</div>
-                    </div>
-                    <div class="info-box">
-                        <div class="icon">🔥</div>
-                        <div class="label">Cuisson</div>
-                        <div class="value">15-18 min</div>
-                    </div>
-                    <div class="info-box">
-                        <div class="icon">🍞</div>
-                        <div class="label">Rendement</div>
-                        <div class="value">8 pains (80g)</div>
-                    </div>
-                </div>
-                
-                <div class="recipe-content">
-                    <div class="ingredients">
-                        <h5>🛒 Ingrédients</h5>
-                        <ul>
-                            <li>500g farine T55</li>
-                            <li>280ml lait tiède (56%)</li>
-                            <li>40g beurre ramolli (8%)</li>
-                            <li>20g sucre (4%)</li>
-                            <li>10g sel (2%)</li>
-                            <li>10g levure sèche (2%)</li>
-                            <li>1 œuf + 1 jaune (dorure)</li>
-                            <li>Graines de sésame</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="instructions">
-                        <h5>📝 Instructions</h5>
-                        <ol>
-                            <li>Dissoudre levure et sucre dans lait</li>
-                            <li>Mélanger farine et sel</li>
-                            <li>Incorporer liquide et œuf, pétrir 8 min</li>
-                            <li>Ajouter beurre, pétrir 3 min</li>
-                            <li>Première levée: 1h</li>
-                            <li>Diviser en 8 boules de 80g</li>
-                            <li>Former boules bien tendues</li>
-                            <li>Déposer, aplatir légèrement</li>
-                            <li>Deuxième levée: 45 min</li>
-                            <li>Dorer, parsemer sésame</li>
-                            <li>Cuire à 200°C, 15-18 min</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Pain Sous-Marin -->
-            <div id="pain-sous-marin" class="recipe-card">
-                <div class="recipe-header">
-                    <div class="recipe-icon">🥖</div>
-                    <div class="recipe-title">
-                        <h4>Pain Sous-Marin 12 Pouces</h4>
-                        <p class="recipe-subtitle">Style Subway - moelleux</p>
-                    </div>
-                    <a href="#top" class="back-to-top">↑ Haut</a>
-                </div>
-                
-                <div class="recipe-info">
-                    <div class="info-box">
-                        <div class="icon">⏱️</div>
-                        <div class="label">Préparation</div>
-                        <div class="value">3h</div>
-                    </div>
-                    <div class="info-box">
-                        <div class="icon">🔥</div>
-                        <div class="label">Cuisson</div>
-                        <div class="value">18-20 min</div>
-                    </div>
-                    <div class="info-box">
-                        <div class="icon">🍞</div>
-                        <div class="label">Rendement</div>
-                        <div class="value">4 pains 12"</div>
-                    </div>
-                </div>
-                
-                <div class="recipe-content">
-                    <div class="ingredients">
-                        <h5>🛒 Ingrédients</h5>
-                        <ul>
-                            <li>500g farine à pain</li>
-                            <li>300ml eau tiède (60%)</li>
-                            <li>30g beurre ramolli (6%)</li>
-                            <li>15g sucre (3%)</li>
-                            <li>10g sel (2%)</li>
-                            <li>10g levure sèche (2%)</li>
-                            <li>10g lait en poudre (2%)</li>
-                            <li>Herbes italiennes (optionnel)</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="instructions">
-                        <h5>📝 Instructions</h5>
-                        <ol>
-                            <li>Dissoudre levure et sucre dans l'eau</li>
-                            <li>Mélanger farine, sel, lait en poudre</li>
-                            <li>Incorporer, pétrir 8 min</li>
-                            <li>Ajouter beurre, pétrir 3 min</li>
-                            <li>Première levée: 1h30</li>
-                            <li>Diviser en 4 pâtons</li>
-                            <li>Façonner boudins 30cm (12") (<a href="techniques-faconnage.html#faconnage-baguettes" style="color: #D2691E; font-weight: bold;">👉 technique</a>)</li>
-                            <li>Aplatir légèrement</li>
-                            <li>Deuxième levée: 1h</li>
-                            <li>3 entailles diagonales</li>
-                            <li>Badigeonner eau+huile</li>
-                            <li>Cuire à 200°C, 18-20 min</li>
-                        </ol>
-                    </div>
-                </div>
-                
-                <div class="tips-box">
-                    <h5>💡 Secret Subway</h5>
-                    <p>Ne pas trop lever (max 1.5x), aplatir légèrement. Badigeonner eau+huile avant cuisson.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="page-nav" style="border-top: 2px solid #D2691E;">
-            <a href="index.html">← Retour au sommaire</a>
-            <a href="sans-gluten.html" class="nav-btn">Pains Sans Gluten →</a>
-        </div>
-
-        <div class="footer">
-            <h3 style="margin-bottom: 15px;">🍞 Le Grand Livre du Pain 🍞</h3>
-            <p>Section I - Recettes Traditionnelles</p>
-        </div>
-    </div>
-</body>
-</html>

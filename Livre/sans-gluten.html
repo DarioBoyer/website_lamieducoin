@@ -4,393 +4,321 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pains Sans Gluten - Le Grand Livre du Pain</title>
-    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .page-container { max-width: 1200px; margin: 0 auto; }
+        .page-header {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            color: white; padding: 50px; border-radius: 15px 15px 0 0;
+            text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .page-header h1 { font-size: 3em; font-weight: bold; margin-bottom: 15px; }
+        .page-header p { font-size: 1.3em; opacity: 0.9; margin: 0; }
+        .page-content {
+            background: white; padding: 50px;
+            border-radius: 0 0 15px 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .intro-section {
+            background: #e8f5e9; border-left: 4px solid #4CAF50;
+            padding: 30px; margin-bottom: 40px; border-radius: 10px;
+        }
+        .intro-section h3 { color: #2E7D32; margin-bottom: 20px; }
+        .intro-section p { line-height: 1.8; font-size: 1.1em; margin-bottom: 15px; }
+        .recipe-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px; margin: 40px 0;
+        }
+        .recipe-card {
+            background: white; border: 2px solid #D2691E; border-radius: 15px;
+            padding: 30px; text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none; color: inherit; display: block;
+        }
+        .recipe-card:hover {
+            transform: translateY(-10px); box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            text-decoration: none; color: inherit;
+        }
+        .recipe-card-icon { font-size: 4em; margin-bottom: 20px; }
+        .recipe-card h4 { color: #8B4513; margin-bottom: 10px; font-weight: bold; }
+        .recipe-card p { color: #666; margin-bottom: 20px; }
+        .recipe-card .btn-view {
+            background: #D2691E; color: white; padding: 12px 30px;
+            border-radius: 25px; font-weight: bold; transition: background 0.3s ease;
+        }
+        .recipe-card:hover .btn-view { background: #8B4513; }
+        .info-section {
+            background: #fff9f0; padding: 40px; border-radius: 15px;
+            margin: 40px 0; border-left: 5px solid #D2691E;
+        }
+        .info-section h3 { color: #8B4513; margin-bottom: 25px; }
+        .info-table {
+            background: white; border-radius: 10px; padding: 20px;
+            margin: 20px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .info-table table { width: 100%; }
+        .info-table th {
+            background: #8B4513; color: white; padding: 15px;
+            text-align: left; font-weight: bold;
+        }
+        .info-table td { padding: 12px 15px; border-bottom: 1px solid #f0e6d6; }
+        .info-table tr:last-child td { border-bottom: none; }
+        .tips-section {
+            background: #fff3cd; border-left: 4px solid #ffc107;
+            padding: 30px; margin: 30px 0; border-radius: 10px;
+        }
+        .tips-section h4 { color: #856404; margin-bottom: 20px; }
+        .tips-section ul { padding-left: 25px; }
+        .tips-section li { margin-bottom: 10px; line-height: 1.6; }
+        .nav-buttons {
+            text-align: center; margin: 40px 0; padding: 30px;
+            background: #f8f9fa; border-radius: 15px;
+        }
+        .btn-custom {
+            background: #8B4513; color: white; padding: 15px 40px;
+            border-radius: 25px; text-decoration: none; font-weight: bold;
+            transition: all 0.3s ease; display: inline-block; margin: 10px;
+        }
+        .btn-custom:hover {
+            background: #D2691E; color: white;
+            transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .back-to-top-btn {
+            position: fixed; bottom: 30px; right: 30px; background: #D2691E;
+            color: white; width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s ease; z-index: 1000;
+        }
+        .back-to-top-btn:hover {
+            background: #8B4513; transform: translateY(-5px); color: white;
+        }
+        @media (max-width: 768px) {
+            .page-header { padding: 30px 20px; }
+            .page-header h1 { font-size: 2.2em; }
+            .page-content { padding: 30px 20px; }
+            .recipe-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
-    <div class="book">
-        <div class="page-nav">
-            <a href="index.html" class="home-link">🏠 Accueil</a>
-            <div>
-                <a href="recettes-traditionnelles.html">← Traditionnels</a>
-                <a href="viennoiseries.html">Viennoiseries →</a>
-            </div>
+    <div id="top"></div>
+    <div class="page-container">
+        <div class="page-header">
+            <h1>🌾 Pains Sans Gluten</h1>
+            <p>Des alternatives délicieuses pour tous</p>
         </div>
+        <div class="page-content">
+            <div class="intro-section">
+                <h3>🌿 Bienvenue dans l'univers du pain sans gluten</h3>
+                <p>
+                    Les pains sans gluten offrent une alternative savoureuse et nutritive pour ceux qui doivent ou choisissent 
+                    d'éviter le gluten. Bien qu'ils nécessitent des techniques différentes, ils peuvent être tout aussi délicieux 
+                    et satisfaisants que les pains traditionnels.
+                </p>
+                <p>
+                    Cette section vous guidera à travers les bases de la boulangerie sans gluten, des ingrédients spéciaux 
+                    aux techniques de préparation, avec des recettes testées et approuvées.
+                </p>
+            </div>
 
-        <div class="page">
-            <div id="top"></div>
-            <h2>II. Recettes Sans Gluten</h2>
+            <h3 style="color: #8B4513; margin-bottom: 30px; text-align: center;">📚 Nos Recettes Sans Gluten</h3>
             
-            <div style="background: #fff3cd; padding: 20px; border-radius: 10px; margin-bottom: 30px;">
-                <h4 style="color: #856404; margin-bottom: 15px;">⚠️ Notes Importantes</h4>
-                <ul style="color: #856404;">
-                    <li>Nécessitent des liants (gomme xanthane/guar)</li>
-                    <li>Hydratation plus élevée (pâte liquide)</li>
-                    <li>Pas de pétrissage, seulement mélange</li>
-                    <li>Une seule levée généralement</li>
-                </ul>
+            <div class="recipe-grid">
+                <a href="Recettes/pain-sans-gluten-classique.html" class="recipe-card">
+                    <div class="recipe-card-icon">🌾</div>
+                    <h4>Pain Sans Gluten Classique</h4>
+                    <p>Base polyvalente pour tous les jours</p>
+                    <div class="btn-view">Voir la recette →</div>
+                </a>
+
+                <a href="Recettes/baguette-sans-gluten.html" class="recipe-card">
+                    <div class="recipe-card-icon">🥖</div>
+                    <h4>Baguette Sans Gluten</h4>
+                    <p>Croustillante et légère</p>
+                    <div class="btn-view">Voir la recette →</div>
+                </a>
+
+                <a href="Recettes/pain-sans-gluten-graines.html" class="recipe-card">
+                    <div class="recipe-card-icon">🌻</div>
+                    <h4>Pain Sans Gluten aux Graines</h4>
+                    <p>Riche en fibres et saveurs</p>
+                    <div class="btn-view">Voir la recette →</div>
+                </a>
             </div>
 
-            <!-- Pain Sans Gluten Classique -->
-            <div id="pain-sans-gluten-classique" class="recipe-card">
-                <div class="recipe-header">
-                    <div class="recipe-icon">🌾</div>
-                    <div class="recipe-title">
-                        <h4>Pain Sans Gluten Classique</h4>
-                        <p class="recipe-subtitle">Base polyvalente</p>
-                    </div>
-                    <a href="#top" class="back-to-top">↑ Haut</a>
-                </div>
+            <div class="info-section">
+                <h3>🔬 Les Farines Sans Gluten</h3>
+                <p>Chaque farine sans gluten a ses propres caractéristiques. Les mélanger permet d'obtenir de meilleurs résultats.</p>
                 
-                <div class="recipe-info">
-                    <div class="info-box">
-                        <div class="icon">⏱️</div>
-                        <div class="label">Préparation</div>
-                        <div class="value">2h</div>
-                    </div>
-                    <div class="info-box">
-                        <div class="icon">🔥</div>
-                        <div class="label">Cuisson</div>
-                        <div class="value">40-45 min</div>
-                    </div>
-                    <div class="info-box">
-                        <div class="icon">🍞</div>
-                        <div class="label">Rendement</div>
-                        <div class="value">1 pain (600g)</div>
-                    </div>
+                <div class="info-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Farine</th>
+                                <th>Caractéristiques</th>
+                                <th>Utilisation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Riz blanc</strong></td>
+                                <td>Neutre, légère</td>
+                                <td>Base principale</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Riz brun</strong></td>
+                                <td>Plus nutritive</td>
+                                <td>Pains complets</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sarrasin</strong></td>
+                                <td>Goût prononcé</td>
+                                <td>10-20% du mélange</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Quinoa</strong></td>
+                                <td>Riche en protéines</td>
+                                <td>Pains nutritifs</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Millet</strong></td>
+                                <td>Doux, légèrement sucré</td>
+                                <td>Excellent pour pains</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sorgho</strong></td>
+                                <td>Similaire au blé</td>
+                                <td>Base polyvalente</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                
-                <div class="recipe-content">
-                    <div class="ingredients">
-                        <h5>🛒 Ingrédients</h5>
-                        <ul>
-                            <li>300g farine riz blanc</li>
-                            <li>100g farine sarrasin</li>
-                            <li>100g fécule tapioca</li>
-                            <li>400ml eau tiède (80%)</li>
-                            <li>12g gomme xanthane (2.4%)</li>
-                            <li>10g sel (2%)</li>
-                            <li>12g levure sèche (2.4%)</li>
-                            <li>20g sucre (4%)</li>
-                            <li>40ml huile végétale (8%)</li>
-                            <li>3 œufs</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="instructions">
-                        <h5>📝 Instructions</h5>
-                        <ol>
-                            <li>Mélanger farines, fécule, gomme, sel</li>
-                            <li>Dissoudre levure et sucre dans l'eau</li>
-                            <li>Ajouter œufs battus et huile</li>
-                            <li>Verser sur ingrédients secs</li>
-                            <li>Mélanger vigoureusement 3 min</li>
-                            <li>Verser dans moule huilé</li>
-                            <li>Lisser avec spatule humide</li>
-                            <li>Levée: 1h à 1h15</li>
-                            <li>Cuire à 190°C, 40-45 min</li>
-                            <li>Refroidir complètement</li>
-                        </ol>
-                    </div>
-                </div>
-                
-                <div class="tips-box">
-                    <h5>💡 Conseil</h5>
-                    <p>La texture est plus dense qu'un pain traditionnel, mais très satisfaisante. Attendre refroidissement complet avant de trancher.</p>
-                </div>
-            </div>
 
-            <!-- Baguette Sans Gluten -->
-            <div id="baguette-sans-gluten" class="recipe-card">
-                <div class="recipe-header">
-                    <div class="recipe-icon">🥖</div>
-                    <div class="recipe-title">
-                        <h4>Baguette Sans Gluten</h4>
-                        <p class="recipe-subtitle">Croûte croustillante</p>
-                    </div>
-                    <a href="#top" class="back-to-top">↑ Haut</a>
-                </div>
-                
-                <div class="recipe-info">
-                    <div class="info-box">
-                        <div class="icon">⏱️</div>
-                        <div class="label">Préparation</div>
-                        <div class="value">2h</div>
-                    </div>
-                    <div class="info-box">
-                        <div class="icon">🔥</div>
-                        <div class="label">Cuisson</div>
-                        <div class="value">25-30 min</div>
-                    </div>
-                    <div class="info-box">
-                        <div class="icon">🍞</div>
-                        <div class="label">Rendement</div>
-                        <div class="value">2 baguettes</div>
-                    </div>
-                </div>
-                
-                <div class="recipe-content">
-                    <div class="ingredients">
-                        <h5>🛒 Ingrédients</h5>
-                        <ul>
-                            <li>250g farine de riz</li>
-                            <li>150g farine de sorgho</li>
-                            <li>100g fécule pomme de terre</li>
-                            <li>380ml eau tiède (76%)</li>
-                            <li>10g gomme xanthane (2%)</li>
-                            <li>10g sel (2%)</li>
-                            <li>10g levure sèche (2%)</li>
-                            <li>10g sucre (2%)</li>
-                            <li>30ml huile d'olive (6%)</li>
-                            <li>4 blancs d'œufs</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="instructions">
-                        <h5>📝 Instructions</h5>
-                        <ol>
-                            <li>Mélanger farines, fécule, gomme, sel</li>
-                            <li>Dissoudre levure et sucre</li>
-                            <li>Battre blancs en neige légère</li>
-                            <li>Ajouter huile à l'eau, incorporer</li>
-                            <li>Incorporer blancs délicatement</li>
-                            <li>Verser dans 2 moules à baguette</li>
-                            <li>3 entailles, levée: 1h (<a href="techniques-faconnage.html#art-entaillage" style="color: #D2691E; font-weight: bold;">🔪 technique</a>)</li>
-                            <li>Vaporiser eau, cuire à 220°C</li>
-                        </ol>
-                    </div>
-                </div>
-                
-                <div class="tips-box">
-                    <h5>💡 Astuce</h5>
-                    <p>Les moules à baguette perforés donnent les meilleurs résultats. Vaporiser généreusement avant cuisson pour une croûte dorée.</p>
-                </div>
-            </div>
-
-            <!-- Pain Sans Gluten aux Graines -->
-            <div id="pain-sans-gluten-graines" class="recipe-card">
-                <div class="recipe-header">
-                    <div class="recipe-icon">�</div>
-                    <div class="recipe-title">
-                        <h4>Pain Sans Gluten aux Graines</h4>
-                        <p class="recipe-subtitle">Riche en fibres et saveurs</p>
-                    </div>
-                    <a href="#top" class="back-to-top">↑ Haut</a>
-                </div>
-                
-                <div class="recipe-info">
-                    <div class="info-box">
-                        <div class="icon">⏱️</div>
-                        <div class="label">Préparation</div>
-                        <div class="value">2h15</div>
-                    </div>
-                    <div class="info-box">
-                        <div class="icon">🔥</div>
-                        <div class="label">Cuisson</div>
-                        <div class="value">45 min</div>
-                    </div>
-                    <div class="info-box">
-                        <div class="icon">🍞</div>
-                        <div class="label">Rendement</div>
-                        <div class="value">1 pain (700g)</div>
-                    </div>
-                </div>
-                
-                <div class="recipe-content">
-                    <div class="ingredients">
-                        <h5>🛒 Ingrédients</h5>
-                        <ul>
-                            <li>200g farine riz brun</li>
-                            <li>150g farine quinoa</li>
-                            <li>100g farine millet</li>
-                            <li>50g fécule tapioca</li>
-                            <li>420ml eau (84%)</li>
-                            <li>12g gomme xanthane (2.4%)</li>
-                            <li>10g sel (2%)</li>
-                            <li>12g levure sèche (2.4%)</li>
-                            <li>20g miel (4%)</li>
-                            <li>40ml huile (8%)</li>
-                            <li>3 œufs</li>
-                            <li>100g graines mélangées</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="instructions">
-                        <h5>📝 Instructions</h5>
-                        <ol>
-                            <li>Torréfier graines 5 min</li>
-                            <li>Mélanger farines, fécule, gomme, sel</li>
-                            <li>Dissoudre levure et miel</li>
-                            <li>Ajouter œufs et huile</li>
-                            <li>Incorporer aux secs, mélanger 3 min</li>
-                            <li>Ajouter 75g graines</li>
-                            <li>Verser dans moule</li>
-                            <li>Saupoudrer 25g graines dessus</li>
-                            <li>Levée: 1h15</li>
-                            <li>Cuire à 190°C, 45 min</li>
-                        </ol>
-                    </div>
-                </div>
-                
-                <div class="tips-box">
-                    <h5>💡 Mélange de graines suggéré</h5>
-                    <ul style="padding-left: 20px;">
-                        <li>30g graines de tournesol</li>
-                        <li>30g graines de lin</li>
-                        <li>20g graines de sésame</li>
-                        <li>20g graines de chia</li>
-                    </ul>
-                </div>
-            </div>
-
-            <h3 style="margin-top: 40px;">📚 Guide des Farines Sans Gluten</h3>
-            
-            <div style="background: #f8f9fa; padding: 25px; border-radius: 10px; margin: 20px 0;">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Farine</th>
-                            <th>Caractéristiques</th>
-                            <th>Usage</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Riz blanc</strong></td>
-                            <td>Neutre, légère</td>
-                            <td>Base principale</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Riz brun</strong></td>
-                            <td>Plus nutritive</td>
-                            <td>Pains complets</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Sarrasin</strong></td>
-                            <td>Goût prononcé</td>
-                            <td>10-30% du mélange</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Sorgho</strong></td>
-                            <td>Doux, légèrement sucré</td>
-                            <td>Excellent pour pains</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Quinoa</strong></td>
-                            <td>Riche en protéines</td>
-                            <td>Pains nutritifs</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Millet</strong></td>
-                            <td>Léger, digeste</td>
-                            <td>Pains moelleux</td>
-                        </tr>
-                    </tbody>
-                </table>
-                
                 <h4 style="color: #8B4513; margin-top: 30px;">🔬 Fécules et Liants</h4>
-                <table style="margin-top: 15px;">
-                    <thead>
-                        <tr>
-                            <th>Ingrédient</th>
-                            <th>Rôle</th>
-                            <th>Proportion</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Fécule de tapioca</strong></td>
-                            <td>Légèreté, élasticité</td>
-                            <td>15-20%</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Fécule de pomme de terre</strong></td>
-                            <td>Humidité, moelleux</td>
-                            <td>10-15%</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Fécule de maïs</strong></td>
-                            <td>Structure légère</td>
-                            <td>10-15%</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Gomme xanthane</strong></td>
-                            <td>Liant principal</td>
-                            <td>2-2.5%</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Gomme de guar</strong></td>
-                            <td>Alternative xanthane</td>
-                            <td>1.5-2%</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Psyllium</strong></td>
-                            <td>Élasticité naturelle</td>
-                            <td>3-5%</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <h3>💡 Conseils pour Réussir les Pains Sans Gluten</h3>
-            
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
-                <div class="tips-box">
-                    <h5>🥄 Technique de Mélange</h5>
-                    <p>Contrairement aux pains traditionnels, il ne faut <strong>pas pétrir</strong>. Mélanger vigoureusement pendant 2-3 minutes suffit.</p>
-                </div>
-                
-                <div class="tips-box">
-                    <h5>💧 Hydratation</h5>
-                    <p>Les pains sans gluten nécessitent plus d'eau (75-85%). La pâte ressemble à une pâte à gâteau épaisse.</p>
-                </div>
-                
-                <div class="tips-box">
-                    <h5>🔥 Température de Cuisson</h5>
-                    <p>Cuire à température modérée (180-200°C) pour éviter le dessèchement. Pas de vapeur nécessaire.</p>
-                </div>
-                
-                <div class="tips-box">
-                    <h5>❄️ Conservation</h5>
-                    <p>Se conserve 2-3 jours à température ambiante, 1 semaine au frigo, 3 mois au congélateur.</p>
-                </div>
-                
-                <div class="tips-box">
-                    <h5>📏 Moules Recommandés</h5>
-                    <p>Utiliser des moules bien huilés et farinés. Les pains sans gluten ne se démontent pas aussi facilement.</p>
-                </div>
-                
-                <div class="tips-box">
-                    <h5>⏰ Patience!</h5>
-                    <p>Attendre le refroidissement complet (1-2h) avant de trancher pour une meilleure texture.</p>
+                <div class="info-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Ingrédient</th>
+                                <th>Fonction</th>
+                                <th>Proportion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Fécule de tapioca</strong></td>
+                                <td>Légèreté, élasticité</td>
+                                <td>15-20% du mélange</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Fécule de pomme de terre</strong></td>
+                                <td>Moelleux, humidité</td>
+                                <td>10-15% du mélange</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Fécule de maïs</strong></td>
+                                <td>Texture fine</td>
+                                <td>10-15% du mélange</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Gomme xanthane</strong></td>
+                                <td>Remplace le gluten</td>
+                                <td>1.5-2% du poids farines</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Psyllium</strong></td>
+                                <td>Structure, élasticité</td>
+                                <td>3-5% du poids farines</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
-            <div style="background: #e8f5e9; border-left: 4px solid #4CAF50; padding: 20px; margin: 30px 0; border-radius: 5px;">
-                <h4 style="color: #2E7D32; margin-bottom: 15px;">✨ Formule de Base pour Créer Vos Propres Recettes</h4>
-                <p style="color: #2E7D32;"><strong>Pour 500g de mélange de farines:</strong></p>
-                <ul style="color: #2E7D32; padding-left: 25px; margin-top: 10px;">
-                    <li>60% farine de base (riz, sorgho)</li>
-                    <li>20% farine nutritive (quinoa, millet, sarrasin)</li>
-                    <li>20% fécule (tapioca, pomme de terre)</li>
-                    <li>2-2.5% gomme xanthane (10-12g)</li>
-                    <li>75-85% d'eau (375-425ml)</li>
-                    <li>2% sel (10g)</li>
-                    <li>2-2.5% levure (10-12g)</li>
-                    <li>3-4 œufs</li>
-                    <li>6-8% huile (30-40ml)</li>
-                </ul>
+            <div class="tips-section">
+                <h4>💡 Conseils pour Réussir les Pains Sans Gluten</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                    <div>
+                        <h5 style="color: #8B4513; margin-bottom: 15px;">🥄 Hydratation</h5>
+                        <ul>
+                            <li>Plus d'eau nécessaire (70-85%)</li>
+                            <li>Pâte doit être comme une pâte à gâteau épaisse</li>
+                            <li>Ne pas craindre la texture collante</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5 style="color: #8B4513; margin-bottom: 15px;">⏱️ Levée</h5>
+                        <ul>
+                            <li>Levée plus courte (1-1h30)</li>
+                            <li>Pas de dégazage nécessaire</li>
+                            <li>Une seule levée suffit souvent</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5 style="color: #8B4513; margin-bottom: 15px;">🍳 Cuisson</h5>
+                        <ul>
+                            <li>Température modérée (180-200°C)</li>
+                            <li>Temps plus long</li>
+                            <li>Pas de vapeur nécessaire</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5 style="color: #8B4513; margin-bottom: 15px;">📦 Conservation</h5>
+                        <ul>
+                            <li>Sèche plus vite que pain traditionnel</li>
+                            <li>Conserver en sac hermétique</li>
+                            <li>Se congèle très bien</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="page-nav" style="border-top: 2px solid #D2691E;">
-            <a href="recettes-traditionnelles.html">← Recettes Traditionnelles</a>
-            <a href="viennoiseries.html" class="nav-btn">Viennoiseries →</a>
-        </div>
+            <div style="background: #e8f5e9; border-left: 4px solid #4CAF50; padding: 30px; margin: 40px 0; border-radius: 10px;">
+                <h4 style="color: #2E7D32; margin-bottom: 20px;">🌟 Le Saviez-vous?</h4>
+                <p style="line-height: 1.8; font-size: 1.05em;">
+                    Les pains sans gluten ne développent pas la même structure élastique que les pains traditionnels car 
+                    le gluten est absent. C'est pourquoi on utilise des gommes (xanthane, guar) ou du psyllium pour 
+                    créer une structure similaire. Ces liants permettent de retenir les gaz de fermentation et donnent 
+                    au pain sa texture moelleuse.
+                </p>
+                <p style="line-height: 1.8; font-size: 1.05em; margin-top: 15px;">
+                    Les farines sans gluten sont naturellement plus riches en fibres et en minéraux que la farine de blé 
+                    raffinée, ce qui fait des pains sans gluten une option nutritive même pour ceux qui n'ont pas d'intolérance!
+                </p>
+            </div>
 
-        <div class="footer">
-            <h3 style="margin-bottom: 15px;">🍞 Le Grand Livre du Pain 🍞</h3>
-            <p>Section II - Pains Sans Gluten</p>
+            <div class="nav-buttons">
+                <a href="index.html" class="btn-custom">🏠 Retour à l'accueil</a>
+                <a href="recettes-traditionnelles.html" class="btn-custom">🥖 Pains Traditionnels</a>
+                <a href="viennoiseries.html" class="btn-custom">🥐 Viennoiseries</a>
+            </div>
         </div>
     </div>
+    <a href="#top" class="back-to-top-btn" title="Retour en haut">↑</a>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const backToTopBtn = document.querySelector('.back-to-top-btn');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) { backToTopBtn.style.display = 'flex'; }
+            else { backToTopBtn.style.display = 'none'; }
+        });
+        backToTopBtn.style.display = 'none';
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
