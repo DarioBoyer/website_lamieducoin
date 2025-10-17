@@ -790,3 +790,45 @@ tr:hover {
         page-break-after: always;
     }
 }
+
+/* Styles pour les boutons retour haut de page */
+.back-to-top {
+    background: #8B4513;
+    color: white;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    display: inline-block;
+    margin-left: auto;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.back-to-top:hover {
+    background: #A0522D;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.recipe-header {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.recipe-header .recipe-icon {
+    flex-shrink: 0;
+}
+
+.recipe-header .recipe-title {
+    flex-grow: 1;
+}
+
+#top {
+    position: absolute;
+    top: 0;
+}

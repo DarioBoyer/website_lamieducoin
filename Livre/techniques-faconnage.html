@@ -17,10 +17,11 @@
         </div>
 
         <div class="page">
+            <div id="top"></div>
             <h2>III. Techniques de Façonnage</h2>
             
             <!-- Tresse à 3 Branches -->
-            <div class="technique-section">
+            <div id="tresse-3-branches" class="technique-section">
                 <h3>🤝 Tresse à 3 Branches</h3>
                 
                 <div class="visual-diagram">
@@ -60,7 +61,7 @@
             </div>
 
             <!-- Tresse à 4 Branches -->
-            <div class="technique-section">
+            <div id="tresse-4-branches" class="technique-section">
                 <h3>🎨 Tresse à 4 Branches</h3>
                 
                 <div style="background: white; padding: 20px; border-radius: 10px;">
@@ -82,7 +83,7 @@
             </div>
 
             <!-- Technique Croissants -->
-            <div class="technique-section">
+            <div id="technique-croissants" class="technique-section">
                 <h3>🥐 Découper et Rouler les Croissants</h3>
                 
                 <div class="visual-diagram">
@@ -182,108 +183,351 @@
             <div class="technique-section">
                 <h3>🌸 Autres Techniques</h3>
                 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                    <div style="background: white; padding: 20px; border-radius: 10px;">
-                        <h5 style="color: #8B4513;">🌀 Couronne</h5>
-                        <p><strong>Méthode:</strong></p>
-                        <ol style="padding-left: 20px; margin-top: 10px;">
-                            <li>Façonner long boudin (40-50cm)</li>
-                            <li>Torsader sur lui-même</li>
-                            <li>Former cercle</li>
-                            <li>Souder les extrémités</li>
-                        </ol>
-                        <p style="margin-top: 10px; font-style: italic;">Parfait pour pain aux fruits secs</p>
+                <!-- Couronne -->
+                <div id="couronne" class="visual-diagram" style="margin-bottom: 40px;">
+                    <h4 style="color: #8B4513; margin-bottom: 20px;">🌀 Couronne</h4>
+                    <div class="braid-diagram">
+                        <div class="braid-step">
+                            <div style="font-weight: bold; color: #D2691E;">Étape 1</div>
+                            <div style="font-size: 2em; margin: 15px 0;">
+                                <svg width="80" height="60" viewBox="0 0 80 60">
+                                    <rect x="10" y="25" width="60" height="10" fill="#fff9e6" stroke="#8B4513" stroke-width="2" rx="5"/>
+                                </svg>
+                            </div>
+                            <p>Long boudin<br>40-50cm</p>
+                        </div>
+                        <div class="arrow">→</div>
+                        <div class="braid-step">
+                            <div style="font-weight: bold; color: #D2691E;">Étape 2</div>
+                            <div style="font-size: 2em; margin: 15px 0;">
+                                <svg width="80" height="60" viewBox="0 0 80 60">
+                                    <path d="M 20,30 Q 40,10 60,30 Q 40,50 20,30" fill="none" stroke="#8B4513" stroke-width="8" stroke-linecap="round"/>
+                                    <path d="M 20,30 Q 40,15 60,30" fill="none" stroke="#D2691E" stroke-width="2" stroke-dasharray="3,3"/>
+                                </svg>
+                            </div>
+                            <p>Torsader sur<br>lui-même</p>
+                        </div>
+                        <div class="arrow">→</div>
+                        <div class="braid-step">
+                            <div style="font-weight: bold; color: #D2691E;">Étape 3</div>
+                            <div style="font-size: 2em; margin: 15px 0;">
+                                <svg width="80" height="80" viewBox="0 0 80 80">
+                                    <circle cx="40" cy="40" r="25" fill="none" stroke="#8B4513" stroke-width="8" stroke-linecap="round"/>
+                                    <circle cx="40" cy="40" r="15" fill="none" stroke="#fff" stroke-width="4"/>
+                                </svg>
+                            </div>
+                            <p>Former cercle<br>& souder</p>
+                        </div>
                     </div>
-                    
-                    <div style="background: white; padding: 20px; border-radius: 10px;">
-                        <h5 style="color: #8B4513;">🔄 Épi de Blé</h5>
-                        <p><strong>Méthode:</strong></p>
-                        <ol style="padding-left: 20px; margin-top: 10px;">
-                            <li>Façonner baguette</li>
-                            <li>Ciseaux à 45°</li>
-                            <li>Coupes profondes alternées</li>
-                            <li>Rabattre sur les côtés</li>
-                        </ol>
-                        <p style="margin-top: 10px; font-style: italic;">Très décoratif pour apéritifs</p>
+                    <div class="tips-box" style="margin-top: 20px;">
+                        <p style="font-style: italic; color: #8B4513;">💡 Parfait pour pain aux fruits secs - Excellent pour présentation festive</p>
                     </div>
-                    
-                    <div style="background: white; padding: 20px; border-radius: 10px;">
-                        <h5 style="color: #8B4513;">🌀 Escargot</h5>
-                        <p><strong>Méthode:</strong></p>
-                        <ol style="padding-left: 20px; margin-top: 10px;">
-                            <li>Long boudin (40cm)</li>
-                            <li>Enrouler en spirale</li>
-                            <li>Commencer du centre</li>
-                            <li>Bien serrer</li>
-                        </ol>
-                        <p style="margin-top: 10px; font-style: italic;">Idéal pour pain aux raisins</p>
+                </div>
+
+                <!-- Épi de Blé -->
+                <div id="epi-de-ble" class="visual-diagram" style="margin-bottom: 40px;">
+                    <h4 style="color: #8B4513; margin-bottom: 20px;">🔄 Épi de Blé</h4>
+                    <div class="braid-diagram">
+                        <div class="braid-step">
+                            <div style="font-weight: bold; color: #D2691E;">Étape 1</div>
+                            <div style="font-size: 2em; margin: 15px 0;">
+                                <svg width="80" height="80" viewBox="0 0 80 80">
+                                    <rect x="10" y="35" width="60" height="10" fill="#fff9e6" stroke="#8B4513" stroke-width="2" rx="5"/>
+                                </svg>
+                            </div>
+                            <p>Façonner<br>baguette</p>
+                        </div>
+                        <div class="arrow">→</div>
+                        <div class="braid-step">
+                            <div style="font-weight: bold; color: #D2691E;">Étape 2</div>
+                            <div style="font-size: 2em; margin: 15px 0;">
+                                <svg width="80" height="80" viewBox="0 0 80 80">
+                                    <rect x="10" y="35" width="60" height="10" fill="#fff9e6" stroke="#8B4513" stroke-width="2" rx="5"/>
+                                    <path d="M 25,35 L 20,25" stroke="#D2691E" stroke-width="3"/>
+                                    <path d="M 40,35 L 45,25" stroke="#D2691E" stroke-width="3"/>
+                                    <path d="M 55,35 L 50,25" stroke="#D2691E" stroke-width="3"/>
+                                    <text x="35" y="20" fill="#D2691E" font-size="12">45°</text>
+                                </svg>
+                            </div>
+                            <p>Ciseaux à 45°<br>coupes alternées</p>
+                        </div>
+                        <div class="arrow">→</div>
+                        <div class="braid-step">
+                            <div style="font-weight: bold; color: #D2691E;">Étape 3</div>
+                            <div style="font-size: 2em; margin: 15px 0;">
+                                <svg width="80" height="80" viewBox="0 0 80 80">
+                                    <rect x="10" y="35" width="60" height="10" fill="#fff9e6" stroke="#8B4513" stroke-width="2" rx="5"/>
+                                    <ellipse cx="22" cy="30" rx="8" ry="4" fill="#fff9e6" stroke="#8B4513" stroke-width="2" transform="rotate(-30 22 30)"/>
+                                    <ellipse cx="42" cy="30" rx="8" ry="4" fill="#fff9e6" stroke="#8B4513" stroke-width="2" transform="rotate(30 42 30)"/>
+                                    <ellipse cx="58" cy="30" rx="8" ry="4" fill="#fff9e6" stroke="#8B4513" stroke-width="2" transform="rotate(-30 58 30)"/>
+                                </svg>
+                            </div>
+                            <p>Rabattre<br>alternativement</p>
+                        </div>
                     </div>
-                    
-                    <div style="background: white; padding: 20px; border-radius: 10px;">
-                        <h5 style="color: #8B4513;">🎭 Fougasse</h5>
-                        <p><strong>Méthode:</strong></p>
-                        <ol style="padding-left: 20px; margin-top: 10px;">
-                            <li>Aplatir pâte (ovale)</li>
-                            <li>Découper fentes en losange</li>
-                            <li>Étirer fentes</li>
-                            <li>Badigeonner huile d'olive</li>
-                        </ol>
-                        <p style="margin-top: 10px; font-style: italic;">Spécialité provençale</p>
+                    <div class="tips-box" style="margin-top: 20px;">
+                        <p style="font-style: italic; color: #8B4513;">💡 Très décoratif pour apéritifs - Permet de détacher facilement les portions</p>
+                    </div>
+                </div>
+
+                <!-- Escargot -->
+                <div id="escargot" class="visual-diagram" style="margin-bottom: 40px;">
+                    <h4 style="color: #8B4513; margin-bottom: 20px;">🌀 Escargot</h4>
+                    <div class="braid-diagram">
+                        <div class="braid-step">
+                            <div style="font-weight: bold; color: #D2691E;">Étape 1</div>
+                            <div style="font-size: 2em; margin: 15px 0;">
+                                <svg width="80" height="60" viewBox="0 0 80 60">
+                                    <rect x="10" y="25" width="60" height="8" fill="#fff9e6" stroke="#8B4513" stroke-width="2" rx="4"/>
+                                </svg>
+                            </div>
+                            <p>Long boudin<br>40cm</p>
+                        </div>
+                        <div class="arrow">→</div>
+                        <div class="braid-step">
+                            <div style="font-weight: bold; color: #D2691E;">Étape 2</div>
+                            <div style="font-size: 2em; margin: 15px 0;">
+                                <svg width="80" height="80" viewBox="0 0 80 80">
+                                    <circle cx="40" cy="40" r="8" fill="#8B4513"/>
+                                    <path d="M 40,40 Q 48,32 56,40 Q 56,48 48,56 Q 32,56 24,40 Q 24,24 40,24" 
+                                          fill="none" stroke="#8B4513" stroke-width="6" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <p>Enrouler du<br>centre vers ext.</p>
+                        </div>
+                        <div class="arrow">→</div>
+                        <div class="braid-step">
+                            <div style="font-weight: bold; color: #D2691E;">Étape 3</div>
+                            <div style="font-size: 2em; margin: 15px 0;">
+                                <svg width="80" height="80" viewBox="0 0 80 80">
+                                    <circle cx="40" cy="40" r="6" fill="#8B4513"/>
+                                    <circle cx="40" cy="40" r="12" fill="none" stroke="#8B4513" stroke-width="5"/>
+                                    <circle cx="40" cy="40" r="18" fill="none" stroke="#8B4513" stroke-width="5"/>
+                                    <circle cx="40" cy="40" r="24" fill="none" stroke="#8B4513" stroke-width="5"/>
+                                </svg>
+                            </div>
+                            <p>Spirale bien<br>serrée</p>
+                        </div>
+                    </div>
+                    <div class="tips-box" style="margin-top: 20px;">
+                        <p style="font-style: italic; color: #8B4513;">💡 Idéal pour pain aux raisins - La spirale révèle joliment les garnitures</p>
+                    </div>
+                </div>
+
+                <!-- Fougasse -->
+                <div id="fougasse" class="visual-diagram">
+                    <h4 style="color: #8B4513; margin-bottom: 20px;">🎭 Fougasse</h4>
+                    <div class="braid-diagram">
+                        <div class="braid-step">
+                            <div style="font-weight: bold; color: #D2691E;">Étape 1</div>
+                            <div style="font-size: 2em; margin: 15px 0;">
+                                <svg width="80" height="80" viewBox="0 0 80 80">
+                                    <ellipse cx="40" cy="40" rx="30" ry="20" fill="#fff9e6" stroke="#8B4513" stroke-width="3"/>
+                                </svg>
+                            </div>
+                            <p>Aplatir pâte<br>en ovale</p>
+                        </div>
+                        <div class="arrow">→</div>
+                        <div class="braid-step">
+                            <div style="font-weight: bold; color: #D2691E;">Étape 2</div>
+                            <div style="font-size: 2em; margin: 15px 0;">
+                                <svg width="80" height="80" viewBox="0 0 80 80">
+                                    <ellipse cx="40" cy="40" rx="30" ry="20" fill="#fff9e6" stroke="#8B4513" stroke-width="3"/>
+                                    <path d="M 25,35 L 35,45" stroke="#D2691E" stroke-width="2"/>
+                                    <path d="M 45,35 L 55,45" stroke="#D2691E" stroke-width="2"/>
+                                    <path d="M 30,50 L 40,60" stroke="#D2691E" stroke-width="2"/>
+                                    <path d="M 40,20 L 50,30" stroke="#D2691E" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <p>Découper fentes<br>en losange</p>
+                        </div>
+                        <div class="arrow">→</div>
+                        <div class="braid-step">
+                            <div style="font-weight: bold; color: #D2691E;">Étape 3</div>
+                            <div style="font-size: 2em; margin: 15px 0;">
+                                <svg width="80" height="80" viewBox="0 0 80 80">
+                                    <ellipse cx="40" cy="40" rx="30" ry="20" fill="#fff9e6" stroke="#8B4513" stroke-width="3"/>
+                                    <ellipse cx="30" cy="40" rx="8" ry="3" fill="white" stroke="#8B4513" stroke-width="1"/>
+                                    <ellipse cx="50" cy="40" rx="8" ry="3" fill="white" stroke="#8B4513" stroke-width="1"/>
+                                    <ellipse cx="40" cy="30" rx="6" ry="2" fill="white" stroke="#8B4513" stroke-width="1"/>
+                                    <ellipse cx="40" cy="50" rx="6" ry="2" fill="white" stroke="#8B4513" stroke-width="1"/>
+                                </svg>
+                            </div>
+                            <p>Étirer fentes<br>& huiler</p>
+                        </div>
+                    </div>
+                    <div class="tips-box" style="margin-top: 20px;">
+                        <p style="font-style: italic; color: #8B4513;">💡 Spécialité provençale - Badigeonner d'huile d'olive et parsemer d'herbes</p>
                     </div>
                 </div>
             </div>
 
-            <h3 style="margin-top: 40px;">🎯 Façonnage de Baguettes</h3>
+            <h3 id="faconnage-baguettes" style="margin-top: 40px;">🎯 Façonnage de Baguettes</h3>
             
             <div class="technique-section">
-                <div style="background: white; padding: 25px; border-radius: 10px;">
-                    <h5 style="color: #8B4513; margin-bottom: 20px;">Technique Professionnelle</h5>
+                <div class="visual-diagram">
+                    <h4 style="color: #8B4513; margin-bottom: 20px;">Technique Professionnelle Étape par Étape</h4>
                     
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px;">
-                        <div>
-                            <h6 style="color: #D2691E; margin-bottom: 10px;">1️⃣ Pré-façonnage</h6>
-                            <ol style="padding-left: 20px;">
-                                <li>Dégazer légèrement</li>
-                                <li>Former rectangle</li>
-                                <li>Plier en 3</li>
-                                <li>Repos 15 min</li>
-                            </ol>
+                    <!-- Pré-façonnage -->
+                    <div style="margin-bottom: 40px;">
+                        <h5 style="color: #D2691E; margin-bottom: 20px;">1️⃣ Pré-façonnage</h5>
+                        <div class="braid-diagram">
+                            <div class="braid-step">
+                                <div style="font-weight: bold; color: #D2691E;">A</div>
+                                <div style="font-size: 2em; margin: 15px 0;">
+                                    <svg width="80" height="60" viewBox="0 0 80 60">
+                                        <rect x="20" y="20" width="40" height="20" fill="#fff9e6" stroke="#8B4513" stroke-width="2" rx="3"/>
+                                        <circle cx="30" cy="30" r="2" fill="#D2691E"/>
+                                        <circle cx="40" cy="30" r="2" fill="#D2691E"/>
+                                        <circle cx="50" cy="30" r="2" fill="#D2691E"/>
+                                    </svg>
+                                </div>
+                                <p>Dégazer<br>légèrement</p>
+                            </div>
+                            <div class="arrow">→</div>
+                            <div class="braid-step">
+                                <div style="font-weight: bold; color: #D2691E;">B</div>
+                                <div style="font-size: 2em; margin: 15px 0;">
+                                    <svg width="80" height="60" viewBox="0 0 80 60">
+                                        <rect x="15" y="20" width="50" height="20" fill="#fff9e6" stroke="#8B4513" stroke-width="2" rx="3"/>
+                                    </svg>
+                                </div>
+                                <p>Former<br>rectangle</p>
+                            </div>
+                            <div class="arrow">→</div>
+                            <div class="braid-step">
+                                <div style="font-weight: bold; color: #D2691E;">C</div>
+                                <div style="font-size: 2em; margin: 15px 0;">
+                                    <svg width="80" height="60" viewBox="0 0 80 60">
+                                        <rect x="25" y="20" width="30" height="20" fill="#fff9e6" stroke="#8B4513" stroke-width="2" rx="3"/>
+                                        <path d="M 25,30 L 40,30" stroke="#D2691E" stroke-width="1" stroke-dasharray="2,2"/>
+                                        <path d="M 40,30 L 55,30" stroke="#D2691E" stroke-width="1" stroke-dasharray="2,2"/>
+                                    </svg>
+                                </div>
+                                <p>Plier en 3<br>Repos 15min</p>
+                            </div>
                         </div>
-                        
-                        <div>
-                            <h6 style="color: #D2691E; margin-bottom: 10px;">2️⃣ Façonnage Final</h6>
-                            <ol style="padding-left: 20px;">
-                                <li>Aplatir en rectangle</li>
-                                <li>Plier bord supérieur au centre</li>
-                                <li>Souder avec talon de main</li>
-                                <li>Plier en 2, souder</li>
-                            </ol>
+                    </div>
+
+                    <!-- Façonnage Final -->
+                    <div style="margin-bottom: 40px;">
+                        <h5 style="color: #D2691E; margin-bottom: 20px;">2️⃣ Façonnage Final</h5>
+                        <div class="braid-diagram">
+                            <div class="braid-step">
+                                <div style="font-weight: bold; color: #D2691E;">A</div>
+                                <div style="font-size: 2em; margin: 15px 0;">
+                                    <svg width="80" height="80" viewBox="0 0 80 80">
+                                        <rect x="20" y="30" width="40" height="20" fill="#fff9e6" stroke="#8B4513" stroke-width="2" rx="3"/>
+                                        <path d="M 20,40 L 60,40" stroke="#D2691E" stroke-width="1" stroke-dasharray="3,3"/>
+                                    </svg>
+                                </div>
+                                <p>Aplatir en<br>rectangle</p>
+                            </div>
+                            <div class="arrow">→</div>
+                            <div class="braid-step">
+                                <div style="font-weight: bold; color: #D2691E;">B</div>
+                                <div style="font-size: 2em; margin: 15px 0;">
+                                    <svg width="80" height="80" viewBox="0 0 80 80">
+                                        <path d="M 20,30 L 60,30 L 40,40 L 20,30" fill="#fff9e6" stroke="#8B4513" stroke-width="2"/>
+                                        <path d="M 60,30 Q 50,35 40,40" stroke="#D2691E" stroke-width="2" fill="none"/>
+                                    </svg>
+                                </div>
+                                <p>Plier bord sup.<br>au centre</p>
+                            </div>
+                            <div class="arrow">→</div>
+                            <div class="braid-step">
+                                <div style="font-weight: bold; color: #D2691E;">C</div>
+                                <div style="font-size: 2em; margin: 15px 0;">
+                                    <svg width="80" height="80" viewBox="0 0 80 80">
+                                        <rect x="25" y="35" width="30" height="10" fill="#fff9e6" stroke="#8B4513" stroke-width="3" rx="5"/>
+                                        <path d="M 40,45 L 40,50" stroke="#D2691E" stroke-width="2"/>
+                                    </svg>
+                                </div>
+                                <p>Plier en 2<br>& souder</p>
+                            </div>
                         </div>
-                        
-                        <div>
-                            <h6 style="color: #D2691E; margin-bottom: 10px;">3️⃣ Allongement</h6>
-                            <ol style="padding-left: 20px;">
-                                <li>Rouler du centre vers extérieur</li>
-                                <li>Mains écartées progressivement</li>
-                                <li>Pression uniforme</li>
-                                <li>Extrémités effilées</li>
-                            </ol>
+                    </div>
+
+                    <!-- Allongement -->
+                    <div style="margin-bottom: 40px;">
+                        <h5 style="color: #D2691E; margin-bottom: 20px;">3️⃣ Allongement</h5>
+                        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                            <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                                <svg width="300" height="100" viewBox="0 0 300 100">
+                                    <!-- Baguette de base -->
+                                    <rect x="100" y="40" width="100" height="20" fill="#fff9e6" stroke="#8B4513" stroke-width="3" rx="10"/>
+                                    
+                                    <!-- Flèches d'allongement -->
+                                    <path d="M 80,50 L 100,50" stroke="#D2691E" stroke-width="3" marker-end="url(#arrowhead)"/>
+                                    <path d="M 200,50 L 220,50" stroke="#D2691E" stroke-width="3" marker-end="url(#arrowhead)"/>
+                                    
+                                    <!-- Mains -->
+                                    <circle cx="70" cy="50" r="8" fill="#FFE4B5" stroke="#8B4513" stroke-width="2"/>
+                                    <circle cx="230" cy="50" r="8" fill="#FFE4B5" stroke="#8B4513" stroke-width="2"/>
+                                    
+                                    <!-- Résultat -->
+                                    <rect x="50" y="75" width="200" height="15" fill="#fff9e6" stroke="#8B4513" stroke-width="2" rx="7"/>
+                                    
+                                    <!-- Labels -->
+                                    <text x="150" y="25" text-anchor="middle" fill="#8B4513" font-size="12">Rouler du centre vers l'extérieur</text>
+                                    <text x="150" y="95" text-anchor="middle" fill="#D2691E" font-size="10" font-style="italic">Baguette allongée - extrémités effilées</text>
+                                    
+                                    <defs>
+                                        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+                                            <polygon points="0 0, 10 3.5, 0 7" fill="#D2691E"/>
+                                        </marker>
+                                    </defs>
+                                </svg>
+                            </div>
+                            <div class="tips-box">
+                                <p><strong>💡 Technique:</strong> Mains écartées progressivement, pression uniforme, mouvement de va-et-vient</p>
+                            </div>
                         </div>
-                        
-                        <div>
-                            <h6 style="color: #D2691E; margin-bottom: 10px;">4️⃣ Entaillage</h6>
-                            <ol style="padding-left: 20px;">
-                                <li>Lame à 45°</li>
-                                <li>5 entailles régulières</li>
-                                <li>Profondeur 5-7mm</li>
-                                <li>Geste rapide et sûr</li>
-                            </ol>
+                    </div>
+
+                    <!-- Entaillage -->
+                    <div style="margin-bottom: 40px;">
+                        <h5 style="color: #D2691E; margin-bottom: 20px;">4️⃣ Entaillage (Grignage)</h5>
+                        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                            <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                                <svg width="350" height="120" viewBox="0 0 350 120">
+                                    <!-- Baguette -->
+                                    <rect x="25" y="50" width="300" height="20" fill="#fff9e6" stroke="#8B4513" stroke-width="3" rx="10"/>
+                                    
+                                    <!-- Entailles -->
+                                    <path d="M 75,50 L 85,40" stroke="#D2691E" stroke-width="3"/>
+                                    <path d="M 125,50 L 135,40" stroke="#D2691E" stroke-width="3"/>
+                                    <path d="M 175,50 L 185,40" stroke="#D2691E" stroke-width="3"/>
+                                    <path d="M 225,50 L 235,40" stroke="#D2691E" stroke-width="3"/>
+                                    <path d="M 275,50 L 285,40" stroke="#D2691E" stroke-width="3"/>
+                                    
+                                    <!-- Lame -->
+                                    <rect x="270" y="20" width="2" height="20" fill="#C0C0C0"/>
+                                    <rect x="268" y="18" width="6" height="4" fill="#8B4513"/>
+                                    
+                                    <!-- Angle -->
+                                    <path d="M 275,40 L 285,40 L 285,50" stroke="#D2691E" stroke-width="1" fill="none"/>
+                                    <text x="290" y="45" fill="#D2691E" font-size="12">45°</text>
+                                    
+                                    <!-- Labels -->
+                                    <text x="175" y="15" text-anchor="middle" fill="#8B4513" font-size="14" font-weight="bold">5 entailles régulières</text>
+                                    <text x="175" y="85" text-anchor="middle" fill="#D2691E" font-size="12">Profondeur: 5-7mm | Geste rapide et sûr</text>
+                                    
+                                    <!-- Espacement -->
+                                    <path d="M 85,75 L 125,75" stroke="#8B4513" stroke-width="1" stroke-dasharray="2,2"/>
+                                    <text x="105" y="90" text-anchor="middle" fill="#8B4513" font-size="10">≈ 5cm</text>
+                                </svg>
+                            </div>
+                            <div class="tips-box">
+                                <p><strong>🔪 Outils:</strong> Lame de rasoir, grignette ou couteau bien aiguisé</p>
+                                <p><strong>⚡ Astuce:</strong> Un geste rapide et confiant donne de meilleurs résultats qu'un mouvement hésitant</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <h3 style="margin-top: 40px;">🔪 L'Art de l'Entaillage (Grignage)</h3>
+            <h3 id="art-entaillage" style="margin-top: 40px;">🔪 L'Art de l'Entaillage (Grignage)</h3>
             
             <div style="background: #f8f9fa; padding: 25px; border-radius: 10px; margin-top: 20px;">
                 <table>
