@@ -264,8 +264,9 @@
                 <div class="welcome-message">
                     <h3>✨ Bienvenue dans Le Grand Livre du Pain ✨</h3>
                     <p>Sélectionnez une catégorie ci-dessus pour explorer les recettes, techniques et astuces</p>
-                    <p class="mt-4">🥖 13 Recettes Traditionnelles • 🌾 3 Recettes Sans Gluten • 🥐 3 Viennoiseries • 🌟 7 Recettes Spéciales</p>
-                    <p>🤝 10 Techniques de Façonnage • 💡 10 Astuces et Guides • 🌾 7 Sections Guide des Farines</p>
+                    <p class="mt-4">🍞 4 Pains de Base • 🌰 7 Pains Spécialisés • 🥐 3 Viennoiseries • 🥨 5 Pains en Forme</p>
+                    <p>🌾 3 Recettes Sans Gluten • 🥞 2 Galettes & Crêpes • 🇮🇹 2 Pains Méditerranéens</p>
+                    <p>🤝 10 Techniques de Façonnage • 💡 12 Astuces et Guides • 🌾 7 Sections Guide des Farines</p>
                 </div>
             </div>
         </div>
@@ -276,17 +277,26 @@
                 <div class="row">
                     <!-- Menu des catégories de recettes -->
                     <div class="col-lg-3 col-md-4 mb-4">
-                        <div class="category-card active" data-category="traditionnelles">
-                            <h5><span class="icon">🥖</span> Traditionnelles</h5>
+                        <div class="category-card active" data-category="pains-base">
+                            <h5><span class="icon">🍞</span> Pains de Base</h5>
                         </div>
-                        <div class="category-card" data-category="sans-gluten">
-                            <h5><span class="icon">🌾</span> Sans Gluten</h5>
+                        <div class="category-card" data-category="pains-specialises">
+                            <h5><span class="icon">🌰</span> Pains Spécialisés</h5>
                         </div>
                         <div class="category-card" data-category="viennoiseries">
                             <h5><span class="icon">🥐</span> Viennoiseries</h5>
                         </div>
-                        <div class="category-card" data-category="speciales">
-                            <h5><span class="icon">🌟</span> Spéciales</h5>
+                        <div class="category-card" data-category="pains-forme">
+                            <h5><span class="icon">🥨</span> Pains en Forme</h5>
+                        </div>
+                        <div class="category-card" data-category="sans-gluten">
+                            <h5><span class="icon">🌾</span> Sans Gluten</h5>
+                        </div>
+                        <div class="category-card" data-category="galettes-crepes">
+                            <h5><span class="icon">🥞</span> Galettes & Crêpes</h5>
+                        </div>
+                        <div class="category-card" data-category="pains-mediterraneens">
+                            <h5><span class="icon">🇮🇹</span> Pains Méditerranéens</h5>
                         </div>
                     </div>
 
@@ -416,18 +426,30 @@
     <script>
         // Données des recettes par catégorie
         const recipes = {
-            traditionnelles: [
+            'pains-base': [
                 { name: '🍞 Pain Blanc Classique', file: 'Recettes/pain-blanc-classique.html' },
                 { name: '🥖 Baguette Française', file: 'Recettes/baguette-francaise.html' },
                 { name: '🥖 Baguette Tradition', file: 'Recettes/baguette-tradition.html' },
-                { name: '🌾 Pain de Campagne', file: 'Recettes/pain-de-campagne.html' },
+                { name: '🌾 Pain de Campagne', file: 'Recettes/pain-de-campagne.html' }
+            ],
+            'pains-specialises': [
                 { name: '🌰 Pain aux Noix', file: 'Recettes/pain-aux-noix.html' },
                 { name: '🧀 Pain au Fromage', file: 'Recettes/pain-au-fromage.html' },
+                { name: '🧀 Pain Grilled Cheese', file: 'Recettes/pain-grilled-cheese.html' },
+                { name: '🥣 Miche à Soupe', file: 'Recettes/miche-a-soupe.html' },
                 { name: '🥗 Petits Pains à Salade', file: 'Recettes/petits-pains-salade.html' },
                 { name: '🥪 Pain Sous-Marin 12"', file: 'Recettes/pain-sous-marin.html' },
+                { name: '🥯 Muffins Anglais', file: 'Recettes/muffins-anglais.html' }
+            ],
+            viennoiseries: [
+                { name: '🥐 Croissants Français', file: 'Recettes/croissants-francais.html' },
+                { name: '🍫 Pains au Chocolat', file: 'Recettes/pains-au-chocolat.html' },
+                { name: '🍞 Brioche Maison', file: 'Recettes/brioche-maison.html' }
+            ],
+            'pains-forme': [
                 { name: '🥯 Bagel Classique', file: 'Recettes/bagel-classique.html' },
                 { name: '🥯 Bagel Everything', file: 'Recettes/bagel-everything.html' },
-                { name: '🥯 Bretzel Classique', file: 'Recettes/bretzel-classique.html' },
+                { name: '🥨 Bretzel Classique', file: 'Recettes/bretzel-classique.html' },
                 { name: '🥨 Bouchées de Bretzel', file: 'Recettes/bretzel-bouchees.html' },
                 { name: '🥨 Bretzel Cannelle-Sucre', file: 'Recettes/bretzel-cannelle-sucre.html' }
             ],
@@ -436,17 +458,11 @@
                 { name: '🥖 Baguette Sans Gluten', file: 'Recettes/baguette-sans-gluten.html' },
                 { name: '🌰 Pain Sans Gluten aux Graines', file: 'Recettes/pain-sans-gluten-graines.html' }
             ],
-            viennoiseries: [
-                { name: '🥐 Croissants Français', file: 'Recettes/croissants-francais.html' },
-                { name: '🍫 Pains au Chocolat', file: 'Recettes/pains-au-chocolat.html' },
-                { name: '🍞 Brioche Maison', file: 'Recettes/brioche-maison.html' }
-            ],
-            speciales: [
-                { name: '🧀 Pain Grilled Cheese', file: 'Recettes/pain-grilled-cheese.html' },
-                { name: '🥣 Miche à Soupe', file: 'Recettes/miche-a-soupe.html' },
-                { name: '🥯 Muffins Anglais', file: 'Recettes/muffins-anglais.html' },
+            'galettes-crepes': [
                 { name: '🥞 Crêpes Classiques', file: 'Recettes/crepes-classiques.html' },
-                { name: '🇫🇷 Galettes de Sarrasin', file: 'Recettes/galettes-sarrasin.html' },
+                { name: '🥞 Galettes de Sarrasin', file: 'Recettes/galettes-sarrasin.html' }
+            ],
+            'pains-mediterraneens': [
                 { name: '🇮🇹 Focaccia Italienne', file: 'Recettes/focaccia-italienne.html' },
                 { name: '🥖 Fougasse Provençale', file: 'Recettes/fougasse-provencale.html' }
             ]
@@ -582,7 +598,7 @@
 
         // Initialiser la première catégorie de recettes
         document.addEventListener('DOMContentLoaded', function() {
-            loadRecipeList('traditionnelles');
+            loadRecipeList('pains-base');
         });
     </script>
 </body>
