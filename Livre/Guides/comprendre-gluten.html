@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprendre le Gluten - Guide des Farines</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .recipe-container { max-width: 900px; margin: 0 auto; }
+        .recipe-header {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            color: white; padding: 40px; border-radius: 15px 15px 0 0;
+            text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .recipe-icon { font-size: 4em; margin-bottom: 15px; }
+        .recipe-title h1 { font-size: 2.5em; font-weight: bold; margin-bottom: 10px; }
+        .recipe-subtitle { font-size: 1.2em; opacity: 0.9; margin: 0; }
+        .recipe-content {
+            background: white; padding: 40px;
+            border-radius: 0 0 15px 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .gluten-section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 25px 0;
+        }
+        .gluten-section h4 {
+            color: #8B4513;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+        .gluten-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        .gluten-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .gluten-card h5 {
+            color: #D2691E;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        .gluten-card p {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        .gluten-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .gluten-card li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        .gluten-card li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #D2691E;
+            font-weight: bold;
+        }
+        .gluten-card li strong {
+            color: #8B4513;
+        }
+        .table-responsive {
+            margin: 25px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .table {
+            margin-bottom: 0;
+        }
+        .table thead {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            color: white;
+        }
+        .table thead th {
+            padding: 15px;
+            font-weight: 600;
+            border: none;
+        }
+        .table tbody tr {
+            transition: background-color 0.2s;
+        }
+        .table tbody tr:hover {
+            background-color: #fff9f0;
+        }
+        .table tbody td {
+            padding: 15px;
+            vertical-align: middle;
+        }
+        .table tbody tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        h3 {
+            color: #8B4513;
+            border-bottom: 3px solid #D2691E;
+            padding-bottom: 10px;
+            margin: 30px 0 20px 0;
+        }
+        .back-to-top-btn {
+            position: fixed; bottom: 30px; right: 30px; background: #D2691E;
+            color: white; width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s ease; z-index: 1000;
+        }
+        .back-to-top-btn:hover {
+            background: #8B4513; transform: translateY(-5px); color: white;
+        }
+        @media (max-width: 768px) {
+            .recipe-header { padding: 30px 20px; }
+            .recipe-title h1 { font-size: 2em; }
+            .recipe-content { padding: 25px; }
+            .gluten-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="top"></div>
+    <div class="recipe-container">
+        <div class="recipe-header">
+            <div class="recipe-icon">🔬</div>
+            <div class="recipe-title">
+                <h1>Comprendre le Gluten</h1>
+                <p class="recipe-subtitle">La protéine magique du pain</p>
+            </div>
+        </div>
+        
+        <div class="recipe-content">
+            <div class="gluten-section">
+                <h4>La Protéine Magique du Pain</h4>
+                
+                <div class="gluten-grid">
+                    <div class="gluten-card">
+                        <h5>Qu'est-ce que le gluten?</h5>
+                        <p>Réseau protéique formé par:</p>
+                        <ul>
+                            <li><strong>Gliadine:</strong> Extensibilité</li>
+                            <li><strong>Gluténine:</strong> Élasticité</li>
+                        </ul>
+                        <p style="margin-top: 15px;">Se développe au contact de l'eau + action mécanique (pétrissage)</p>
+                    </div>
+                    
+                    <div class="gluten-card">
+                        <h5>Rôle du gluten</h5>
+                        <ul>
+                            <li>Retient les gaz (levée)</li>
+                            <li>Donne structure au pain</li>
+                            <li>Crée l'élasticité de la pâte</li>
+                            <li>Permet le façonnage</li>
+                            <li>Texture moelleuse de la mie</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Teneur en Protéines</th>
+                                <th>Force du Gluten</th>
+                                <th>Usage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>8-9%</td>
+                                <td>Faible</td>
+                                <td>Pâtisserie, gâteaux</td>
+                            </tr>
+                            <tr>
+                                <td>10-11%</td>
+                                <td>Moyenne</td>
+                                <td>Usage général, brioches</td>
+                            </tr>
+                            <tr>
+                                <td>12-13%</td>
+                                <td>Forte</td>
+                                <td>Pain, baguettes</td>
+                            </tr>
+                            <tr>
+                                <td>14-15%</td>
+                                <td>Très forte</td>
+                                <td>Pain artisan, bagels</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <a href="#top" class="back-to-top-btn" title="Retour en haut">↑</a>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const backToTopBtn = document.querySelector('.back-to-top-btn');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) { backToTopBtn.style.display = 'flex'; }
+            else { backToTopBtn.style.display = 'none'; }
+        });
+        backToTopBtn.style.display = 'none';
+    </script>
+</body>
+</html>

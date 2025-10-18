@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marques Québécoises - Guide des Farines</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .recipe-container { max-width: 900px; margin: 0 auto; }
+        .recipe-header {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            color: white; padding: 40px; border-radius: 15px 15px 0 0;
+            text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .recipe-icon { font-size: 4em; margin-bottom: 15px; }
+        .recipe-title h1 { font-size: 2.5em; font-weight: bold; margin-bottom: 10px; }
+        .recipe-subtitle { font-size: 1.2em; opacity: 0.9; margin: 0; }
+        .recipe-content {
+            background: white; padding: 40px;
+            border-radius: 0 0 15px 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .brands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+        .brand-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .brand-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .brand-card h4 {
+            color: #8B4513;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        .brand-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .brand-card li {
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .brand-card li:last-child {
+            border-bottom: none;
+        }
+        .brand-card li strong {
+            color: #D2691E;
+        }
+        .protein-info {
+            margin-top: 15px;
+            padding: 12px;
+            background: white;
+            border-radius: 8px;
+            font-style: italic;
+            color: #666;
+            border-left: 4px solid #D2691E;
+        }
+        h3 {
+            color: #8B4513;
+            border-bottom: 3px solid #D2691E;
+            padding-bottom: 10px;
+            margin: 30px 0 20px 0;
+        }
+        .back-to-top-btn {
+            position: fixed; bottom: 30px; right: 30px; background: #D2691E;
+            color: white; width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s ease; z-index: 1000;
+        }
+        .back-to-top-btn:hover {
+            background: #8B4513; transform: translateY(-5px); color: white;
+        }
+        @media (max-width: 768px) {
+            .recipe-header { padding: 30px 20px; }
+            .recipe-title h1 { font-size: 2em; }
+            .recipe-content { padding: 25px; }
+            .brands-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="top"></div>
+    <div class="recipe-container">
+        <div class="recipe-header">
+            <div class="recipe-icon">🏷️</div>
+            <div class="recipe-title">
+                <h1>Marques Québécoises Recommandées</h1>
+                <p class="recipe-subtitle">Les meilleures farines disponibles au Québec</p>
+            </div>
+        </div>
+        
+        <div class="recipe-content">
+            <div class="brands-grid">
+                <div class="brand-card">
+                    <h4>🥖 Pour Pain Blanc</h4>
+                    <ul>
+                        <li><strong>Five Roses</strong> - Tout usage non blanchie</li>
+                        <li><strong>Robin Hood</strong> - Farine à pain</li>
+                        <li><strong>Métro</strong> - Farine à pain biologique</li>
+                    </ul>
+                    <div class="protein-info">
+                        <strong>Protéines:</strong> 11-13%
+                    </div>
+                </div>
+                
+                <div class="brand-card">
+                    <h4>🥐 Pour Viennoiseries</h4>
+                    <ul>
+                        <li><strong>Five Roses</strong> - Farine à pâtisserie</li>
+                        <li><strong>Robin Hood</strong> - Farine à pâtisserie</li>
+                        <li><strong>La Meunerie Milanaise</strong></li>
+                    </ul>
+                    <div class="protein-info">
+                        <strong>Protéines:</strong> 8-10%
+                    </div>
+                </div>
+                
+                <div class="brand-card">
+                    <h4>🌾 Pour Pains Complets</h4>
+                    <ul>
+                        <li><strong>La Milanaise</strong> - Blé entier moulue sur pierre</li>
+                        <li><strong>Meunerie Urbaine</strong> (Montréal)</li>
+                        <li><strong>Les Moulins de Soulanges</strong></li>
+                    </ul>
+                    <div class="protein-info">
+                        <strong>Protéines:</strong> 12-14%
+                    </div>
+                </div>
+                
+                <div class="brand-card">
+                    <h4>✨ Farines Artisanales</h4>
+                    <ul>
+                        <li><strong>Ferme Baie</strong> (bio, Bas-du-Fleuve)</li>
+                        <li><strong>Milanaise</strong> (Montréal)</li>
+                        <li><strong>Moulin des Cèdres</strong></li>
+                    </ul>
+                    <div class="protein-info">
+                        <strong>Qualité supérieure</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <a href="#top" class="back-to-top-btn" title="Retour en haut">↑</a>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const backToTopBtn = document.querySelector('.back-to-top-btn');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) { backToTopBtn.style.display = 'flex'; }
+            else { backToTopBtn.style.display = 'none'; }
+        });
+        backToTopBtn.style.display = 'none';
+    </script>
+</body>
+</html>

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Levure vs Levain - Guide Complet</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .recipe-container { max-width: 900px; margin: 0 auto; }
+        .recipe-header {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            color: white; padding: 40px; border-radius: 15px 15px 0 0;
+            text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .recipe-icon { font-size: 4em; margin-bottom: 15px; }
+        .recipe-title h1 { font-size: 2.5em; font-weight: bold; margin-bottom: 10px; }
+        .recipe-subtitle { font-size: 1.2em; opacity: 0.9; margin: 0; }
+        .recipe-content {
+            background: white; padding: 40px;
+            border-radius: 0 0 15px 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        .comparison-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .comparison-card.levure {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        .comparison-card.levain {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        .comparison-card h4 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            padding-bottom: 15px;
+        }
+        .comparison-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .comparison-card li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            line-height: 1.6;
+        }
+        .comparison-card li:last-child {
+            border-bottom: none;
+        }
+        .comparison-card li strong {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+        .info-box {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border-left: 5px solid #D2691E;
+        }
+        .info-box h5 {
+            color: #D2691E;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        .info-box p, .info-box li {
+            color: #333;
+            line-height: 1.8;
+        }
+        .timing-table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+        }
+        .timing-table th {
+            background: #8B4513;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+        }
+        .timing-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .timing-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        .timing-table td:first-child {
+            font-weight: bold;
+            color: #8B4513;
+        }
+        .highlight-box {
+            background: linear-gradient(135deg, #fff9f0 0%, #ffe8cc 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #D2691E;
+        }
+        .highlight-box h5 {
+            color: #8B4513;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        h3 {
+            color: #8B4513;
+            border-bottom: 3px solid #D2691E;
+            padding-bottom: 10px;
+            margin: 40px 0 25px 0;
+            font-size: 1.8em;
+        }
+        .section-icon {
+            font-size: 2em;
+            margin-right: 15px;
+            vertical-align: middle;
+        }
+        .back-to-top-btn {
+            position: fixed; bottom: 30px; right: 30px; background: #D2691E;
+            color: white; width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s ease; z-index: 1000;
+        }
+        .back-to-top-btn:hover {
+            background: #8B4513; transform: translateY(-5px); color: white;
+        }
+        @media (max-width: 768px) {
+            .recipe-header { padding: 30px 20px; }
+            .recipe-title h1 { font-size: 2em; }
+            .recipe-content { padding: 25px; }
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            .timing-table {
+                font-size: 0.9em;
+            }
+            .timing-table th, .timing-table td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="top"></div>
+    <div class="recipe-container">
+        <div class="recipe-header">
+            <div class="recipe-icon">🔬</div>
+            <div class="recipe-title">
+                <h1>Levure vs Levain</h1>
+                <p class="recipe-subtitle">Comprendre les deux méthodes de fermentation</p>
+            </div>
+        </div>
+        
+        <div class="recipe-content">
+            <h3><span class="section-icon">⚖️</span>Comparaison Rapide</h3>
+            <div class="comparison-grid">
+                <div class="comparison-card levure">
+                    <h4>🧪 Levure</h4>
+                    <ul>
+                        <li>
+                            <strong>Type:</strong>
+                            Saccharomyces cerevisiae (organisme unique)
+                        </li>
+                        <li>
+                            <strong>Fermentation:</strong>
+                            Rapide et prévisible
+                        </li>
+                        <li>
+                            <strong>Temps de levée:</strong>
+                            1-3 heures
+                        </li>
+                        <li>
+                            <strong>Goût:</strong>
+                            Neutre, léger
+                        </li>
+                        <li>
+                            <strong>Conservation:</strong>
+                            Mie plus molle, se conserve moins longtemps
+                        </li>
+                        <li>
+                            <strong>Digestibilité:</strong>
+                            Standard
+                        </li>
+                        <li>
+                            <strong>Difficulté:</strong>
+                            Facile pour débutants
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="comparison-card levain">
+                    <h4>🌾 Levain</h4>
+                    <ul>
+                        <li>
+                            <strong>Type:</strong>
+                            Culture de levures sauvages + bactéries lactiques
+                        </li>
+                        <li>
+                            <strong>Fermentation:</strong>
+                            Lente et complexe
+                        </li>
+                        <li>
+                            <strong>Temps de levée:</strong>
+                            6-24 heures
+                        </li>
+                        <li>
+                            <strong>Goût:</strong>
+                            Acidulé, complexe, profond
+                        </li>
+                        <li>
+                            <strong>Conservation:</strong>
+                            Mie dense, se conserve 5-7 jours
+                        </li>
+                        <li>
+                            <strong>Digestibilité:</strong>
+                            Meilleure (gluten pré-digéré)
+                        </li>
+                        <li>
+                            <strong>Difficulté:</strong>
+                            Nécessite de l'expérience
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3><span class="section-icon">🧬</span>Qu'est-ce que la Levure?</h3>
+            <div class="info-box">
+                <h5>Définition et Types</h5>
+                <p><strong>La levure</strong> est un champignon unicellulaire qui transforme les sucres en CO₂ et en alcool.</p>
+                
+                <ul style="margin-top: 15px; padding-left: 20px;">
+                    <li><strong>Levure fraîche (de boulanger):</strong> Bloc beige, à conserver au frigo (2 semaines)</li>
+                    <li><strong>Levure sèche active:</strong> Granules à réhydrater dans l'eau tiède</li>
+                    <li><strong>Levure instantanée:</strong> Granules fines à mélanger directement à la farine</li>
+                </ul>
+
+                <div style="margin-top: 20px; padding: 15px; background: white; border-radius: 8px;">
+                    <strong>💡 Dosage standard:</strong><br>
+                    • 1 cube de levure fraîche (42g) = 14g de levure sèche active = 10g de levure instantanée<br>
+                    • Pour 500g de farine: 7-10g de levure sèche ou 20-25g de levure fraîche
+                </div>
+            </div>
+
+            <h3><span class="section-icon">🌱</span>Qu'est-ce que le Levain?</h3>
+            <div class="info-box">
+                <h5>Culture Vivante et Complexe</h5>
+                <p><strong>Le levain</strong> est une culture symbiotique de levures sauvages et de bactéries lactiques (principalement <em>Lactobacillus</em>), cultivée à partir de farine et d'eau.</p>
+                
+                <div style="margin-top: 20px; padding: 15px; background: white; border-radius: 8px;">
+                    <strong>🔬 Composition:</strong><br>
+                    • <strong>Levures sauvages:</strong> Produisent le CO₂ pour la levée<br>
+                    • <strong>Bactéries lactiques:</strong> Créent l'acidité et développent les arômes<br>
+                    • <strong>Acides organiques:</strong> Acide lactique et acétique pour la saveur et la conservation
+                </div>
+
+                <div style="margin-top: 15px; padding: 15px; background: #e8f5e9; border-radius: 8px;">
+                    <strong>✨ Avantages du levain:</strong><br>
+                    • Saveur plus complexe et profonde<br>
+                    • Meilleure conservation (acidité naturelle)<br>
+                    • Texture de mie plus dense et alvéolée<br>
+                    • Meilleure digestibilité (fermentation longue pré-digère le gluten)<br>
+                    • Index glycémique plus bas<br>
+                    • Croûte plus croustillante et dorée
+                </div>
+            </div>
+
+            <h3><span class="section-icon">⏰</span>Temps de Levée avec le Levain</h3>
+            <div class="highlight-box">
+                <h5>⚠️ Important à Savoir</h5>
+                <p>Le pain au levain nécessite beaucoup plus de temps que le pain à la levure. La fermentation lente est essentielle pour développer les saveurs et les propriétés uniques du levain.</p>
+            </div>
+
+            <table class="timing-table">
+                <thead>
+                    <tr>
+                        <th>Étape</th>
+                        <th>Température</th>
+                        <th>Durée</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>🔄 Rafraîchir le levain</td>
+                        <td>20-22°C</td>
+                        <td>4-8 heures (jusqu'à doublement)</td>
+                    </tr>
+                    <tr>
+                        <td>🍞 Autolyse (farine + eau)</td>
+                        <td>Température ambiante</td>
+                        <td>30-60 minutes</td>
+                    </tr>
+                    <tr>
+                        <td>🔵 Première fermentation (pointage)</td>
+                        <td>24-26°C</td>
+                        <td>4-6 heures avec pliages toutes les 30-45 min</td>
+                    </tr>
+                    <tr>
+                        <td>✋ Façonnage et mise en banneton</td>
+                        <td>-</td>
+                        <td>Quelques minutes</td>
+                    </tr>
+                    <tr>
+                        <td>🌡️ Deuxième fermentation (apprêt)</td>
+                        <td>20-22°C ou 4°C (frigo)</td>
+                        <td>2-4 heures (ambiante) ou 12-18 heures (frigo)</td>
+                    </tr>
+                    <tr>
+                        <td>🔥 Cuisson</td>
+                        <td>230-250°C</td>
+                        <td>35-45 minutes</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box" style="margin-top: 30px;">
+                <h5>🌡️ Impact de la Température sur la Levée</h5>
+                <ul style="padding-left: 20px;">
+                    <li><strong>18-20°C (fraîche):</strong> Fermentation très lente (8-12h), saveur plus complexe et acidulée</li>
+                    <li><strong>22-24°C (idéale):</strong> Fermentation équilibrée (4-6h), bon développement des arômes</li>
+                    <li><strong>26-28°C (chaude):</strong> Fermentation rapide (3-4h), risque de surfermentation</li>
+                    <li><strong>4-6°C (réfrigérateur):</strong> Fermentation ultra-lente (12-24h), maximum de saveur, pratique pour planifier</li>
+                </ul>
+
+                <div style="margin-top: 15px; padding: 15px; background: #fff3e0; border-radius: 8px;">
+                    <strong>💡 Astuce Pro:</strong> La méthode du "cold retard" (fermentation au frigo) permet de mieux planifier votre pain et développe des saveurs plus complexes. Façonnez votre pâton le soir, mettez-le au frigo, et cuisez-le le lendemain matin!
+                </div>
+            </div>
+
+            <h3><span class="section-icon">👁️</span>Reconnaître une Pâte Bien Levée au Levain</h3>
+            <div class="info-box">
+                <h5>Signes de Levée Optimale</h5>
+                <ul style="padding-left: 20px;">
+                    <li><strong>Volume:</strong> La pâte a augmenté de 30-50% (pas doublé comme avec la levure)</li>
+                    <li><strong>Texture:</strong> La pâte est gonflée, légère et aérée</li>
+                    <li><strong>Surface:</strong> Légèrement bombée avec de petites bulles visibles</li>
+                    <li><strong>Test du doigt:</strong> Une légère pression laisse une empreinte qui revient lentement</li>
+                    <li><strong>Aspect:</strong> La pâte est souple mais garde sa structure</li>
+                </ul>
+
+                <div style="margin-top: 15px; padding: 15px; background: #ffebee; border-radius: 8px;">
+                    <strong>⚠️ Signes de Surfermentation:</strong><br>
+                    • La pâte s'affaisse au toucher<br>
+                    • Odeur très acide ou d'alcool<br>
+                    • La pâte est collante et difficile à manipuler<br>
+                    • Les bulles éclatent facilement à la surface
+                </div>
+            </div>
+
+            <h3><span class="section-icon">🎯</span>Quand Utiliser Quoi?</h3>
+            <div class="comparison-grid">
+                <div class="comparison-card levure">
+                    <h4>Utilisez la Levure pour:</h4>
+                    <ul>
+                        <li>Pain rapide du quotidien</li>
+                        <li>Viennoiseries (brioches, croissants)</li>
+                        <li>Pains moelleux (pain de mie)</li>
+                        <li>Pizzas express</li>
+                        <li>Premiers essais en boulangerie</li>
+                        <li>Quand le temps est limité</li>
+                    </ul>
+                </div>
+                
+                <div class="comparison-card levain">
+                    <h4>Utilisez le Levain pour:</h4>
+                    <ul>
+                        <li>Pains artisanaux traditionnels</li>
+                        <li>Pains de campagne</li>
+                        <li>Miches rustiques</li>
+                        <li>Pains aux céréales</li>
+                        <li>Quand vous cherchez la profondeur de goût</li>
+                        <li>Pour une meilleure conservation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="highlight-box" style="margin-top: 30px;">
+                <h5>🔄 Peut-on Combiner les Deux?</h5>
+                <p>Oui! Certaines recettes utilisent du levain pour la saveur et un peu de levure pour accélérer la levée. C'est un bon compromis:</p>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li>80% du levain habituel + 1-2g de levure pour 500g de farine</li>
+                    <li>Réduit le temps de levée à 2-3 heures</li>
+                    <li>Conserve une partie de la saveur du levain</li>
+                    <li>Idéal pour les jours où vous manquez de temps</li>
+                </ul>
+            </div>
+
+            <div class="info-box" style="margin-top: 30px; background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 5px solid #4caf50;">
+                <h5>🌟 Conseil du Boulanger</h5>
+                <p style="font-style: italic; font-size: 1.1em;">
+                    "Le levain demande de la patience et de l'attention, mais il récompense généreusement avec des pains d'exception. Commencez avec la levure pour maîtriser les bases, puis lancez-vous dans l'aventure du levain. C'est un voyage fascinant qui ne se termine jamais!"
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <a href="#top" class="back-to-top-btn" title="Retour en haut">↑</a>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const backToTopBtn = document.querySelector('.back-to-top-btn');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) { backToTopBtn.style.display = 'flex'; }
+            else { backToTopBtn.style.display = 'none'; }
+        });
+        backToTopBtn.style.display = 'none';
+    </script>
+</body>
+</html>

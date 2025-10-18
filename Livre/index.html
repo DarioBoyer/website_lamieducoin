@@ -265,7 +265,7 @@
                     <h3>✨ Bienvenue dans Le Grand Livre du Pain ✨</h3>
                     <p>Sélectionnez une catégorie ci-dessus pour explorer les recettes, techniques et astuces</p>
                     <p class="mt-4">🥖 8 Recettes Traditionnelles • 🌾 3 Recettes Sans Gluten • 🥐 3 Viennoiseries • 🌟 4 Recettes Spéciales</p>
-                    <p>🤝 9 Techniques de Façonnage • 💡 10 Astuces et Guides • 🌾 Guide Complet des Farines</p>
+                    <p>🤝 9 Techniques de Façonnage • 💡 10 Astuces et Guides • 🌾 7 Sections Guide des Farines</p>
                 </div>
             </div>
         </div>
@@ -355,6 +355,8 @@
                         <ul class="recipe-list" id="astucesList">
                             <li data-astuce="Astuces/calculateur-proportions.html">🧮 Calculateur de Proportions</li>
                             <li data-astuce="Astuces/bakers-percentage.html">⚖️ Baker's Percentage</li>
+                            <li data-astuce="Astuces/creer-levain.html">🌾 Créer son Levain</li>
+                            <li data-astuce="Astuces/levure-vs-levain.html">🔬 Levure vs Levain</li>
                             <li data-astuce="Astuces/hydratation.html">💧 Hydratation par Type</li>
                             <li data-astuce="Astuces/temperatures.html">🌡️ Températures de Cuisson</li>
                             <li data-astuce="Astuces/astuces-essentielles.html">💡 Astuces Essentielles</li>
@@ -380,10 +382,26 @@
         <!-- ONGLET GUIDE FARINES -->
         <div class="tab-pane fade" id="guide" role="tabpanel">
             <div class="container-fluid mt-4">
-                <div class="content-display" id="guideDisplay">
-                    <div class="loading">
-                        <div class="spinner"></div>
-                        <p class="mt-3">Chargement du guide des farines...</p>
+                <div class="row">
+                    <div class="col-lg-3 mb-3">
+                        <h5 class="mb-3" style="color: #8B4513;">Guide des Farines:</h5>
+                        <ul class="recipe-list" id="guideList">
+                            <li data-guide="Guides/correspondance-farines.html">📊 Correspondance Europe-Québec</li>
+                            <li data-guide="Guides/identifier-farines-quebec.html">🔍 Identifier au Québec</li>
+                            <li data-guide="Guides/marques-quebecoises.html">🏷️ Marques Québécoises</li>
+                            <li data-guide="Guides/farines-speciales.html">🌾 Farines Spéciales</li>
+                            <li data-guide="Guides/comprendre-gluten.html">🔬 Comprendre le Gluten</li>
+                            <li data-guide="Guides/conversions-mesures.html">📐 Conversions et Mesures</li>
+                            <li data-guide="Guides/choisir-farine.html">🎯 Choisir la Bonne Farine</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="content-display" id="guideDisplay">
+                            <div class="welcome-message">
+                                <h4>Sélectionnez une section du guide</h4>
+                                <p>👈 Choisissez une section pour l'afficher</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -522,13 +540,33 @@
             });
         });
 
+        // Gestion du guide des farines
+        document.querySelectorAll('#guideList li').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('#guideList li').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+                
+                const guide = this.dataset.guide;
+                const display = document.getElementById('guideDisplay');
+                display.innerHTML = `
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <p class="mt-3">Chargement du guide...</p>
+                    </div>
+                `;
+                
+                setTimeout(() => {
+                    display.innerHTML = `<iframe src="${guide}" onload="this.style.height='800px'"></iframe>`;
+                }, 300);
+            });
+        });
+
         // Charger le guide des farines automatiquement
         document.getElementById('guide-tab').addEventListener('shown.bs.tab', function() {
             const display = document.getElementById('guideDisplay');
-            if (!display.querySelector('iframe')) {
-                setTimeout(() => {
-                    display.innerHTML = `<iframe src="guide-farines.html" onload="this.style.height='800px'"></iframe>`;
-                }, 500);
+            const firstGuideItem = document.querySelector('#guideList li');
+            if (firstGuideItem && !display.querySelector('iframe')) {
+                firstGuideItem.click();
             }
         });
 

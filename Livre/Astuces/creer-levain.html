@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créer et Entretenir son Levain - Guide Complet</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .recipe-container { max-width: 1000px; margin: 0 auto; }
+        .recipe-header {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            color: white; padding: 40px; border-radius: 15px 15px 0 0;
+            text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .recipe-icon { font-size: 4em; margin-bottom: 15px; }
+        .recipe-title h1 { font-size: 2.5em; font-weight: bold; margin-bottom: 10px; }
+        .recipe-subtitle { font-size: 1.2em; opacity: 0.9; margin: 0; }
+        .recipe-content {
+            background: white; padding: 40px;
+            border-radius: 0 0 15px 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* Day Cards Styling */
+        .day-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 25px 0;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        .day-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .day-number {
+            font-size: 3em;
+            font-weight: bold;
+            opacity: 0.3;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+        }
+        .day-card h4 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            padding-bottom: 15px;
+        }
+        .day-card .card-content {
+            position: relative;
+            z-index: 1;
+        }
+        .day-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 15px 0;
+        }
+        .day-card li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+            line-height: 1.6;
+        }
+        .day-card li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .visual-diagram {
+            background: rgba(255,255,255,0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 2em;
+        }
+        .temp-box {
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid rgba(255,255,255,0.5);
+        }
+        .temp-box strong {
+            font-size: 1.2em;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        /* Info Boxes */
+        .info-box {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border-left: 5px solid #D2691E;
+        }
+        .info-box h5 {
+            color: #D2691E;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        .info-box p, .info-box li {
+            color: #333;
+            line-height: 1.8;
+        }
+        
+        /* Problem Section */
+        .problem-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .problem-card:hover {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        .problem-card h5 {
+            color: #d32f2f;
+            font-weight: bold;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .problem-card h5::before {
+            content: '⚠️';
+            font-size: 1.5em;
+        }
+        .problem-card .symptom {
+            background: #ffebee;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 10px 0;
+            border-left: 3px solid #d32f2f;
+        }
+        .problem-card .solution {
+            background: #e8f5e9;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 10px 0;
+            border-left: 3px solid #4caf50;
+        }
+        .problem-card .solution::before {
+            content: '✅ Solution: ';
+            font-weight: bold;
+            color: #2e7d32;
+        }
+        
+        /* Temperature Guide */
+        .temp-guide {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .temp-item {
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        .temp-item .temp-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            display: block;
+            margin: 10px 0;
+        }
+        .temp-item .temp-label {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        /* Recipe Box */
+        .recipe-box {
+            background: linear-gradient(135deg, #fff9f0 0%, #ffe8cc 100%);
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border: 2px solid #D2691E;
+        }
+        .recipe-box h5 {
+            color: #8B4513;
+            margin-bottom: 15px;
+            font-weight: bold;
+            font-size: 1.4em;
+        }
+        .ingredient-list {
+            list-style: none;
+            padding: 0;
+        }
+        .ingredient-list li {
+            padding: 10px;
+            margin: 8px 0;
+            background: white;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .ingredient-list li strong {
+            color: #8B4513;
+        }
+        
+        h3 {
+            color: #8B4513;
+            border-bottom: 3px solid #D2691E;
+            padding-bottom: 10px;
+            margin: 40px 0 25px 0;
+            font-size: 1.8em;
+        }
+        .section-icon {
+            font-size: 2em;
+            margin-right: 15px;
+            vertical-align: middle;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #4caf50;
+        }
+        .highlight-box h5 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .back-to-top-btn {
+            position: fixed; bottom: 30px; right: 30px; background: #D2691E;
+            color: white; width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s ease; z-index: 1000;
+        }
+        .back-to-top-btn:hover {
+            background: #8B4513; transform: translateY(-5px); color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .recipe-header { padding: 30px 20px; }
+            .recipe-title h1 { font-size: 2em; }
+            .recipe-content { padding: 25px; }
+            .day-card { padding: 20px; }
+            .day-number { font-size: 2em; }
+            .temp-guide {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="top"></div>
+    <div class="recipe-container">
+        <div class="recipe-header">
+            <div class="recipe-icon">🌾</div>
+            <div class="recipe-title">
+                <h1>Créer son Levain Maison</h1>
+                <p class="recipe-subtitle">Guide complet jour par jour avec solutions aux problèmes</p>
+            </div>
+        </div>
+        
+        <div class="recipe-content">
+            <div class="info-box">
+                <h5>📖 Qu'est-ce qu'un Levain?</h5>
+                <p>Le levain est une culture vivante de levures sauvages et de bactéries lactiques qui fermentent naturellement dans un mélange de farine et d'eau. Il sert à faire lever le pain tout en lui donnant une saveur unique, une meilleure conservation et une digestibilité améliorée.</p>
+                <p style="margin-top: 15px;"><strong>Durée totale:</strong> 5-7 jours pour créer un levain actif et mature</p>
+            </div>
+
+            <h3><span class="section-icon">🌡️</span>Températures Idéales</h3>
+            <div class="temp-guide">
+                <div class="temp-item">
+                    <span class="temp-value">20-22°C</span>
+                    <span class="temp-label">Température idéale de fermentation</span>
+                </div>
+                <div class="temp-item">
+                    <span class="temp-value">24-26°C</span>
+                    <span class="temp-label">Fermentation accélérée (attention!)</span>
+                </div>
+                <div class="temp-item">
+                    <span class="temp-value">18-19°C</span>
+                    <span class="temp-label">Fermentation lente (OK mais plus long)</span>
+                </div>
+                <div class="temp-item">
+                    <span class="temp-value">4°C</span>
+                    <span class="temp-label">Conservation au frigo</span>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h5>💡 Important à Savoir</h5>
+                <ul style="padding-left: 20px;">
+                    <li>La température influence grandement la vitesse de fermentation</li>
+                    <li>Un environnement trop chaud (&gt;28°C) favorise les bactéries au détriment des levures</li>
+                    <li>Un environnement trop froid (&lt;18°C) ralentit considérablement le processus</li>
+                    <li>Trouvez un endroit stable dans votre maison (sur le frigo, près d'un radiateur, dans un four éteint)</li>
+                </ul>
+            </div>
+
+            <h3><span class="section-icon">📅</span>Guide Jour par Jour</h3>
+
+            <div class="recipe-box">
+                <h5>📝 Recette de Base (à répéter chaque jour)</h5>
+                <ul class="ingredient-list">
+                    <li>
+                        <span><strong>Farine</strong> (complète, seigle ou tout usage)</span>
+                        <span>50g</span>
+                    </li>
+                    <li>
+                        <span><strong>Eau</strong> (température ambiante, non chlorée)</span>
+                        <span>50g</span>
+                    </li>
+                </ul>
+                <p style="margin-top: 15px; font-style: italic; color: #666;">💧 Astuce: Si votre eau est chlorée, laissez-la reposer 24h dans un récipient ouvert ou utilisez de l'eau filtrée.</p>
+            </div>
+
+            <!-- JOUR 1 -->
+            <div class="day-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <div class="day-number">1</div>
+                <div class="card-content">
+                    <h4>🌱 Jour 1: La Création</h4>
+                    
+                    <div class="visual-diagram">
+                        🥄 50g farine + 💧 50g eau = 🏺 Levain naissant
+                    </div>
+
+                    <ul>
+                        <li><strong>Action:</strong> Mélanger 50g de farine complète ou de seigle + 50g d'eau tiède dans un pot en verre</li>
+                        <li><strong>Consistance:</strong> Pâte épaisse mais remuable</li>
+                        <li><strong>Couvrir:</strong> Avec un linge propre ou un couvercle non hermétique</li>
+                        <li><strong>Emplacement:</strong> Laisser à température ambiante (20-22°C)</li>
+                    </ul>
+
+                    <div class="temp-box">
+                        <strong>🌡️ Température:</strong>
+                        <p>20-22°C idéal | L'eau doit être tiède (25-30°C) pour le premier jour</p>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 8px; margin-top: 15px;">
+                        <strong>Ce qui se passe:</strong> Les levures et bactéries naturellement présentes dans la farine commencent à s'activer. Rien de visible encore, c'est normal!
+                    </div>
+                </div>
+            </div>
+
+            <!-- JOUR 2 -->
+            <div class="day-card" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                <div class="day-number">2</div>
+                <div class="card-content">
+                    <h4>👁️ Jour 2: L'Observation</h4>
+                    
+                    <div class="visual-diagram">
+                        👀 Observation + 🤏 Peut-être quelques bulles
+                    </div>
+
+                    <ul>
+                        <li><strong>Action:</strong> NE RIEN FAIRE - juste observer</li>
+                        <li><strong>Signes attendus:</strong> Peut-être quelques petites bulles en surface</li>
+                        <li><strong>Odeur:</strong> Légèrement acide ou encore neutre</li>
+                        <li><strong>Note:</strong> Il est normal de ne voir aucun changement significatif</li>
+                    </ul>
+
+                    <div class="temp-box">
+                        <strong>🌡️ Température:</strong>
+                        <p>Maintenir à 20-22°C | Vérifier que l'emplacement est stable</p>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 8px; margin-top: 15px;">
+                        <strong>Ce qui se passe:</strong> Les premières colonies microbiennes se développent. La fermentation débute lentement. Patience!
+                    </div>
+                </div>
+            </div>
+
+            <!-- JOUR 3 -->
+            <div class="day-card" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);">
+                <div class="day-number">3</div>
+                <div class="card-content">
+                    <h4>🍽️ Jour 3: Le Premier Repas</h4>
+                    
+                    <div class="visual-diagram">
+                        🗑️ Jeter la moitié + 🥄 50g farine + 💧 50g eau
+                    </div>
+
+                    <ul>
+                        <li><strong>Action:</strong> Jeter la moitié du mélange (environ 50g)</li>
+                        <li><strong>Nourrir:</strong> Ajouter 50g de farine + 50g d'eau</li>
+                        <li><strong>Bien mélanger:</strong> Jusqu'à consistance homogène</li>
+                        <li><strong>Signes attendus:</strong> Quelques bulles, légère augmentation de volume possible</li>
+                    </ul>
+
+                    <div class="temp-box">
+                        <strong>🌡️ Température:</strong>
+                        <p>20-22°C | L'eau doit être à température ambiante maintenant</p>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 8px; margin-top: 15px;">
+                        <strong>Ce qui se passe:</strong> Le "repas" apporte de nouveaux nutriments. Les bonnes bactéries et levures se renforcent. Vous pourriez voir plus d'activité.
+                    </div>
+                </div>
+            </div>
+
+            <!-- JOUR 4 -->
+            <div class="day-card" style="background: linear-gradient(135deg, #ff9a56 0%, #ff6a00 100%);">
+                <div class="day-number">4</div>
+                <div class="card-content">
+                    <h4>📈 Jour 4: L'Activation</h4>
+                    
+                    <div class="visual-diagram">
+                        🗑️ Jeter la moitié + 🥄 50g farine + 💧 50g eau<br>
+                        ↗️ Début d'activité visible
+                    </div>
+
+                    <ul>
+                        <li><strong>Action:</strong> Répéter l'opération du Jour 3</li>
+                        <li><strong>Jeter:</strong> La moitié du levain</li>
+                        <li><strong>Nourrir:</strong> 50g farine + 50g eau</li>
+                        <li><strong>Signes attendus:</strong> Bulles plus nombreuses, odeur aigre-douce, légère mousse</li>
+                    </ul>
+
+                    <div class="temp-box">
+                        <strong>🌡️ Température:</strong>
+                        <p>20-22°C | À ce stade, la température est critique pour le développement</p>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 8px; margin-top: 15px;">
+                        <strong>Ce qui se passe:</strong> L'activité fermentaire s'accélère. Les levures se multiplient rapidement. L'odeur devient plus prononcée (c'est bon signe!).
+                    </div>
+                </div>
+            </div>
+
+            <!-- JOUR 5 -->
+            <div class="day-card" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+                <div class="day-number">5</div>
+                <div class="card-content">
+                    <h4>💪 Jour 5: Le Renforcement</h4>
+                    
+                    <div class="visual-diagram">
+                        🗑️ Jeter la moitié + 🥄 50g farine + 💧 50g eau<br>
+                        📊 Volume double en 4-8h
+                    </div>
+
+                    <ul>
+                        <li><strong>Action:</strong> Continuer les rafraîchissements quotidiens</li>
+                        <li><strong>Jeter:</strong> La moitié</li>
+                        <li><strong>Nourrir:</strong> 50g farine + 50g eau</li>
+                        <li><strong>Observer:</strong> Le levain devrait doubler de volume en 4-8 heures</li>
+                        <li><strong>Marquer:</strong> Faire une marque sur le pot au niveau de départ</li>
+                    </ul>
+
+                    <div class="temp-box">
+                        <strong>🌡️ Température:</strong>
+                        <p>20-22°C | Surveiller le doublement de volume (signe de maturité)</p>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 8px; margin-top: 15px;">
+                        <strong>Ce qui se passe:</strong> Le levain devient plus prévisible. Il double de volume régulièrement. Beaucoup de bulles actives. Odeur agréablement acidulée.
+                    </div>
+                </div>
+            </div>
+
+            <!-- JOUR 6-7 -->
+            <div class="day-card" style="background: linear-gradient(135deg, #8ec5fc 0%, #e0c3fc 100%);">
+                <div class="day-number">6-7</div>
+                <div class="card-content">
+                    <h4>🎉 Jour 6-7: La Maturité</h4>
+                    
+                    <div class="visual-diagram">
+                        🗑️ Jeter la moitié + 🥄 50g farine + 💧 50g eau<br>
+                        ✅ Levain mature et prêt!
+                    </div>
+
+                    <ul>
+                        <li><strong>Action:</strong> Continuer les rafraîchissements</li>
+                        <li><strong>Test de maturité:</strong> Le levain double en 4-6 heures de façon constante</li>
+                        <li><strong>Test de flottaison:</strong> Une cuillère de levain flotte dans l'eau (signe qu'il est prêt)</li>
+                        <li><strong>Utilisation:</strong> Votre levain est prêt à être utilisé pour faire du pain!</li>
+                    </ul>
+
+                    <div class="temp-box">
+                        <strong>🌡️ Température:</strong>
+                        <p>20-22°C | Maintenir cette température pour les rafraîchissements réguliers</p>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 8px; margin-top: 15px;">
+                        <strong>Félicitations!</strong> Votre levain est mature et équilibré. Les levures et bactéries vivent en harmonie. Il est prêt à donner vie à de magnifiques pains!
+                    </div>
+                </div>
+            </div>
+
+            <h3><span class="section-icon">🔄</span>Entretien Quotidien</h3>
+            <div class="recipe-box">
+                <h5>Rafraîchissement Standard (1:1:1)</h5>
+                <ul class="ingredient-list">
+                    <li>
+                        <span><strong>Levain existant</strong></span>
+                        <span>50g</span>
+                    </li>
+                    <li>
+                        <span><strong>Farine</strong></span>
+                        <span>50g</span>
+                    </li>
+                    <li>
+                        <span><strong>Eau</strong></span>
+                        <span>50g</span>
+                    </li>
+                </ul>
+                <div style="margin-top: 20px; padding: 15px; background: #e8f5e9; border-radius: 8px;">
+                    <strong>📅 Fréquence:</strong><br>
+                    • <strong>Utilisation quotidienne:</strong> Rafraîchir 1-2 fois par jour (température ambiante)<br>
+                    • <strong>Utilisation occasionnelle:</strong> Rafraîchir 1 fois par semaine (au frigo)<br>
+                    • <strong>Avant utilisation:</strong> Sortir du frigo et rafraîchir 8-12h avant de faire du pain
+                </div>
+            </div>
+
+            <h3><span class="section-icon">⚠️</span>Problèmes Courants et Solutions</h3>
+
+            <div class="problem-card">
+                <h5>Odeur d'Acétone ou de Vernis à Ongles</h5>
+                <div class="symptom">
+                    <strong>Symptôme:</strong> Odeur chimique forte, piquante et désagréable
+                </div>
+                <div class="solution">
+                    Le levain manque de nourriture. Il produit trop d'acide acétique. Jetez une plus grande partie (garder seulement 20g) et nourrissez avec 50g farine + 50g eau. Rafraîchissez plus fréquemment.
+                </div>
+            </div>
+
+            <div class="problem-card">
+                <h5>Odeur de Fromage ou de Vomi</h5>
+                <div class="symptom">
+                    <strong>Symptôme:</strong> Odeur très désagréable, nauséabonde, aigre-pourrie
+                </div>
+                <div class="solution">
+                    Mauvaises bactéries ont pris le dessus. Jetez presque tout (garder 10g), nourrissez avec 50g farine + 50g eau. Vérifiez que la température n'est pas trop chaude (&gt;26°C). Si ça persiste après 2 jours, recommencez à zéro.
+                </div>
+            </div>
+
+            <div class="problem-card">
+                <h5>Liquide Foncé sur le Dessus (Hooch)</h5>
+                <div class="symptom">
+                    <strong>Symptôme:</strong> Liquide gris, brun ou noir qui se forme en surface
+                </div>
+                <div class="solution">
+                    C'est de l'alcool produit par les levures affamées. Vous pouvez soit le mélanger (goût plus acide) soit le verser. Nourrissez immédiatement votre levain. C'est un signe qu'il faut rafraîchir plus souvent.
+                </div>
+            </div>
+
+            <div class="problem-card">
+                <h5>Moisissure Visible</h5>
+                <div class="symptom">
+                    <strong>Symptôme:</strong> Taches blanches, vertes, roses ou noires duveteuses
+                </div>
+                <div class="solution">
+                    JETEZ TOUT et recommencez à zéro. La moisissure peut être dangereuse. Nettoyez bien le pot avec de l'eau bouillante. Causes possibles: contamination, pot mal nettoyé, température trop chaude, humidité excessive.
+                </div>
+            </div>
+
+            <div class="problem-card">
+                <h5>Pas d'Activité - Aucune Bulle</h5>
+                <div class="symptom">
+                    <strong>Symptôme:</strong> Après 3-4 jours, toujours aucun signe de vie, pas de bulles
+                </div>
+                <div class="solution">
+                    Température trop froide ou farine trop raffinée. Essayez: 1) Augmenter la température à 24-26°C, 2) Utiliser de la farine de seigle ou complète (plus de nutriments), 3) Utilisez de l'eau non chlorée, 4) Soyez patient, parfois ça prend 5-7 jours.
+                </div>
+            </div>
+
+            <div class="problem-card">
+                <h5>Monte puis Retombe Rapidement</h5>
+                <div class="symptom">
+                    <strong>Symptôme:</strong> Double en 2h puis s'affaisse complètement
+                </div>
+                <div class="solution">
+                    Levain trop actif ou température trop chaude. Solutions: 1) Utilisez de l'eau plus froide pour le rafraîchissement, 2) Augmentez le ratio de farine (60g farine pour 50g eau), 3) Réduisez la température ambiante à 20-22°C, 4) Utilisez-le à son pic avant qu'il retombe.
+                </div>
+            </div>
+
+            <div class="problem-card">
+                <h5>Texture Trop Liquide</h5>
+                <div class="symptom">
+                    <strong>Symptôme:</strong> Levain très liquide, presque comme une pâte à crêpe
+                </div>
+                <div class="solution">
+                    Trop d'eau ou farine trop absorbante. Ajustez le ratio: utilisez 45g d'eau pour 50g de farine. Vous pouvez aussi changer de farine. La consistance idéale est comme une pâte à pancake épaisse.
+                </div>
+            </div>
+
+            <div class="problem-card">
+                <h5>Texture Trop Épaisse</h5>
+                <div class="symptom">
+                    <strong>Symptôme:</strong> Levain très épais, difficile à mélanger, pas assez humide
+                </div>
+                <div class="solution">
+                    Pas assez d'eau. Augmentez légèrement la quantité d'eau à 55g pour 50g de farine. Le levain doit être remué facilement mais rester épais.
+                </div>
+            </div>
+
+            <div class="problem-card">
+                <h5>Croûte Sèche en Surface</h5>
+                <div class="symptom">
+                    <strong>Symptôme:</strong> Formation d'une croûte dure et sèche sur le dessus
+                </div>
+                <div class="solution">
+                    Évaporation excessive. Assurez-vous que le couvercle n'est pas complètement ouvert. Utilisez un linge humide ou un couvercle avec un petit trou. Ne fermez jamais hermétiquement (le levain a besoin d'air).
+                </div>
+            </div>
+
+            <h3><span class="section-icon">👃</span>Guide des Odeurs</h3>
+            <div class="info-box">
+                <h5>Odeurs Normales (Bonnes)</h5>
+                <ul style="padding-left: 20px;">
+                    <li><strong>🍞 Agréablement acidulée:</strong> Comme du yaourt ou de la pâte à pain - C'est parfait!</li>
+                    <li><strong>🍺 Levure de bière:</strong> Légère odeur de bière ou de levure - Très bon signe</li>
+                    <li><strong>🍏 Pomme verte:</strong> Fraîche et légèrement fruitée - Excellent levain jeune</li>
+                    <li><strong>🧀 Fromage doux:</strong> Légère odeur fromagère pas désagréable - Normal pour un levain mature</li>
+                    <li><strong>🍋 Citron/Vinaigre léger:</strong> Acidité douce et propre - Signe d'un levain actif</li>
+                </ul>
+            </div>
+
+            <div class="info-box" style="background: #ffebee; border-left-color: #d32f2f;">
+                <h5>Odeurs Problématiques (Mauvaises)</h5>
+                <ul style="padding-left: 20px;">
+                    <li><strong>💅 Acétone/Vernis:</strong> Chimique et piquante - Levain affamé, nourrir immédiatement</li>
+                    <li><strong>🤢 Vomi/Fromage pourri:</strong> Nauséabonde - Mauvaises bactéries, jeter presque tout</li>
+                    <li><strong>🥚 Œufs pourris:</strong> Odeur de soufre - Contamination, à jeter</li>
+                    <li><strong>🧪 Ammoniaque:</strong> Piquante comme de l'urine - Levain mort ou contaminé</li>
+                    <li><strong>🍄 Moisi:</strong> Odeur de cave humide - Présence de moisissures, à jeter</li>
+                </ul>
+            </div>
+
+            <h3><span class="section-icon">🔍</span>Guide des Textures</h3>
+            <div class="info-box">
+                <h5>Textures Normales</h5>
+                <ul style="padding-left: 20px;">
+                    <li><strong>🥞 Pâte à pancake épaisse:</strong> Texture idéale, coule lentement de la cuillère</li>
+                    <li><strong>🫧 Plein de bulles:</strong> Petites et grosses bulles uniformément réparties</li>
+                    <li><strong>📊 Augmentation de 50-100%:</strong> Le volume double, surface bombée</li>
+                    <li><strong>🌊 Légèrement élastique:</strong> Forme des pics quand on soulève une cuillère</li>
+                    <li><strong>✨ Surface brillante:</strong> Légèrement humide et luisante</li>
+                </ul>
+            </div>
+
+            <div class="info-box" style="background: #fff3e0; border-left-color: #ff9800;">
+                <h5>Textures à Surveiller</h5>
+                <ul style="padding-left: 20px;">
+                    <li><strong>💧 Trop liquide:</strong> Coule rapidement - Trop d'eau ou farine faible en protéines</li>
+                    <li><strong>🧱 Trop épais:</strong> Difficile à mélanger - Pas assez d'eau</li>
+                    <li><strong>😴 Aucune bulle:</strong> Texture compacte - Pas assez actif, température trop froide</li>
+                    <li><strong>🎈 Grosses bulles isolées:</strong> Quelques énormes bulles seulement - Surfermentation</li>
+                    <li><strong>🏜️ Croûte sèche:</strong> Surface craquelée - Trop d'évaporation, couvrir mieux</li>
+                </ul>
+            </div>
+
+            <h3><span class="section-icon">✅</span>Tests de Prêt du Levain</h3>
+            <div class="highlight-box">
+                <h5>Comment savoir si mon levain est prêt à utiliser?</h5>
+                
+                <div style="background: white; padding: 20px; border-radius: 10px; margin: 15px 0;">
+                    <strong style="color: #2e7d32; font-size: 1.2em;">1️⃣ Test du Double</strong>
+                    <p style="margin-top: 10px;">Après le rafraîchissement, le levain doit doubler de volume en 4-6 heures. Faites une marque au niveau de départ pour suivre la progression.</p>
+                </div>
+
+                <div style="background: white; padding: 20px; border-radius: 10px; margin: 15px 0;">
+                    <strong style="color: #2e7d32; font-size: 1.2em;">2️⃣ Test de Flottaison</strong>
+                    <p style="margin-top: 10px;">Prélevez une cuillère à café de levain et déposez-la délicatement dans un verre d'eau froide. Si elle flotte, votre levain est prêt! Si elle coule, il n'est pas assez actif.</p>
+                </div>
+
+                <div style="background: white; padding: 20px; border-radius: 10px; margin: 15px 0;">
+                    <strong style="color: #2e7d32; font-size: 1.2em;">3️⃣ Test Visuel</strong>
+                    <p style="margin-top: 10px;">Surface bombée et pleine de bulles. L'intérieur doit être alvéolé avec une structure de bulles uniforme. Texture mousseuse et légère.</p>
+                </div>
+
+                <div style="background: white; padding: 20px; border-radius: 10px; margin: 15px 0;">
+                    <strong style="color: #2e7d32; font-size: 1.2em;">4️⃣ Test de l'Odeur</strong>
+                    <p style="margin-top: 10px;">Odeur agréablement acidulée, comme du yaourt ou de la bière légère. Pas d'odeur chimique ou désagréable.</p>
+                </div>
+
+                <div style="background: white; padding: 20px; border-radius: 10px; margin: 15px 0;">
+                    <strong style="color: #2e7d32; font-size: 1.2em;">5️⃣ Test de Consistance</strong>
+                    <p style="margin-top: 10px;">Consistance homogène, comme une mousse épaisse. Quand vous soulevez une cuillère, le levain forme un pic qui retombe lentement.</p>
+                </div>
+            </div>
+
+            <h3><span class="section-icon">💾</span>Conservation du Levain</h3>
+            <div class="info-box">
+                <h5>Options de Conservation</h5>
+                
+                <div style="background: white; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <strong style="color: #8B4513;">🏠 Température Ambiante (utilisation quotidienne)</strong>
+                    <ul style="padding-left: 20px; margin-top: 10px;">
+                        <li>Rafraîchir 1-2 fois par jour</li>
+                        <li>Idéal si vous faites du pain régulièrement</li>
+                        <li>Garder dans un endroit à 20-22°C</li>
+                        <li>Maximum 2-3 jours sans rafraîchissement</li>
+                    </ul>
+                </div>
+
+                <div style="background: white; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <strong style="color: #8B4513;">❄️ Réfrigérateur (utilisation hebdomadaire)</strong>
+                    <ul style="padding-left: 20px; margin-top: 10px;">
+                        <li>Rafraîchir 1 fois par semaine</li>
+                        <li>Idéal pour les boulangers occasionnels</li>
+                        <li>Sortir et laisser revenir à température ambiante 1h avant rafraîchissement</li>
+                        <li>Peut se conserver jusqu'à 2 semaines sans rafraîchissement (mais pas idéal)</li>
+                    </ul>
+                </div>
+
+                <div style="background: white; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <strong style="color: #8B4513;">🧊 Congélateur (conservation longue durée)</strong>
+                    <ul style="padding-left: 20px; margin-top: 10px;">
+                        <li>Rafraîchir le levain, attendre qu'il soit au pic</li>
+                        <li>Mettre en portions dans des bacs à glaçons ou petits contenants</li>
+                        <li>Se conserve 3-6 mois</li>
+                        <li>Décongeler au frigo puis température ambiante, rafraîchir 2-3 fois avant utilisation</li>
+                    </ul>
+                </div>
+
+                <div style="background: white; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <strong style="color: #8B4513;">🌬️ Déshydratation (stockage d'urgence)</strong>
+                    <ul style="padding-left: 20px; margin-top: 10px;">
+                        <li>Étaler une fine couche de levain sur papier parchemin</li>
+                        <li>Laisser sécher complètement (24-48h)</li>
+                        <li>Briser en flocons et conserver dans un pot hermétique</li>
+                        <li>Se conserve 6-12 mois dans un endroit frais et sec</li>
+                        <li>Réhydrater avec eau tiède + farine, rafraîchir 3-4 fois avant utilisation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="highlight-box" style="margin-top: 30px;">
+                <h5>🎓 Conseils Finaux du Boulanger</h5>
+                <ul style="padding-left: 20px;">
+                    <li><strong>Patience:</strong> Chaque levain est unique et se développe à son rythme</li>
+                    <li><strong>Observation:</strong> Apprenez à connaître votre levain par ses odeurs, textures et comportements</li>
+                    <li><strong>Régularité:</strong> Un levain bien entretenu devient plus fort et prévisible avec le temps</li>
+                    <li><strong>Donnez un nom:</strong> Beaucoup de boulangers nomment leur levain - c'est un être vivant après tout!</li>
+                    <li><strong>Partagez:</strong> Les excédents de levain peuvent être donnés, utilisés en pâtisserie (crêpes, gaufres, crackers)</li>
+                    <li><strong>Ne stressez pas:</strong> Le levain est résilient. Même négligé, il peut souvent être sauvé avec quelques bons rafraîchissements</li>
+                </ul>
+                
+                <div style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.5); border-radius: 8px; font-style: italic; text-align: center;">
+                    "Un levain bien soigné devient un compagnon de vie qui peut durer des décennies, voire être transmis de génération en génération!"
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <a href="#top" class="back-to-top-btn" title="Retour en haut">↑</a>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const backToTopBtn = document.querySelector('.back-to-top-btn');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) { backToTopBtn.style.display = 'flex'; }
+            else { backToTopBtn.style.display = 'none'; }
+        });
+        backToTopBtn.style.display = 'none';
+    </script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choisir la Bonne Farine - Guide des Farines</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .recipe-container { max-width: 900px; margin: 0 auto; }
+        .recipe-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; padding: 40px; border-radius: 15px 15px 0 0;
+            text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .recipe-icon { font-size: 4em; margin-bottom: 15px; }
+        .recipe-title h1 { font-size: 2.5em; font-weight: bold; margin-bottom: 10px; }
+        .recipe-subtitle { font-size: 1.2em; opacity: 0.9; margin: 0; }
+        .recipe-content {
+            background: white; padding: 40px;
+            border-radius: 0 0 15px 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .choice-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+        .choice-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .choice-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        .choice-item p {
+            margin: 0;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        .choice-item strong {
+            font-size: 1.3em;
+            display: block;
+            margin-bottom: 8px;
+        }
+        h3 {
+            color: #8B4513;
+            border-bottom: 3px solid #D2691E;
+            padding-bottom: 10px;
+            margin: 30px 0 20px 0;
+        }
+        .back-to-top-btn {
+            position: fixed; bottom: 30px; right: 30px; background: #764ba2;
+            color: white; width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s ease; z-index: 1000;
+        }
+        .back-to-top-btn:hover {
+            background: #667eea; transform: translateY(-5px); color: white;
+        }
+        @media (max-width: 768px) {
+            .recipe-header { padding: 30px 20px; }
+            .recipe-title h1 { font-size: 2em; }
+            .recipe-content { padding: 25px; }
+            .choice-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="top"></div>
+    <div class="recipe-container">
+        <div class="recipe-header">
+            <div class="recipe-icon">🎯</div>
+            <div class="recipe-title">
+                <h1>Choisir la Bonne Farine</h1>
+                <p class="recipe-subtitle">Guide rapide de sélection</p>
+            </div>
+        </div>
+        
+        <div class="recipe-content">
+            <div class="choice-grid">
+                <div class="choice-item">
+                    <p><strong>🥐 Viennoiseries:</strong></p>
+                    <p>T45 (8-9% protéines)</p>
+                    <p style="margin-top: 10px; opacity: 0.9;">🍁 Québec: Farine à pâtisserie</p>
+                </div>
+                
+                <div class="choice-item">
+                    <p><strong>🍞 Pain blanc:</strong></p>
+                    <p>T55 (10-12% protéines)</p>
+                    <p style="margin-top: 10px; opacity: 0.9;">🍁 Québec: Farine tout usage</p>
+                </div>
+                
+                <div class="choice-item">
+                    <p><strong>🥖 Baguettes:</strong></p>
+                    <p>T65 (12-13% protéines)</p>
+                    <p style="margin-top: 10px; opacity: 0.9;">🍁 Québec: Farine à pain</p>
+                </div>
+                
+                <div class="choice-item">
+                    <p><strong>🌾 Pain rustique:</strong></p>
+                    <p>T80 (11-13% protéines)</p>
+                    <p style="margin-top: 10px; opacity: 0.9;">🍁 Québec: Farine à pain</p>
+                </div>
+                
+                <div class="choice-item">
+                    <p><strong>🌰 Pain complet:</strong></p>
+                    <p>T110 (13-14% protéines)</p>
+                    <p style="margin-top: 10px; opacity: 0.9;">🍁 Québec: Farine complète</p>
+                </div>
+                
+                <div class="choice-item">
+                    <p><strong>🌿 Pain intégral:</strong></p>
+                    <p>T150 (13-15% protéines)</p>
+                    <p style="margin-top: 10px; opacity: 0.9;">🍁 Québec: Farine intégrale</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <a href="#top" class="back-to-top-btn" title="Retour en haut">↑</a>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const backToTopBtn = document.querySelector('.back-to-top-btn');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) { backToTopBtn.style.display = 'flex'; }
+            else { backToTopBtn.style.display = 'none'; }
+        });
+        backToTopBtn.style.display = 'none';
+    </script>
+</body>
+</html>
