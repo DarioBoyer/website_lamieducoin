@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bretzel Classique - Le Grand Livre du Pain</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .recipe-container { max-width: 900px; margin: 0 auto; }
+        .recipe-header {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            color: white; padding: 40px; border-radius: 15px 15px 0 0;
+            text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .recipe-icon { font-size: 4em; margin-bottom: 15px; }
+        .recipe-title h1 { font-size: 2.5em; font-weight: bold; margin-bottom: 10px; }
+        .recipe-subtitle { font-size: 1.2em; opacity: 0.9; margin: 0; }
+        .info-cards {
+            background: white; padding: 30px; display: flex;
+            justify-content: space-around; flex-wrap: wrap; gap: 20px;
+        }
+        .info-card {
+            text-align: center; padding: 20px; background: #f8f9fa;
+            border-radius: 10px; min-width: 150px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .info-card .icon { font-size: 2.5em; margin-bottom: 10px; }
+        .info-card .label { color: #6c757d; font-size: 0.9em; margin-bottom: 5px; }
+        .info-card .value { font-size: 1.3em; font-weight: bold; color: #8B4513; }
+        .recipe-content {
+            background: white; padding: 40px;
+            border-radius: 0 0 15px 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .ingredients-section, .instructions-section { margin-bottom: 30px; }
+        .ingredients-section h3, .instructions-section h3 {
+            color: #8B4513; border-bottom: 3px solid #D2691E;
+            padding-bottom: 10px; margin-bottom: 20px;
+        }
+        .ingredients-list {
+            background: #fff9f0; padding: 25px;
+            border-radius: 10px; border-left: 5px solid #D2691E;
+        }
+        .ingredients-list ul { list-style: none; padding: 0; margin: 0; }
+        .ingredients-list li {
+            padding: 10px 0; border-bottom: 1px solid #f0e6d6; font-size: 1.1em;
+        }
+        .ingredients-list li:last-child { border-bottom: none; }
+        .ingredients-list li::before {
+            content: "✓ "; color: #D2691E; font-weight: bold; margin-right: 8px;
+        }
+        .ingredients-section h4 {
+            color: #8B4513; margin-top: 20px; margin-bottom: 15px; font-size: 1.2em;
+        }
+        .instructions-section ol { counter-reset: step-counter; list-style: none; padding: 0; }
+        .instructions-section li {
+            counter-increment: step-counter; position: relative;
+            padding: 20px 20px 20px 70px; margin-bottom: 15px;
+            background: #f8f9fa; border-radius: 10px; font-size: 1.05em; line-height: 1.6;
+        }
+        .instructions-section li::before {
+            content: counter(step-counter); position: absolute;
+            left: 20px; top: 50%; transform: translateY(-50%);
+            background: #D2691E; color: white; width: 35px; height: 35px;
+            border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; font-weight: bold; font-size: 1.1em;
+        }
+        .tips-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; padding: 25px; border-radius: 15px; margin-bottom: 20px;
+        }
+        .tips-box h4 { margin-bottom: 15px; font-weight: bold; }
+        .tips-box p { margin-bottom: 10px; line-height: 1.6; }
+        .tips-box ul { margin-bottom: 0; }
+        .tips-box li { margin-bottom: 8px; }
+        .nav-buttons { text-align: center; margin-top: 30px; padding: 20px; }
+        .btn-custom {
+            background: #8B4513; color: white; padding: 12px 30px;
+            border-radius: 25px; text-decoration: none; font-weight: bold;
+            transition: all 0.3s ease; display: inline-block; margin: 0 10px;
+        }
+        .btn-custom:hover {
+            background: #D2691E; color: white;
+            transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .back-to-top-btn {
+            position: fixed; bottom: 30px; right: 30px; background: #D2691E;
+            color: white; width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s ease; z-index: 1000;
+        }
+        .back-to-top-btn:hover {
+            background: #8B4513; transform: translateY(-5px); color: white;
+        }
+        @media (max-width: 768px) {
+            .recipe-header { padding: 30px 20px; }
+            .recipe-title h1 { font-size: 2em; }
+            .recipe-content { padding: 25px; }
+            .info-cards { padding: 20px; }
+            .instructions-section li { padding-left: 60px; }
+        }
+    </style>
+</head>
+<body>
+    <div id="top"></div>
+    <div class="recipe-container">
+        <div class="recipe-header">
+            <div class="recipe-icon">🥨</div>
+            <div class="recipe-title">
+                <h1>Bretzel Classique</h1>
+                <p class="recipe-subtitle">Bretzel moelleux à l'allemande</p>
+            </div>
+        </div>
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="icon">⏱️</div>
+                <div class="label">Préparation</div>
+                <div class="value">40 min</div>
+            </div>
+            <div class="info-card">
+                <div class="icon">🔥</div>
+                <div class="label">Cuisson</div>
+                <div class="value">12-15 min</div>
+            </div>
+            <div class="info-card">
+                <div class="icon">🥨</div>
+                <div class="label">Rendement</div>
+                <div class="value">12 bretzels</div>
+            </div>
+        </div>
+        <div class="recipe-content">
+            <div class="ingredients-section">
+                <h3>🛒 Ingrédients</h3>
+                <h4>Pour la pâte :</h4>
+                <div class="ingredients-list">
+                    <ul>
+                        <li><strong>2¼ c. à thé (7g)</strong> levure instantanée ou active (1 sachet)</li>
+                        <li><strong>1 c. à soupe</strong> sucre brun ou sucre blanc</li>
+                        <li><strong>1½ tasse (360ml)</strong> eau tiède (38°C / 100°F)</li>
+                        <li><strong>1 c. à soupe (14g)</strong> beurre non salé, fondu et refroidi</li>
+                        <li><strong>1 c. à thé</strong> sel</li>
+                        <li><strong>3¾-4 tasses (469-500g)</strong> farine tout usage</li>
+                        <li><strong>Gros sel</strong> pour garnir</li>
+                    </ul>
+                </div>
+                <h4>Pour le bain de bicarbonate de soude :</h4>
+                <div class="ingredients-list">
+                    <ul>
+                        <li><strong>½ tasse (120g)</strong> bicarbonate de soude</li>
+                        <li><strong>9 tasses (2,13L)</strong> eau</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="instructions-section">
+                <h3>📝 Instructions Détaillées</h3>
+                <ol>
+                    <li>Dans un grand bol, mélanger la levure et le sucre avec l'eau tiède. Couvrir et laisser reposer 1 minute.</li>
+                    <li>Incorporer le beurre fondu et le sel. Ajouter 3 tasses (375g) de farine et mélanger avec une cuillère en bois jusqu'à ce que le tout soit combiné.</li>
+                    <li>Ajouter 3/4 tasse (94g) de farine supplémentaire jusqu'à ce que la pâte soit légèrement collante et se détache des parois du bol. Si encore trop collante, ajouter jusqu'à 1/4 tasse (31g) de farine, 1 c. à soupe à la fois.</li>
+                    <li>Pétrir la pâte : battre avec un batteur sur socle pendant 3-5 minutes, ou pétrir à la main sur une surface légèrement farinée pendant 3-5 minutes. La pâte doit être légèrement souple au toucher.</li>
+                    <li>Former une boule avec la pâte pétrie. Couvrir légèrement avec un linge et laisser reposer 10-30 minutes.</li>
+                    <li>Préchauffer le four à 200°C (400°F). Tapisser 2 plaques à pâtisserie de papier parchemin ou de tapis en silicone (recommandé). Si vous utilisez du papier parchemin, vaporiser légèrement d'huile.</li>
+                    <li>Avec un couteau bien aiguisé ou un coupe-pizza, couper la pâte en sections de 75g (environ 1/3 tasse de pâte chacune).</li>
+                    <li>Rouler chaque portion en un cordon de 50-55 cm (20-22 pouces). Former un cercle en rapprochant les 2 extrémités au sommet. Tordre les extrémités ensemble, puis les ramener vers vous et les presser pour former la forme de bretzel. <a href="../Techniques/faconnage-bretzel.html" style="color: #D2691E; font-weight: bold;">👉 Voir la technique détaillée de façonnage</a></li>
+                    <li>Porter le bicarbonate de soude et 9 tasses d'eau à ébullition dans un grand chaudron. Déposer 1-2 bretzels dans l'eau bouillante pendant 20-30 secondes (pas plus, sinon ils auront un goût métallique). À l'aide d'une spatule à fentes, retirer les bretzels et laisser égoutter l'excès d'eau. Placer sur la plaque préparée.</li>
+                    <li>Saupoudrer le dessus des bretzels de gros sel. Cuire 12-15 minutes ou jusqu'à ce qu'ils soient brun doré foncé.</li>
+                    <li>Retirer du four et servir chaud. Si désiré, servir avec une sauce au fromage nacho épicée.</li>
+                </ol>
+            </div>
+            <div class="tips-box">
+                <h4>💡 Conseils et Astuces</h4>
+                <ul>
+                    <li><strong>Conservation :</strong> Couvrir et conserver les bretzels restants à température ambiante jusqu'à 3 jours. Réchauffer au micro-ondes quelques secondes ou au four à 175°C (350°F) pendant 5 minutes.</li>
+                    <li><strong>Congélation :</strong> Ne pas saler avant la congélation. Laisser refroidir complètement, puis congeler dans un contenant hermétique jusqu'à 3 mois. Pour réchauffer, badigeonner les bretzels congelés (sans décongeler) avec de l'eau, saupoudrer de gros sel, puis cuire à 175°C (350°F) pendant 20 minutes.</li>
+                    <li><strong>Préparation à l'avance :</strong> La pâte préparée peut être couverte et réfrigérée jusqu'à 1 jour ou congelée dans un contenant hermétique pendant 2-3 mois.</li>
+                    <li><strong>Pourquoi le bain de bicarbonate ?</strong> Cette étape crée la texture moelleuse caractéristique, la saveur distinctive du bretzel, et aide à développer la belle couleur dorée.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <a href="#top" class="back-to-top-btn" title="Retour en haut">↑</a>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const backToTopBtn = document.querySelector('.back-to-top-btn');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) { backToTopBtn.style.display = 'flex'; }
+            else { backToTopBtn.style.display = 'none'; }
+        });
+        backToTopBtn.style.display = 'none';
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

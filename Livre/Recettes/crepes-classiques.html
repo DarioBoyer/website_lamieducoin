@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crêpes Classiques - Le Grand Livre du Pain</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .recipe-container { max-width: 900px; margin: 0 auto; }
+        .recipe-header {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            color: white; padding: 40px; border-radius: 15px 15px 0 0;
+            text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .recipe-icon { font-size: 4em; margin-bottom: 15px; }
+        .recipe-title h1 { font-size: 2.5em; font-weight: bold; margin-bottom: 10px; }
+        .recipe-subtitle { font-size: 1.2em; opacity: 0.9; margin: 0; }
+        .info-cards {
+            background: white; padding: 30px; display: flex;
+            justify-content: space-around; flex-wrap: wrap; gap: 20px;
+        }
+        .info-card {
+            text-align: center; padding: 20px; background: #f8f9fa;
+            border-radius: 10px; min-width: 150px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .info-card .icon { font-size: 2.5em; margin-bottom: 10px; }
+        .info-card .label { color: #6c757d; font-size: 0.9em; margin-bottom: 5px; }
+        .info-card .value { font-size: 1.3em; font-weight: bold; color: #8B4513; }
+        .recipe-content {
+            background: white; padding: 40px;
+            border-radius: 0 0 15px 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .ingredients-section, .instructions-section { margin-bottom: 30px; }
+        .ingredients-section h3, .instructions-section h3 {
+            color: #8B4513; border-bottom: 3px solid #D2691E;
+            padding-bottom: 10px; margin-bottom: 20px;
+        }
+        .ingredients-list {
+            background: #fff9f0; padding: 25px;
+            border-radius: 10px; border-left: 5px solid #D2691E;
+        }
+        .ingredients-list ul { list-style: none; padding: 0; margin: 0; }
+        .ingredients-list li {
+            padding: 10px 0; border-bottom: 1px solid #f0e6d6; font-size: 1.1em;
+        }
+        .ingredients-list li:last-child { border-bottom: none; }
+        .ingredients-list li::before {
+            content: "✓ "; color: #D2691E; font-weight: bold; margin-right: 8px;
+        }
+        .instructions-section ol { counter-reset: step-counter; list-style: none; padding: 0; }
+        .instructions-section li {
+            counter-increment: step-counter; position: relative;
+            padding: 20px 20px 20px 70px; margin-bottom: 15px;
+            background: #f8f9fa; border-radius: 10px; font-size: 1.05em; line-height: 1.6;
+        }
+        .instructions-section li::before {
+            content: counter(step-counter); position: absolute;
+            left: 20px; top: 50%; transform: translateY(-50%);
+            background: #D2691E; color: white; width: 35px; height: 35px;
+            border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; font-weight: bold; font-size: 1.1em;
+        }
+        .tips-box {
+            background: #fff3cd; border-left: 4px solid #ffc107;
+            padding: 20px; margin: 20px 0; border-radius: 5px;
+        }
+        .tips-box h5 { color: #856404; margin-bottom: 15px; }
+        .tips-box p, .tips-box ul { margin-bottom: 8px; line-height: 1.6; }
+        .tips-box ul { padding-left: 20px; }
+        .info-box {
+            background: #e3f2fd; border-left: 4px solid #1565C0;
+            padding: 20px; margin: 20px 0; border-radius: 5px;
+        }
+        .info-box h5 { color: #1565C0; margin-bottom: 15px; }
+        .success-box {
+            background: #e8f5e9; border-left: 4px solid #4CAF50;
+            padding: 20px; margin: 20px 0; border-radius: 5px;
+        }
+        .success-box h5 { color: #2E7D32; margin-bottom: 15px; }
+        .back-to-top-btn {
+            position: fixed; bottom: 30px; right: 30px; background: #D2691E;
+            color: white; width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s ease; z-index: 1000;
+        }
+        .back-to-top-btn:hover {
+            background: #8B4513; transform: translateY(-5px); color: white;
+        }
+        @media (max-width: 768px) {
+            .recipe-header { padding: 30px 20px; }
+            .recipe-title h1 { font-size: 2em; }
+            .recipe-content { padding: 25px; }
+            .info-cards { padding: 20px; }
+            .instructions-section li { padding-left: 60px; }
+        }
+    </style>
+</head>
+<body>
+    <div id="top"></div>
+    <div class="recipe-container">
+        <div class="recipe-header">
+            <div class="recipe-icon">🥞</div>
+            <div class="recipe-title">
+                <h1>Crêpes Classiques</h1>
+                <p class="recipe-subtitle">Fines et délicates - sucrées ou salées</p>
+            </div>
+        </div>
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="icon">⏱️</div>
+                <div class="label">Préparation</div>
+                <div class="value">5 min</div>
+            </div>
+            <div class="info-card">
+                <div class="icon">🔥</div>
+                <div class="label">Cuisson</div>
+                <div class="value">15 min</div>
+            </div>
+            <div class="info-card">
+                <div class="icon">🥞</div>
+                <div class="label">Rendement</div>
+                <div class="value">8-10 crêpes</div>
+            </div>
+        </div>
+        <div class="recipe-content">
+            <div class="info-box">
+                <h5>🇫🇷 À Propos des Crêpes</h5>
+                <p>Les crêpes sont l'une des recettes les plus simples et versatiles de la cuisine française! Contrairement aux pancakes américains épais, les crêpes sont fines, délicates et peuvent être servies aussi bien sucrées que salées. Elles se préparent en quelques minutes et sont parfaites pour le petit-déjeuner, le brunch ou même le dîner.</p>
+                <p style="margin-bottom: 0;"><strong>Le secret:</strong> Une pâte lisse et liquide, une poêle bien chaude, et un mouvement de rotation rapide pour étaler la pâte finement.</p>
+            </div>
+
+            <div class="ingredients-section">
+                <h3>🛒 Ingrédients</h3>
+                <div class="ingredients-list">
+                    <ul>
+                        <li><strong>2</strong> œufs</li>
+                        <li><strong>310ml</strong> lait entier (1¼ tasse)</li>
+                        <li><strong>140g</strong> farine tout usage (1 tasse)</li>
+                        <li><strong>1 c. à soupe</strong> beurre fondu (15ml)</li>
+                        <li><strong>1 pincée</strong> sel</li>
+                        <li><strong>1 c. à soupe</strong> sucre (optionnel, pour crêpes sucrées)</li>
+                        <li><strong>Beurre</strong> pour la cuisson</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="instructions-section">
+                <h3>📝 Instructions Détaillées</h3>
+                <ol>
+                    <li><strong>Préparer la pâte au mélangeur:</strong> Mettre tous les ingrédients (œufs, lait, farine, beurre fondu, sel, et sucre si désiré) dans un mélangeur. Mixer à basse vitesse puis augmenter à haute vitesse. Mélanger jusqu'à consistance lisse, environ 10-15 secondes</li>
+                    
+                    <li><strong>Alternative manuelle:</strong> Si vous n'avez pas de mélangeur, fouetter vigoureusement tous les ingrédients dans un bol jusqu'à obtenir une pâte lisse et sans grumeaux</li>
+                    
+                    <li><strong>Repos (optionnel):</strong> Laisser reposer 15-30 minutes à température ambiante pour des crêpes encore plus tendres, mais ce n'est pas obligatoire</li>
+                    
+                    <li><strong>Préchauffer la poêle:</strong> Chauffer une poêle antiadhésive de 25 cm (10 po) à feu moyen pendant 2 minutes. Une poêle à crêpes avec bords peu profonds est idéale mais pas essentielle</li>
+                    
+                    <li><strong>Beurrer légèrement:</strong> Frotter un peu de beurre dans la poêle chaude, puis essuyer l'excédent avec un essuie-tout (ne garder qu'une fine couche)</li>
+                    
+                    <li><strong>Verser et faire tourner:</strong> Tenir la poêle dans une main et le contenant de pâte dans l'autre. Verser 3-4 c. à soupe (45-60ml) de pâte au centre de la poêle, puis immédiatement faire tourner et incliner la poêle dans tous les sens pour étaler la pâte en une couche fine et uniforme</li>
+                    
+                    <li><strong>Technique alternative "pour-out":</strong> Pour les débutants : verser beaucoup plus de pâte que nécessaire, faire tourner une fois pour couvrir toute la surface, puis immédiatement retourner la poêle et reverser l'excédent dans le contenant. Vous obtiendrez une crêpe très mince et uniforme</li>
+                    
+                    <li><strong>Cuisson du premier côté:</strong> Remettre la poêle sur le feu moyen. Laisser cuire sans bouger jusqu'à ce que le dessus paraisse sec et ne ressemble plus à de la pâte crue, environ 15-20 secondes</li>
+                    
+                    <li><strong>Retourner délicatement:</strong> Avec une spatule mince en métal, soulever délicatement un bord de la crêpe. Saisir ce bord avec les doigts des deux mains et retourner la crêpe doucement pour la déposer à nouveau dans la poêle</li>
+                    
+                    <li><strong>Cuire le deuxième côté:</strong> Laisser cuire 10 secondes supplémentaires jusqu'à ce que le dessous soit légèrement doré</li>
+                    
+                    <li><strong>Empiler et répéter:</strong> Transférer dans une assiette. La crêpe entière devrait prendre environ 30 secondes de cuisson totale. Répéter avec le reste de la pâte, en beurriant légèrement la poêle toutes les 2-3 crêpes</li>
+                    
+                    <li><strong>Garnir et servir:</strong> Garnir selon vos préférences (voir suggestions ci-dessous) et servir immédiatement, ou empiler sous une assiette retournée pour garder au chaud</li>
+                </ol>
+            </div>
+
+            <div class="success-box">
+                <h5>🍓 Garnitures Sucrées Classiques</h5>
+                <ul style="padding-left: 20px;">
+                    <li><strong>Beurre-Sucre-Citron:</strong> Le grand classique français - beurre, sucre blanc et jus de citron frais</li>
+                    <li><strong>Confiture:</strong> Étaler généreusement de la confiture de fraises, framboises ou abricots</li>
+                    <li><strong>Nutella-Bananes:</strong> Nutella avec tranches de bananes fraîches</li>
+                    <li><strong>Fruits et Crème:</strong> Fraises fraîches avec crème fouettée</li>
+                    <li><strong>Sirop d'érable:</strong> Plier simplement et arroser de sirop d'érable (style américain)</li>
+                    <li><strong>Compote:</strong> Compote de pommes ou de fruits rouges maison</li>
+                    <li><strong>Caramel-Beurre Salé:</strong> Sauce caramel et fleur de sel</li>
+                </ul>
+            </div>
+
+            <div class="success-box">
+                <h5>🧀 Garnitures Salées Délicieuses</h5>
+                <ul style="padding-left: 20px;">
+                    <li><strong>Jambon-Fromage-Œuf:</strong> Jambon, gruyère râpé et œuf au plat (crêpe complète)</li>
+                    <li><strong>Épinards-Féta:</strong> Épinards sautés, oignons rouges et féta émiettée</li>
+                    <li><strong>Champignons-Crème:</strong> Champignons sautés à l'ail avec crème fraîche</li>
+                    <li><strong>Saumon-Aneth:</strong> Saumon fumé, fromage à la crème et aneth frais</li>
+                    <li><strong>Poulet-Curry:</strong> Poulet au curry avec légumes</li>
+                    <li><strong>Ratatouille:</strong> Ratatouille de légumes méditerranéens</li>
+                    <li><strong>Fromages fondants:</strong> Mélange de fromages (gruyère, emmental, cheddar)</li>
+                </ul>
+            </div>
+
+            <div class="tips-box">
+                <h5>💡 Techniques de Pliage</h5>
+                <ul>
+                    <li><strong>Roulé simple:</strong> Étaler la garniture et rouler comme un cigare</li>
+                    <li><strong>Plié en quatre:</strong> Garnir une moitié, plier en deux, puis plier encore (quart de cercle)</li>
+                    <li><strong>Triangle:</strong> Garnir le centre, replier les bords vers le centre en laissant le centre visible</li>
+                    <li><strong>Gâteau de crêpes:</strong> Empiler les crêpes avec garniture entre chaque couche, couper en pointes</li>
+                    <li><strong>Aumônière:</strong> Placer la garniture au centre, ramener les bords vers le haut et attacher avec une ciboulette</li>
+                </ul>
+            </div>
+
+            <div class="tips-box">
+                <h5>💡 Secrets de Crêpes Parfaites</h5>
+                <ul>
+                    <li><strong>Pâte lisse:</strong> Le mélangeur est votre ami! Il donne une pâte parfaitement lisse en 15 secondes</li>
+                    <li><strong>Consistance:</strong> La pâte doit être liquide comme de la crème légère, pas épaisse comme une pâte à pancake</li>
+                    <li><strong>Température:</strong> Poêle à feu moyen - trop chaud et elles brûlent, pas assez et elles collent</li>
+                    <li><strong>Première crêpe sacrifiée:</strong> C'est normal que la première crêpe soit ratée - elle sert à tester la température</li>
+                    <li><strong>Mouvement rapide:</strong> Dès que la pâte touche la poêle, faites-la tourner rapidement pour bien l'étaler</li>
+                    <li><strong>Ultra-minces:</strong> Plus c'est fin, mieux c'est! Les crêpes doivent être presque transparentes</li>
+                    <li><strong>Retourner avec les doigts:</strong> Une fois que vous maîtrisez, utiliser vos doigts est plus facile qu'une spatule</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h5>🔄 Variantes de Pâte</h5>
+                <p><strong>Crêpes aux Herbes (salées):</strong></p>
+                <ul style="padding-left: 20px;">
+                    <li>Ajouter 1 c. à soupe d'herbes fraîches hachées (persil, ciboulette, estragon)</li>
+                    <li>Omettre le sucre</li>
+                </ul>
+                
+                <p style="margin-top: 15px;"><strong>Crêpes à la Vanille:</strong></p>
+                <ul style="padding-left: 20px;">
+                    <li>Ajouter 1 c. à thé d'extrait de vanille</li>
+                    <li>Augmenter le sucre à 2 c. à soupe</li>
+                </ul>
+                
+                <p style="margin-top: 15px;"><strong>Crêpes au Cacao:</strong></p>
+                <ul style="padding-left: 20px;">
+                    <li>Remplacer 2 c. à soupe de farine par du cacao en poudre</li>
+                    <li>Augmenter le sucre à 3 c. à soupe</li>
+                </ul>
+                
+                <p style="margin-top: 15px;"><strong>Crêpes à l'Orange:</strong></p>
+                <ul style="padding-left: 20px;">
+                    <li>Ajouter le zeste d'une orange</li>
+                    <li>Remplacer 60ml de lait par du jus d'orange</li>
+                </ul>
+            </div>
+
+            <div class="success-box">
+                <h5>📦 Conservation et Préparation à l'Avance</h5>
+                <p><strong>Pâte:</strong> Se conserve 3 jours au réfrigérateur dans un contenant hermétique. Bien mélanger avant utilisation.</p>
+                <p><strong>Crêpes cuites:</strong> Empiler avec du papier parchemin entre chaque crêpe, emballer de pellicule plastique. Se conservent 3 jours au réfrigérateur ou 2 mois au congélateur.</p>
+                <p><strong>Réchauffage:</strong> Réchauffer 15-20 secondes dans une poêle antiadhésive à feu moyen avant de garnir.</p>
+                <p style="margin-top: 15px; margin-bottom: 0;"><strong>Astuce brunch:</strong> Préparer toutes les crêpes la veille, les empiler et réfrigérer. Le jour J, réchauffer et garnir à la demande pour vos invités!</p>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 15px; margin-top: 20px;">
+                <h4 style="margin-bottom: 15px;">🇫🇷 Tradition de la Chandeleur</h4>
+                <p>En France, la tradition veut qu'on mange des crêpes le 2 février, jour de la Chandeleur (fête religieuse chrétienne). Selon la coutume, il faut faire sauter la première crêpe de la main droite en tenant une pièce de monnaie dans la main gauche pour avoir de la prospérité toute l'année!</p>
+                <p style="margin-bottom: 0;">La forme ronde et dorée des crêpes symbolise le soleil et le retour des beaux jours après l'hiver. Mais soyons honnêtes : on n'a pas besoin d'attendre la Chandeleur pour se régaler de crêpes!</p>
+            </div>
+
+            <div class="info-box">
+                <h5>🍽️ Service et Présentation</h5>
+                <ul style="padding-left: 20px;">
+                    <li><strong>Assiette individuelle:</strong> 2-3 crêpes garnies par personne</li>
+                    <li><strong>Buffet brunch:</strong> Présenter une pile de crêpes nature avec plusieurs bols de garnitures</li>
+                    <li><strong>Crêpes flambées:</strong> Pour impressionner, flamber avec du Grand Marnier ou du rhum (pour adultes seulement!)</li>
+                    <li><strong>Décoration:</strong> Saupoudrer de sucre glace, ajouter des fruits frais, zeste de citron ou orange</li>
+                    <li><strong>Accompagnements:</strong> Servir avec du café, du chocolat chaud ou du cidre (pour version salée)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <a href="#top" class="back-to-top-btn" title="Retour en haut">↑</a>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const backToTopBtn = document.querySelector('.back-to-top-btn');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) { backToTopBtn.style.display = 'flex'; }
+            else { backToTopBtn.style.display = 'none'; }
+        });
+        backToTopBtn.style.display = 'none';
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

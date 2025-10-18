@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galettes Bretonnes (Crêpes au Sarrasin) - Le Grand Livre du Pain</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .recipe-container { max-width: 900px; margin: 0 auto; }
+        .recipe-header {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            color: white; padding: 40px; border-radius: 15px 15px 0 0;
+            text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .recipe-icon { font-size: 4em; margin-bottom: 15px; }
+        .recipe-title h1 { font-size: 2.5em; font-weight: bold; margin-bottom: 10px; }
+        .recipe-subtitle { font-size: 1.2em; opacity: 0.9; margin: 0; }
+        .info-cards {
+            background: white; padding: 30px; display: flex;
+            justify-content: space-around; flex-wrap: wrap; gap: 20px;
+        }
+        .info-card {
+            text-align: center; padding: 20px; background: #f8f9fa;
+            border-radius: 10px; min-width: 150px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .info-card .icon { font-size: 2.5em; margin-bottom: 10px; }
+        .info-card .label { color: #6c757d; font-size: 0.9em; margin-bottom: 5px; }
+        .info-card .value { font-size: 1.3em; font-weight: bold; color: #8B4513; }
+        .recipe-content {
+            background: white; padding: 40px;
+            border-radius: 0 0 15px 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .ingredients-section, .instructions-section { margin-bottom: 30px; }
+        .ingredients-section h3, .instructions-section h3 {
+            color: #8B4513; border-bottom: 3px solid #D2691E;
+            padding-bottom: 10px; margin-bottom: 20px;
+        }
+        .ingredients-list {
+            background: #fff9f0; padding: 25px;
+            border-radius: 10px; border-left: 5px solid #D2691E;
+        }
+        .ingredients-list ul { list-style: none; padding: 0; margin: 0; }
+        .ingredients-list li {
+            padding: 10px 0; border-bottom: 1px solid #f0e6d6; font-size: 1.1em;
+        }
+        .ingredients-list li:last-child { border-bottom: none; }
+        .ingredients-list li::before {
+            content: "✓ "; color: #D2691E; font-weight: bold; margin-right: 8px;
+        }
+        .instructions-section ol { counter-reset: step-counter; list-style: none; padding: 0; }
+        .instructions-section li {
+            counter-increment: step-counter; position: relative;
+            padding: 20px 20px 20px 70px; margin-bottom: 15px;
+            background: #f8f9fa; border-radius: 10px; font-size: 1.05em; line-height: 1.6;
+        }
+        .instructions-section li::before {
+            content: counter(step-counter); position: absolute;
+            left: 20px; top: 50%; transform: translateY(-50%);
+            background: #D2691E; color: white; width: 35px; height: 35px;
+            border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; font-weight: bold; font-size: 1.1em;
+        }
+        .tips-box {
+            background: #fff3cd; border-left: 4px solid #ffc107;
+            padding: 20px; margin: 20px 0; border-radius: 5px;
+        }
+        .tips-box h5 { color: #856404; margin-bottom: 15px; }
+        .tips-box p, .tips-box ul { margin-bottom: 8px; line-height: 1.6; }
+        .tips-box ul { padding-left: 20px; }
+        .info-box {
+            background: #e3f2fd; border-left: 4px solid #1565C0;
+            padding: 20px; margin: 20px 0; border-radius: 5px;
+        }
+        .info-box h5 { color: #1565C0; margin-bottom: 15px; }
+        .success-box {
+            background: #e8f5e9; border-left: 4px solid #4CAF50;
+            padding: 20px; margin: 20px 0; border-radius: 5px;
+        }
+        .success-box h5 { color: #2E7D32; margin-bottom: 15px; }
+        .back-to-top-btn {
+            position: fixed; bottom: 30px; right: 30px; background: #D2691E;
+            color: white; width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s ease; z-index: 1000;
+        }
+        .back-to-top-btn:hover {
+            background: #8B4513; transform: translateY(-5px); color: white;
+        }
+        @media (max-width: 768px) {
+            .recipe-header { padding: 30px 20px; }
+            .recipe-title h1 { font-size: 2em; }
+            .recipe-content { padding: 25px; }
+            .info-cards { padding: 20px; }
+            .instructions-section li { padding-left: 60px; }
+        }
+    </style>
+</head>
+<body>
+    <div id="top"></div>
+    <div class="recipe-container">
+        <div class="recipe-header">
+            <div class="recipe-icon">🇫🇷</div>
+            <div class="recipe-title">
+                <h1>Galettes Bretonnes</h1>
+                <p class="recipe-subtitle">Crêpes au sarrasin - tradition de Bretagne</p>
+            </div>
+        </div>
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="icon">⏱️</div>
+                <div class="label">Préparation</div>
+                <div class="value">10 min</div>
+            </div>
+            <div class="info-card">
+                <div class="icon">🕐</div>
+                <div class="label">Repos</div>
+                <div class="value">1h minimum</div>
+            </div>
+            <div class="info-card">
+                <div class="icon">🔥</div>
+                <div class="label">Cuisson</div>
+                <div class="value">20 min</div>
+            </div>
+            <div class="info-card">
+                <div class="icon">🥞</div>
+                <div class="label">Rendement</div>
+                <div class="value">10-12 galettes</div>
+            </div>
+        </div>
+        <div class="recipe-content">
+            <div class="info-box">
+                <h5>🇫🇷 À Propos des Galettes Bretonnes</h5>
+                <p>Les <strong>galettes de sarrasin</strong> (aussi appelées "galettes bretonnes" ou "galettes de blé noir") sont la version salée traditionnelle de la crêpe, originaire de Bretagne. Contrairement aux crêpes sucrées faites de farine de blé, les galettes sont préparées avec de la farine de sarrasin (blé noir), ce qui leur donne une couleur plus foncée, une texture légèrement granuleuse et un goût de noisette distinctif.</p>
+                <p style="margin-bottom: 0;"><strong>Tradition:</strong> En Bretagne, les galettes sont toujours servies avec des garnitures salées, tandis que les crêpes sucrées (au froment) sont réservées au dessert. La plus classique est la "galette complète" avec jambon, œuf et fromage!</p>
+            </div>
+
+            <div class="ingredients-section">
+                <h3>🛒 Ingrédients</h3>
+                <div class="ingredients-list">
+                    <ul>
+                        <li><strong>250g</strong> farine de sarrasin (blé noir)</li>
+                        <li><strong>625ml</strong> eau (2½ tasses)</li>
+                        <li><strong>1 c. à thé</strong> sel</li>
+                        <li><strong>2 c. à soupe</strong> beurre fondu ou huile végétale (30ml)</li>
+                        <li><strong>Beurre salé</strong> pour la cuisson</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="instructions-section">
+                <h3>📝 Instructions Détaillées</h3>
+                <ol>
+                    <li><strong>Préparer la pâte:</strong> Dans un grand bol, mélanger la farine de sarrasin et le sel. Former un puits au centre</li>
+                    
+                    <li><strong>Ajouter l'eau progressivement:</strong> Verser environ la moitié de l'eau au centre. Fouetter en incorporant graduellement la farine des bords vers le centre, jusqu'à obtenir une pâte lisse</li>
+                    
+                    <li><strong>Incorporer le reste d'eau:</strong> Ajouter le reste de l'eau et le beurre fondu ou l'huile. Fouetter jusqu'à consistance homogène. La pâte doit être très liquide, plus liquide que la pâte à crêpes de blé</li>
+                    
+                    <li><strong>Repos obligatoire:</strong> Couvrir et laisser reposer au réfrigérateur pendant au moins 1 heure, idéalement 2-3 heures ou même toute la nuit. Ce repos permet à la farine de s'hydrater complètement et améliore la texture des galettes</li>
+                    
+                    <li><strong>Remixer avant utilisation:</strong> La pâte aura épaissi et la farine se sera déposée au fond. Bien mélanger ou fouetter avant de commencer la cuisson</li>
+                    
+                    <li><strong>Préchauffer la poêle:</strong> Chauffer une poêle ou une crêpière de 30 cm (12 po) à feu moyen-élevé. Les galettes nécessitent une chaleur plus élevée que les crêpes blanches</li>
+                    
+                    <li><strong>Beurrer généreusement:</strong> Mettre une noix de beurre salé dans la poêle chaude et l'étaler avec un essuie-tout plié. Contrairement aux crêpes, les galettes nécessitent plus de matière grasse</li>
+                    
+                    <li><strong>Verser et étaler:</strong> Verser une louche de pâte (environ 60-80ml) au centre de la poêle. Immédiatement faire tourner et incliner la poêle pour étaler la pâte finement et uniformément</li>
+                    
+                    <li><strong>Cuisson du premier côté:</strong> Laisser cuire 1½-2 minutes jusqu'à ce que les bords commencent à se décoller et que le dessous soit bien doré avec des taches croustillantes brunes</li>
+                    
+                    <li><strong>Retourner:</strong> Décoller les bords avec une spatule large, puis soulever et retourner la galette d'un mouvement sec (ou utiliser vos doigts si vous êtes à l'aise)</li>
+                    
+                    <li><strong>Cuire le deuxième côté:</strong> Laisser cuire 1-1½ minute de plus. Le deuxième côté doit être moins coloré que le premier</li>
+                    
+                    <li><strong>Garnir (si désiré):</strong> Si vous garnissez la galette (jambon, fromage, œuf), ajoutez les ingrédients sur le deuxième côté pendant la cuisson, puis repliez les bords vers le centre</li>
+                    
+                    <li><strong>Servir chaud:</strong> Les galettes bretonnes doivent être servies immédiatement, bien chaudes et croustillantes</li>
+                </ol>
+            </div>
+
+            <div class="success-box">
+                <h5>🥚 Garnitures Classiques de Bretagne</h5>
+                <ul style="padding-left: 20px;">
+                    <li><strong>La Complète:</strong> Jambon blanc, œuf au plat, gruyère ou emmental râpé (LA classique!)</li>
+                    <li><strong>Galette Forestière:</strong> Champignons de Paris sautés, crème fraîche, persil, gruyère</li>
+                    <li><strong>Galette Saumon-Épinards:</strong> Saumon fumé, épinards frais, crème fraîche, aneth</li>
+                    <li><strong>Galette Chèvre-Miel:</strong> Fromage de chèvre, miel, noix, roquette</li>
+                    <li><strong>Galette Andouille:</strong> Andouille de Guémené (spécialité bretonne), oignon caramélisé, crème</li>
+                    <li><strong>Galette Normande:</strong> Pommes sautées, camembert, lardons</li>
+                    <li><strong>Galette Végétarienne:</strong> Ratatouille, chèvre chaud, basilic</li>
+                    <li><strong>Galette Fruits de Mer:</strong> Saint-Jacques, crevettes, sauce au beurre blanc</li>
+                </ul>
+            </div>
+
+            <div class="tips-box">
+                <h5>💡 La Galette Complète Parfaite</h5>
+                <p><strong>Méthode traditionnelle bretonne:</strong></p>
+                <ol style="padding-left: 20px;">
+                    <li>Cuire la galette du premier côté (2 minutes)</li>
+                    <li>Retourner la galette</li>
+                    <li>Placer 1 tranche de jambon blanc au centre</li>
+                    <li>Casser un œuf directement sur le jambon</li>
+                    <li>Parsemer de gruyère râpé (environ 30g) autour de l'œuf</li>
+                    <li>Couvrir avec un couvercle ou une cloche pour que l'œuf cuise à la vapeur</li>
+                    <li>Quand le blanc d'œuf est pris mais le jaune encore coulant (2-3 min), retirer le couvercle</li>
+                    <li>Plier les 4 côtés de la galette vers le centre en laissant l'œuf visible au milieu</li>
+                    <li>Servir immédiatement avec du beurre salé à côté</li>
+                </ol>
+            </div>
+
+            <div class="tips-box">
+                <h5>💡 Secrets des Galettes Réussies</h5>
+                <ul>
+                    <li><strong>Farine de sarrasin pure:</strong> Utiliser 100% farine de sarrasin pour le goût authentique, ou mélanger 50/50 avec farine de blé pour des galettes plus souples</li>
+                    <li><strong>Pâte très liquide:</strong> Plus liquide que la pâte à crêpes blanches - elle doit couler facilement</li>
+                    <li><strong>Repos essentiel:</strong> Le repos permet à la farine de sarrasin de bien s'hydrater. Ne pas sauter cette étape!</li>
+                    <li><strong>Chaleur plus élevée:</strong> Les galettes cuisent à température plus haute que les crêpes blanches</li>
+                    <li><strong>Beurre salé breton:</strong> Utiliser du beurre salé demi-sel pour la cuisson, c'est traditionnel!</li>
+                    <li><strong>Croustillant recherché:</strong> Contrairement aux crêpes, les galettes doivent avoir des zones croustillantes et des taches brunes</li>
+                    <li><strong>Cidre brut:</strong> Accompagner de cidre brut de Bretagne pour l'expérience authentique</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h5>🌾 Tout sur le Sarrasin (Blé Noir)</h5>
+                <p><strong>Qu'est-ce que le sarrasin?</strong></p>
+                <p>Malgré son nom de "blé noir", le sarrasin n'est PAS une céréale et ne contient PAS de gluten! C'est en fait une pseudo-céréale apparentée à la rhubarbe. Il a été introduit en Bretagne au Moyen Âge et est devenu un aliment de base des paysans bretons.</p>
+                
+                <p style="margin-top: 15px;"><strong>Où trouver la farine de sarrasin?</strong></p>
+                <ul style="padding-left: 20px;">
+                    <li>Magasins d'alimentation naturelle</li>
+                    <li>Section sans gluten des supermarchés</li>
+                    <li>Épiceries asiatiques (farine de soba)</li>
+                    <li>En ligne</li>
+                </ul>
+                
+                <p style="margin-top: 15px;"><strong>Conservation:</strong> La farine de sarrasin rancit plus rapidement que la farine de blé. Conserver au réfrigérateur ou congélateur pour prolonger la fraîcheur.</p>
+            </div>
+
+            <div class="success-box">
+                <h5>🍎 Accompagnements Bretons Traditionnels</h5>
+                <ul style="padding-left: 20px;">
+                    <li><strong>Cidre brut:</strong> La boisson traditionnelle avec les galettes (servir dans un bol breton!)</li>
+                    <li><strong>Beurre salé demi-sel:</strong> Toujours présent sur la table bretonne</li>
+                    <li><strong>Salade verte:</strong> Mesclun ou laitue avec vinaigrette légère</li>
+                    <li><strong>Cornichons:</strong> Pour accompagner les galettes au jambon</li>
+                    <li><strong>Andouille grillée:</strong> En accompagnement</li>
+                </ul>
+                
+                <p style="margin-top: 15px;"><strong>Le menu complet breton:</strong></p>
+                <ol style="padding-left: 20px;">
+                    <li>Commencer avec une galette salée (complète ou autre)</li>
+                    <li>Terminer avec une crêpe sucrée au froment (beurre-sucre ou caramel au beurre salé)</li>
+                    <li>Accompagner le tout de cidre brut ou de bolée (bol de cidre)</li>
+                </ol>
+            </div>
+
+            <div class="info-box">
+                <h5>🔄 Variante sans Gluten à 100%</h5>
+                <p>Bonne nouvelle : les galettes au sarrasin pur (100% farine de sarrasin) sont naturellement sans gluten! Elles conviennent parfaitement aux personnes cœliaques ou intolérantes au gluten.</p>
+                
+                <p style="margin-top: 15px;"><strong>Points d'attention:</strong></p>
+                <ul style="padding-left: 20px;">
+                    <li>Vérifier que votre farine de sarrasin est certifiée sans gluten (pas de contamination croisée)</li>
+                    <li>Les galettes 100% sarrasin sont plus fragiles - manipuler délicatement</li>
+                    <li>Laisser reposer la pâte plus longtemps (minimum 2 heures) pour de meilleurs résultats</li>
+                </ul>
+            </div>
+
+            <div class="success-box">
+                <h5>📦 Conservation</h5>
+                <p><strong>Pâte:</strong> Se conserve 2-3 jours au réfrigérateur. Bien mélanger avant utilisation car la farine se dépose au fond.</p>
+                <p><strong>Galettes cuites non garnies:</strong> Empiler avec du papier parchemin entre chaque galette, emballer hermétiquement. Se conservent 2 jours au réfrigérateur ou 1 mois au congélateur.</p>
+                <p style="margin-bottom: 0;"><strong>Réchauffage:</strong> Réchauffer 1-2 minutes dans une poêle chaude avec un peu de beurre pour retrouver le croustillant.</p>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 15px; margin-top: 20px;">
+                <h4 style="margin-bottom: 15px;">🏴 Histoire et Tradition Bretonne</h4>
+                <p>Les galettes de sarrasin sont indissociables de l'identité bretonne. Au Moyen Âge, le sarrasin était cultivé sur les terres pauvres de Bretagne où le blé poussait mal. Les galettes sont devenues l'aliment de base des paysans bretons pendant des siècles.</p>
+                <p>Aujourd'hui, la Bretagne compte des milliers de "crêperies" qui servent galettes salées et crêpes sucrées. La tradition veut qu'on les accompagne de cidre brut servi dans des bols en faïence.</p>
+                <p style="margin-bottom: 0;"><strong>Le saviez-vous?</strong> Les crêpiers professionnels bretons utilisent une "billig" (grande plaque de fonte ronde) et un "rozell" (râteau en bois) pour étaler la pâte en cercles parfaits. Certains crêpiers peuvent faire 300 galettes à l'heure!</p>
+            </div>
+        </div>
+    </div>
+    <a href="#top" class="back-to-top-btn" title="Retour en haut">↑</a>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const backToTopBtn = document.querySelector('.back-to-top-btn');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) { backToTopBtn.style.display = 'flex'; }
+            else { backToTopBtn.style.display = 'none'; }
+        });
+        backToTopBtn.style.display = 'none';
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

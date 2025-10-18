@@ -264,8 +264,8 @@
                 <div class="welcome-message">
                     <h3>✨ Bienvenue dans Le Grand Livre du Pain ✨</h3>
                     <p>Sélectionnez une catégorie ci-dessus pour explorer les recettes, techniques et astuces</p>
-                    <p class="mt-4">🥖 8 Recettes Traditionnelles • 🌾 3 Recettes Sans Gluten • 🥐 3 Viennoiseries • 🌟 4 Recettes Spéciales</p>
-                    <p>🤝 9 Techniques de Façonnage • 💡 10 Astuces et Guides • 🌾 7 Sections Guide des Farines</p>
+                    <p class="mt-4">🥖 11 Recettes Traditionnelles • 🌾 3 Recettes Sans Gluten • 🥐 3 Viennoiseries • 🌟 7 Recettes Spéciales</p>
+                    <p>🤝 10 Techniques de Façonnage • 💡 10 Astuces et Guides • 🌾 7 Sections Guide des Farines</p>
                 </div>
             </div>
         </div>
@@ -277,7 +277,7 @@
                     <!-- Menu des catégories de recettes -->
                     <div class="col-lg-3 col-md-4 mb-4">
                         <div class="category-card active" data-category="traditionnelles">
-                            <h5><span class="icon">�</span> Traditionnelles</h5>
+                            <h5><span class="icon">🥖</span> Traditionnelles</h5>
                         </div>
                         <div class="category-card" data-category="sans-gluten">
                             <h5><span class="icon">🌾</span> Sans Gluten</h5>
@@ -326,6 +326,7 @@
                             <li data-technique="Techniques/tresse-3-branches.html">Tresse à 3 Branches</li>
                             <li data-technique="Techniques/tresse-4-branches.html">Tresse à 4 Branches</li>
                             <li data-technique="Techniques/faconnage-croissants.html">Façonnage Croissants</li>
+                            <li data-technique="Techniques/faconnage-bretzel.html">Façonnage Bretzel 🥨</li>
                             <li data-technique="Techniques/couronne.html">Couronne</li>
                             <li data-technique="Techniques/epi-de-ble.html">Épi de Blé</li>
                             <li data-technique="Techniques/escargot.html">Escargot</li>
@@ -415,30 +416,36 @@
         // Données des recettes par catégorie
         const recipes = {
             traditionnelles: [
-                { name: 'Pain Blanc Classique', file: 'Recettes/pain-blanc-classique.html' },
-                { name: 'Baguette Française', file: 'Recettes/baguette-francaise.html' },
-                { name: 'Baguette Tradition', file: 'Recettes/baguette-tradition.html' },
-                { name: 'Pain de Campagne', file: 'Recettes/pain-de-campagne.html' },
-                { name: 'Pain aux Noix', file: 'Recettes/pain-aux-noix.html' },
-                { name: 'Pain au Fromage', file: 'Recettes/pain-au-fromage.html' },
-                { name: 'Petits Pains à Salade', file: 'Recettes/petits-pains-salade.html' },
-                { name: 'Pain Sous-Marin 12"', file: 'Recettes/pain-sous-marin.html' }
+                { name: '🍞 Pain Blanc Classique', file: 'Recettes/pain-blanc-classique.html' },
+                { name: '🥖 Baguette Française', file: 'Recettes/baguette-francaise.html' },
+                { name: '🥖 Baguette Tradition', file: 'Recettes/baguette-tradition.html' },
+                { name: '🌾 Pain de Campagne', file: 'Recettes/pain-de-campagne.html' },
+                { name: '🌰 Pain aux Noix', file: 'Recettes/pain-aux-noix.html' },
+                { name: '🧀 Pain au Fromage', file: 'Recettes/pain-au-fromage.html' },
+                { name: '🥗 Petits Pains à Salade', file: 'Recettes/petits-pains-salade.html' },
+                { name: '🥪 Pain Sous-Marin 12"', file: 'Recettes/pain-sous-marin.html' },
+                { name: '🥨 Bretzel Classique', file: 'Recettes/bretzel-classique.html' },
+                { name: '🥨 Bouchées de Bretzel', file: 'Recettes/bretzel-bouchees.html' },
+                { name: '🥨 Bretzel Cannelle-Sucre', file: 'Recettes/bretzel-cannelle-sucre.html' }
             ],
             'sans-gluten': [
-                { name: 'Pain Sans Gluten Classique', file: 'Recettes/pain-sans-gluten-classique.html' },
-                { name: 'Baguette Sans Gluten', file: 'Recettes/baguette-sans-gluten.html' },
-                { name: 'Pain Sans Gluten aux Graines', file: 'Recettes/pain-sans-gluten-graines.html' }
+                { name: '🌾 Pain Sans Gluten Classique', file: 'Recettes/pain-sans-gluten-classique.html' },
+                { name: '🥖 Baguette Sans Gluten', file: 'Recettes/baguette-sans-gluten.html' },
+                { name: '🌰 Pain Sans Gluten aux Graines', file: 'Recettes/pain-sans-gluten-graines.html' }
             ],
             viennoiseries: [
-                { name: 'Croissants Français', file: 'Recettes/croissants-francais.html' },
-                { name: 'Pains au Chocolat', file: 'Recettes/pains-au-chocolat.html' },
-                { name: 'Brioche Maison', file: 'Recettes/brioche-maison.html' }
+                { name: '🥐 Croissants Français', file: 'Recettes/croissants-francais.html' },
+                { name: '🍫 Pains au Chocolat', file: 'Recettes/pains-au-chocolat.html' },
+                { name: '🍞 Brioche Maison', file: 'Recettes/brioche-maison.html' }
             ],
             speciales: [
-                { name: 'Pain Grilled Cheese', file: 'Recettes/pain-grilled-cheese.html' },
-                { name: 'Miche à Soupe', file: 'Recettes/miche-a-soupe.html' },
-                { name: 'Focaccia Italienne', file: 'Recettes/focaccia-italienne.html' },
-                { name: 'Fougasse Provençale', file: 'Recettes/fougasse-provencale.html' }
+                { name: '🧀 Pain Grilled Cheese', file: 'Recettes/pain-grilled-cheese.html' },
+                { name: '🥣 Miche à Soupe', file: 'Recettes/miche-a-soupe.html' },
+                { name: '🥯 Muffins Anglais', file: 'Recettes/muffins-anglais.html' },
+                { name: '🥞 Crêpes Classiques', file: 'Recettes/crepes-classiques.html' },
+                { name: '🇫🇷 Galettes de Sarrasin', file: 'Recettes/galettes-sarrasin.html' },
+                { name: '🇮🇹 Focaccia Italienne', file: 'Recettes/focaccia-italienne.html' },
+                { name: '🥖 Fougasse Provençale', file: 'Recettes/fougasse-provencale.html' }
             ]
         };
 

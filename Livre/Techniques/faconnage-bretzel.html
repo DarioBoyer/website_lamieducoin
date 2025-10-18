@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technique de Façonnage du Bretzel - Le Grand Livre du Pain</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px 0;
+        }
+        .technique-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        .technique-header {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        .technique-header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .technique-header .icon {
+            font-size: 4em;
+            margin-bottom: 15px;
+        }
+        .technique-header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+        .technique-content {
+            padding: 40px;
+        }
+        .intro-box {
+            background: #fff9f0;
+            border-left: 5px solid #D2691E;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .intro-box h3 {
+            color: #8B4513;
+            margin-bottom: 15px;
+        }
+        .step-section {
+            margin-bottom: 50px;
+        }
+        .step-header {
+            background: linear-gradient(135deg, #D2691E 0%, #FF8C42 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .step-number {
+            background: white;
+            color: #D2691E;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .step-header h3 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+        .step-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .step-illustration {
+            background: #f8f9fa;
+            border: 3px solid #D2691E;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .step-illustration .diagram {
+            font-size: 8em;
+            margin-bottom: 15px;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
+        }
+        .step-illustration .label {
+            font-size: 1.1em;
+            color: #666;
+            font-style: italic;
+            margin-top: 10px;
+        }
+        .step-description {
+            background: white;
+            padding: 25px;
+            border-left: 4px solid #D2691E;
+            border-radius: 8px;
+        }
+        .step-description p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+            font-size: 1.05em;
+        }
+        .step-description ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        .step-description li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        .tips-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 40px;
+        }
+        .tips-box h3 {
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .tips-box ul {
+            list-style: none;
+            padding: 0;
+        }
+        .tips-box li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            line-height: 1.6;
+        }
+        .tips-box li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+        .visual-guide {
+            background: linear-gradient(135deg, #2e7d32 0%, #66bb6a 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+        }
+        .visual-guide h3 {
+            margin-bottom: 20px;
+        }
+        .shape-examples {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .shape-example {
+            text-align: center;
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            flex: 1;
+            min-width: 200px;
+        }
+        .shape-example .emoji {
+            font-size: 4em;
+            margin-bottom: 10px;
+        }
+        .shape-example p {
+            margin: 0;
+            font-size: 1.1em;
+        }
+        .troubleshooting {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+        .troubleshooting h3 {
+            color: #856404;
+            margin-bottom: 20px;
+        }
+        .troubleshooting .problem {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .troubleshooting .problem strong {
+            color: #dc3545;
+        }
+        .troubleshooting .problem .solution {
+            color: #28a745;
+            margin-top: 8px;
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #D2691E;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            font-size: 24px;
+            transition: all 0.3s;
+            opacity: 0;
+            z-index: 1000;
+        }
+        .back-to-top.show {
+            opacity: 1;
+        }
+        .back-to-top:hover {
+            background: #8B4513;
+            transform: translateY(-5px);
+            color: white;
+        }
+        @media (max-width: 768px) {
+            .technique-header h1 {
+                font-size: 2em;
+            }
+            .technique-content {
+                padding: 20px;
+            }
+            .step-illustration .diagram {
+                font-size: 5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="top"></div>
+    <div class="technique-container">
+        <div class="technique-header">
+            <div class="icon">🥨</div>
+            <h1>Technique de Façonnage du Bretzel</h1>
+            <p>Maîtrisez l'art de former la forme caractéristique du bretzel</p>
+        </div>
+
+        <div class="technique-content">
+            <div class="intro-box">
+                <h3>🎯 À propos de cette technique</h3>
+                <p><strong>Le façonnage du bretzel</strong> est une technique traditionnelle allemande qui crée la forme iconique en nœud. Bien que cela puisse sembler compliqué au premier abord, avec un peu de pratique, vous pourrez façonner des bretzels parfaits en quelques secondes!</p>
+                <p><strong>Temps requis:</strong> 1-2 minutes par bretzel (avec pratique)</p>
+                <p><strong>Niveau de difficulté:</strong> Intermédiaire</p>
+            </div>
+
+            <div class="visual-guide">
+                <h3>📐 Dimensions de Base</h3>
+                <div class="shape-examples">
+                    <div class="shape-example">
+                        <div class="emoji">📏</div>
+                        <p><strong>Longueur du cordon</strong></p>
+                        <p>50-55 cm (20-22")</p>
+                    </div>
+                    <div class="shape-example">
+                        <div class="emoji">⚖️</div>
+                        <p><strong>Poids de pâte</strong></p>
+                        <p>75g par bretzel</p>
+                    </div>
+                    <div class="shape-example">
+                        <div class="emoji">⭕</div>
+                        <p><strong>Épaisseur</strong></p>
+                        <p>Uniforme (1,5 cm)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ÉTAPE 1 -->
+            <div class="step-section">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <h3>Préparer le Cordon de Pâte</h3>
+                </div>
+                <div class="step-content">
+                    <div class="step-illustration">
+                        <div class="diagram">━━━━━━━━━━━━━━━</div>
+                        <div class="label">Cordon de pâte long et uniforme</div>
+                    </div>
+                    <div class="step-description">
+                        <p><strong>Commencez par rouler la pâte en un long cordon:</strong></p>
+                        <ul>
+                            <li>Prenez une portion de pâte de 75g (environ 1/3 tasse)</li>
+                            <li>Roulez avec les deux mains sur une surface légèrement farinée</li>
+                            <li>Roulez du centre vers l'extérieur pour créer un cordon uniforme</li>
+                            <li>Visez une longueur de 50-55 cm (20-22 pouces)</li>
+                            <li>L'épaisseur doit être uniforme sur toute la longueur (environ 1,5 cm)</li>
+                        </ul>
+                        <p><strong>💡 Conseil:</strong> Si la pâte résiste, laissez-la reposer 2-3 minutes pour détendre le gluten, puis continuez à rouler.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ÉTAPE 2 -->
+            <div class="step-section">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <h3>Former un U (ou Fer à Cheval)</h3>
+                </div>
+                <div class="step-content">
+                    <div class="step-illustration">
+                        <div class="diagram">╰━━━━━━━━━━╯</div>
+                        <div class="label">Forme en U avec les extrémités vers le haut</div>
+                    </div>
+                    <div class="step-description">
+                        <p><strong>Créez la forme de base:</strong></p>
+                        <ul>
+                            <li>Soulevez le cordon et formez un grand U devant vous</li>
+                            <li>Les deux extrémités doivent pointer vers le haut</li>
+                            <li>Le bas du U (la courbe) doit être face à vous</li>
+                            <li>Assurez-vous que les deux côtés sont de longueur égale</li>
+                            <li>Laissez environ 5-7 cm pour les extrémités qui seront tordues</li>
+                        </ul>
+                        <p><strong>💡 Conseil:</strong> Gardez le bas du U plus épais - il deviendra la partie moelleuse du bretzel.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ÉTAPE 3 -->
+            <div class="step-section">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <h3>Croiser les Extrémités (La Torsade)</h3>
+                </div>
+                <div class="step-content">
+                    <div class="step-illustration">
+                        <div class="diagram" style="font-size: 6em;">
+                            ╭─╮<br>
+                            │╳│<br>
+                            ╰─╯
+                        </div>
+                        <div class="label">Croisez les extrémités au sommet</div>
+                    </div>
+                    <div class="step-description">
+                        <p><strong>Créez la torsade caractéristique:</strong></p>
+                        <ul>
+                            <li>Saisissez les deux extrémités du U</li>
+                            <li>Croisez-les l'une sur l'autre au centre, au-dessus du bretzel</li>
+                            <li>Tordez-les ensemble UNE FOIS (une torsade simple)</li>
+                            <li>La main droite passe par-dessus la main gauche (ou inversement, selon votre préférence)</li>
+                            <li>Gardez la torsade serrée mais pas trop tendue</li>
+                        </ul>
+                        <p><strong>💡 Conseil:</strong> Cette étape crée le "nœud" visuel du bretzel. Une seule torsade suffit!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ÉTAPE 4 -->
+            <div class="step-section">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <h3>Rabattre et Presser les Extrémités</h3>
+                </div>
+                <div class="step-content">
+                    <div class="step-illustration">
+                        <div class="diagram" style="font-size: 5em;">
+                            ╭━●━●━╮<br>
+                            │&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br>
+                            ╰━━━━━╯
+                        </div>
+                        <div class="label">Bretzel terminé avec extrémités pressées</div>
+                    </div>
+                    <div class="step-description">
+                        <p><strong>Complétez la forme du bretzel:</strong></p>
+                        <ul>
+                            <li>Après avoir torsadé, ramenez les deux extrémités vers vous</li>
+                            <li>Pressez chaque extrémité sur la partie inférieure courbe du bretzel</li>
+                            <li>Pressez à environ 2-3 cm de chaque côté du bas</li>
+                            <li>Appuyez fermement pour que la pâte adhère bien</li>
+                            <li>Vous pouvez humecter légèrement les points de contact avec de l'eau si nécessaire</li>
+                        </ul>
+                        <p><strong>💡 Conseil:</strong> Les points où vous pressez les extrémités créent les "bras" distinctifs du bretzel.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ÉTAPE 5 -->
+            <div class="step-section">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <h3>Vérification et Ajustement Final</h3>
+                </div>
+                <div class="step-content">
+                    <div class="step-illustration">
+                        <div class="diagram">🥨</div>
+                        <div class="label">Bretzel parfaitement formé!</div>
+                    </div>
+                    <div class="step-description">
+                        <p><strong>Vérifiez la forme finale:</strong></p>
+                        <ul>
+                            <li><strong>Symétrie:</strong> Les deux côtés doivent être équilibrés</li>
+                            <li><strong>Ouvertures:</strong> Trois espaces ouverts distincts (deux en haut, un en bas)</li>
+                            <li><strong>Torsade visible:</strong> Le croisement doit être clairement défini</li>
+                            <li><strong>Épaisseur:</strong> La partie inférieure plus épaisse, les bras plus fins</li>
+                            <li><strong>Points d'attache:</strong> Bien scellés pour ne pas se détacher pendant la cuisson</li>
+                        </ul>
+                        <p><strong>💡 Conseil:</strong> Si la forme n'est pas parfaite, c'est normal! Chaque bretzel aura sa personnalité unique.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ASTUCES SUPPLÉMENTAIRES -->
+            <div class="tips-box">
+                <h3>💡 Astuces de Pro</h3>
+                <ul>
+                    <li><strong>Travaillez rapidement:</strong> La pâte peut sécher si vous prenez trop de temps. Couvrez les portions non travaillées.</li>
+                    <li><strong>Surface de travail:</strong> Très peu de farine - trop de farine empêche la pâte de coller lors du façonnage.</li>
+                    <li><strong>Pratique:</strong> Vos premiers bretzels ne seront peut-être pas parfaits - c'est normal! La forme s'améliore avec la pratique.</li>
+                    <li><strong>Conservation de la forme:</strong> Le bain de bicarbonate de soude aide à fixer la forme du bretzel.</li>
+                    <li><strong>Température de la pâte:</strong> Une pâte trop froide est difficile à façonner. Laissez-la tempérer 10-15 minutes si elle sort du réfrigérateur.</li>
+                    <li><strong>Uniformité:</strong> Essayez de garder la même épaisseur de cordon pour tous vos bretzels pour une cuisson uniforme.</li>
+                    <li><strong>Alternative simple:</strong> Pour débuter, vous pouvez aussi faire des "bâtonnets" droits ou des nœuds simples!</li>
+                </ul>
+            </div>
+
+            <!-- DÉPANNAGE -->
+            <div class="troubleshooting">
+                <h3>🔧 Dépannage</h3>
+                
+                <div class="problem">
+                    <strong>Problème:</strong> La pâte se rétracte constamment pendant le roulage
+                    <div class="solution"><strong>Solution:</strong> Le gluten est trop tendu. Laissez reposer la pâte 5 minutes sous un linge humide, puis recommencez.</div>
+                </div>
+
+                <div class="problem">
+                    <strong>Problème:</strong> Les extrémités ne collent pas au bas du bretzel
+                    <div class="solution"><strong>Solution:</strong> Humidifiez légèrement les points de contact avec de l'eau ou de l'huile avant de presser fermement.</div>
+                </div>
+
+                <div class="problem">
+                    <strong>Problème:</strong> Le bretzel se déforme pendant le bain de bicarbonate
+                    <div class="solution"><strong>Solution:</strong> Assurez-vous que les points d'attache sont bien scellés. Manipulez délicatement avec une écumoire à fentes.</div>
+                </div>
+
+                <div class="problem">
+                    <strong>Problème:</strong> L'épaisseur n'est pas uniforme
+                    <div class="solution"><strong>Solution:</strong> Roulez du centre vers l'extérieur avec une pression égale des deux mains. Pratiquez le mouvement sur une surface propre d'abord.</div>
+                </div>
+
+                <div class="problem">
+                    <strong>Problème:</strong> Le bretzel n'a pas la forme "classique"
+                    <div class="solution"><strong>Solution:</strong> Pas de souci! Un bretzel "imparfait" est toujours délicieux. Avec la pratique, vos formes s'amélioreront naturellement.</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <a href="#top" class="back-to-top" id="backToTop">↑</a>
+
+    <script>
+        // Bouton retour en haut
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+
+        backToTop.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
