@@ -12,44 +12,47 @@
         body {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
-            padding: 20px 0;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .recipe-container { max-width: 1000px; margin: 0 auto; }
+        .recipe-container { max-width: 600px; margin: 0 auto; }
         .recipe-header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white; padding: 40px; border-radius: 15px 15px 0 0;
+            color: white; padding: 20px; border-radius: 12px 12px 0 0;
             text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-        .recipe-icon { font-size: 4em; margin-bottom: 15px; }
-        .recipe-title h1 { font-size: 2.5em; font-weight: bold; margin-bottom: 10px; }
-        .recipe-subtitle { font-size: 1.2em; opacity: 0.9; margin: 0; }
+        .recipe-icon { font-size: 2.5em; margin-bottom: 8px; }
+        .recipe-title h1 { font-size: 1.5em; font-weight: bold; margin-bottom: 5px; }
+        .recipe-subtitle { font-size: 0.85em; opacity: 0.9; margin: 0; }
         .recipe-content {
-            background: white; padding: 40px;
-            border-radius: 0 0 15px 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            background: white; padding: 20px;
+            border-radius: 0 0 12px 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         .calculator-box {
-            background: rgba(255,255,255,0.15); padding: 25px;
-            border-radius: 10px; backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.15); padding: 15px;
+            border-radius: 8px; backdrop-filter: blur(10px);
         }
-        .form-label { font-weight: bold; font-size: 1.05em; margin-bottom: 10px; }
+        .form-label { font-weight: bold; font-size: 0.9em; margin-bottom: 5px; }
         .form-select, .form-control {
-            padding: 12px; font-size: 1em; border-radius: 8px;
+            padding: 8px; font-size: 0.9em; border-radius: 6px;
             border: 1px solid #ddd; font-weight: bold;
         }
         .result-card {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 12px; border-radius: 8px; margin-bottom: 12px;
+            padding: 8px 10px; border-radius: 6px; margin-bottom: 8px;
         }
-        .result-label { font-weight: 600; }
-        .result-value { font-weight: bold; font-size: 1.2em; }
+        .result-label { font-weight: 600; font-size: 0.9em; }
+        .result-value { font-weight: bold; font-size: 1em; }
         .info-box {
-            padding: 15px; border-radius: 5px; margin-top: 20px;
+            padding: 10px; border-radius: 5px; margin-top: 12px; font-size: 0.85em;
         }
         .back-to-top-btn {
-            position: fixed; bottom: 30px; right: 30px; background: #764ba2;
-            color: white; width: 50px; height: 50px; border-radius: 50%;
+            position: fixed; bottom: 20px; right: 20px; background: #764ba2;
+            color: white; width: 40px; height: 40px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-size: 24px; text-decoration: none;
+            font-size: 20px; text-decoration: none;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s ease; z-index: 1000;
         }
         .back-to-top-btn:hover {
@@ -68,21 +71,21 @@
             </div>
         </div>
         <div class="recipe-content">
-            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 15px; margin-bottom: 30px;">
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px; border-radius: 10px; margin-bottom: 15px;">
                 <div class="calculator-box">
-                    <div class="row mb-4">
+                    <div class="row mb-3">
                         <div class="col-md-6">
                             <label class="form-label" style="color: white;">
                                 🌾 Type de Farine:
                             </label>
                             <select id="flourType" onchange="updateWaterInfo()" class="form-select">
-                                <option value="0">Farine blanche T55/T65 (base)</option>
-                                <option value="5">Farine complète T80/T110 (+5%)</option>
-                                <option value="10">Farine intégrale T150 (+10%)</option>
+                                <option value="0">Farine blanche T55/T65</option>
+                                <option value="5">Farine complète (+5%)</option>
+                                <option value="10">Farine intégrale (+10%)</option>
                                 <option value="8">Farine de seigle (+8%)</option>
-                                <option value="15">Farine sans gluten (+15%)</option>
+                                <option value="15">Sans gluten (+15%)</option>
                             </select>
-                            <p id="flourInfo" style="margin-top: 8px; font-size: 0.9em; opacity: 0.9; min-height: 40px;"></p>
+                            <p id="flourInfo" style="margin-top: 5px; font-size: 0.75em; opacity: 0.9; min-height: 30px;"></p>
                         </div>
                         
                         <div class="col-md-6">
@@ -90,14 +93,14 @@
                                 🧫 Type de Fermentation:
                             </label>
                             <select id="fermentType" onchange="calculate()" class="form-select">
-                                <option value="levure">Levure sèche (1.5%)</option>
-                                <option value="levain">Levain naturel (30%)</option>
+                                <option value="levure">Levure (1.5%)</option>
+                                <option value="levain">Levain (30%)</option>
                             </select>
                         </div>
                     </div>
                     
-                    <div class="row mb-3">
-                        <div class="col-md-6">
+                    <div class="row mb-2">
+                        <div class="col-6">
                             <label class="form-label" style="color: white;">
                                 📊 Farine (g):
                             </label>
@@ -105,7 +108,7 @@
                                    oninput="calculateFromFlour()" class="form-control">
                         </div>
                         
-                        <div class="col-md-6">
+                        <div class="col-6">
                             <label class="form-label" style="color: white;">
                                 💧 Eau (ml):
                             </label>
@@ -114,30 +117,30 @@
                         </div>
                     </div>
                     
-                    <div class="mb-4">
+                    <div class="mb-3">
                         <label class="form-label" style="color: white;">
                             💧 Hydratation: <span id="hydrationPercent" style="color: #ffd700;">65%</span>
                         </label>
                         <input type="range" id="hydrationSlider" min="50" max="90" value="65" step="1" 
                                oninput="updateHydration()" class="form-range">
-                        <div style="display: flex; justify-content: space-between; font-size: 0.9em; margin-top: 5px;">
-                            <span>50% (Dense)</span>
-                            <span>90% (Très hydratée)</span>
+                        <div style="display: flex; justify-content: space-between; font-size: 0.75em; margin-top: 3px;">
+                            <span>50%</span>
+                            <span>90%</span>
                         </div>
                     </div>
                     
-                    <div id="calculationResults" style="background: white; color: #333; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                        <h4 style="color: #667eea; margin-bottom: 20px; text-align: center; border-bottom: 2px solid #667eea; padding-bottom: 10px;">
-                            📋 Proportions Calculées
-                        </h4>
+                    <div id="calculationResults" style="background: white; color: #333; padding: 15px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                        <h5 style="color: #667eea; margin-bottom: 12px; text-align: center; border-bottom: 2px solid #667eea; padding-bottom: 8px; font-size: 1em;">
+                            📋 Résultats
+                        </h5>
                         
                         <div class="result-card" style="background: #f0f7ff; border-left: 4px solid #667eea;">
-                            <span class="result-label">🌾 Farine:</span>
+                            <span class="result-label">🌾 Farine <span id="flourAdjustNote" style="font-size: 0.8em; color: #666;"></span>:</span>
                             <span id="resultFlour" class="result-value" style="color: #667eea;">500 g</span>
                         </div>
                         
                         <div class="result-card" style="background: #e3f2fd; border-left: 4px solid #2196F3;">
-                            <span class="result-label">💧 Eau <span id="waterPercent" style="font-size: 0.9em; color: #666;">(65%)</span>:</span>
+                            <span class="result-label">💧 Eau <span id="waterPercent" style="font-size: 0.9em; color: #666;">(65%)</span><span id="waterAdjustNote" style="font-size: 0.8em; color: #666;"></span>:</span>
                             <span id="resultWater" class="result-value" style="color: #2196F3;">325 ml</span>
                         </div>
                         
@@ -149,6 +152,12 @@
                         <div class="result-card" style="background: #f1f8e9; border-left: 4px solid #8BC34A;">
                             <span class="result-label">🧫 <span id="fermentLabel">Levure sèche</span> <span id="fermentPercent" style="font-size: 0.9em; color: #666;">(1.5%)</span>:</span>
                             <span id="resultFerment" class="result-value" style="color: #8BC34A;">7.5 g</span>
+                        </div>
+                        
+                        <div id="levainBreakdown" class="info-box" style="background: #f1f8e9; border-left: 4px solid #8BC34A; display: none;">
+                            <p style="margin: 0; color: #558B2F; font-weight: bold; font-size: 0.85em;">
+                                🧫 <span id="levainBreakdownText"></span>
+                            </p>
                         </div>
                         
                         <div class="info-box" style="background: #f0f7ff; border-left: 4px solid #2196F3;">
@@ -241,21 +250,43 @@
             const salt = Math.round(flourWeight * 2 / 100 * 10) / 10;
             
             let ferment, fermentPercent, fermentLabel;
+            let adjustedFlourWeight = flourWeight;
+            let adjustedWaterAmount = waterAmount;
+            let flourInLevain = 0;
+            let waterInLevain = 0;
+            
             if (fermentType === 'levure') {
                 fermentPercent = 1.5;
                 ferment = Math.round(flourWeight * 1.5 / 100 * 10) / 10;
                 fermentLabel = 'Levure sèche';
+                document.getElementById('flourAdjustNote').textContent = '';
+                document.getElementById('waterAdjustNote').textContent = '';
+                document.getElementById('levainBreakdown').style.display = 'none';
             } else {
                 fermentPercent = 30;
                 ferment = Math.round(flourWeight * 30 / 100);
                 fermentLabel = 'Levain actif';
+                
+                // Le levain contient 50% farine et 50% eau
+                flourInLevain = Math.round(ferment / 2);
+                waterInLevain = Math.round(ferment / 2);
+                
+                // Ajuster les quantités de farine et d'eau à ajouter
+                adjustedFlourWeight = flourWeight - flourInLevain;
+                adjustedWaterAmount = waterAmount - waterInLevain;
+                
+                document.getElementById('flourAdjustNote').textContent = ' (-' + flourInLevain + 'g du levain)';
+                document.getElementById('waterAdjustNote').textContent = ' (-' + waterInLevain + 'ml du levain)';
+                document.getElementById('levainBreakdown').style.display = 'block';
+                document.getElementById('levainBreakdownText').textContent = 
+                    'Levain = ' + flourInLevain + 'g farine + ' + waterInLevain + 'g eau';
             }
             
             const actualHydration = Math.round(waterAmount / flourWeight * 100);
             const totalHydration = baseHydration + flourTypeAdd;
             
-            document.getElementById('resultFlour').textContent = flourWeight + ' g';
-            document.getElementById('resultWater').textContent = waterAmount + ' ml';
+            document.getElementById('resultFlour').textContent = adjustedFlourWeight + ' g';
+            document.getElementById('resultWater').textContent = adjustedWaterAmount + ' ml';
             document.getElementById('waterPercent').textContent = '(' + actualHydration + '%)';
             document.getElementById('resultSalt').textContent = salt + ' g';
             document.getElementById('resultFerment').textContent = ferment + ' g';
