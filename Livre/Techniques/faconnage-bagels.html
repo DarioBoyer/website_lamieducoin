@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Façonnage du Bagel - Technique Détaillée</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .technique-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .technique-header {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        .technique-icon {
+            font-size: 4em;
+            margin-bottom: 15px;
+        }
+        .technique-title h1 {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .technique-subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        .technique-content {
+            padding: 40px;
+        }
+        .intro-section {
+            background: #fff9f0;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 5px solid #D2691E;
+            margin-bottom: 30px;
+        }
+        .intro-section p {
+            margin: 0;
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #333;
+        }
+        .intro-section p:not(:last-child) {
+            margin-bottom: 10px;
+        }
+        .method-selector {
+            background: #e3f2fd;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 5px solid #1565C0;
+        }
+        .method-selector h4 {
+            color: #1565C0;
+            margin-bottom: 15px;
+        }
+        .method-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .method-btn {
+            padding: 12px 25px;
+            border: 2px solid #1565C0;
+            background: white;
+            color: #1565C0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .method-btn:hover, .method-btn.active {
+            background: #1565C0;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(21,101,192,0.3);
+        }
+        .step-section {
+            margin-bottom: 40px;
+        }
+        .step-header {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .step-number {
+            background: white;
+            color: #D2691E;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+        .step-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            margin: 0;
+        }
+        .step-content {
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .step-description {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .illustration-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+        .illustration-box .visual {
+            font-size: 8em;
+            margin: 20px 0;
+            line-height: 1;
+        }
+        .illustration-box .caption {
+            font-size: 1em;
+            color: #666;
+            font-style: italic;
+        }
+        .diagram-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+        .diagram-step {
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+        }
+        .diagram-visual {
+            font-size: 5em;
+            margin-bottom: 10px;
+        }
+        .diagram-label {
+            font-size: 0.9em;
+            color: #666;
+            font-weight: 600;
+        }
+        .arrow {
+            font-size: 3em;
+            color: #D2691E;
+        }
+        .tips-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+        .tips-box h4 {
+            margin-bottom: 15px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .tips-box ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .tips-box li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        .warning-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .warning-box h5 {
+            color: #856404;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .warning-box p {
+            color: #856404;
+            margin: 0;
+            line-height: 1.6;
+        }
+        .success-box {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .success-box h5 {
+            color: #155724;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .success-box p {
+            color: #155724;
+            margin: 0;
+            line-height: 1.6;
+        }
+        .success-box ul {
+            color: #155724;
+            margin-bottom: 0;
+            padding-left: 20px;
+        }
+        .comparison-table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .comparison-table th {
+            background: #D2691E;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        .comparison-table td {
+            padding: 15px;
+            border-bottom: 1px solid #f0e6d6;
+        }
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        .back-btn {
+            display: inline-block;
+            background: #8B4513;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+        }
+        .back-btn:hover {
+            background: #D2691E;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .back-to-top-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #D2691E;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        .back-to-top-btn:hover {
+            background: #8B4513;
+            transform: translateY(-5px);
+            color: white;
+        }
+        @media (max-width: 768px) {
+            .technique-header {
+                padding: 30px 20px;
+            }
+            .technique-title h1 {
+                font-size: 2em;
+            }
+            .technique-content {
+                padding: 25px;
+            }
+            .diagram-container {
+                gap: 15px;
+            }
+            .diagram-visual {
+                font-size: 3em;
+            }
+            .arrow {
+                font-size: 2em;
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="top"></div>
+    <div class="technique-container">
+        <!-- En-tête -->
+        <div class="technique-header">
+            <div class="technique-icon">🥯</div>
+            <div class="technique-title">
+                <h1>Façonnage du Bagel</h1>
+                <p class="technique-subtitle">Maîtrisez les deux méthodes classiques pour des bagels parfaits</p>
+            </div>
+        </div>
+
+        <!-- Contenu principal -->
+        <div class="technique-content">
+            <!-- Introduction -->
+            <div class="intro-section">
+                <p>
+                    <strong>Le bagel authentique</strong> se distingue par sa forme en anneau caractéristique avec un trou au centre. 
+                    Cette forme unique n'est pas seulement esthétique - elle permet une cuisson uniforme et crée la texture dense 
+                    et moelleuse signature du bagel.
+                </p>
+                <p>
+                    Il existe deux méthodes principales pour façonner un bagel : la <strong>méthode du trou</strong> (la plus 
+                    traditionnelle et recommandée) et la <strong>méthode du rouleau</strong> (utilisée dans certaines boulangeries 
+                    commerciales). Les deux produisent d'excellents résultats!
+                </p>
+            </div>
+
+            <!-- Sélecteur de méthode -->
+            <div class="method-selector">
+                <h4>🎯 Choisissez Votre Méthode</h4>
+                <p style="margin-bottom: 15px;">Les deux méthodes sont détaillées ci-dessous. La méthode du trou est plus facile pour les débutants.</p>
+                <div class="method-buttons">
+                    <button class="method-btn active" onclick="scrollToMethod('method1')">📍 Méthode du Trou (Recommandée)</button>
+                    <button class="method-btn" onclick="scrollToMethod('method2')">🌀 Méthode du Rouleau</button>
+                </div>
+            </div>
+
+            <!-- Vue d'ensemble -->
+            <h3 style="color: #8B4513; border-bottom: 3px solid #D2691E; padding-bottom: 10px; margin-bottom: 30px;">
+                📐 Dimensions Standards du Bagel
+            </h3>
+            
+            <div class="diagram-container">
+                <div class="diagram-step">
+                    <div class="diagram-visual">⚖️</div>
+                    <div class="diagram-label">110g de pâte par bagel</div>
+                </div>
+                <div class="arrow">→</div>
+                <div class="diagram-step">
+                    <div class="diagram-visual">📏</div>
+                    <div class="diagram-label">Diamètre total: 10-12 cm</div>
+                </div>
+                <div class="arrow">→</div>
+                <div class="diagram-step">
+                    <div class="diagram-visual">⭕</div>
+                    <div class="diagram-label">Trou central: 4-5 cm</div>
+                </div>
+            </div>
+
+            <!-- MÉTHODE 1: TECHNIQUE DU TROU -->
+            <div id="method1" style="scroll-margin-top: 20px;">
+                <h3 style="color: #8B4513; border-bottom: 3px solid #D2691E; padding-bottom: 10px; margin-top: 50px; margin-bottom: 30px;">
+                    📍 Méthode 1 : Technique du Trou (Recommandée)
+                </h3>
+                
+                <div class="success-box">
+                    <h5>✅ Pourquoi Cette Méthode?</h5>
+                    <p>C'est la méthode traditionnelle utilisée dans les boulangeries artisanales de New York. Elle produit des bagels avec une forme plus uniforme et un trou qui reste ouvert après la cuisson.</p>
+                </div>
+
+                <!-- Étape 1 -->
+                <div class="step-section">
+                    <div class="step-header">
+                        <div class="step-number">1</div>
+                        <h3 class="step-title">Diviser et Préformer</h3>
+                    </div>
+                    <div class="step-content">
+                        <p class="step-description">
+                            Après la première levée, divisez votre pâte en <strong>8 portions égales d'environ 110g chacune</strong>. 
+                            Utilisez une balance de cuisine pour assurer l'uniformité. Façonnez chaque portion en une boule lisse 
+                            en repliant les bords vers le dessous et en créant de la tension en surface.
+                        </p>
+                        <div class="illustration-box">
+                            <div class="visual">⚪ ⚪ ⚪<br>⚪ ⚪ ⚪<br>⚪ ⚪</div>
+                            <p class="caption">8 boules de pâte bien formées et uniformes</p>
+                        </div>
+                        <div class="success-box">
+                            <h5>✅ Astuce Pro</h5>
+                            <p>Roulez chaque boule sur le comptoir sans farine en utilisant votre paume en coupe. Le léger frottement aide à créer une belle tension en surface.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Étape 2 -->
+                <div class="step-section">
+                    <div class="step-header">
+                        <div class="step-number">2</div>
+                        <h3 class="step-title">Aplatir Légèrement</h3>
+                    </div>
+                    <div class="step-content">
+                        <p class="step-description">
+                            Prenez une boule de pâte et <strong>appuyez doucement</strong> avec la paume de votre main pour 
+                            l'aplatir en un disque d'environ <strong>2 cm d'épaisseur</strong>. Ne pas trop écraser - vous 
+                            voulez juste créer une surface plane, pas une crêpe!
+                        </p>
+                        <div class="illustration-box">
+                            <div class="visual">🔘</div>
+                            <p class="caption">Disque de pâte aplati uniformément</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Étape 3 -->
+                <div class="step-section">
+                    <div class="step-header">
+                        <div class="step-number">3</div>
+                        <h3 class="step-title">Créer le Trou Central</h3>
+                    </div>
+                    <div class="step-content">
+                        <p class="step-description">
+                            Voici l'étape signature! <strong>Enfoncez votre index</strong> (ou vos deux pouces) directement au 
+                            centre du disque de pâte. Poussez complètement à travers pour créer un trou. Au début, le trou 
+                            sera petit - c'est normal, nous allons l'agrandir à l'étape suivante.
+                        </p>
+                        <div class="illustration-box">
+                            <div class="visual">👆<br>⭕</div>
+                            <p class="caption">Percer le centre avec l'index</p>
+                        </div>
+                        <div class="warning-box">
+                            <h5>⚠️ Point Important</h5>
+                            <p>Assurez-vous de percer complètement. Si vous ne percez qu'à moitié, le trou pourrait se refermer pendant la levée ou la cuisson.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Étape 4 -->
+                <div class="step-section">
+                    <div class="step-header">
+                        <div class="step-number">4</div>
+                        <h3 class="step-title">Agrandir le Trou</h3>
+                    </div>
+                    <div class="step-content">
+                        <p class="step-description">
+                            Insérez les <strong>index des deux mains</strong> dans le trou que vous venez de créer. Faites 
+                            <strong>tourner la pâte</strong> autour de vos doigts tout en étirant doucement le trou. L'objectif 
+                            est d'obtenir un trou d'environ <strong>4-5 cm de diamètre</strong> - cela peut sembler énorme, 
+                            mais il rétrécira considérablement!
+                        </p>
+                        <div class="illustration-box">
+                            <div class="visual">🥯</div>
+                            <p class="caption">Bagel avec un trou généreux (4-5 cm)</p>
+                        </div>
+                        <div class="success-box">
+                            <h5>✅ Technique Professionnelle</h5>
+                            <p>Faites tourner le bagel sur votre paume tout en maintenant vos index dans le trou. La gravité aide à étirer uniformément, créant une forme parfaitement ronde. Pensez à faire tourner un cerceau de basket autour de votre doigt!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Étape 5 -->
+                <div class="step-section">
+                    <div class="step-header">
+                        <div class="step-number">5</div>
+                        <h3 class="step-title">Uniformiser la Forme</h3>
+                    </div>
+                    <div class="step-content">
+                        <p class="step-description">
+                            Vérifiez que l'<strong>épaisseur est uniforme</strong> tout autour de l'anneau. Si certaines parties 
+                            sont plus épaisses, étirez-les doucement. Le bagel doit avoir une épaisseur régulière d'environ 
+                            <strong>2-2.5 cm</strong> tout autour du cercle.
+                        </p>
+                        <div class="warning-box">
+                            <h5>⚠️ Pourquoi un Gros Trou?</h5>
+                            <p>Le trou doit représenter environ <strong>40-50% du diamètre total</strong>. Pendant l'ébouillantage et la cuisson, la pâte gonfle et le trou se referme partiellement. Si vous ne faites qu'un petit trou, il disparaîtra complètement!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MÉTHODE 2: TECHNIQUE DU ROULEAU -->
+            <div id="method2" style="scroll-margin-top: 20px;">
+                <h3 style="color: #8B4513; border-bottom: 3px solid #D2691E; padding-bottom: 10px; margin-top: 50px; margin-bottom: 30px;">
+                    🌀 Méthode 2 : Technique du Rouleau
+                </h3>
+                
+                <div class="success-box">
+                    <h5>✅ Avantages de Cette Méthode</h5>
+                    <p>Utilisée dans certaines boulangeries commerciales, cette méthode crée une texture très dense et uniforme. Le point de jonction peut parfois se voir, mais cela ajoute un caractère artisanal!</p>
+                </div>
+
+                <!-- Étape 1 -->
+                <div class="step-section">
+                    <div class="step-header">
+                        <div class="step-number">1</div>
+                        <h3 class="step-title">Former une Boule</h3>
+                    </div>
+                    <div class="step-content">
+                        <p class="step-description">
+                            Comme pour la première méthode, divisez la pâte en <strong>8 portions de 110g</strong> et façonnez 
+                            chaque portion en une boule lisse et bien tendue.
+                        </p>
+                        <div class="illustration-box">
+                            <div class="visual">⚪</div>
+                            <p class="caption">Boule de pâte bien formée</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Étape 2 -->
+                <div class="step-section">
+                    <div class="step-header">
+                        <div class="step-number">2</div>
+                        <h3 class="step-title">Rouler en Boudin</h3>
+                    </div>
+                    <div class="step-content">
+                        <p class="step-description">
+                            Sur une surface légèrement humidifiée (pas de farine!), roulez la boule en un <strong>boudin 
+                            uniforme de 20-22 cm de longueur</strong>. Utilisez les deux mains en appliquant une pression 
+                            égale pour obtenir une épaisseur uniforme d'environ <strong>2-2.5 cm de diamètre</strong>.
+                        </p>
+                        <div class="illustration-box">
+                            <div class="visual">━━━━━━━━━━━</div>
+                            <p class="caption">Boudin de pâte de 20-22 cm, uniforme</p>
+                        </div>
+                        <div class="success-box">
+                            <h5>✅ Astuce de Roulage</h5>
+                            <p>Commencez du centre et roulez vers l'extérieur. Si la pâte résiste ou rétrécit, laissez-la reposer 2-3 minutes pour détendre le gluten, puis continuez.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Étape 3 -->
+                <div class="step-section">
+                    <div class="step-header">
+                        <div class="step-number">3</div>
+                        <h3 class="step-title">Enrouler Autour de la Main</h3>
+                    </div>
+                    <div class="step-content">
+                        <p class="step-description">
+                            Placez votre main <strong>non dominante à plat</strong> sur le comptoir, paume vers le bas, doigts 
+                            joints. Enroulez le boudin de pâte <strong>autour de votre main</strong>, juste au-dessus de la base 
+                            des doigts. Les deux extrémités doivent se chevaucher d'environ <strong>3-4 cm</strong> dans votre 
+                            paume.
+                        </p>
+                        <div class="illustration-box">
+                            <div class="visual" style="font-size: 6em;">🖐️<br>⭕</div>
+                            <p class="caption">Enrouler la pâte autour de la main</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Étape 4 -->
+                <div class="step-section">
+                    <div class="step-header">
+                        <div class="step-number">4</div>
+                        <h3 class="step-title">Sceller la Jonction</h3>
+                    </div>
+                    <div class="step-content">
+                        <p class="step-description">
+                            Voici l'étape cruciale! Avec la pâte toujours autour de votre main, <strong>roulez votre main 
+                            d'avant en arrière</strong> sur le comptoir au niveau de la jonction. Appuyez fermement pour 
+                            <strong>sceller complètement</strong> les deux extrémités ensemble. Continuez à rouler jusqu'à 
+                            ce que la jonction soit invisible.
+                        </p>
+                        <div class="illustration-box">
+                            <div class="visual">🥯</div>
+                            <p class="caption">Bagel avec jonction bien scellée</p>
+                        </div>
+                        <div class="warning-box">
+                            <h5>⚠️ Point Critique</h5>
+                            <p>La jonction DOIT être parfaitement scellée. Si elle est mal fermée, le bagel s'ouvrira pendant l'ébouillantage ou la cuisson. N'hésitez pas à rouler fermement pendant 10-15 secondes!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Étape 5 -->
+                <div class="step-section">
+                    <div class="step-header">
+                        <div class="step-number">5</div>
+                        <h3 class="step-title">Retirer et Ajuster</h3>
+                    </div>
+                    <div class="step-content">
+                        <p class="step-description">
+                            Retirez délicatement votre main du bagel. Placez le bagel sur le comptoir et faites-le rouler 
+                            doucement pour <strong>égaliser la forme</strong> et vérifier que le trou est de la bonne taille 
+                            (environ 4-5 cm). Ajustez si nécessaire en étirant délicatement.
+                        </p>
+                        <div class="success-box">
+                            <h5>✅ Vérification Finale</h5>
+                            <p>Le bagel doit être parfaitement rond, avec une épaisseur uniforme et un trou généreux. Si la forme n'est pas parfaite, vous pouvez doucement ajuster en roulant ou en étirant.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparaison des Méthodes -->
+            <h3 style="color: #8B4513; border-bottom: 3px solid #D2691E; padding-bottom: 10px; margin-top: 50px; margin-bottom: 30px;">
+                ⚖️ Comparaison des Deux Méthodes
+            </h3>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Critère</th>
+                        <th>Méthode du Trou</th>
+                        <th>Méthode du Rouleau</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Difficulté</strong></td>
+                        <td>⭐⭐ Facile</td>
+                        <td>⭐⭐⭐ Intermédiaire</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Temps</strong></td>
+                        <td>30-45 secondes/bagel</td>
+                        <td>45-60 secondes/bagel</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Forme Finale</strong></td>
+                        <td>Plus uniforme et ronde</td>
+                        <td>Peut être légèrement ovale</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Taille du Trou</strong></td>
+                        <td>Plus facile à contrôler</td>
+                        <td>Dépend de la taille de la main</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Texture</strong></td>
+                        <td>Dense et moelleuse</td>
+                        <td>Très dense, texture serrée</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Apparence</strong></td>
+                        <td>Aspect lisse, professionnel</td>
+                        <td>Jonction parfois visible (artisanal)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Recommandé Pour</strong></td>
+                        <td>Débutants et usage domestique</td>
+                        <td>Ceux qui recherchent texture très dense</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Après le Façonnage -->
+            <h3 style="color: #8B4513; border-bottom: 3px solid #D2691E; padding-bottom: 10px; margin-top: 50px; margin-bottom: 30px;">
+                🕐 Étapes Suivant le Façonnage
+            </h3>
+
+            <div class="step-content">
+                <h5 style="color: #D2691E; margin-bottom: 15px;">1. Repos et Levée au Froid</h5>
+                <ul style="margin-bottom: 20px;">
+                    <li>Placer les bagels façonnés sur une plaque avec papier parchemin <strong>légèrement huilé</strong></li>
+                    <li>Espacer de 5 cm - ils vont légèrement gonfler</li>
+                    <li>Couvrir de pellicule plastique huilée (pour éviter qu'elle colle)</li>
+                    <li><strong>Réfrigérer 8-24 heures</strong> - cette fermentation lente développe la saveur</li>
+                </ul>
+
+                <h5 style="color: #D2691E; margin-bottom: 15px;">2. Test de Flottaison (Crucial!)</h5>
+                <ul style="margin-bottom: 20px;">
+                    <li>Sortir les bagels du réfrigérateur <strong>30 minutes avant la cuisson</strong></li>
+                    <li>Remplir un bol d'eau froide et y déposer délicatement un bagel</li>
+                    <li><strong>S'il flotte en 10-15 secondes :</strong> ✅ Prêt à cuire!</li>
+                    <li><strong>S'il coule :</strong> ❌ Laisser reposer 15-30 minutes de plus à température ambiante</li>
+                </ul>
+
+                <h5 style="color: #D2691E; margin-bottom: 15px;">3. Ébouillantage</h5>
+                <ul style="margin-bottom: 20px;">
+                    <li>Porter 3 litres d'eau à ébullition avec 2 c. à soupe de sucre/miel</li>
+                    <li>Réduire à mijotage soutenu</li>
+                    <li>Déposer 2-3 bagels à la fois (ne pas surcharger)</li>
+                    <li>Cuire <strong>30-45 secondes par côté</strong></li>
+                    <li>Retirer avec écumoire et égoutter brièvement</li>
+                </ul>
+
+                <h5 style="color: #D2691E; margin-bottom: 15px;">4. Cuisson</h5>
+                <ul>
+                    <li>Four préchauffé à <strong>220°C (425°F)</strong></li>
+                    <li>Cuire <strong>20-25 minutes</strong> jusqu'à doré</li>
+                    <li>Tourner la plaque à mi-cuisson pour une coloration uniforme</li>
+                </ul>
+            </div>
+
+            <!-- Conseils Supplémentaires -->
+            <div class="tips-box">
+                <h4>💡 Conseils pour des Bagels Parfaits</h4>
+                <ul>
+                    <li><strong>Poids uniforme :</strong> Utilisez une balance - des portions égales assurent une cuisson uniforme</li>
+                    <li><strong>Pas de farine :</strong> Travaillez sur surface propre ou légèrement humide, jamais farinée</li>
+                    <li><strong>Trou généreux :</strong> Ne soyez pas timide - le trou doit sembler trop grand!</li>
+                    <li><strong>Tension en surface :</strong> Créez une peau tendue lors du formage pour une belle forme ronde</li>
+                    <li><strong>Test de flottaison :</strong> Ne sautez JAMAIS cette étape - c'est le secret des pros</li>
+                    <li><strong>Fermentation froide :</strong> Minimum 8h, idéalement 12-18h pour maximiser la saveur</li>
+                    <li><strong>Ébouillantage rapide :</strong> Pas plus de 45 secondes par côté - trop long donne une texture caoutchouteuse</li>
+                    <li><strong>Garnir quand humide :</strong> Les graines adhèrent mieux sur le bagel encore mouillé après l'ébouillantage</li>
+                </ul>
+            </div>
+
+            <!-- Problèmes Courants -->
+            <h3 style="color: #8B4513; border-bottom: 3px solid #D2691E; padding-bottom: 10px; margin-top: 50px; margin-bottom: 30px;">
+                🔧 Résolution de Problèmes
+            </h3>
+
+            <div class="step-content">
+                <div style="margin-bottom: 20px;">
+                    <h5 style="color: #D2691E;">❌ Le trou se referme complètement pendant la cuisson</h5>
+                    <p><strong>Causes :</strong></p>
+                    <ul>
+                        <li>Trou initial trop petit - il doit être 4-5 cm minimum</li>
+                        <li>Pâte trop levée avant l'ébouillantage</li>
+                        <li>Ébouillantage trop long (plus de 60 secondes total)</li>
+                    </ul>
+                    <p><strong>Solution :</strong> Faire un trou vraiment généreux (presque la moitié du diamètre) et respecter les temps d'ébouillantage.</p>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <h5 style="color: #D2691E;">❌ Les bagels s'ouvrent pendant l'ébouillantage (méthode rouleau)</h5>
+                    <p><strong>Cause :</strong> La jonction n'était pas assez scellée</p>
+                    <p><strong>Solution :</strong> Rouler la jonction plus longtemps et plus fermement. Humidifier légèrement les extrémités avant de sceller peut aider.</p>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <h5 style="color: #D2691E;">❌ Les bagels ne flottent pas lors du test</h5>
+                    <p><strong>Cause :</strong> Pas assez de fermentation</p>
+                    <p><strong>Solution :</strong> Laisser reposer 15-30 minutes de plus à température ambiante. Ne JAMAIS cuire un bagel qui coule!</p>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <h5 style="color: #D2691E;">❌ Forme irrégulière ou ovale</h5>
+                    <p><strong>Cause :</strong> Épaisseur non uniforme lors du façonnage</p>
+                    <p><strong>Solution :</strong> Prendre le temps de bien vérifier l'uniformité. Faire tourner le bagel sur la paume aide à égaliser.</p>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <h5 style="color: #D2691E;">❌ Texture trop dense ou caoutchouteuse</h5>
+                    <p><strong>Causes possibles :</strong></p>
+                    <ul>
+                        <li>Pétrissage insuffisant (la pâte doit être très élastique)</li>
+                        <li>Ébouillantage trop long</li>
+                        <li>Pas assez de levée avant l'ébouillantage</li>
+                    </ul>
+                    <p><strong>Solution :</strong> Bien pétrir (test de la membrane), respecter les temps d'ébouillantage, et toujours faire le test de flottaison.</p>
+                </div>
+
+                <div>
+                    <h5 style="color: #D2691E;">❌ Les bagels se déforment sur la plaque</h5>
+                    <p><strong>Cause :</strong> Surface de cuisson mal préparée ou levée trop longue</p>
+                    <p><strong>Solution :</strong> Bien huiler le papier parchemin et manipuler délicatement. Ne pas laisser lever plus de 30 min après le frigo.</p>
+                </div>
+            </div>
+
+            <!-- Histoire et Culture -->
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 15px; margin: 30px 0;">
+                <h4 style="margin-bottom: 15px;">🗽 L'Art du Façonnage : Tradition et Savoir-Faire</h4>
+                <p>
+                    Dans les boulangeries traditionnelles de New York, les boulangers de bagels (appelés "beiglers") 
+                    pouvaient façonner jusqu'à 120 bagels par heure - soit un bagel toutes les 30 secondes! Cette rapidité 
+                    venait d'années de pratique et d'une technique parfaitement maîtrisée.
+                </p>
+                <p>
+                    La <strong>méthode du trou</strong> est la plus ancienne et était considérée comme la marque d'un vrai 
+                    professionnel. La <strong>méthode du rouleau</strong> a été développée plus tard pour la production en 
+                    masse, mais de nombreux puristes préfèrent encore la première méthode pour son authenticité.
+                </p>
+                <p style="margin-bottom: 0;">
+                    <strong>Fun fact :</strong> Dans l'ancien syndicat des boulangers de bagels de New York (Local 338), 
+                    l'apprentissage du façonnage parfait prenait 6 mois à temps plein. Les apprentis devaient pratiquer jusqu'à 
+                    ce que chaque bagel soit identique au suivant!
+                </p>
+            </div>
+
+            <!-- Navigation de retour -->
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="javascript:history.back()" class="back-btn">← Retour</a>
+            </div>
+        </div>
+    </div>
+
+    <a href="#top" class="back-to-top-btn" title="Retour en haut">↑</a>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Gestion du bouton retour en haut
+        const backToTopBtn = document.querySelector('.back-to-top-btn');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.style.display = 'flex';
+            } else {
+                backToTopBtn.style.display = 'none';
+            }
+        });
+        
+        backToTopBtn.style.display = 'none';
+        
+        // Smooth scroll pour les ancres
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Fonction pour scroller vers une méthode
+        function scrollToMethod(methodId) {
+            // Mettre à jour les boutons actifs
+            document.querySelectorAll('.method-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Scroller vers la méthode
+            const target = document.getElementById(methodId);
+            if (target) {
+                window.scrollTo({
+                    top: target.offsetTop - 20,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    </script>
+</body>
+</html>

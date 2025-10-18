@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bagel Everything - Le Grand Livre du Pain</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .recipe-container { max-width: 900px; margin: 0 auto; }
+        .recipe-header {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            color: white; padding: 40px; border-radius: 15px 15px 0 0;
+            text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .recipe-icon { font-size: 4em; margin-bottom: 15px; }
+        .recipe-title h1 { font-size: 2.5em; font-weight: bold; margin-bottom: 10px; }
+        .recipe-subtitle { font-size: 1.2em; opacity: 0.9; margin: 0; }
+        .info-cards {
+            background: white; padding: 30px; display: flex;
+            justify-content: space-around; flex-wrap: wrap; gap: 20px;
+        }
+        .info-card {
+            text-align: center; padding: 20px; background: #f8f9fa;
+            border-radius: 10px; min-width: 150px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .info-card .icon { font-size: 2.5em; margin-bottom: 10px; }
+        .info-card .label { color: #6c757d; font-size: 0.9em; margin-bottom: 5px; }
+        .info-card .value { font-size: 1.3em; font-weight: bold; color: #8B4513; }
+        .recipe-content {
+            background: white; padding: 40px;
+            border-radius: 0 0 15px 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .ingredients-section, .instructions-section { margin-bottom: 30px; }
+        .ingredients-section h3, .instructions-section h3 {
+            color: #8B4513; border-bottom: 3px solid #D2691E;
+            padding-bottom: 10px; margin-bottom: 20px;
+        }
+        .ingredients-list {
+            background: #fff9f0; padding: 25px;
+            border-radius: 10px; border-left: 5px solid #D2691E;
+        }
+        .ingredients-list h4 {
+            color: #8B4513; font-size: 1.2em; margin-top: 20px; margin-bottom: 15px;
+        }
+        .ingredients-list h4:first-child { margin-top: 0; }
+        .ingredients-list ul { list-style: none; padding: 0; margin: 0; }
+        .ingredients-list li {
+            padding: 10px 0; border-bottom: 1px solid #f0e6d6; font-size: 1.1em;
+        }
+        .ingredients-list li:last-child { border-bottom: none; }
+        .ingredients-list li::before {
+            content: "✓ "; color: #D2691E; font-weight: bold; margin-right: 8px;
+        }
+        .instructions-section ol { counter-reset: step-counter; list-style: none; padding: 0; }
+        .instructions-section li {
+            counter-increment: step-counter; position: relative;
+            padding: 20px 20px 20px 70px; margin-bottom: 15px;
+            background: #f8f9fa; border-radius: 10px; font-size: 1.05em; line-height: 1.6;
+        }
+        .instructions-section li::before {
+            content: counter(step-counter); position: absolute;
+            left: 20px; top: 50%; transform: translateY(-50%);
+            background: #D2691E; color: white; width: 35px; height: 35px;
+            border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; font-weight: bold; font-size: 1.1em;
+        }
+        .tips-box {
+            background: #fff3cd; border-left: 4px solid #ffc107;
+            padding: 20px; margin: 20px 0; border-radius: 5px;
+        }
+        .tips-box h5 { color: #856404; margin-bottom: 15px; }
+        .tips-box p { margin-bottom: 8px; line-height: 1.6; }
+        .tips-box ul { padding-left: 20px; }
+        .info-box {
+            background: #e3f2fd; border-left: 4px solid #1565C0;
+            padding: 20px; margin: 20px 0; border-radius: 5px;
+        }
+        .info-box h5 { color: #1565C0; margin-bottom: 15px; }
+        .success-box {
+            background: #e8f5e9; border-left: 4px solid #4CAF50;
+            padding: 20px; margin: 20px 0; border-radius: 5px;
+        }
+        .success-box h5 { color: #2E7D32; margin-bottom: 15px; }
+        .back-to-top-btn {
+            position: fixed; bottom: 30px; right: 30px; background: #D2691E;
+            color: white; width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s ease; z-index: 1000;
+        }
+        .back-to-top-btn:hover {
+            background: #8B4513; transform: translateY(-5px); color: white;
+        }
+        @media (max-width: 768px) {
+            .recipe-header { padding: 30px 20px; }
+            .recipe-title h1 { font-size: 2em; }
+            .recipe-content { padding: 25px; }
+            .info-cards { padding: 20px; }
+            .instructions-section li { padding-left: 60px; }
+        }
+    </style>
+</head>
+<body>
+    <div id="top"></div>
+    <div class="recipe-container">
+        <div class="recipe-header">
+            <div class="recipe-icon">🥯</div>
+            <div class="recipe-title">
+                <h1>Bagel Everything</h1>
+                <p class="recipe-subtitle">Garni de tout ce qu'on aime!</p>
+            </div>
+        </div>
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="icon">⏱️</div>
+                <div class="label">Préparation</div>
+                <div class="value">35 min</div>
+            </div>
+            <div class="info-card">
+                <div class="icon">🕐</div>
+                <div class="label">Levée</div>
+                <div class="value">2h + nuit</div>
+            </div>
+            <div class="info-card">
+                <div class="icon">🔥</div>
+                <div class="label">Cuisson</div>
+                <div class="value">20-25 min</div>
+            </div>
+            <div class="info-card">
+                <div class="icon">🥯</div>
+                <div class="label">Rendement</div>
+                <div class="value">8 bagels</div>
+            </div>
+        </div>
+        <div class="recipe-content">
+            <div class="info-box">
+                <h5>📖 À Propos du Bagel Everything</h5>
+                <p>Le <strong>Bagel Everything</strong> est le roi incontesté des bagels garnis! Recouvert d'un mélange généreux de graines de sésame, pavot, oignon et ail séchés, plus du gros sel, c'est une explosion de saveurs et de textures. Né dans les années 1980 à New York, ce bagel est devenu si populaire que le mélange "Everything" s'utilise maintenant sur tout - de la pizza au popcorn!</p>
+                <p style="margin-bottom: 0;"><strong>L'origine:</strong> Un malin boulanger aurait balayé les restes de tous les bagels garnis de la journée et les aurait saupoudrés sur un nouveau lot - le Everything Bagel était né!</p>
+            </div>
+
+            <div class="ingredients-section">
+                <h3>🛒 Ingrédients</h3>
+                <div class="ingredients-list">
+                    <h4>Pâte à Bagel (identique au bagel classique)</h4>
+                    <ul>
+                        <li><strong>500g</strong> farine à pain ou farine tout usage non blanchie (4 tasses)</li>
+                        <li><strong>2 c. à thé</strong> levure instantanée</li>
+                        <li><strong>1½ c. à soupe</strong> sucre</li>
+                        <li><strong>1½ c. à thé</strong> sel</li>
+                        <li><strong>300ml</strong> eau tiède (1¼ tasse)</li>
+                        <li><strong>1 c. à soupe</strong> miel (optionnel)</li>
+                    </ul>
+                    
+                    <h4>Bain d'Ébouillantage</h4>
+                    <ul>
+                        <li><strong>3 litres</strong> eau (12 tasses)</li>
+                        <li><strong>2 c. à soupe</strong> sucre ou miel</li>
+                        <li><strong>1 c. à soupe</strong> bicarbonate de soude (optionnel)</li>
+                    </ul>
+                    
+                    <h4>Mélange Everything Seasoning Maison</h4>
+                    <ul>
+                        <li><strong>2 c. à soupe</strong> graines de sésame blanc</li>
+                        <li><strong>2 c. à soupe</strong> graines de sésame noir (ou plus de blanc)</li>
+                        <li><strong>2 c. à soupe</strong> graines de pavot</li>
+                        <li><strong>2 c. à soupe</strong> oignon séché en flocons</li>
+                        <li><strong>2 c. à soupe</strong> ail séché en flocons ou granulé</li>
+                        <li><strong>1 c. à soupe</strong> gros sel de mer (ou sel casher)</li>
+                        <li><strong>1 c. à thé</strong> flocons de piment rouge (optionnel, pour un kick)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="instructions-section">
+                <h3>📝 Instructions Détaillées</h3>
+                <ol>
+                    <li><strong>Préparer le mélange Everything:</strong> Dans un petit bol, mélanger toutes les graines, l'oignon, l'ail et le sel. Réserver (peut se préparer à l'avance et se conserve 6 mois dans un contenant hermétique)</li>
+                    
+                    <li><strong>Préparer la pâte:</strong> Dans le bol d'un batteur sur socle avec crochet pétrisseur, mélanger la farine, levure, sucre et sel</li>
+                    
+                    <li><strong>Ajouter les liquides:</strong> Ajouter l'eau tiède (et le miel si utilisé). Mélanger à basse vitesse jusqu'à ce qu'une pâte ferme se forme</li>
+                    
+                    <li><strong>Pétrir:</strong> Pétrir au crochet à vitesse moyenne pendant 10-12 minutes jusqu'à obtenir une pâte lisse, élastique et légèrement brillante. La pâte doit être ferme mais souple</li>
+                    
+                    <li><strong>Première levée:</strong> Façonner en boule, placer dans un bol légèrement huilé. Couvrir et laisser lever 1-2 heures à température ambiante jusqu'à ce qu'elle double de volume</li>
+                    
+                    <li><strong>Diviser:</strong> Dégazer doucement. Diviser en 8 portions égales (environ 110g chacune). Façonner chaque portion en boule lisse en créant de la tension</li>
+                    
+                    <li><strong>Façonner les bagels:</strong> Pour chaque boule, enfoncer l'index au centre pour créer un trou. Avec les deux index dans le trou, faire tourner la pâte pour agrandir le trou jusqu'à environ 5cm de diamètre. <a href="../Techniques/faconnage-bagels.html" style="color: #D2691E; font-weight: bold;">👉 Voir les deux méthodes de façonnage détaillées</a></li>
+                    
+                    <li><strong>Levée au froid:</strong> Placer sur une plaque recouverte de papier parchemin légèrement huilé, espacés de 5cm. Couvrir de pellicule plastique huilée et réfrigérer 8-24 heures</li>
+                    
+                    <li><strong>Sortir du frigo:</strong> Le lendemain, sortir les bagels du réfrigérateur 30 minutes avant la cuisson. Faire le test de flottaison - un bagel placé dans l'eau froide devrait flotter en 10-15 secondes</li>
+                    
+                    <li><strong>Préchauffer:</strong> Préchauffer le four à 220°C (425°F). Préparer deux plaques avec papier parchemin. Verser le mélange Everything dans une assiette plate</li>
+                    
+                    <li><strong>Préparer le bain:</strong> Porter à ébullition 3 litres d'eau dans une grande casserole. Ajouter le sucre/miel et le bicarbonate. Réduire à mijotage soutenu</li>
+                    
+                    <li><strong>Ébouillanter:</strong> Déposer délicatement 2-3 bagels à la fois dans l'eau mijotante. Cuire 30-45 secondes par côté. Les bagels flotteront et gonfleront légèrement</li>
+                    
+                    <li><strong>Garnir généreusement:</strong> Retirer chaque bagel avec une écumoire. Pendant qu'il est encore très humide, presser fermement la face supérieure dans le mélange Everything, puis retourner et presser le fond également</li>
+                    
+                    <li><strong>Placement:</strong> Placer les bagels garnis sur la plaque de cuisson, face la plus garnie vers le haut. Les graines adhèrent mieux quand le bagel est très humide - ne pas égoutter trop longtemps</li>
+                    
+                    <li><strong>Cuire:</strong> Enfourner et cuire 20-25 minutes jusqu'à ce que les bagels soient dorés et les graines légèrement grillées. Tourner la plaque à mi-cuisson pour une coloration uniforme</li>
+                    
+                    <li><strong>Refroidir:</strong> Transférer sur une grille. Laisser refroidir au moins 15-20 minutes avant de trancher - la texture continue de se parfaire en refroidissant</li>
+                </ol>
+            </div>
+
+            <div class="tips-box">
+                <h5>💡 Secrets du Bagel Everything Parfait</h5>
+                <ul>
+                    <li><strong>Mélange maison vs commerce:</strong> Le mélange maison est plus frais, plus économique et personnalisable</li>
+                    <li><strong>Pressez fermement:</strong> Ne soyez pas timide - pressez vraiment le bagel dans le mélange pour une belle couverture</li>
+                    <li><strong>Les deux côtés:</strong> Garnir dessus ET dessous pour un maximum de saveur</li>
+                    <li><strong>Bagel très humide:</strong> Ne pas égoutter trop après l'ébouillantage - l'humidité fait adhérer les graines</li>
+                    <li><strong>Gros sel:</strong> Utiliser du gros sel, pas du sel de table - meilleure texture et goût</li>
+                    <li><strong>Personnalisez:</strong> Plus ou moins d'un ingrédient selon vos goûts (doubler l'ail, réduire l'oignon, etc.)</li>
+                    <li><strong>Conservation du mélange:</strong> Le mélange Everything se conserve des mois - faites-en un gros lot!</li>
+                </ul>
+            </div>
+
+            <div class="success-box">
+                <h5>🎯 Utilisez Votre Mélange Everything Partout!</h5>
+                <p>Le mélange Everything n'est pas juste pour les bagels! Essayez-le sur:</p>
+                <ul style="padding-left: 20px;">
+                    <li><strong>Fromage à la crème:</strong> Mélanger 2 c. à soupe dans 250g de fromage à la crème ramolli</li>
+                    <li><strong>Avocat toast:</strong> Saupoudrer sur toast à l'avocat</li>
+                    <li><strong>Œufs:</strong> Sur œufs brouillés, frits ou poché</li>
+                    <li><strong>Poulet rôti:</strong> Frotter sur poulet avant cuisson</li>
+                    <li><strong>Pommes de terre:</strong> Sur frites maison ou pommes de terre rôties</li>
+                    <li><strong>Popcorn:</strong> Avec du beurre fondu</li>
+                    <li><strong>Focaccia:</strong> Saupoudrer avant cuisson</li>
+                    <li><strong>Hummus:</strong> Comme garniture</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h5>🔄 Variations du Mélange Everything</h5>
+                <p><strong>Everything Épicé:</strong></p>
+                <ul style="padding-left: 20px;">
+                    <li>Ajouter 1 c. à soupe de flocons de piment rouge</li>
+                    <li>Ajouter ½ c. à thé de poudre de cayenne</li>
+                </ul>
+                
+                <p style="margin-top: 15px;"><strong>Everything Méditerranéen:</strong></p>
+                <ul style="padding-left: 20px;">
+                    <li>Remplacer l'oignon par des herbes de Provence</li>
+                    <li>Ajouter du zeste de citron séché</li>
+                    <li>Remplacer une partie du sésame par des graines de fenouil</li>
+                </ul>
+                
+                <p style="margin-top: 15px;"><strong>Everything Za'atar Style:</strong></p>
+                <ul style="padding-left: 20px;">
+                    <li>Ajouter 1 c. à soupe de sumac</li>
+                    <li>Ajouter 1 c. à soupe de thym séché</li>
+                    <li>Ajouter 1 c. à thé de cumin</li>
+                </ul>
+                
+                <p style="margin-top: 15px;"><strong>Everything Asiatique:</strong></p>
+                <ul style="padding-left: 20px;">
+                    <li>Ajouter 1 c. à soupe de graines de sésame grillées</li>
+                    <li>Ajouter 1 c. à thé de flocons de nori</li>
+                    <li>Ajouter ½ c. à thé de gingembre séché</li>
+                </ul>
+            </div>
+
+            <div class="tips-box">
+                <h5>🥯 Garnitures et Sandwiches Recommandés</h5>
+                <p><strong>Classique Lox:</strong></p>
+                <ul>
+                    <li>Fromage à la crème</li>
+                    <li>Saumon fumé (lox)</li>
+                    <li>Oignon rouge tranché fin</li>
+                    <li>Câpres</li>
+                    <li>Tomate</li>
+                    <li>Aneth frais</li>
+                </ul>
+                
+                <p style="margin-top: 15px;"><strong>Sandwich Déjeuner Ultimate:</strong></p>
+                <ul>
+                    <li>Œuf frit ou brouillé</li>
+                    <li>Bacon croustillant</li>
+                    <li>Fromage cheddar fort</li>
+                    <li>Avocat</li>
+                    <li>Sriracha mayo</li>
+                </ul>
+                
+                <p style="margin-top: 15px;"><strong>Végétarien Gourmand:</strong></p>
+                <ul>
+                    <li>Fromage à la crème aux fines herbes</li>
+                    <li>Tomate heirloom tranchée</li>
+                    <li>Concombre</li>
+                    <li>Avocat</li>
+                    <li>Roquette</li>
+                    <li>Sel et poivre</li>
+                </ul>
+            </div>
+
+            <div class="success-box">
+                <h5>📦 Conservation</h5>
+                <p><strong>Température ambiante:</strong> 2-3 jours dans un sac en papier (pour garder la croûte croustillante) ou plastique (pour une mie plus moelleuse)</p>
+                <p><strong>Congélateur:</strong> 3 mois - trancher avant de congeler pour plus de commodité</p>
+                <p style="margin-top: 15px;"><strong>Réchauffage optimal:</strong></p>
+                <ul style="padding-left: 20px;">
+                    <li><strong>Du congélateur:</strong> Griller directement - pas besoin de décongeler</li>
+                    <li><strong>Astuce pro:</strong> Passer rapidement sous l'eau froide, secouer, puis griller - ravive la texture du jour!</li>
+                    <li><strong>Four:</strong> 180°C pendant 5-8 minutes après décongélation de 10 minutes</li>
+                </ul>
+                <p style="margin-top: 15px; margin-bottom: 0;"><strong>Conservation du mélange Everything:</strong> 6 mois dans un contenant hermétique à température ambiante. Les graines se conservent encore mieux au congélateur!</p>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 15px; margin-top: 20px;">
+                <h4 style="margin-bottom: 15px;">🗽 L'Histoire du Everything Bagel</h4>
+                <p>L'origine exacte du Everything Bagel est disputée, mais la légende la plus populaire remonte aux années 1980 à New York. Un employé d'une boulangerie aurait eu l'idée de combiner tous les restes de garnitures de la journée (sésame, pavot, oignon, ail, sel) et de les saupoudrer sur un lot de bagels.</p>
+                <p>Le résultat était si délicieux que les clients en redemandaient! Le bagel Everything est rapidement devenu un incontournable des boulangeries new-yorkaises, puis s'est répandu dans toute l'Amérique du Nord.</p>
+                <p style="margin-bottom: 0;">Aujourd'hui, le mélange "Everything" est devenu un phénomène culturel - on le retrouve sur des crackers, des chips, du fromage, et même dans les salades! C'est l'exemple parfait d'une invention culinaire née du simple désir de ne rien gaspiller.</p>
+            </div>
+
+            <div class="info-box" style="margin-top: 20px;">
+                <h5>⚖️ Faire un Gros Lot de Mélange Everything</h5>
+                <p><strong>Pour environ 1 tasse (suffisant pour 30-40 bagels):</strong></p>
+                <ul style="padding-left: 20px;">
+                    <li>¼ tasse graines de sésame blanc</li>
+                    <li>¼ tasse graines de sésame noir</li>
+                    <li>¼ tasse graines de pavot</li>
+                    <li>¼ tasse oignon séché</li>
+                    <li>¼ tasse ail séché</li>
+                    <li>3 c. à soupe gros sel</li>
+                    <li>2 c. à soupe flocons de piment (optionnel)</li>
+                </ul>
+                <p style="margin-top: 15px; margin-bottom: 0;"><strong>Utilisez:</strong> 2-3 c. à soupe de mélange par bagel pour une couverture généreuse. Conservez le reste dans un pot hermétique - excellent cadeau gourmand aussi!</p>
+            </div>
+        </div>
+    </div>
+    <a href="#top" class="back-to-top-btn" title="Retour en haut">↑</a>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const backToTopBtn = document.querySelector('.back-to-top-btn');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) { backToTopBtn.style.display = 'flex'; }
+            else { backToTopBtn.style.display = 'none'; }
+        });
+        backToTopBtn.style.display = 'none';
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

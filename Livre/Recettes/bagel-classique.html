@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bagel Classique - Le Grand Livre du Pain</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .recipe-container { max-width: 900px; margin: 0 auto; }
+        .recipe-header {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            color: white; padding: 40px; border-radius: 15px 15px 0 0;
+            text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .recipe-icon { font-size: 4em; margin-bottom: 15px; }
+        .recipe-title h1 { font-size: 2.5em; font-weight: bold; margin-bottom: 10px; }
+        .recipe-subtitle { font-size: 1.2em; opacity: 0.9; margin: 0; }
+        .info-cards {
+            background: white; padding: 30px; display: flex;
+            justify-content: space-around; flex-wrap: wrap; gap: 20px;
+        }
+        .info-card {
+            text-align: center; padding: 20px; background: #f8f9fa;
+            border-radius: 10px; min-width: 150px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .info-card .icon { font-size: 2.5em; margin-bottom: 10px; }
+        .info-card .label { color: #6c757d; font-size: 0.9em; margin-bottom: 5px; }
+        .info-card .value { font-size: 1.3em; font-weight: bold; color: #8B4513; }
+        .recipe-content {
+            background: white; padding: 40px;
+            border-radius: 0 0 15px 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .ingredients-section, .instructions-section { margin-bottom: 30px; }
+        .ingredients-section h3, .instructions-section h3 {
+            color: #8B4513; border-bottom: 3px solid #D2691E;
+            padding-bottom: 10px; margin-bottom: 20px;
+        }
+        .ingredients-list {
+            background: #fff9f0; padding: 25px;
+            border-radius: 10px; border-left: 5px solid #D2691E;
+        }
+        .ingredients-list h4 {
+            color: #8B4513; font-size: 1.2em; margin-top: 20px; margin-bottom: 15px;
+        }
+        .ingredients-list h4:first-child { margin-top: 0; }
+        .ingredients-list ul { list-style: none; padding: 0; margin: 0; }
+        .ingredients-list li {
+            padding: 10px 0; border-bottom: 1px solid #f0e6d6; font-size: 1.1em;
+        }
+        .ingredients-list li:last-child { border-bottom: none; }
+        .ingredients-list li::before {
+            content: "✓ "; color: #D2691E; font-weight: bold; margin-right: 8px;
+        }
+        .instructions-section ol { counter-reset: step-counter; list-style: none; padding: 0; }
+        .instructions-section li {
+            counter-increment: step-counter; position: relative;
+            padding: 20px 20px 20px 70px; margin-bottom: 15px;
+            background: #f8f9fa; border-radius: 10px; font-size: 1.05em; line-height: 1.6;
+        }
+        .instructions-section li::before {
+            content: counter(step-counter); position: absolute;
+            left: 20px; top: 50%; transform: translateY(-50%);
+            background: #D2691E; color: white; width: 35px; height: 35px;
+            border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; font-weight: bold; font-size: 1.1em;
+        }
+        .tips-box {
+            background: #fff3cd; border-left: 4px solid #ffc107;
+            padding: 20px; margin: 20px 0; border-radius: 5px;
+        }
+        .tips-box h5 { color: #856404; margin-bottom: 15px; }
+        .tips-box p { margin-bottom: 8px; line-height: 1.6; }
+        .tips-box ul { padding-left: 20px; }
+        .info-box {
+            background: #e3f2fd; border-left: 4px solid #1565C0;
+            padding: 20px; margin: 20px 0; border-radius: 5px;
+        }
+        .info-box h5 { color: #1565C0; margin-bottom: 15px; }
+        .success-box {
+            background: #e8f5e9; border-left: 4px solid #4CAF50;
+            padding: 20px; margin: 20px 0; border-radius: 5px;
+        }
+        .success-box h5 { color: #2E7D32; margin-bottom: 15px; }
+        .back-to-top-btn {
+            position: fixed; bottom: 30px; right: 30px; background: #D2691E;
+            color: white; width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s ease; z-index: 1000;
+        }
+        .back-to-top-btn:hover {
+            background: #8B4513; transform: translateY(-5px); color: white;
+        }
+        @media (max-width: 768px) {
+            .recipe-header { padding: 30px 20px; }
+            .recipe-title h1 { font-size: 2em; }
+            .recipe-content { padding: 25px; }
+            .info-cards { padding: 20px; }
+            .instructions-section li { padding-left: 60px; }
+        }
+    </style>
+</head>
+<body>
+    <div id="top"></div>
+    <div class="recipe-container">
+        <div class="recipe-header">
+            <div class="recipe-icon">🥯</div>
+            <div class="recipe-title">
+                <h1>Bagel Classique</h1>
+                <p class="recipe-subtitle">Authentiques bagels de style New York</p>
+            </div>
+        </div>
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="icon">⏱️</div>
+                <div class="label">Préparation</div>
+                <div class="value">30 min</div>
+            </div>
+            <div class="info-card">
+                <div class="icon">🕐</div>
+                <div class="label">Levée</div>
+                <div class="value">2h + nuit</div>
+            </div>
+            <div class="info-card">
+                <div class="icon">🔥</div>
+                <div class="label">Cuisson</div>
+                <div class="value">20-25 min</div>
+            </div>
+            <div class="info-card">
+                <div class="icon">🥯</div>
+                <div class="label">Rendement</div>
+                <div class="value">8 bagels</div>
+            </div>
+        </div>
+        <div class="recipe-content">
+            <div class="info-box">
+                <h5>📖 À Propos des Bagels</h5>
+                <p>Le bagel authentique de style New York se distingue par sa <strong>croûte brillante et légèrement croustillante</strong> et sa <strong>mie dense et moelleuse</strong>. Le secret? Une pâte peu hydratée, une fermentation lente au réfrigérateur, et surtout l'<strong>ébouillantage</strong> (poaching) avant la cuisson - cette étape crée la texture unique et la brillance caractéristique.</p>
+                <p style="margin-bottom: 0;"><strong>Pourquoi bouillir?</strong> L'ébouillantage gélatinise l'amidon en surface, créant une barrière qui empêche le bagel de trop lever au four, préservant sa texture dense signature.</p>
+            </div>
+
+            <div class="ingredients-section">
+                <h3>🛒 Ingrédients</h3>
+                <div class="ingredients-list">
+                    <h4>Pâte à Bagel</h4>
+                    <ul>
+                        <li><strong>500g</strong> farine à pain ou farine tout usage non blanchie (4 tasses)</li>
+                        <li><strong>2 c. à thé</strong> levure instantanée (ou 2¼ c. à thé levure active sèche)</li>
+                        <li><strong>1½ c. à soupe</strong> sucre</li>
+                        <li><strong>1½ c. à thé</strong> sel</li>
+                        <li><strong>300ml</strong> eau tiède (1¼ tasse)</li>
+                        <li><strong>1 c. à soupe</strong> miel ou sirop de malt (optionnel, pour la saveur)</li>
+                    </ul>
+                    
+                    <h4>Bain d'Ébouillantage</h4>
+                    <ul>
+                        <li><strong>3 litres</strong> eau (12 tasses)</li>
+                        <li><strong>2 c. à soupe</strong> sucre ou miel</li>
+                        <li><strong>1 c. à soupe</strong> bicarbonate de soude (optionnel, pour une croûte plus foncée)</li>
+                    </ul>
+                    
+                    <h4>Garniture (Optionnel)</h4>
+                    <ul>
+                        <li><strong>Graines de sésame</strong> blanc ou noir</li>
+                        <li><strong>Graines de pavot</strong></li>
+                        <li><strong>Oignon séché</strong> en flocons</li>
+                        <li><strong>Ail séché</strong> en flocons</li>
+                        <li><strong>Gros sel</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="instructions-section">
+                <h3>📝 Instructions Détaillées</h3>
+                <ol>
+                    <li><strong>Préparer la pâte:</strong> Dans le bol d'un batteur sur socle avec crochet pétrisseur (ou un grand bol), mélanger la farine, levure, sucre et sel</li>
+                    
+                    <li><strong>Ajouter les liquides:</strong> Ajouter l'eau tiède (et le miel si utilisé). Mélanger à basse vitesse jusqu'à ce qu'une pâte se forme. La pâte sera ferme et peu collante - c'est normal!</li>
+                    
+                    <li><strong>Pétrir:</strong> Pétrir au crochet à vitesse moyenne pendant 10-12 minutes jusqu'à ce que la pâte soit lisse, élastique et légèrement brillante. À la main: pétrir 15-20 minutes sur une surface légèrement farinée</li>
+                    
+                    <li><strong>Test du voile:</strong> La pâte devrait passer le test de la membrane (windowpane test) - étirer un petit morceau entre vos doigts, il devrait former une membrane translucide sans se déchirer</li>
+                    
+                    <li><strong>Première levée:</strong> Façonner en boule, placer dans un bol légèrement huilé. Couvrir et laisser reposer à température ambiante pendant 1-2 heures jusqu'à ce que la pâte double de volume</li>
+                    
+                    <li><strong>Diviser la pâte:</strong> Dégazer doucement la pâte. La diviser en 8 portions égales (environ 110g chacune). Façonner chaque portion en boule lisse</li>
+                    
+                    <li><strong>Façonner les bagels - Méthode du trou:</strong> Aplatir légèrement une boule. Enfoncer votre index au centre pour créer un trou. Avec les deux index dans le trou, faire tourner la pâte pour l'agrandir jusqu'à environ 5cm de diamètre (le trou doit sembler trop grand - il se refermera partiellement). <a href="../Techniques/faconnage-bagels.html" style="color: #D2691E; font-weight: bold;">👉 Voir les techniques détaillées de façonnage</a></li>
+                    
+                    <li><strong>Alternative - Méthode du rouleau:</strong> Rouler chaque boule en un boudin de 20cm. Enrouler autour de votre main, sceller les extrémités en les pinçant fermement et en roulant sur le comptoir. <a href="../Techniques/faconnage-bagels.html" style="color: #D2691E; font-weight: bold;">👉 Voir la technique complète</a></li>
+                    
+                    <li><strong>Levée au froid:</strong> Placer les bagels façonnés sur une plaque recouverte de papier parchemin légèrement huilé, espacés de 5cm. Couvrir de pellicule plastique huilée. Réfrigérer pendant 8-24 heures (fermentation lente = plus de saveur)</li>
+                    
+                    <li><strong>Test de flottaison:</strong> Le lendemain, sortir les bagels 30 minutes avant la cuisson. Tester la levée en plaçant un bagel dans un bol d'eau froide - il devrait flotter en 10-15 secondes. Sinon, laisser reposer 15-30 minutes de plus</li>
+                    
+                    <li><strong>Préchauffer:</strong> Préchauffer le four à 220°C (425°F). Préparer deux plaques de cuisson avec papier parchemin</li>
+                    
+                    <li><strong>Préparer le bain:</strong> Porter à ébullition 3 litres d'eau dans une grande casserole ou marmite large. Ajouter le sucre/miel et le bicarbonate (si utilisé). Réduire à mijotage soutenu</li>
+                    
+                    <li><strong>Ébouillanter:</strong> Déposer délicatement 2-3 bagels à la fois dans l'eau bouillante (ne pas surcharger). Cuire 30-45 secondes par côté. Les bagels gonfleront légèrement et flotteront</li>
+                    
+                    <li><strong>Égoutter et garnir:</strong> Retirer avec une écumoire, égoutter brièvement. Placer sur la plaque de cuisson. Garnir immédiatement de graines ou épices si désiré (elles adhèrent mieux sur la surface humide)</li>
+                    
+                    <li><strong>Cuire:</strong> Enfourner et cuire 20-25 minutes jusqu'à ce que les bagels soient dorés et brillants. Tourner la plaque à mi-cuisson pour une coloration uniforme</li>
+                    
+                    <li><strong>Refroidir:</strong> Transférer sur une grille. Laisser refroidir au moins 15 minutes avant de trancher (la texture continue de se développer en refroidissant)</li>
+                </ol>
+            </div>
+
+            <div class="tips-box">
+                <h5>💡 Secrets des Bagels Parfaits</h5>
+                <ul>
+                    <li><strong>Pâte ferme:</strong> Ne pas ajouter d'eau supplémentaire - la pâte doit être ferme, pas molle</li>
+                    <li><strong>Trou généreux:</strong> Le trou doit être 2 fois trop grand - il rétrécit pendant l'ébouillantage et la cuisson</li>
+                    <li><strong>Fermentation froide:</strong> Minimum 8h, idéalement 12-18h pour le maximum de saveur</li>
+                    <li><strong>Test de flottaison:</strong> Crucial! Si le bagel coule, il n'est pas prêt</li>
+                    <li><strong>Bicarbonate = croûte foncée:</strong> Pour une croûte style Montreal bagel (plus foncée, légèrement sucrée)</li>
+                    <li><strong>Cuisson complète:</strong> Ne pas sous-cuire - les bagels doivent être bien dorés</li>
+                    <li><strong>Trancher correctement:</strong> Utiliser un couteau dentelé en sciant doucement en mouvement de va-et-vient</li>
+                </ul>
+            </div>
+
+            <div class="success-box">
+                <h5>🎯 Technique de Façonnage Professionnelle</h5>
+                <p><strong>Méthode Recommandée (Trou au Centre):</strong></p>
+                <ul style="padding-left: 20px;">
+                    <li>Façonner la boule bien lisse et tendue</li>
+                    <li>Appuyer fermement l'index au centre jusqu'au fond</li>
+                    <li>Insérer les deux index dans le trou</li>
+                    <li>Faire tourner la pâte en étirant doucement le trou</li>
+                    <li>Le trou doit mesurer 4-5cm (presque la moitié du diamètre total)</li>
+                </ul>
+                <p style="margin-top: 15px; margin-bottom: 0;"><strong>Astuce Pro:</strong> Faire tourner le bagel sur votre paume tout en maintenant les index dans le trou - gravité et étirement combinés donnent une forme parfaitement ronde!</p>
+            </div>
+
+            <div class="info-box">
+                <h5>🔄 Variantes Classiques</h5>
+                <p><strong>Bagel Sésame:</strong> Saupoudrer généreusement de graines de sésame blanches après l'ébouillantage</p>
+                
+                <p style="margin-top: 15px;"><strong>Bagel Pavot:</strong> Saupoudrer de graines de pavot</p>
+                
+                <p style="margin-top: 15px;"><strong>Bagel Oignon:</strong> Saupoudrer d'oignon séché en flocons (1-2 c. à thé par bagel)</p>
+                
+                <p style="margin-top: 15px;"><strong>Bagel Ail:</strong> Saupoudrer d'ail séché en flocons et de sel</p>
+                
+                <p style="margin-top: 15px;"><strong>Bagel Sel:</strong> Saupoudrer de gros sel de mer</p>
+                
+                <p style="margin-top: 15px;"><strong>Bagel Cannelle-Raisins:</strong></p>
+                <ul style="padding-left: 20px;">
+                    <li>Ajouter 2 c. à thé de cannelle à la farine</li>
+                    <li>Augmenter le sucre à 3 c. à soupe</li>
+                    <li>Incorporer 150g de raisins secs après le pétrissage</li>
+                </ul>
+                
+                <p style="margin-top: 15px;"><strong>Bagel Blé Entier:</strong></p>
+                <ul style="padding-left: 20px;">
+                    <li>Remplacer 200g de farine à pain par farine de blé entier</li>
+                    <li>Ajouter 20ml d'eau supplémentaire</li>
+                    <li>Laisser reposer la pâte 20 minutes avant de pétrir (autolyse)</li>
+                </ul>
+            </div>
+
+            <div class="tips-box">
+                <h5>🥯 Utilisations et Garnitures</h5>
+                <p><strong>Classiques:</strong></p>
+                <ul>
+                    <li><strong>Fromage à la crème:</strong> Nature, aux fines herbes, ou aux légumes</li>
+                    <li><strong>Lox (saumon fumé):</strong> Avec fromage à la crème, câpres, oignon rouge, tomate</li>
+                    <li><strong>Sandwich déjeuner:</strong> Œuf, bacon, fromage cheddar</li>
+                    <li><strong>BLT:</strong> Bacon, laitue, tomate, mayo</li>
+                </ul>
+                
+                <p style="margin-top: 15px;"><strong>Griller ou Non?</strong></p>
+                <ul>
+                    <li>Bagels frais (jour même): Délicieux nature ou légèrement grillés</li>
+                    <li>Bagels du lendemain: Griller pour raviver la croûte</li>
+                    <li>Astuce: Griller avec du beurre dans une poêle pour une croûte extra croustillante</li>
+                </ul>
+            </div>
+
+            <div class="success-box">
+                <h5>📦 Conservation</h5>
+                <p><strong>Température ambiante:</strong> 2-3 jours dans un sac en papier (garde la croûte) ou plastique (garde la mie moelleuse)</p>
+                <p><strong>Réfrigérateur:</strong> Non recommandé - le pain rassit plus vite au froid</p>
+                <p><strong>Congélateur:</strong> 3 mois - trancher avant de congeler pour plus de commodité</p>
+                <p style="margin-top: 15px;"><strong>Réchauffage du congélateur:</strong></p>
+                <ul style="padding-left: 20px; margin-bottom: 0;">
+                    <li>Méthode rapide: Griller directement congelé</li>
+                    <li>Méthode four: Décongeler 10 min, puis four 180°C pendant 5-8 min</li>
+                    <li>Astuce: Passer sous l'eau froide, secouer, puis griller - ravive la texture!</li>
+                </ul>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 15px; margin-top: 20px;">
+                <h4 style="margin-bottom: 15px;">🗽 Histoire du Bagel</h4>
+                <p>Le bagel trouve ses origines dans les communautés juives d'Europe de l'Est au 17e siècle. La légende raconte qu'un boulanger viennois aurait créé ce pain en forme d'étrier ("beugel" en allemand) pour honorer le roi polonais Jan III Sobieski, cavalier émérite.</p>
+                <p>Importé à New York par les immigrants juifs à la fin du 19e siècle, le bagel est devenu une icône de la cuisine new-yorkaise. Les bagels traditionnels étaient roulés à la main et cuits dans des fours à bois, donnant cette texture dense et masticatoire unique.</p>
+                <p style="margin-bottom: 0;"><strong>Fun fact:</strong> Jusqu'en 1960, appartenir au syndicat des boulangers de bagels de New York nécessitait un apprentissage de 2 ans! La recette et les techniques étaient jalousement gardées.</p>
+            </div>
+
+            <div class="info-box" style="margin-top: 20px;">
+                <h5>🆚 New York vs Montreal Bagel</h5>
+                <p><strong>Style New York (cette recette):</strong></p>
+                <ul style="padding-left: 20px;">
+                    <li>Plus gros et moelleux</li>
+                    <li>Pâte avec sucre et sel</li>
+                    <li>Bouilli dans l'eau sucrée</li>
+                    <li>Cuit au four conventionnel</li>
+                    <li>Texture dense mais tendre</li>
+                </ul>
+                
+                <p style="margin-top: 15px; margin-bottom: 5px;"><strong>Style Montreal:</strong></p>
+                <ul style="padding-left: 20px; margin-bottom: 0;">
+                    <li>Plus petit et dense</li>
+                    <li>Pâte avec miel, sans sel</li>
+                    <li>Bouilli dans l'eau au miel</li>
+                    <li>Cuit au four à bois</li>
+                    <li>Texture plus croustillante et sucrée</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <a href="#top" class="back-to-top-btn" title="Retour en haut">↑</a>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const backToTopBtn = document.querySelector('.back-to-top-btn');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) { backToTopBtn.style.display = 'flex'; }
+            else { backToTopBtn.style.display = 'none'; }
+        });
+        backToTopBtn.style.display = 'none';
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
