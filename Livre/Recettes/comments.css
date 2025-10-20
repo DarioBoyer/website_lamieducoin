@@ -1,0 +1,193 @@
+/**
+ * Styles pour le système de commentaires
+ */
+
+.comments-section {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    margin-top: 30px;
+}
+
+.comments-section h3 {
+    color: #8B4513;
+    border-bottom: 3px solid #D2691E;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+.comments-intro {
+    color: #6c757d;
+    font-size: 1.1em;
+    margin-bottom: 25px;
+}
+
+/* Formulaire de commentaire local */
+.comment-form {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    border: 2px solid #e9ecef;
+}
+
+.comment-form input,
+.comment-form textarea {
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+}
+
+.comment-form input:focus,
+.comment-form textarea:focus {
+    border-color: #D2691E;
+    box-shadow: 0 0 0 0.2rem rgba(210, 105, 30, 0.25);
+}
+
+.comment-form button {
+    background: #8B4513;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.comment-form button:hover {
+    background: #D2691E;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Liste des commentaires */
+.comments-list {
+    margin-top: 30px;
+}
+
+.comment-item {
+    background: #fff9f0;
+    border-left: 5px solid #D2691E;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    transition: transform 0.2s ease;
+}
+
+.comment-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f0e6d6;
+}
+
+.comment-author {
+    color: #8B4513;
+    font-size: 1.1em;
+}
+
+.comment-date {
+    color: #999;
+    font-size: 0.9em;
+}
+
+.comment-text {
+    color: #333;
+    line-height: 1.6;
+    font-size: 1.05em;
+    white-space: pre-wrap;
+}
+
+.no-comments {
+    text-align: center;
+    color: #999;
+    font-style: italic;
+    padding: 40px;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+/* Styles pour Giscus */
+#comments-container {
+    margin-top: 20px;
+}
+
+.giscus {
+    width: 100%;
+}
+
+.giscus-frame {
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .comments-section {
+        padding: 25px 15px;
+    }
+    
+    .comment-form {
+        padding: 15px;
+    }
+    
+    .comment-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    
+    .comment-item {
+        padding: 15px;
+    }
+}
+
+/* Animation au chargement */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.comment-item {
+    animation: fadeIn 0.3s ease;
+}
+
+/* Indicateur de chargement */
+.loading-comments {
+    text-align: center;
+    padding: 40px;
+    color: #8B4513;
+}
+
+.loading-comments::after {
+    content: '...';
+    animation: dots 1.5s infinite;
+}
+
+@keyframes dots {
+    0%, 20% {
+        content: '.';
+    }
+    40% {
+        content: '..';
+    }
+    60%, 100% {
+        content: '...';
+    }
+}
