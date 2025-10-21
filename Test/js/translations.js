@@ -279,6 +279,9 @@ function setLanguage(lang) {
     localStorage.setItem('language', lang);
     document.documentElement.lang = lang;
     updatePageContent();
+    
+    // Déclencher un événement personnalisé pour notifier le changement de langue
+    window.dispatchEvent(new CustomEvent('languageChanged', { detail: { language: lang } }));
 }
 
 // Fonction pour obtenir une traduction

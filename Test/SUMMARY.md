@@ -18,6 +18,11 @@
 2. ✅ `js/main.js` - JavaScript avec animations
 3. ✅ `js/utils.js` - Fonctions utilitaires (déjà existant)
 4. ✅ `js/translations.js` - Système de traduction FR/EN (~80+ clés)
+5. ✅ `js/products.js` - Gestion dynamique des produits avec JSON
+
+### Base de Données
+1. ✅ `data/products.json` - Base de données JSON de 30 produits avec traductions FR/EN
+2. ✅ `data/README-PRODUCTS.md` - Documentation complète de la base de données
 
 ### Documentation
 1. ✅ `README.md` - Documentation complète du projet
@@ -167,7 +172,45 @@ Le site **"La mie du coin"** est maintenant **bilingue FR/EN** ! 🇫🇷 🇬�
 
 ---
 
-## �🎯 Fonctionnalités Principales
+## 📦 Système de Produits Dynamiques
+
+### Vue d'ensemble
+La page produits utilise maintenant une **base de données JSON** pour afficher dynamiquement tous les produits !
+
+### Fonctionnalités
+- ✅ **30 produits** stockés dans `data/products.json`
+- ✅ **Affichage dynamique** - Les produits sont générés automatiquement via JavaScript
+- ✅ **Bilingue FR/EN** - Titres et descriptions dans les deux langues
+- ✅ **Tri automatique** - Produits triés par ordre alphabétique selon la langue
+- ✅ **Catégorisation** - 6 catégories avec ordre d'affichage personnalisé
+- ✅ **Changement de langue instantané** - Les produits se mettent à jour en temps réel
+- ✅ **Facile à maintenir** - Modifier un seul fichier JSON au lieu du HTML
+
+### Fichiers du Système
+- `data/products.json` - Base de données complète (30 produits + 6 catégories)
+- `js/products.js` - Script de chargement et affichage dynamique
+- `data/README-PRODUCTS.md` - Documentation complète du système
+- `pages/produits.html` - Page HTML simplifiée (conteneurs vides)
+
+### Structure de la Base de Données
+Chaque produit contient:
+- **Identité**: id, catégorie, icône
+- **Multilingue**: titre FR/EN, description FR/EN
+- **Commerce**: prix, devise, unité, poids
+- **Détails**: allergènes, ingrédients
+- **Gestion**: disponibilité, mise en vedette
+- **Visuel**: chemin vers l'image
+
+### Comment Ajouter un Produit
+1. Ouvrir `data/products.json`
+2. Ajouter un nouvel objet dans le tableau `products`
+3. Sauvegarder - le produit apparaît automatiquement!
+
+Voir `data/README-PRODUCTS.md` pour plus de détails.
+
+---
+
+## 🎯 Fonctionnalités Principales
 
 ### ✅ Fonctionnalités Implémentées
 
@@ -179,8 +222,12 @@ Le site **"La mie du coin"** est maintenant **bilingue FR/EN** ! 🇫🇷 🇬�
 - Animations au chargement
 
 #### Page Produits
-- 30+ produits organisés en 6 catégories
-- Cartes produits avec icônes et prix
+- **Base de données JSON dynamique** avec 30 produits
+- **Chargement automatique** depuis `products.json`
+- **Tri alphabétique** selon la langue (FR/EN)
+- 6 catégories organisées avec ordre d'affichage
+- Cartes produits avec icônes, descriptions et prix
+- **Changement de langue en temps réel**
 - Design responsive
 - Ancres pour navigation rapide
 - CTA vers commandes
@@ -262,7 +309,17 @@ npx http-server -p 8000
 # Ouvrir http://localhost:8000
 ```
 
-**Note**: Un serveur local est OBLIGATOIRE pour que les composants navbar/footer se chargent correctement (sinon erreur CORS).
+**Note**: Un serveur local est OBLIGATOIRE pour que les composants navbar/footer se chargent correctement ET pour charger la base de données JSON des produits (sinon erreur CORS).
+
+### Tester la Page Produits Dynamique
+
+1. Lancer le serveur local (une des options ci-dessus)
+2. Ouvrir http://localhost:8000/pages/produits.html
+3. **Vérifier:**
+   - Les 30 produits s'affichent correctement dans leurs catégories
+   - Les produits sont triés par ordre alphabétique
+   - Cliquer sur FR/EN change la langue des produits instantanément
+   - Les descriptions et prix sont corrects
 
 ---
 
