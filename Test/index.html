@@ -17,14 +17,43 @@
 </head>
 <body>
     <!-- Navigation -->
-    <div id="navbar-placeholder"></div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="index.html">
+                <i class="bi bi-shop"></i> La mie du coin
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html"><i class="bi bi-house"></i> Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pages/produits.html"><i class="bi bi-basket"></i> Produits</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pages/commandes.html"><i class="bi bi-cart"></i> Commandes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pages/historique.html"><i class="bi bi-clock-history"></i> Notre Histoire</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pages/contact.html"><i class="bi bi-envelope"></i> Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="hero-overlay">
-            <div class="container">
-                <div class="row align-items-center min-vh-75">
-                    <div class="col-lg-8 mx-auto text-center text-white">
+            <div class="container py-5">
+                <div class="row align-items-center">
+                    <div class="col-lg-8 mx-auto text-center text-white py-5">
                         <h1 class="display-3 fw-bold mb-4 hero-title">🍞 La mie du coin</h1>
                         <p class="lead mb-4 hero-subtitle">Votre amie du coin pour du pain artisanal fraîchement préparé</p>
                         <p class="fs-5 mb-5">L'art de la boulangerie traditionnelle, le goût de l'authenticité</p>
@@ -150,10 +179,6 @@
     
     <!-- Load Components -->
     <script>
-        fetch('components/navbar.html')
-            .then(response => response.text())
-            .then(data => document.getElementById('navbar-placeholder').innerHTML = data);
-        
         fetch('components/footer.html')
             .then(response => response.text())
             .then(data => document.getElementById('footer-placeholder').innerHTML = data);
