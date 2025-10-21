@@ -5,7 +5,7 @@
 ### Pages HTML (5 pages)
 1. ✅ `index.html` - Page d'accueil avec hero section
 2. ✅ `pages/produits.html` - Catalogue complet (30+ produits)
-3. ✅ `pages/commandes.html` - Structure pour commandes (à développer)
+3. ✅ `pages/commandes.html` - **Système de panier d'achat fonctionnel**
 4. ✅ `pages/historique.html` - Structure pour histoire (à développer)
 5. ✅ `pages/contact.html` - Formulaire de contact fonctionnel
 
@@ -15,10 +15,12 @@
 
 ### Styles et Scripts
 1. ✅ `css/styles.css` - Theme boulangerie complet (300+ lignes)
-2. ✅ `js/main.js` - JavaScript avec animations
-3. ✅ `js/utils.js` - Fonctions utilitaires (déjà existant)
-4. ✅ `js/translations.js` - Système de traduction FR/EN (~80+ clés)
-5. ✅ `js/products.js` - Gestion dynamique des produits avec JSON
+2. ✅ `css/cart.css` - **Styles du panier d'achat**
+3. ✅ `js/main.js` - JavaScript avec animations
+4. ✅ `js/utils.js` - Fonctions utilitaires (déjà existant)
+5. ✅ `js/translations.js` - Système de traduction FR/EN (~80+ clés)
+6. ✅ `js/products.js` - Gestion dynamique des produits avec JSON
+7. ✅ `js/cart.js` - **Logique du panier d'achat (classe ShoppingCart)**
 
 ### Base de Données
 1. ✅ `data/products.json` - Base de données JSON de 30 produits avec traductions FR/EN
@@ -28,7 +30,8 @@
 1. ✅ `README.md` - Documentation complète du projet
 2. ✅ `README-TRADUCTION.md` - Documentation du système de traduction FR/EN
 3. ✅ `Docs/GUIDE-TRADUCTION.md` - Guide détaillé pour développeurs
-4. ✅ `test-translation.html` - Page de test/démonstration
+4. ✅ `Docs/README-PANIER.md` - **Documentation du système de panier d'achat**
+5. ✅ `test-translation.html` - Page de test/démonstration
 
 ---
 
@@ -232,6 +235,21 @@ Voir `data/README-PRODUCTS.md` pour plus de détails.
 - Ancres pour navigation rapide
 - CTA vers commandes
 
+#### Page Commandes - 🆕 SYSTÈME DE PANIER FONCTIONNEL
+- **Affichage dynamique** de tous les produits disponibles (30 produits)
+- **Ajout au panier** avec quantité personnalisable (1-99)
+- **Modification de quantité** dans le panier
+- **Suppression de produits** individuels
+- **Vidage complet** du panier
+- **Calcul automatique du total** avant taxes
+- **Persistance** du panier (localStorage)
+- **Compteur d'articles** en temps réel
+- **Notifications** visuelles lors des actions
+- **Interface responsive** avec panier sticky sur desktop
+- **Support multilingue** FR/EN complet
+- Badge "Populaire" sur produits vedettes
+- Informations commande minimum et ramassage
+
 #### Navigation
 - Navbar sticky responsive
 - 5 liens de navigation avec icônes
@@ -252,6 +270,9 @@ Voir `data/README-PRODUCTS.md` pour plus de détails.
 - Responsive design complet
 - Scrollbar personnalisée
 - Styles pour sélecteur de langue FR/EN
+- **Styles panier d'achat** (cart.css)
+- **Notifications animées**
+- **Cartes produits interactives**
 
 ### 🚧 À Développer
 
@@ -266,11 +287,15 @@ Voir `data/README-PRODUCTS.md` pour plus de détails.
 - [ ] Ajouter d'autres langues (ES, DE, etc.) (optionnel)
 
 #### Page Commandes
-- [ ] Formulaire de sélection de produits
-- [ ] Panier d'achat
+- [x] Affichage des produits disponibles ✅ FAIT
+- [x] Panier d'achat fonctionnel ✅ FAIT
+- [x] Calcul du total avant taxes ✅ FAIT
+- [ ] Intégration système de paiement (Stripe/Square)
 - [ ] Choix date/heure de ramassage
-- [ ] Système de paiement
+- [ ] Formulaire coordonnées client
 - [ ] Confirmation par email
+- [ ] Validation commande minimum
+- [ ] Gestion des stocks
 
 #### Page Histoire
 - [ ] Texte de l'histoire
@@ -394,6 +419,9 @@ Avant de mettre en production:
 - [ ] Optimiser images (compression)
 - [ ] Vérifier tous les liens
 - [ ] Tester formulaire contact
+- [x] Tester système de panier ✅ FAIT
+- [ ] Tester localStorage (différents navigateurs)
+- [ ] Tests de performance (Lighthouse)
 
 ### SEO
 - [ ] Ajouter meta descriptions
@@ -426,13 +454,17 @@ Avant de mettre en production:
 Vous avez maintenant un site web moderne et professionnel pour "La mie du coin" avec:
 - ✅ 5 pages HTML complètes
 - ✅ **Système de traduction FR/EN fonctionnel** 🇫🇷 🇬🇧
+- ✅ **Système de panier d'achat fonctionnel** 🛒
 - ✅ Design responsive et moderne
-- ✅ 30+ produits catalogués
+- ✅ 30+ produits catalogués dans une base de données JSON
 - ✅ Identité visuelle cohérente
 - ✅ Navigation intuitive avec sélecteur de langue
 - ✅ Formulaire de contact fonctionnel
+- ✅ Gestion de commandes avec calcul du total
+- ✅ Persistance des données (localStorage)
 - ✅ Structure prête pour développement futur
 - ✅ **~80+ clés de traduction disponibles**
+- ✅ **Documentation complète du système de panier**
 
 **Le site est prêt pour les tests!** 🚀
 
@@ -454,6 +486,46 @@ http://localhost:8000/index.html
 2. Vérifier la traduction instantanée
 3. Rafraîchir la page pour vérifier la persistance
 4. Consulter `README-TRADUCTION.md` pour plus de détails
+
+### 🛒 Test du Panier d'Achat
+
+```bash
+# Lancer le serveur (obligatoire pour charger products.json)
+cd Test
+python -m http.server 8000
+
+# Ouvrir la page des commandes
+http://localhost:8000/pages/commandes.html
+```
+
+**Actions à tester:**
+1. **Ajouter des produits au panier**
+   - Ajuster la quantité avec les boutons +/-
+   - Cliquer sur "Ajouter au panier"
+   - Vérifier la notification verte qui apparaît
+
+2. **Gérer le panier**
+   - Modifier les quantités dans le panier
+   - Supprimer des produits individuels
+   - Vider complètement le panier
+
+3. **Vérifier le total**
+   - Observer le calcul automatique du sous-total
+   - Vérifier que le total se met à jour en temps réel
+
+4. **Tester la persistance**
+   - Rafraîchir la page
+   - Vérifier que le panier est toujours rempli
+
+5. **Tester le multilingue**
+   - Changer la langue FR/EN
+   - Vérifier que les produits se traduisent
+
+6. **Responsive**
+   - Tester sur mobile (F12 > Device toolbar)
+   - Vérifier l'affichage du panier sticky
+
+Pour plus de détails, consulter `Docs/README-PANIER.md`
 
 ---
 

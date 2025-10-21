@@ -13,23 +13,36 @@ Test/
 ├── index.html              # Page d'accueil
 ├── CNAME                   # Configuration du domaine
 ├── README.md               # Ce fichier
+├── SUMMARY.md              # Résumé détaillé du projet
+├── GUIDE-PANIER-RAPIDE.md  # Guide de démarrage du panier
+├── validate_cart.py        # Script de validation du panier
 ├── css/                    # Feuilles de style
-│   └── styles.css          # Styles personnalisés (thème boulangerie)
+│   ├── styles.css          # Styles personnalisés (thème boulangerie)
+│   └── cart.css            # Styles du panier d'achat
 ├── js/                     # Scripts JavaScript
 │   ├── main.js             # Script principal
-│   └── utils.js            # Fonctions utilitaires
+│   ├── utils.js            # Fonctions utilitaires
+│   ├── products.js         # Gestion dynamique des produits
+│   ├── translations.js     # Système de traduction FR/EN
+│   └── cart.js             # Logique du panier d'achat
+├── data/                   # Données
+│   ├── products.json       # Base de données des produits
+│   └── README-PRODUCTS.md  # Documentation des produits
 ├── img/                    # Images du site
 ├── assets/                 # Ressources additionnelles
 │   ├── fonts/              # Polices personnalisées
 │   └── icons/              # Icônes personnalisées
 ├── pages/                  # Pages HTML
 │   ├── produits.html       # Catalogue de produits
-│   ├── commandes.html      # Système de commandes (structure créée)
+│   ├── commandes.html      # Système de commandes avec panier
 │   ├── historique.html     # Histoire de la boulangerie (structure créée)
 │   └── contact.html        # Page Contact
-└── components/             # Composants réutilisables
-    ├── navbar.html         # Barre de navigation
-    └── footer.html         # Pied de page
+├── components/             # Composants réutilisables
+│   ├── navbar.html         # Barre de navigation
+│   └── footer.html         # Pied de page
+└── Docs/                   # Documentation
+    ├── GUIDE-TRADUCTION.md # Guide du système de traduction
+    └── README-PANIER.md    # Documentation complète du panier
 ```
 
 ## 🎨 Pages du Site
@@ -49,11 +62,28 @@ Catalogue complet organisé par catégories:
 - 🌾 **Options Sans Gluten** (3 produits)
 - 🇮🇹 **Spécialités Méditerranéennes** (2 produits) - Focaccia, fougasse
 
-### 3. **Page Commandes** (`pages/commandes.html`)
-- Structure HTML créée
-- Placeholder informatif
-- Contacts temporaires pour commander
-- **À développer**: Formulaire de commande, panier, paiement
+### 3. **Page Commandes** (`pages/commandes.html`) - 🆕 SYSTÈME DE PANIER COMPLET
+Système de panier d'achat fonctionnel avec:
+- **Affichage dynamique** de tous les produits disponibles (28 produits)
+- **Ajout au panier** avec quantité personnalisable (1-99)
+- **Gestion du panier**:
+  - Modification de quantité
+  - Suppression d'articles
+  - Vidage complet
+  - Compteur en temps réel
+- **Calcul automatique du total** avant taxes
+- **Persistance** des données (localStorage)
+- **Notifications** visuelles lors des actions
+- **Interface responsive** avec panier sticky sur desktop
+- **Support multilingue** FR/EN complet
+- Badge "Populaire" sur produits vedettes
+- Informations sur commande minimum et ramassage
+
+**À développer**:
+- Intégration système de paiement (Stripe/Square)
+- Formulaire coordonnées client
+- Choix date/heure de ramassage
+- Confirmation par email
 
 ### 4. **Page Histoire** (`pages/historique.html`)
 - Structure HTML créée
@@ -93,6 +123,7 @@ Le site dispose d'un **système de traduction FR/EN complet** :
 - **Persistance** de la préférence linguistique (localStorage)
 - **~80+ clés de traduction** disponibles
 - **Page de test** dédiée (`test-translation.html`)
+- **Intégration avec le panier** - Produits traduits automatiquement
 
 ### Fichiers du Système
 - `js/translations.js` - Dictionnaire de traductions FR/EN
@@ -103,6 +134,7 @@ Le site dispose d'un **système de traduction FR/EN complet** :
 ### Statut de Traduction
 - ✅ **Page d'accueil** (index.html) - 100% traduite
 - ✅ **Navbar** - 100% traduite
+- ✅ **Page Commandes** - Produits 100% traduits
 - 🔄 **Autres pages** - Structure prête, traduction à compléter
 
 ### Utilisation
@@ -114,23 +146,80 @@ Le site dispose d'un **système de traduction FR/EN complet** :
 
 Pour plus de détails, consultez `README-TRADUCTION.md` et `Docs/GUIDE-TRADUCTION.md`.
 
+## 🛒 Système de Panier d'Achat
+
+Le site dispose maintenant d'un **système de panier d'achat complet et fonctionnel** :
+
+### Fonctionnalités du Panier
+- **Chargement dynamique** des produits depuis JSON
+- **Ajout au panier** avec sélection de quantité
+- **Modification** des quantités dans le panier
+- **Suppression** de produits individuels
+- **Calcul automatique** du sous-total avant taxes
+- **Persistance** via localStorage
+- **Notifications** visuelles d'ajout
+- **Design responsive** avec panier sticky
+- **Support multilingue** FR/EN
+
+### Fichiers du Système
+- `js/cart.js` - Classe ShoppingCart et logique complète (~460 lignes)
+- `css/cart.css` - Styles du panier et des produits (~300 lignes)
+- `data/products.json` - Base de données de 28 produits
+- `Docs/README-PANIER.md` - Documentation complète
+- `GUIDE-PANIER-RAPIDE.md` - Guide de démarrage rapide
+- `validate_cart.py` - Script de validation
+
+### Démarrage Rapide
+```bash
+# 1. Lancer le serveur
+python -m http.server 8000
+
+# 2. Ouvrir la page des commandes
+http://localhost:8000/pages/commandes.html
+
+# 3. Consulter le guide
+Voir GUIDE-PANIER-RAPIDE.md
+```
+
+### Architecture
+```javascript
+class ShoppingCart {
+    addItem(productId, quantity)      // Ajouter au panier
+    updateQuantity(productId, qty)    // Modifier quantité
+    removeItem(productId)             // Retirer produit
+    clearCart()                       // Vider panier
+    getTotal()                        // Obtenir total
+}
+```
+
+Pour plus de détails, consultez `Docs/README-PANIER.md`.
+
 ## 🚀 Technologies Utilisées
 
 - **HTML5** - Structure sémantique
 - **CSS3** - Variables CSS, Flexbox, Grid, Animations
 - **Bootstrap 5.3.2** - Framework CSS responsive
 - **Bootstrap Icons 1.11.1** - Bibliothèque d'icônes
-- **JavaScript ES6+** - Modules, Fetch API, Observers, i18n
+- **JavaScript ES6+** - Classes, Modules, Fetch API, Observers, i18n
+- **JSON** - Base de données des produits
+- **LocalStorage** - Persistance du panier et des préférences
 - **Responsive Design** - Adaptatif tous écrans
 - **Système i18n** - Traduction FR/EN intégrée
+- **Architecture MVC** - Séparation logique/présentation
 
 ## 📋 Fonctionnalités
 
 ### ✅ Implémentées
 - Navigation responsive avec liens actifs
 - **Système de traduction FR/EN** avec sélecteur de langue
+- **Système de panier d'achat complet**
+  - Ajout/modification/suppression de produits
+  - Calcul du total en temps réel
+  - Persistance via localStorage
+  - Interface responsive
 - Hero section animée avec dégradé
-- Catalogue de produits complet (30+ produits)
+- Catalogue de produits complet (28 produits)
+- Chargement dynamique depuis JSON
 - Page de contact avec formulaire validé
 - Composants réutilisables (navbar, footer)
 - Animations au scroll (Intersection Observer)
@@ -138,13 +227,15 @@ Pour plus de détails, consultez `README-TRADUCTION.md` et `Docs/GUIDE-TRADUCTIO
 - Design cards avec effets hover
 - Footer complet avec informations
 - **Persistance de la langue** (localStorage)
+- **Notifications visuelles** pour les actions
+- **Compteur d'articles** dans le panier
 
 ### 🚧 À Développer
-- Compléter la traduction des pages restantes (produits, contact, commandes, histoire)
-- Traduire le footer
-- Système de commandes en ligne
-- Panier d'achat dynamique
-- Intégration paiement en ligne
+- Compléter la traduction des pages restantes
+- Intégration système de paiement (Stripe/Square)
+- Formulaire de coordonnées client
+- Choix date/heure de ramassage
+- Système de commandes en ligne complet
 - Galerie de photos de produits
 - Section histoire complète avec contenu
 - Blog/Actualités
@@ -152,6 +243,9 @@ Pour plus de détails, consultez `README-TRADUCTION.md` et `Docs/GUIDE-TRADUCTIO
 - Système de réservation
 - Carte Google Maps
 - Détection automatique de la langue du navigateur
+- Calcul des taxes (TPS + TVQ)
+- Code promo / Rabais
+- Email de confirmation de commande
 
 ## 🛠️ Installation et Utilisation
 
@@ -163,7 +257,10 @@ git clone [url-du-repo]
 # 2. Naviguer dans le dossier Test
 cd website_lamieducoin/Test
 
-# 3. Lancer un serveur local (au choix):
+# 3. (Optionnel) Valider l'installation du panier
+python validate_cart.py
+
+# 4. Lancer un serveur local (au choix):
 
 # Option A: Live Server (VS Code extension)
 # Clic droit sur index.html > "Open with Live Server"
@@ -174,9 +271,22 @@ python -m http.server 8000
 # Option C: Node.js
 npx http-server -p 8000
 
-# 4. Ouvrir dans le navigateur
+# 5. Ouvrir dans le navigateur
 # http://localhost:8000
 ```
+
+### ⚠️ Important
+Un **serveur local est OBLIGATOIRE** pour:
+- Charger les composants navbar/footer (CORS)
+- Charger la base de données JSON des produits
+- Faire fonctionner le système de panier
+
+### Pages à Tester
+- **Accueil**: http://localhost:8000/index.html
+- **Produits**: http://localhost:8000/pages/produits.html
+- **Commandes (Panier)**: http://localhost:8000/pages/commandes.html
+- **Contact**: http://localhost:8000/pages/contact.html
+- **Test Traduction**: http://localhost:8000/test-translation.html
 
 ### Aucune installation de dépendances nécessaire
 Le site utilise des CDN pour Bootstrap et les icônes.
