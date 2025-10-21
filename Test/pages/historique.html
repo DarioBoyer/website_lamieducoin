@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="L'histoire de La mie du coin">
+    <title>Notre Histoire - La mie du coin</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <div id="navbar-placeholder"></div>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="display-4 fw-bold text-white">📖 Notre Histoire</h1>
+            <p class="lead text-white">La mie du coin, votre amie du coin</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container my-5">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="alert alert-info text-center">
+                    <i class="bi bi-book fs-3"></i>
+                    <h4 class="mt-3">Notre histoire arrive bientôt</h4>
+                    <p class="mb-0">Cette section racontera prochainement l'histoire passionnante de notre boulangerie artisanale.</p>
+                </div>
+
+                <!-- Placeholder pour le contenu historique -->
+                <div class="card shadow-sm mt-4">
+                    <div class="card-body p-5">
+                        <h3 class="card-title mb-4">🍞 À venir...</h3>
+                        <p class="text-muted">Cette section contiendra prochainement:</p>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="bi bi-check-circle text-success"></i> L'histoire de nos débuts</li>
+                            <li class="mb-2"><i class="bi bi-check-circle text-success"></i> Notre passion pour le pain artisanal</li>
+                            <li class="mb-2"><i class="bi bi-check-circle text-success"></i> Nos valeurs et notre philosophie</li>
+                            <li class="mb-2"><i class="bi bi-check-circle text-success"></i> L'évolution de nos recettes</li>
+                            <li class="mb-2"><i class="bi bi-check-circle text-success"></i> Notre engagement envers la communauté</li>
+                            <li class="mb-2"><i class="bi bi-check-circle text-success"></i> Photos et témoignages</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Citation temporaire -->
+                <div class="card shadow-sm mt-4 border-0 bg-light">
+                    <div class="card-body p-5 text-center">
+                        <i class="bi bi-quote fs-1 text-primary"></i>
+                        <p class="fs-5 fst-italic my-4">
+                            "Le pain, c'est plus qu'un aliment. C'est une tradition, un art, un moment de partage."
+                        </p>
+                        <p class="text-muted mb-0">- L'équipe de La mie du coin</p>
+                    </div>
+                </div>
+
+                <!-- Liens vers d'autres sections -->
+                <div class="text-center mt-5">
+                    <a href="produits.html" class="btn btn-primary btn-lg px-5 py-3 me-2">
+                        <i class="bi bi-basket"></i> Découvrir nos produits
+                    </a>
+                    <a href="contact.html" class="btn btn-outline-primary btn-lg px-5 py-3">
+                        <i class="bi bi-envelope"></i> Nous contacter
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="../js/utils.js"></script>
+    <script src="../js/main.js"></script>
+    
+    <!-- Load Components -->
+    <script>
+        fetch('../components/navbar.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('navbar-placeholder').innerHTML = data);
+        
+        fetch('../components/footer.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('footer-placeholder').innerHTML = data);
+    </script>
+</body>
+</html>

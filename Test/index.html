@@ -3,155 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Mie du Coin - Boulangerie Artisanale en Construction</title>
-    <meta name="description" content="La Mie du Coin - Boulangerie artisanale spécialisée dans la fabrication de pains traditionnels et sans gluten. Site en construction.">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <meta name="description" content="La mie du coin - Boulangerie artisanale de pain frais et délicieux">
+    <title>La mie du coin - Boulangerie Artisanale</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div class="wheat-animation">
-        🌾 🌾 🌾 🌾 🌾 🌾 🌾 🌾
-    </div>
+    <!-- Navigation -->
+    <div id="navbar-placeholder"></div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-overlay">
+            <div class="container">
+                <div class="row align-items-center min-vh-75">
+                    <div class="col-lg-8 mx-auto text-center text-white">
+                        <h1 class="display-3 fw-bold mb-4 hero-title">🍞 La mie du coin</h1>
+                        <p class="lead mb-4 hero-subtitle">Votre amie du coin pour du pain artisanal fraîchement préparé</p>
+                        <p class="fs-5 mb-5">L'art de la boulangerie traditionnelle, le goût de l'authenticité</p>
+                        <div class="d-flex gap-3 justify-content-center">
+                            <a href="pages/produits.html" class="btn btn-primary btn-lg px-5 py-3">
+                                <i class="bi bi-basket"></i> Nos Produits
+                            </a>
+                            <a href="pages/commandes.html" class="btn btn-outline-light btn-lg px-5 py-3">
+                                <i class="bi bi-cart"></i> Commander
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Présentation rapide -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card p-4">
+                        <div class="feature-icon mb-3">
+                            <i class="bi bi-wheat fs-1 text-primary"></i>
+                        </div>
+                        <h3>Artisanal</h3>
+                        <p>Pains faits à la main avec des ingrédients de qualité supérieure</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card p-4">
+                        <div class="feature-icon mb-3">
+                            <i class="bi bi-clock-history fs-1 text-primary"></i>
+                        </div>
+                        <h3>Frais du jour</h3>
+                        <p>Produits fraîchement préparés chaque matin selon les traditions</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card p-4">
+                        <div class="feature-icon mb-3">
+                            <i class="bi bi-heart fs-1 text-primary"></i>
+                        </div>
+                        <h3>Passion</h3>
+                        <p>Un savoir-faire transmis avec amour et dévouement</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catégories de produits -->
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3">Nos Spécialités</h2>
+                <p class="lead text-muted">Découvrez notre sélection de pains artisanaux</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="product-category-card">
+                        <div class="category-icon">🍞</div>
+                        <h4>Pains de Base</h4>
+                        <p>Pains blancs, baguettes, pains de campagne</p>
+                        <a href="pages/produits.html#pains-base" class="btn btn-outline-primary">Découvrir</a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="product-category-card">
+                        <div class="category-icon">🌰</div>
+                        <h4>Pains Spécialisés</h4>
+                        <p>Pains aux noix, au fromage, et plus</p>
+                        <a href="pages/produits.html#pains-specialises" class="btn btn-outline-primary">Découvrir</a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="product-category-card">
+                        <div class="category-icon">🥐</div>
+                        <h4>Viennoiseries</h4>
+                        <p>Croissants, brioches, pains au chocolat</p>
+                        <a href="pages/produits.html#viennoiseries" class="btn btn-outline-primary">Découvrir</a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="product-category-card">
+                        <div class="category-icon">🥨</div>
+                        <h4>Pains en Forme</h4>
+                        <p>Bagels, bretzels, et autres formes</p>
+                        <a href="pages/produits.html#pains-forme" class="btn btn-outline-primary">Découvrir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h2 class="fw-bold mb-3">Commandez dès aujourd'hui!</h2>
+                    <p class="lead mb-0">Passez votre commande en ligne et venez la chercher fraîche</p>
+                </div>
+                <div class="col-lg-4 text-lg-end">
+                    <a href="pages/commandes.html" class="btn btn-light btn-lg px-5 py-3">
+                        <i class="bi bi-cart-check"></i> Commander maintenant
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
-    <div class="container">
-        <header class="hero">
-            <div class="logo-section">
-                <div class="bread-icon">🍞</div>
-                <h1 class="site-title">La Mie du Coin</h1>
-                <p class="subtitle">Boulangerie Artisanale</p>
-            </div>
-            
-            <div class="construction-notice">
-                <div class="construction-icon">🚧</div>
-                <h2>Site en Construction</h2>
-                <p class="construction-text">Nous préparons quelque chose de délicieux pour vous!</p>
-            </div>
-        </header>
-        
-        <main class="content">
-            <section class="about-preview">
-                <div class="bread-showcase">
-                    <div class="bread-item">
-                        <span class="bread-emoji">🥖</span>
-                        <h3>Baguettes Tradition</h3>
-                        <p>Cuites au four à bois selon les méthodes ancestrales</p>
-                    </div>
-                    
-                    <div class="bread-item">
-                        <span class="bread-emoji">🍞</span>
-                        <h3>Pains de Campagne</h3>
-                        <p>Au levain naturel, mie alvéolée et croûte dorée</p>
-                    </div>
-                    
-                    <div class="bread-item">
-                        <span class="bread-emoji">🌾</span>
-                        <h3>Pains Sans Gluten</h3>
-                        <p>Savoureux et nutritifs pour tous</p>
-                    </div>
-                    
-                    <div class="bread-item">
-                        <span class="bread-emoji">🥐</span>
-                        <h3>Viennoiseries</h3>
-                        <p>Croissants et brioches feuilletés à souhait</p>
-                    </div>
-                </div>
-            </section>
-            
-            <section class="features">
-                <div class="feature-card">
-                    <div class="feature-icon">👨‍🍳</div>
-                    <h3>Savoir-Faire Artisanal</h3>
-                    <p>Chaque pain est façonné à la main avec passion et expertise, respectant les traditions boulangères françaises.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">🌱</div>
-                    <h3>Ingrédients Naturels</h3>
-                    <p>Farines biologiques, levain naturel et ingrédients soigneusement sélectionnés chez nos producteurs locaux.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">⏰</div>
-                    <h3>Fermentation Lente</h3>
-                    <p>Nos pâtes fermentent lentement pour développer tous leurs arômes et améliorer leur digestibilité.</p>
-                </div>
-            </section>
-            
-            <section class="coming-soon">
-                <div class="timeline">
-                    <h3>🎯 Prochainement</h3>
-                    <div class="timeline-items">
-                        <div class="timeline-item">
-                            <div class="timeline-icon">📋</div>
-                            <div class="timeline-content">
-                                <h4>Catalogue en ligne</h4>
-                                <p>Découvrez toute notre gamme de pains et viennoiseries</p>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="timeline-icon">🛒</div>
-                            <div class="timeline-content">
-                                <h4>Commandes en ligne</h4>
-                                <p>Réservez vos pains favoris pour la collecte</p>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item">
-                            <div class="timeline-icon">📚</div>
-                            <div class="timeline-content">
-                                <h4>Ateliers et recettes</h4>
-                                <p>Apprenez l'art de la boulangerie avec nos experts</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <section class="newsletter">
-                <div class="newsletter-content">
-                    <h3>🔔 Restez Informé</h3>
-                    <p>Soyez les premiers à découvrir l'ouverture de La Mie du Coin</p>
-                    <form class="newsletter-form" onsubmit="handleNewsletter(event)">
-                        <input type="email" placeholder="Votre adresse email" required>
-                        <button type="submit">M'inscrire</button>
-                    </form>
-                    <p class="newsletter-note">Nous respectons votre vie privée. Aucun spam, que des nouvelles délicieuses!</p>
-                </div>
-            </section>
-        </main>
-        
-        <footer class="footer">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>📍 Localisation</h4>
-                    <p>Bientôt disponible<br>
-                    Québec, Canada</p>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>📞 Contact</h4>
-                    <p>Information bientôt disponible<br>
-                    contact@lamieducoin.ca</p>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>⏰ Horaires</h4>
-                    <p>Ouverture prochaine<br>
-                    Suivez-nous pour plus d'infos</p>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2024 La Mie du Coin. Tous droits réservés.</p>
-                <div class="baking-animation">
-                    <span class="oven">🔥</span>
-                    <span class="bread-baking">🍞</span>
-                </div>
-            </div>
-        </footer>
-    </div>
+    <!-- Custom JS -->
+    <script src="js/utils.js"></script>
+    <script src="js/main.js"></script>
     
-    <script src="script.js"></script>
+    <!-- Load Components -->
+    <script>
+        fetch('components/navbar.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('navbar-placeholder').innerHTML = data);
+        
+        fetch('components/footer.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('footer-placeholder').innerHTML = data);
+    </script>
 </body>
 </html>
