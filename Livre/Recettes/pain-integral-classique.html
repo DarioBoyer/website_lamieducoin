@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pain Intégral Classique - Le Grand Livre du Pain</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Système de commentaires -->
+    <link rel="stylesheet" href="comments.css">
+
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .recipe-container { max-width: 900px; margin: 0 auto; }
+        .recipe-header {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            color: white; padding: 40px; border-radius: 15px 15px 0 0;
+            text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .recipe-icon { font-size: 4em; margin-bottom: 15px; }
+        .recipe-title h1 { font-size: 2.5em; font-weight: bold; margin-bottom: 10px; }
+        .recipe-subtitle { font-size: 1.2em; opacity: 0.9; margin: 0; }
+        .info-cards {
+            background: white; padding: 30px; display: flex;
+            justify-content: space-around; flex-wrap: wrap; gap: 20px;
+        }
+        .info-card {
+            text-align: center; padding: 20px; background: #f8f9fa;
+            border-radius: 10px; min-width: 150px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .info-card .icon { font-size: 2.5em; margin-bottom: 10px; }
+        .info-card .label { color: #6c757d; font-size: 0.9em; margin-bottom: 5px; }
+        .info-card .value { font-size: 1.3em; font-weight: bold; color: #8B4513; }
+        .recipe-content {
+            background: white; padding: 40px;
+            border-radius: 0 0 15px 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .ingredients-section, .instructions-section { margin-bottom: 30px; }
+        .ingredients-section h3, .instructions-section h3 {
+            color: #8B4513; border-bottom: 3px solid #D2691E;
+            padding-bottom: 10px; margin-bottom: 20px;
+        }
+        .ingredients-list {
+            background: #fff9f0; padding: 25px;
+            border-radius: 10px; border-left: 5px solid #D2691E;
+        }
+        .ingredients-list ul { list-style: none; padding: 0; margin: 0; }
+        .ingredients-list li {
+            padding: 10px 0; border-bottom: 1px solid #f0e6d6; font-size: 1.1em;
+        }
+        .ingredients-list li:last-child { border-bottom: none; }
+        .ingredients-list li::before {
+            content: "✓ "; color: #D2691E; font-weight: bold; margin-right: 8px;
+        }
+        .ingredients-section h4 {
+            color: #8B4513; margin-top: 20px; margin-bottom: 15px; font-size: 1.2em;
+        }
+        .instructions-section ol { counter-reset: step-counter; list-style: none; padding: 0; }
+        .instructions-section li {
+            counter-increment: step-counter; position: relative;
+            padding: 20px 20px 20px 70px; margin-bottom: 15px;
+            background: #f8f9fa; border-radius: 10px; font-size: 1.05em; line-height: 1.6;
+        }
+        .instructions-section li::before {
+            content: counter(step-counter); position: absolute;
+            left: 20px; top: 50%; transform: translateY(-50%);
+            background: #D2691E; color: white; width: 35px; height: 35px;
+            border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; font-weight: bold; font-size: 1.1em;
+        }
+        .tips-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; padding: 25px; border-radius: 15px; margin-bottom: 20px;
+        }
+        .tips-box h4 { margin-bottom: 15px; font-weight: bold; }
+        .tips-box p { margin-bottom: 10px; line-height: 1.6; }
+        .tips-box ul { margin-bottom: 0; }
+        .tips-box li { margin-bottom: 8px; }
+        .nav-buttons { text-align: center; margin-top: 30px; padding: 20px; }
+        .btn-custom {
+            background: #8B4513; color: white; padding: 12px 30px;
+            border-radius: 25px; text-decoration: none; font-weight: bold;
+            transition: all 0.3s ease; display: inline-block; margin: 0 10px;
+        }
+        .btn-custom:hover {
+            background: #D2691E; color: white;
+            transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .back-to-top-btn {
+            position: fixed; bottom: 30px; right: 30px; background: #D2691E;
+            color: white; width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s ease; z-index: 1000;
+        }
+        .back-to-top-btn:hover {
+            background: #8B4513; transform: translateY(-5px); color: white;
+        }
+        @media (max-width: 768px) {
+            .recipe-header { padding: 30px 20px; }
+            .recipe-title h1 { font-size: 2em; }
+            .recipe-content { padding: 25px; }
+            .info-cards { padding: 20px; }
+            .instructions-section li { padding-left: 60px; }
+        }
+    </style>
+</head>
+<body>
+    <div id="top"></div>
+    <div class="recipe-container">
+        <div class="recipe-header">
+            <div class="recipe-icon">🌿</div>
+            <div class="recipe-title">
+                <h1>Pain Intégral Classique</h1>
+                <p class="recipe-subtitle">Pain 100% farine intégrale, riche en fibres</p>
+            </div>
+        </div>
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="icon">⏱️</div>
+                <div class="label">Préparation</div>
+                <div class="value">20 min</div>
+            </div>
+            <div class="info-card">
+                <div class="icon">🕐</div>
+                <div class="label">Levée</div>
+                <div class="value">2h30</div>
+            </div>
+            <div class="info-card">
+                <div class="icon">🔥</div>
+                <div class="label">Cuisson</div>
+                <div class="value">35-40 min</div>
+            </div>
+            <div class="info-card">
+                <div class="icon">🍞</div>
+                <div class="label">Rendement</div>
+                <div class="value">1 pain</div>
+            </div>
+        </div>
+        <div class="recipe-content">
+            <div class="ingredients-section">
+                <h3>🛒 Ingrédients</h3>
+                <div class="ingredients-list">
+                    <ul>
+                        <li><strong>4 tasses (520g)</strong> farine intégrale (T150 ou 13-15% protéines)</li>
+                        <li><strong>2¼ c. à thé (7g)</strong> levure instantanée (1 sachet)</li>
+                        <li><strong>2 c. à thé</strong> sel</li>
+                        <li><strong>2 c. à soupe</strong> miel ou sirop d'érable</li>
+                        <li><strong>2 c. à soupe</strong> huile végétale ou beurre fondu</li>
+                        <li><strong>1¾ tasse (420ml)</strong> eau tiède (38°C / 100°F)</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="instructions-section">
+                <h3>📝 Instructions Détaillées</h3>
+                <ol>
+                    <li>Dans un grand bol, mélanger la farine intégrale, la levure et le sel.</li>
+                    <li>Dans un bol séparé, combiner l'eau tiède, le miel et l'huile. Mélanger jusqu'à dissolution du miel.</li>
+                    <li>Verser les ingrédients liquides sur les ingrédients secs. Mélanger avec une cuillère en bois jusqu'à formation d'une pâte collante. La pâte intégrale est naturellement plus dense et collante.</li>
+                    <li>Pétrir la pâte : sur une surface légèrement farinée, pétrir pendant 8-10 minutes jusqu'à ce que la pâte devienne lisse et élastique. Ou utiliser un batteur sur socle avec crochet pétrisseur pendant 6-8 minutes à vitesse moyenne.</li>
+                    <li>Former une boule avec la pâte. Placer dans un bol huilé, couvrir d'un linge humide et laisser lever dans un endroit chaud pendant 1h30 à 2h, ou jusqu'à ce qu'elle double de volume.</li>
+                    <li>Dégazer la pâte en la pressant doucement. Façonner en un pain rectangulaire.</li>
+                    <li>Placer dans un moule à pain graissé (23 x 13 cm / 9 x 5 pouces). Couvrir et laisser lever 45-60 minutes, jusqu'à ce que la pâte dépasse le bord du moule d'environ 2,5 cm (1 pouce).</li>
+                    <li>Préchauffer le four à 190°C (375°F).</li>
+                    <li>Optionnel : Badigeonner le dessus du pain avec de l'eau et saupoudrer de graines (sésame, lin, tournesol).</li>
+                    <li>Cuire 35-40 minutes, jusqu'à ce que le pain soit doré et qu'il sonne creux lorsqu'on tape le dessous. La température interne devrait être de 90°C (195°F).</li>
+                    <li>Démouler immédiatement et laisser refroidir complètement sur une grille avant de trancher (au moins 1 heure).</li>
+                </ol>
+            </div>
+            <div class="tips-box">
+                <h4>💡 Conseils et Astuces</h4>
+                <ul>
+                    <li><strong>Hydratation :</strong> La farine intégrale absorbe plus d'eau que la farine blanche. N'hésitez pas à ajouter 1-2 c. à soupe d'eau supplémentaire si la pâte est trop sèche.</li>
+                    <li><strong>Temps de levée :</strong> La farine intégrale peut ralentir la levée. Soyez patient et attendez que la pâte double vraiment de volume.</li>
+                    <li><strong>Conservation :</strong> Le pain intégral se conserve 3-4 jours à température ambiante dans un sac en tissu ou papier. Évitez le plastique qui ramollit la croûte.</li>
+                    <li><strong>Congélation :</strong> Ce pain se congèle très bien jusqu'à 3 mois. Trancher avant de congeler pour plus de commodité.</li>
+                    <li><strong>Variantes :</strong> Ajoutez des graines (tournesol, lin, sésame) directement dans la pâte pour plus de texture et nutriments.</li>
+                    <li><strong>Pourquoi attendre avant de trancher ?</strong> Le pain continue de cuire légèrement en refroidissant. Le trancher trop tôt donnera une mie humide et collante.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+        
+        <!-- Section Commentaires -->
+        <div class="comments-section">
+            <div id="comments-container"></div>
+        </div>
+    </div>
+    <a href="#top" class="back-to-top-btn" title="Retour en haut">↑</a>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Système de commentaires -->
+    <script src="comments.js"></script>
+
+    <script>
+        const backToTopBtn = document.querySelector('.back-to-top-btn');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) { backToTopBtn.style.display = 'flex'; }
+            else { backToTopBtn.style.display = 'none'; }
+        });
+        backToTopBtn.style.display = 'none';
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
