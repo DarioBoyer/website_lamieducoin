@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pain Blanc Sans Sucre - Le Grand Livre du Pain</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Système de commentaires -->
+    <link rel="stylesheet" href="comments.css">
+
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .recipe-container { max-width: 900px; margin: 0 auto; }
+        .recipe-header {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            color: white; padding: 40px; border-radius: 15px 15px 0 0;
+            text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .recipe-icon { font-size: 4em; margin-bottom: 15px; }
+        .recipe-title h1 { font-size: 2.5em; font-weight: bold; margin-bottom: 10px; }
+        .recipe-subtitle { font-size: 1.2em; opacity: 0.9; margin: 0; }
+        .info-cards {
+            background: white; padding: 30px; display: flex;
+            justify-content: space-around; flex-wrap: wrap; gap: 20px;
+        }
+        .info-card {
+            text-align: center; padding: 20px; background: #f8f9fa;
+            border-radius: 10px; min-width: 150px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .info-card .icon { font-size: 2.5em; margin-bottom: 10px; }
+        .info-card .label { color: #6c757d; font-size: 0.9em; margin-bottom: 5px; }
+        .info-card .value { font-size: 1.3em; font-weight: bold; color: #8B4513; }
+        .recipe-content {
+            background: white; padding: 40px;
+            border-radius: 0 0 15px 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .ingredients-section, .instructions-section { margin-bottom: 30px; }
+        .ingredients-section h3, .instructions-section h3 {
+            color: #8B4513; border-bottom: 3px solid #D2691E;
+            padding-bottom: 10px; margin-bottom: 20px;
+        }
+        .ingredients-list {
+            background: #fff9f0; padding: 25px;
+            border-radius: 10px; border-left: 5px solid #D2691E;
+        }
+        .ingredients-list ul { list-style: none; padding: 0; margin: 0; }
+        .ingredients-list li {
+            padding: 10px 0; border-bottom: 1px solid #f0e6d6; font-size: 1.1em;
+        }
+        .ingredients-list li:last-child { border-bottom: none; }
+        .ingredients-list li::before {
+            content: "✓ "; color: #D2691E; font-weight: bold; margin-right: 8px;
+        }
+        .instructions-section ol { counter-reset: step-counter; list-style: none; padding: 0; }
+        .instructions-section li {
+            counter-increment: step-counter; position: relative;
+            padding: 20px 20px 20px 70px; margin-bottom: 15px;
+            background: #f8f9fa; border-radius: 10px; font-size: 1.05em; line-height: 1.6;
+        }
+        .instructions-section li::before {
+            content: counter(step-counter); position: absolute;
+            left: 20px; top: 50%; transform: translateY(-50%);
+            background: #D2691E; color: white; width: 35px; height: 35px;
+            border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; font-weight: bold; font-size: 1.1em;
+        }
+        .info-box {
+            background: #e8f5e9; padding: 25px; border-radius: 15px;
+            margin-bottom: 20px; border-left: 5px solid #4caf50;
+        }
+        .info-box h4 { color: #2e7d32; margin-bottom: 15px; font-weight: bold; }
+        .info-box p { margin-bottom: 10px; line-height: 1.6; color: #1b5e20; }
+        .info-box ul { margin-bottom: 0; color: #1b5e20; }
+        .info-box li { margin-bottom: 8px; }
+        .tips-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; padding: 25px; border-radius: 15px; margin-bottom: 20px;
+        }
+        .tips-box h4 { margin-bottom: 15px; font-weight: bold; }
+        .tips-box p { margin-bottom: 10px; line-height: 1.6; }
+        .tips-box ul { margin-bottom: 0; }
+        .tips-box li { margin-bottom: 8px; }
+        .nav-buttons { text-align: center; margin-top: 30px; padding: 20px; }
+        .btn-custom {
+            background: #8B4513; color: white; padding: 12px 30px;
+            border-radius: 25px; text-decoration: none; font-weight: bold;
+            transition: all 0.3s ease; display: inline-block; margin: 0 10px;
+        }
+        .btn-custom:hover {
+            background: #D2691E; color: white;
+            transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .back-to-top-btn {
+            position: fixed; bottom: 30px; right: 30px; background: #D2691E;
+            color: white; width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s ease; z-index: 1000;
+        }
+        .back-to-top-btn:hover {
+            background: #8B4513; transform: translateY(-5px); color: white;
+        }
+        @media (max-width: 768px) {
+            .recipe-header { padding: 30px 20px; }
+            .recipe-title h1 { font-size: 2em; }
+            .recipe-content { padding: 25px; }
+            .info-cards { padding: 20px; }
+            .instructions-section li { padding-left: 60px; }
+        }
+    </style>
+</head>
+<body>
+    <div id="top"></div>
+    <div class="recipe-container">
+        <div class="recipe-header">
+            <div class="recipe-icon">🍞</div>
+            <div class="recipe-title">
+                <h1>Pain Blanc Sans Sucre</h1>
+                <p class="recipe-subtitle">Version saine et naturelle du pain blanc classique</p>
+            </div>
+        </div>
+        <div class="info-cards">
+            <div class="info-card">
+                <div class="icon">⏱️</div>
+                <div class="label">Préparation</div>
+                <div class="value">20 min</div>
+            </div>
+            <div class="info-card">
+                <div class="icon">🕐</div>
+                <div class="label">Levée</div>
+                <div class="value">2h30</div>
+            </div>
+            <div class="info-card">
+                <div class="icon">🔥</div>
+                <div class="label">Cuisson</div>
+                <div class="value">30-35 min</div>
+            </div>
+            <div class="info-card">
+                <div class="icon">🍞</div>
+                <div class="label">Rendement</div>
+                <div class="value">1 pain</div>
+            </div>
+        </div>
+        <div class="recipe-content">
+            <div class="info-box">
+                <h4>🌱 Pourquoi Sans Sucre ?</h4>
+                <p>Cette recette élimine le sucre ajouté tout en produisant un excellent pain blanc. La levure se nourrit naturellement des sucres présents dans la farine, rendant le sucre ajouté optionnel. Ce pain est parfait pour :</p>
+                <ul>
+                    <li>Les personnes surveillant leur consommation de sucre</li>
+                    <li>Les diabétiques cherchant à réduire les glucides simples</li>
+                    <li>Ceux qui préfèrent un pain au goût plus neutre et naturel</li>
+                    <li>Les sandwichs salés et accompagnements de repas</li>
+                </ul>
+            </div>
+            
+            <div class="ingredients-section">
+                <h3>🛒 Ingrédients</h3>
+                <div class="ingredients-list">
+                    <ul>
+                        <li><strong>500g (4 tasses)</strong> farine tout usage ou à pain (T55, 11-12% protéines)</li>
+                        <li><strong>320ml (1⅓ tasse)</strong> eau tiède (38°C / 100°F)</li>
+                        <li><strong>2¼ c. à thé (7g)</strong> levure instantanée ou active (1 sachet)</li>
+                        <li><strong>2 c. à thé (10g)</strong> sel</li>
+                        <li><strong>2 c. à soupe (30ml)</strong> huile végétale ou beurre fondu (optionnel, pour plus de moelleux)</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="instructions-section">
+                <h3>📝 Instructions Détaillées</h3>
+                <ol>
+                    <li>Dans un grand bol, mélanger la farine et le sel. Faire un puits au centre.</li>
+                    <li>Dans un bol séparé, dissoudre la levure dans l'eau tiède. Laisser reposer 5 minutes jusqu'à ce que la levure devienne mousseuse (signe qu'elle est active).</li>
+                    <li>Verser le mélange de levure (et l'huile si utilisée) dans le puits de farine. Mélanger avec une cuillère en bois jusqu'à formation d'une pâte rugueuse.</li>
+                    <li>Pétrir la pâte : Sur une surface légèrement farinée, pétrir pendant 8-10 minutes jusqu'à ce que la pâte soit lisse, élastique et ne colle plus. Ou utiliser un batteur sur socle avec crochet pétrisseur pendant 6-8 minutes à vitesse moyenne.</li>
+                    <li>Former une boule avec la pâte. Placer dans un bol légèrement huilé, couvrir d'un linge humide et laisser lever dans un endroit chaud pendant 1h30 à 2h, jusqu'à ce qu'elle double de volume.</li>
+                    <li>Dégazer la pâte en la pressant doucement pour enlever l'air. Façonner en forme de pain rectangulaire ou en boule selon votre moule.</li>
+                    <li>Placer dans un moule à pain graissé (23 x 13 cm / 9 x 5 pouces) ou sur une plaque de cuisson. Couvrir et laisser lever encore 45-60 minutes.</li>
+                    <li>Préchauffer le four à 190°C (375°F). Placer un petit plat d'eau au fond du four pour créer de la vapeur.</li>
+                    <li>Optionnel : Badigeonner le dessus du pain avec un peu d'eau et saupoudrer de graines de sésame ou faire 2-3 entailles en diagonale avec une lame de rasoir.</li>
+                    <li>Cuire 30-35 minutes, jusqu'à ce que le pain soit doré et qu'il sonne creux quand on tape le dessous. La température interne devrait être de 90°C (195°F).</li>
+                    <li>Retirer du four et démouler immédiatement. Laisser refroidir sur une grille pendant au moins 30 minutes avant de trancher.</li>
+                </ol>
+            </div>
+            <div class="tips-box">
+                <h4>💡 Conseils et Astuces</h4>
+                <ul>
+                    <li><strong>Test de la levure :</strong> Sans sucre pour nourrir la levure initialement, il est crucial d'utiliser de la levure fraîche et active. Le test de mousse après 5 minutes confirme qu'elle est vivante.</li>
+                    <li><strong>Température de l'eau :</strong> Trop chaude (>43°C / 110°F) tuera la levure. Trop froide ralentira l'activation. Visez 38°C (100°F) - tiède au toucher.</li>
+                    <li><strong>Temps de levée :</strong> Sans sucre, la levée peut prendre 15-30 minutes de plus. Soyez patient et attendez que la pâte double vraiment de volume.</li>
+                    <li><strong>Conservation :</strong> Ce pain se conserve 3-4 jours à température ambiante dans un sac en tissu ou papier. Évitez le plastique qui ramollit la croûte.</li>
+                    <li><strong>Congélation :</strong> Excellent pour la congélation. Trancher avant de congeler pour décongeler seulement ce dont vous avez besoin (jusqu'à 3 mois).</li>
+                    <li><strong>Variante à l'huile d'olive :</strong> Remplacez l'huile végétale par de l'huile d'olive extra vierge pour une saveur méditerranéenne subtile.</li>
+                    <li><strong>Pour une croûte plus épaisse :</strong> Augmentez la température à 200°C (400°F) et vaporisez le pain avec de l'eau 2-3 fois pendant les 10 premières minutes.</li>
+                </ul>
+            </div>
+            
+            <div class="info-box">
+                <h4>🔬 Comprendre la Fermentation Sans Sucre</h4>
+                <p>Beaucoup pensent que le sucre est essentiel pour faire du pain, mais c'est faux ! La farine contient naturellement des enzymes (amylases) qui décomposent l'amidon en sucres simples que la levure peut consommer. Le processus est simplement un peu plus lent qu'avec du sucre ajouté.</p>
+                <p><strong>Avantages du pain sans sucre :</strong></p>
+                <ul>
+                    <li>Goût plus authentique et moins sucré</li>
+                    <li>Meilleur pour la glycémie</li>
+                    <li>Plus de saveur de blé naturelle</li>
+                    <li>Parfait pour accompagner des plats salés</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+        
+        <!-- Section Commentaires -->
+        <div class="comments-section">
+            <div id="comments-container"></div>
+        </div>
+    </div>
+    <a href="#top" class="back-to-top-btn" title="Retour en haut">↑</a>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Système de commentaires -->
+    <script src="comments.js"></script>
+
+    <script>
+        const backToTopBtn = document.querySelector('.back-to-top-btn');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) { backToTopBtn.style.display = 'flex'; }
+            else { backToTopBtn.style.display = 'none'; }
+        });
+        backToTopBtn.style.display = 'none';
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
