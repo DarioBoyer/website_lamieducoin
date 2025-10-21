@@ -83,19 +83,52 @@ Catalogue complet organisé par catégories:
 - Icônes Bootstrap intégrées
 - Typographie système optimisée
 
+## 🌐 Système de Traduction Multilingue
+
+Le site dispose d'un **système de traduction FR/EN complet** :
+
+### Fonctionnalités
+- **Sélecteur de langue** dans la barre de navigation (FR/EN)
+- **Traduction instantanée** sans rechargement de page
+- **Persistance** de la préférence linguistique (localStorage)
+- **~80+ clés de traduction** disponibles
+- **Page de test** dédiée (`test-translation.html`)
+
+### Fichiers du Système
+- `js/translations.js` - Dictionnaire de traductions FR/EN
+- `Docs/GUIDE-TRADUCTION.md` - Guide complet pour développeurs
+- `README-TRADUCTION.md` - Documentation du système
+- `test-translation.html` - Page de démonstration
+
+### Statut de Traduction
+- ✅ **Page d'accueil** (index.html) - 100% traduite
+- ✅ **Navbar** - 100% traduite
+- 🔄 **Autres pages** - Structure prête, traduction à compléter
+
+### Utilisation
+```html
+<!-- Ajouter l'attribut data-i18n aux éléments -->
+<h1 data-i18n="home.title">La mie du coin</h1>
+<p data-i18n="home.subtitle">Votre amie du coin...</p>
+```
+
+Pour plus de détails, consultez `README-TRADUCTION.md` et `Docs/GUIDE-TRADUCTION.md`.
+
 ## 🚀 Technologies Utilisées
 
 - **HTML5** - Structure sémantique
 - **CSS3** - Variables CSS, Flexbox, Grid, Animations
 - **Bootstrap 5.3.2** - Framework CSS responsive
 - **Bootstrap Icons 1.11.1** - Bibliothèque d'icônes
-- **JavaScript ES6+** - Modules, Fetch API, Observers
+- **JavaScript ES6+** - Modules, Fetch API, Observers, i18n
 - **Responsive Design** - Adaptatif tous écrans
+- **Système i18n** - Traduction FR/EN intégrée
 
 ## 📋 Fonctionnalités
 
 ### ✅ Implémentées
 - Navigation responsive avec liens actifs
+- **Système de traduction FR/EN** avec sélecteur de langue
 - Hero section animée avec dégradé
 - Catalogue de produits complet (30+ produits)
 - Page de contact avec formulaire validé
@@ -104,8 +137,11 @@ Catalogue complet organisé par catégories:
 - Smooth scroll pour les ancres
 - Design cards avec effets hover
 - Footer complet avec informations
+- **Persistance de la langue** (localStorage)
 
 ### 🚧 À Développer
+- Compléter la traduction des pages restantes (produits, contact, commandes, histoire)
+- Traduire le footer
 - Système de commandes en ligne
 - Panier d'achat dynamique
 - Intégration paiement en ligne
@@ -115,6 +151,7 @@ Catalogue complet organisé par catégories:
 - Espace client / Connexion
 - Système de réservation
 - Carte Google Maps
+- Détection automatique de la langue du navigateur
 
 ## 🛠️ Installation et Utilisation
 

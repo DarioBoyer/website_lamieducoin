@@ -17,9 +17,13 @@
 1. ✅ `css/styles.css` - Theme boulangerie complet (300+ lignes)
 2. ✅ `js/main.js` - JavaScript avec animations
 3. ✅ `js/utils.js` - Fonctions utilitaires (déjà existant)
+4. ✅ `js/translations.js` - Système de traduction FR/EN (~80+ clés)
 
 ### Documentation
 1. ✅ `README.md` - Documentation complète du projet
+2. ✅ `README-TRADUCTION.md` - Documentation du système de traduction FR/EN
+3. ✅ `Docs/GUIDE-TRADUCTION.md` - Guide détaillé pour développeurs
+4. ✅ `test-translation.html` - Page de test/démonstration
 
 ---
 
@@ -117,7 +121,53 @@ Accueil (index.html)
 
 ---
 
-## 🎯 Fonctionnalités Principales
+## � Système de Traduction Multilingue
+
+### Vue d'ensemble
+Le site **"La mie du coin"** est maintenant **bilingue FR/EN** ! 🇫🇷 🇬🇧
+
+### Fonctionnalités de Traduction
+- ✅ **Sélecteur de langue** dans la navigation (boutons FR/EN)
+- ✅ **~80+ clés de traduction** disponibles
+- ✅ **Traduction instantanée** sans rechargement de page
+- ✅ **Persistance** de la préférence (localStorage)
+- ✅ **Design responsive** du sélecteur de langue
+- ✅ **Page de test** complète (`test-translation.html`)
+
+### Statut de Traduction par Page
+- ✅ **Page d'accueil** (index.html) - 100% traduite
+- ✅ **Navbar** - 100% traduite avec sélecteur FR/EN
+- 🔄 **Page produits** - Structure prête, à traduire
+- 🔄 **Page contact** - Structure prête, à traduire
+- 🔄 **Page commandes** - Structure prête, à traduire
+- 🔄 **Page histoire** - Structure prête, à traduire
+- 🔄 **Footer** - À traduire
+
+### Sections Traduites
+- Navigation : 5 clés
+- Accueil : 20+ clés
+- Produits : 15+ clés
+- Contact : 15+ clés
+- Commandes : 5+ clés
+- Histoire : 5+ clés
+- Footer : 10+ clés
+
+### Comment Utiliser
+```html
+<!-- Ajouter l'attribut data-i18n aux éléments HTML -->
+<h1 data-i18n="home.title">La mie du coin</h1>
+<p data-i18n="home.subtitle">Votre amie du coin...</p>
+```
+
+### Fichiers du Système
+- `js/translations.js` - Dictionnaire complet FR/EN
+- `README-TRADUCTION.md` - Documentation utilisateur
+- `Docs/GUIDE-TRADUCTION.md` - Guide développeur
+- `test-translation.html` - Page de démonstration
+
+---
+
+## �🎯 Fonctionnalités Principales
 
 ### ✅ Fonctionnalités Implémentées
 
@@ -154,8 +204,19 @@ Accueil (index.html)
 - Gradient backgrounds
 - Responsive design complet
 - Scrollbar personnalisée
+- Styles pour sélecteur de langue FR/EN
 
 ### 🚧 À Développer
+
+#### Système de Traduction
+- [ ] Compléter traduction page Produits
+- [ ] Compléter traduction page Contact
+- [ ] Compléter traduction page Commandes
+- [ ] Compléter traduction page Histoire
+- [ ] Traduire le Footer
+- [ ] Ajouter détection automatique langue navigateur
+- [ ] Ajouter indicateur langue dans URL (optionnel)
+- [ ] Ajouter d'autres langues (ES, DE, etc.) (optionnel)
 
 #### Page Commandes
 - [ ] Formulaire de sélection de produits
@@ -307,14 +368,35 @@ Avant de mettre en production:
 
 Vous avez maintenant un site web moderne et professionnel pour "La mie du coin" avec:
 - ✅ 5 pages HTML complètes
+- ✅ **Système de traduction FR/EN fonctionnel** 🇫🇷 🇬🇧
 - ✅ Design responsive et moderne
 - ✅ 30+ produits catalogués
 - ✅ Identité visuelle cohérente
-- ✅ Navigation intuitive
+- ✅ Navigation intuitive avec sélecteur de langue
 - ✅ Formulaire de contact fonctionnel
 - ✅ Structure prête pour développement futur
+- ✅ **~80+ clés de traduction disponibles**
 
 **Le site est prêt pour les tests!** 🚀
+
+### 🌐 Test de la Traduction
+```bash
+# Lancer le serveur
+cd Test
+python -m http.server 8000
+
+# Ouvrir la page de test
+http://localhost:8000/test-translation.html
+
+# Ou la page d'accueil
+http://localhost:8000/index.html
+```
+
+**Actions à tester:**
+1. Cliquer sur FR/EN dans la navigation
+2. Vérifier la traduction instantanée
+3. Rafraîchir la page pour vérifier la persistance
+4. Consulter `README-TRADUCTION.md` pour plus de détails
 
 ---
 
