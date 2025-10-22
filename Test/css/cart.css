@@ -88,21 +88,6 @@
     flex-shrink: 0;
 }
 
-.cart-count-badge {
-    background: #dc3545;
-    color: white;
-    border-radius: 12px;
-    min-width: 32px;
-    height: 32px;
-    padding: 0 8px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: 1rem;
-    box-shadow: 0 2px 6px rgba(220, 53, 69, 0.4);
-}
-
 .cart-count-inline {
     font-weight: normal;
     opacity: 0.9;
@@ -394,21 +379,4 @@ input[type="number"]::-webkit-outer-spin-button {
 /* Styles pour les boutons de quantité */
 .input-group .btn {
     z-index: 0;
-}
-
-/* Badge de compteur dans la navbar (si ajouté) */
-#cart-count {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    background: var(--accent-color, #FFD700);
-    color: var(--primary-color, #8B4513);
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    font-size: 0.7rem;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
