@@ -91,8 +91,7 @@
                     <!-- En-tête du panier -->
                     <div class="cart-header">
                         <h3 class="h5 mb-0">
-                            <i class="bi bi-cart3"></i> <span data-i18n="orders.myCart">Mon Panier</span>
-                            <span id="cart-count" class="cart-count-badge ms-2" style="display: none;">0</span>
+                            <i class="bi bi-cart3"></i> <span data-i18n="orders.myCart">Mon Panier</span> <span id="cart-count" class="cart-count-inline" style="display: none;"></span>
                         </h3>
                     </div>
 
@@ -120,43 +119,26 @@
 
                     <!-- Total (affiché seulement si panier non vide) -->
                     <div id="cart-total-section" class="cart-total" style="display: none;">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <span class="h5 mb-0" data-i18n="orders.total">Total:</span>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="h6 mb-0 d-flex align-items-center gap-2">
+                                <span data-i18n="orders.total">Total:</span>
+                                <span class="info-tooltip">
+                                    <i class="bi bi-info-circle text-primary" style="font-size: 0.9rem;"></i>
+                                    <div class="tooltip-content">
+                                        <strong><i class="bi bi-check-circle text-success"></i> <span data-i18n="orders.noTaxes">Pas de taxes!</span></strong>
+                                        <p class="mb-2 mt-1" style="font-size: 0.8rem;"><span data-i18n="orders.noTaxesDesc">Les produits de boulangerie sont exempts de taxes au Québec.</span></p>
+                                        <ul class="small">
+                                            <li><i class="bi bi-check-circle text-success"></i> <span data-i18n="orders.minOrder">Commande minimum: 10.00 $</span></li>
+                                            <li><i class="bi bi-check-circle text-success"></i> <span data-i18n="orders.freePickup">Ramassage en magasin gratuit</span></li>
+                                            <li><i class="bi bi-check-circle text-success"></i> <span data-i18n="orders.freshDaily">Produits frais du jour</span></li>
+                                            <li><i class="bi bi-check-circle text-success"></i> <span data-i18n="orders.securePayment">Paiement sécurisé</span></li>
+                                        </ul>
+                                    </div>
+                                </span>
+                            </span>
                             <span class="total-amount">
                                 <span id="cart-total">0.00</span> $
                             </span>
-                        </div>
-                        
-                        <div class="alert alert-success mb-3">
-                            <small>
-                                <i class="bi bi-check-circle"></i> 
-                                <strong data-i18n="orders.noTaxes">Pas de taxes!</strong> <span data-i18n="orders.noTaxesDesc">Les produits de boulangerie sont exempts de taxes au Québec.</span>
-                            </small>
-                        </div>
-
-                        <!-- Informations -->
-                        <div class="mb-3">
-                            <h6 class="mb-2">
-                                <i class="bi bi-info-circle text-primary"></i> <span data-i18n="orders.infoTitle">Informations</span>
-                            </h6>
-                            <ul class="list-unstyled mb-0 small">
-                                <li class="mb-1">
-                                    <i class="bi bi-check-circle text-success"></i> 
-                                    <span data-i18n="orders.minOrder">Commande minimum: 10.00 $</span>
-                                </li>
-                                <li class="mb-1">
-                                    <i class="bi bi-check-circle text-success"></i> 
-                                    <span data-i18n="orders.freePickup">Ramassage en magasin gratuit</span>
-                                </li>
-                                <li class="mb-1">
-                                    <i class="bi bi-check-circle text-success"></i> 
-                                    <span data-i18n="orders.freshDaily">Produits frais du jour</span>
-                                </li>
-                                <li class="mb-0">
-                                    <i class="bi bi-check-circle text-success"></i> 
-                                    <span data-i18n="orders.securePayment">Paiement sécurisé</span>
-                                </li>
-                            </ul>
                         </div>
 
                         <button class="btn btn-checkout btn-primary w-100" onclick="alert(getTranslation('orders.devWarningDesc') + ' (555) 123-4567 ' + getTranslation('orders.or') + ' commandes@lamieducoin.ca. Total: ' + cart.getTotal().toFixed(2) + ' $ CAD')">

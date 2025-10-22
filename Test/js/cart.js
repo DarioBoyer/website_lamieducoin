@@ -337,8 +337,12 @@ class ShoppingCart {
         // Mettre à jour le compteur
         const totalItems = this.getTotalItems();
         if (cartCount) {
-            cartCount.textContent = totalItems;
-            cartCount.style.display = totalItems > 0 ? 'inline' : 'none';
+            if (totalItems > 0) {
+                cartCount.textContent = `(${totalItems})`;
+                cartCount.style.display = 'inline';
+            } else {
+                cartCount.style.display = 'none';
+            }
         }
 
         // Afficher/masquer message panier vide

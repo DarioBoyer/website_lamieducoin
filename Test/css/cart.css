@@ -73,7 +73,11 @@
     position: sticky;
     top: 100px;
     max-height: calc(100vh - 120px);
-    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .cart-header {
@@ -81,33 +85,67 @@
     color: white;
     padding: 1.5rem;
     border-radius: 10px 10px 0 0;
+    flex-shrink: 0;
 }
 
 .cart-count-badge {
-    background: var(--accent-color, #FFD700);
-    color: var(--primary-color, #8B4513);
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
+    background: #dc3545;
+    color: white;
+    border-radius: 12px;
+    min-width: 32px;
+    height: 32px;
+    padding: 0 8px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    font-size: 0.9rem;
+    font-size: 1rem;
+    box-shadow: 0 2px 6px rgba(220, 53, 69, 0.4);
+}
+
+.cart-count-inline {
+    font-weight: normal;
+    opacity: 0.9;
 }
 
 .cart-body {
     background: white;
-    padding: 1.5rem;
-    border-radius: 0 0 10px 10px;
+    padding: 1rem;
     border: 1px solid #dee2e6;
     border-top: none;
+    border-bottom: none;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+/* Scrollbar personnalisée pour le corps du panier */
+.cart-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.cart-body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+    margin: 4px 0;
+}
+
+.cart-body::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.cart-body::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 
 /* Items du panier */
 .cart-item {
     background: #f8f9fa;
     transition: all 0.3s ease;
+    padding: 0.75rem !important;
+    margin-bottom: 0.75rem !important;
 }
 
 .cart-item:hover {
@@ -117,12 +155,12 @@
 /* Message panier vide */
 .empty-cart-message {
     text-align: center;
-    padding: 3rem 1rem;
+    padding: 2rem 1rem;
     color: #6c757d;
 }
 
 .empty-cart-message i {
-    font-size: 4rem;
+    font-size: 3rem;
     color: #dee2e6;
     margin-bottom: 1rem;
 }
@@ -131,23 +169,82 @@
 .cart-total {
     background: linear-gradient(135deg, #f8f9fa, #e9ecef);
     border-top: 2px solid var(--primary-color, #8B4513);
-    padding: 1.5rem;
+    padding: 1rem 1rem 1.2rem 1rem;
     border-radius: 0 0 10px 10px;
+    flex-shrink: 0;
 }
 
 .cart-total .total-amount {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     color: var(--primary-color, #8B4513);
     font-weight: bold;
+}
+
+/* Tooltip d'informations */
+.info-tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: help;
+}
+
+.info-tooltip .tooltip-content {
+    visibility: hidden;
+    width: 300px;
+    background-color: #333;
+    color: #fff;
+    text-align: left;
+    border-radius: 8px;
+    padding: 12px;
+    position: absolute;
+    z-index: 1000;
+    bottom: 125%;
+    right: 0;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 0.85rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.info-tooltip .tooltip-content::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    right: 20px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+}
+
+.info-tooltip:hover .tooltip-content {
+    visibility: visible;
+    opacity: 1;
+}
+
+.info-tooltip .tooltip-content ul {
+    margin: 0.5rem 0 0 0;
+    padding-left: 1.2rem;
+}
+
+.info-tooltip .tooltip-content li {
+    margin-bottom: 0.4rem;
+}
+
+.info-tooltip .tooltip-content li:last-child {
+    margin-bottom: 0;
+}
+
+.info-tooltip .tooltip-content p {
+    margin: 0;
 }
 
 /* Boutons du panier */
 .btn-checkout {
     background: linear-gradient(135deg, var(--primary-color, #8B4513), var(--primary-light, #D2691E));
     border: none;
-    padding: 1rem;
+    padding: 0.75rem;
     font-weight: bold;
     transition: all 0.3s ease;
+    font-size: 0.95rem;
 }
 
 .btn-checkout:hover {
