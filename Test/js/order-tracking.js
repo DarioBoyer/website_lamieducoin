@@ -105,7 +105,8 @@
 
     // Load order data
     async function loadOrderData() {
-        const orderGuid = getUrlParameter('guid');
+        // Support both 'guid' and 'order' parameters
+        const orderGuid = getUrlParameter('order') || getUrlParameter('guid');
         
         if (!orderGuid) {
             showOrderNotFound();

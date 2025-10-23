@@ -15,6 +15,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/cart.css">
+    <link rel="stylesheet" href="../css/checkout.css">
     
     <!-- Translations -->
     <script src="../js/translations.js"></script>
@@ -141,8 +142,8 @@
                             </span>
                         </div>
 
-                        <button class="btn btn-checkout btn-primary w-100" onclick="alert(getTranslation('orders.devWarningDesc') + ' (555) 123-4567 ' + getTranslation('orders.or') + ' commandes@lamieducoin.ca. Total: ' + cart.getTotal().toFixed(2) + ' $ CAD')">
-                            <i class="bi bi-credit-card"></i> <span data-i18n="orders.checkout">Procéder au paiement</span>
+                        <button class="btn btn-checkout btn-primary w-100" onclick="openCheckout()">
+                            <i class="bi bi-credit-card"></i> <span data-i18n="orders.checkout">Passer la commande</span>
                         </button>
                     </div>
                 </div>
@@ -216,8 +217,8 @@
                         <span id="modal-cart-total">0.00</span> $
                     </span>
                 </div>
-                <button class="btn btn-checkout btn-primary w-100" onclick="alert(getTranslation('orders.devWarningDesc') + ' (555) 123-4567 ' + getTranslation('orders.or') + ' commandes@lamieducoin.ca. Total: ' + cart.getTotal().toFixed(2) + ' $ CAD')">
-                    <i class="bi bi-credit-card"></i> <span data-i18n="orders.checkout">Procéder au paiement</span>
+                <button class="btn btn-checkout btn-primary w-100" onclick="openCheckout()">
+                    <i class="bi bi-credit-card"></i> <span data-i18n="orders.checkout">Passer la commande</span>
                 </button>
             </div>
         </div>
@@ -229,7 +230,9 @@
     <!-- Custom JS -->
     <script src="../js/utils.js"></script>
     <script src="../js/main.js"></script>
+    <script src="../js/order-manager.js"></script>
     <script src="../js/cart.js"></script>
+    <script src="../js/checkout.js"></script>
     
     <!-- Load Components -->
     <script>
