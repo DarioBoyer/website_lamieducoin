@@ -1,0 +1,83 @@
+{
+  "orderStatuses": {
+    "New": {
+      "fr": "Reçu",
+      "en": "Received"
+    },
+    "Plan": {
+      "fr": "Planifié",
+      "en": "Planned"
+    },
+    "Production": {
+      "fr": "En production",
+      "en": "In Production"
+    },
+    "Completed": {
+      "fr": "Prête",
+      "en": "Ready"
+    },
+    "Done": {
+      "fr": "Récupéré client",
+      "en": "Picked Up"
+    },
+    "Cancel": {
+      "fr": "Annulé client",
+      "en": "Cancelled"
+    }
+  },
+  "lineStatuses": {
+    "ToDo": {
+      "fr": "À faire",
+      "en": "To Do"
+    },
+    "Plan": {
+      "fr": "Planifié",
+      "en": "Planned"
+    },
+    "Production": {
+      "fr": "En production",
+      "en": "In Production"
+    },
+    "Completed": {
+      "fr": "Complété",
+      "en": "Completed"
+    }
+  },
+  "orders": [
+    {
+      "orderId": 1,
+      "customerLastName": "Dupont",
+      "customerFirstName": "Jean",
+      "email": "jean.dupont@example.com",
+      "phone": "514-555-1234",
+      "language": "fr",
+      "orderNote": "Livraison le matin si possible",
+      "totalAmount": 45.50,
+      "status": "New",
+      "scheduledOn": "2025-10-23T10:30:00",
+      "deliveryDate": "2025-10-25",
+      "deposit": 15.00,
+      "paid": false,
+      "orderLines": [
+        {
+          "productId": "P001",
+          "quantityOrdered": 2,
+          "quantityProduced": 0,
+          "price": 12.50,
+          "lineTotal": 25.00,
+          "lineStatus": "ToDo",
+          "scheduledOn": "2025-10-24T08:00:00"
+        },
+        {
+          "productId": "P005",
+          "quantityOrdered": 1,
+          "quantityProduced": 0,
+          "price": 20.50,
+          "lineTotal": 20.50,
+          "lineStatus": "ToDo",
+          "scheduledOn": "2025-10-24T08:00:00"
+        }
+      ]
+    }
+  ]
+}
