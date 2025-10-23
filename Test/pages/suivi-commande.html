@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Suivez votre commande - La mie du coin">
+    <title>Suivi de commande - La mie du coin</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/order-tracking.css">
+    
+    <!-- Translations -->
+    <script src="../js/translations.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="../index.html">
+                <i class="bi bi-shop"></i> La mie du coin
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html"><i class="bi bi-house"></i> <span data-i18n="nav.home">Accueil</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="produits.html"><i class="bi bi-basket"></i> <span data-i18n="nav.products">Produits</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="commandes.html"><i class="bi bi-cart"></i> <span data-i18n="nav.orders">Commandes</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="historique.html"><i class="bi bi-clock-history"></i> <span data-i18n="nav.history">Notre Histoire</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html"><i class="bi bi-envelope"></i> <span data-i18n="nav.contact">Contact</span></a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <div class="language-switcher d-flex gap-1">
+                            <button class="lang-btn btn btn-sm btn-outline-primary" data-lang="fr" title="Français">FR</button>
+                            <button class="lang-btn btn btn-sm btn-outline-primary" data-lang="en" title="English">EN</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Loading Spinner -->
+    <div id="loading" class="loading-container">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Chargement...</span>
+        </div>
+        <p class="mt-3" data-i18n="tracking.loading">Chargement de votre commande...</p>
+    </div>
+
+    <!-- Order Not Found -->
+    <div id="order-not-found" class="container my-5 d-none">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="error-card text-center">
+                    <div class="error-icon">
+                        <i class="bi bi-exclamation-circle"></i>
+                    </div>
+                    <h2 class="mb-3" data-i18n="tracking.notFoundTitle">Commande introuvable</h2>
+                    <p class="text-muted mb-4" data-i18n="tracking.notFoundMessage">
+                        Désolé, nous n'avons pas trouvé de commande correspondant à ce numéro.
+                    </p>
+                    <p class="small text-muted mb-4" data-i18n="tracking.notFoundHelp">
+                        Veuillez vérifier le lien que vous avez reçu par courriel ou contactez-nous pour obtenir de l'aide.
+                    </p>
+                    <div class="d-flex gap-3 justify-content-center">
+                        <a href="../index.html" class="btn btn-primary">
+                            <i class="bi bi-house"></i> <span data-i18n="tracking.btnHome">Retour à l'accueil</span>
+                        </a>
+                        <a href="contact.html" class="btn btn-outline-primary">
+                            <i class="bi bi-envelope"></i> <span data-i18n="tracking.btnContact">Nous contacter</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Content -->
+    <div id="order-content" class="container my-5 d-none">
+        <!-- Order Header -->
+        <div class="row mb-4">
+            <div class="col">
+                <div class="order-header">
+                    <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+                        <div>
+                            <h1 class="mb-2">
+                                <i class="bi bi-receipt"></i> 
+                                <span data-i18n="tracking.orderTitle">Commande</span> #<span id="order-number"></span>
+                            </h1>
+                            <p class="text-muted mb-0">
+                                <i class="bi bi-person"></i> 
+                                <span id="customer-name"></span>
+                            </p>
+                        </div>
+                        <div class="text-end">
+                            <div id="status-badge" class="status-badge mb-2"></div>
+                            <p class="small text-muted mb-0">
+                                <i class="bi bi-calendar"></i> 
+                                <span data-i18n="tracking.orderDate">Commandé le</span>: <span id="order-date"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Timeline / Progress -->
+        <div class="row mb-4">
+            <div class="col">
+                <div class="status-section">
+                    <h3 class="mb-4"><i class="bi bi-bar-chart-steps"></i> <span data-i18n="tracking.statusTitle">Statut de votre commande</span></h3>
+                    
+                    <!-- Timeline for non-production statuses -->
+                    <div id="status-timeline" class="timeline d-none">
+                        <div class="timeline-item" data-status="New">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <h5 data-i18n="tracking.statusReceived">Commande reçue</h5>
+                                <p class="small text-muted" data-i18n="tracking.statusReceivedDesc">Votre commande a été enregistrée</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item" data-status="Plan">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <h5 data-i18n="tracking.statusPlanned">Planifiée</h5>
+                                <p class="small text-muted">
+                                    <span data-i18n="tracking.statusPlannedDesc">Production prévue le</span>: <span id="planned-date"></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="timeline-item" data-status="Production">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <h5 data-i18n="tracking.statusProduction">En production</h5>
+                                <p class="small text-muted" data-i18n="tracking.statusProductionDesc">Votre commande est en cours de préparation</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item" data-status="Completed">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <h5 data-i18n="tracking.statusReady">Prête pour récupération</h5>
+                                <p class="small text-muted" data-i18n="tracking.statusReadyDesc">Votre commande vous attend</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item" data-status="Done">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <h5 data-i18n="tracking.statusDone">Récupérée</h5>
+                                <p class="small text-muted" data-i18n="tracking.statusDoneDesc">Merci de votre confiance!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Production Progress -->
+                    <div id="production-progress" class="production-section d-none">
+                        <div class="alert alert-info mb-4">
+                            <i class="bi bi-info-circle"></i> 
+                            <span data-i18n="tracking.productionMessage">
+                                Votre commande est actuellement en production. Nos artisans boulangers travaillent avec soin sur vos produits.
+                            </span>
+                        </div>
+                        
+                        <div class="production-stats mb-4">
+                            <div class="row text-center">
+                                <div class="col-6 col-md-3 mb-3">
+                                    <div class="stat-card">
+                                        <div class="stat-icon"><i class="bi bi-clipboard-check"></i></div>
+                                        <div class="stat-value" id="total-items">0</div>
+                                        <div class="stat-label" data-i18n="tracking.totalItems">Articles au total</div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3 mb-3">
+                                    <div class="stat-card">
+                                        <div class="stat-icon text-success"><i class="bi bi-check-circle"></i></div>
+                                        <div class="stat-value text-success" id="completed-items">0</div>
+                                        <div class="stat-label" data-i18n="tracking.completedItems">Complétés</div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3 mb-3">
+                                    <div class="stat-card">
+                                        <div class="stat-icon text-primary"><i class="bi bi-arrow-repeat"></i></div>
+                                        <div class="stat-value text-primary" id="inprogress-items">0</div>
+                                        <div class="stat-label" data-i18n="tracking.inProgressItems">En cours</div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3 mb-3">
+                                    <div class="stat-card">
+                                        <div class="stat-icon text-warning"><i class="bi bi-hourglass-split"></i></div>
+                                        <div class="stat-value text-warning" id="pending-items">0</div>
+                                        <div class="stat-label" data-i18n="tracking.pendingItems">En attente</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="overall-progress mb-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="fw-bold" data-i18n="tracking.overallProgress">Progression globale</span>
+                                <span class="fw-bold"><span id="progress-percentage">0</span>%</span>
+                            </div>
+                            <div class="progress" style="height: 30px;">
+                                <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated bg-success" 
+                                     role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                    <span class="fw-bold"><span id="progress-text">0</span>%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Production Items Detail -->
+                        <div id="production-items" class="production-items"></div>
+                    </div>
+
+                    <!-- Cancelled Status -->
+                    <div id="cancelled-status" class="alert alert-danger d-none">
+                        <i class="bi bi-x-circle"></i> 
+                        <span data-i18n="tracking.cancelledMessage">
+                            Cette commande a été annulée. Si vous avez des questions, n'hésitez pas à nous contacter.
+                        </span>
+                    </div>
+
+                    <!-- Scheduled Date Info -->
+                    <div id="scheduled-info" class="alert alert-primary d-none">
+                        <i class="bi bi-calendar-event"></i> 
+                        <strong data-i18n="tracking.deliveryDate">Date de livraison prévue</strong>: <span id="delivery-date"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Details -->
+        <div class="row mb-4">
+            <div class="col-lg-8">
+                <div class="order-details">
+                    <h3 class="mb-4"><i class="bi bi-list-ul"></i> <span data-i18n="tracking.orderDetailsTitle">Détails de la commande</span></h3>
+                    <div id="order-items" class="order-items-list"></div>
+                    
+                    <div class="order-note mt-4" id="order-note-section" style="display: none;">
+                        <h5><i class="bi bi-sticky"></i> <span data-i18n="tracking.noteTitle">Note</span></h5>
+                        <p id="order-note" class="text-muted"></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="order-summary">
+                    <h3 class="mb-4"><i class="bi bi-calculator"></i> <span data-i18n="tracking.summaryTitle">Résumé</span></h3>
+                    
+                    <div class="summary-row">
+                        <span data-i18n="tracking.subtotal">Sous-total</span>
+                        <span id="order-total">0.00 $</span>
+                    </div>
+                    
+                    <div class="summary-row" id="deposit-row" style="display: none;">
+                        <span data-i18n="tracking.deposit">Dépôt</span>
+                        <span id="order-deposit">0.00 $</span>
+                    </div>
+                    
+                    <div class="summary-row total">
+                        <span data-i18n="tracking.total">Total</span>
+                        <span id="order-total-final">0.00 $</span>
+                    </div>
+                    
+                    <div id="payment-status" class="mt-3"></div>
+                    
+                    <div class="contact-info mt-4 pt-3 border-top">
+                        <h5 class="mb-3"><i class="bi bi-person-circle"></i> <span data-i18n="tracking.contactInfoTitle">Vos informations</span></h5>
+                        <p class="small mb-2">
+                            <i class="bi bi-envelope"></i> <span id="customer-email"></span>
+                        </p>
+                        <p class="small mb-0">
+                            <i class="bi bi-telephone"></i> <span id="customer-phone"></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customer Comments Section -->
+        <div class="row mb-4">
+            <div class="col-lg-8">
+                <div class="comments-section">
+                    <h3 class="mb-4"><i class="bi bi-chat-left-text"></i> <span data-i18n="tracking.commentsTitle">Laisser un commentaire</span></h3>
+                    <p class="text-muted mb-3" data-i18n="tracking.commentsDesc">
+                        Vous avez une question ou une demande spéciale concernant votre commande? Faites-le nous savoir!
+                    </p>
+                    
+                    <form id="comment-form">
+                        <div class="mb-3">
+                            <textarea 
+                                class="form-control" 
+                                id="customer-comment" 
+                                rows="4" 
+                                placeholder="Votre message..."
+                                data-i18n-placeholder="tracking.commentPlaceholder"
+                            ></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-send"></i> <span data-i18n="tracking.btnSendComment">Envoyer le commentaire</span>
+                        </button>
+                    </form>
+                    
+                    <div id="comment-success" class="alert alert-success mt-3 d-none">
+                        <i class="bi bi-check-circle"></i> 
+                        <span data-i18n="tracking.commentSuccess">Merci pour votre message! Nous vous répondrons dans les plus brefs délais.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="row">
+            <div class="col">
+                <div class="action-buttons text-center">
+                    <a href="../index.html" class="btn btn-outline-primary">
+                        <i class="bi bi-house"></i> <span data-i18n="tracking.btnHome">Retour à l'accueil</span>
+                    </a>
+                    <a href="contact.html" class="btn btn-outline-primary">
+                        <i class="bi bi-envelope"></i> <span data-i18n="tracking.btnContact">Contactez-nous</span>
+                    </a>
+                    <button onclick="window.print()" class="btn btn-outline-primary">
+                        <i class="bi bi-printer"></i> <span data-i18n="tracking.btnPrint">Imprimer</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="../js/utils.js"></script>
+    <script src="../js/order-tracking.js"></script>
+    
+    <!-- Load Components -->
+    <script>
+        fetch('../components/footer.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('footer-placeholder').innerHTML = data);
+    </script>
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Suivi de commande</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body class="bg-light">
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow">
+                    <div class="card-body p-5">
+                        <h1 class="text-center mb-4">
+                            <i class="bi bi-search text-primary"></i> Test du système de suivi de commande
+                        </h1>
+                        
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle"></i>
+                            <strong>Information:</strong> Cette page vous permet de tester le système de suivi de commande.
+                        </div>
+
+                        <h3 class="mt-4 mb-3">Commandes de test disponibles:</h3>
+                        
+                        <div class="list-group mb-4">
+                            <a href="suivi-commande.html?guid=a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d" 
+                               class="list-group-item list-group-item-action">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="mb-1">
+                                            <i class="bi bi-receipt text-primary"></i> Commande #1 - Jean Dupont
+                                        </h5>
+                                        <p class="mb-1 text-muted">
+                                            Statut: <span class="badge bg-primary">En production</span> - 
+                                            Affiche la progression détaillée
+                                        </p>
+                                        <small class="text-muted">
+                                            3 produits (1 complété, 1 en cours, 1 en attente)
+                                        </small>
+                                    </div>
+                                    <i class="bi bi-arrow-right-circle fs-3 text-primary"></i>
+                                </div>
+                            </a>
+
+                            <a href="suivi-commande.html?guid=b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e" 
+                               class="list-group-item list-group-item-action">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="mb-1">
+                                            <i class="bi bi-receipt text-info"></i> Commande #2 - Marie Tremblay
+                                        </h5>
+                                        <p class="mb-1 text-muted">
+                                            Statut: <span class="badge bg-info">Reçu</span> - 
+                                            Première étape de la timeline
+                                        </p>
+                                        <small class="text-muted">
+                                            3 produits - Livraison prévue: 26 octobre
+                                        </small>
+                                    </div>
+                                    <i class="bi bi-arrow-right-circle fs-3 text-info"></i>
+                                </div>
+                            </a>
+
+                            <a href="suivi-commande.html?guid=c3d4e5f6-a7b8-4c9d-0e1f-2a3b4c5d6e7f" 
+                               class="list-group-item list-group-item-action">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="mb-1">
+                                            <i class="bi bi-receipt text-success"></i> Commande #3 - Robert Johnson
+                                        </h5>
+                                        <p class="mb-1 text-muted">
+                                            Statut: <span class="badge bg-success">Prête</span> - 
+                                            En anglais, payée, avec dépôt
+                                        </p>
+                                        <small class="text-muted">
+                                            3 produits tous complétés - Client: anglophone
+                                        </small>
+                                    </div>
+                                    <i class="bi bi-arrow-right-circle fs-3 text-success"></i>
+                                </div>
+                            </a>
+
+                            <a href="suivi-commande.html?guid=d4e5f6a7-b8c9-4d0e-1f2a-3b4c5d6e7f8a" 
+                               class="list-group-item list-group-item-action">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="mb-1">
+                                            <i class="bi bi-receipt text-warning"></i> Commande #4 - Sophie Gagnon
+                                        </h5>
+                                        <p class="mb-1 text-muted">
+                                            Statut: <span class="badge bg-warning text-dark">Planifié</span> - 
+                                            Affiche la date prévue
+                                        </p>
+                                        <small class="text-muted">
+                                            2 produits sans gluten - Production: 26 octobre
+                                        </small>
+                                    </div>
+                                    <i class="bi bi-arrow-right-circle fs-3 text-warning"></i>
+                                </div>
+                            </a>
+
+                            <a href="suivi-commande.html?guid=e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7f8a9b" 
+                               class="list-group-item list-group-item-action">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="mb-1">
+                                            <i class="bi bi-receipt text-secondary"></i> Commande #5 - Pierre Leblanc
+                                        </h5>
+                                        <p class="mb-1 text-muted">
+                                            Statut: <span class="badge bg-secondary">Récupérée</span> - 
+                                            Commande terminée
+                                        </p>
+                                        <small class="text-muted">
+                                            2 produits (viennoiseries) - Payé et récupéré
+                                        </small>
+                                    </div>
+                                    <i class="bi bi-arrow-right-circle fs-3 text-secondary"></i>
+                                </div>
+                            </a>
+
+                            <a href="suivi-commande.html?guid=invalide-guid-test-404" 
+                               class="list-group-item list-group-item-action list-group-item-danger">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="mb-1">
+                                            <i class="bi bi-x-circle text-danger"></i> Test GUID invalide
+                                        </h5>
+                                        <p class="mb-1 text-muted">
+                                            Cliquez pour voir le message d'erreur "Commande introuvable"
+                                        </p>
+                                        <small class="text-muted">
+                                            GUID: invalide-guid-test-404
+                                        </small>
+                                    </div>
+                                    <i class="bi bi-arrow-right-circle fs-3 text-danger"></i>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <i class="bi bi-lightbulb"></i> Comment utiliser
+                                </h5>
+                                <ol class="mb-0">
+                                    <li>Cliquez sur une commande de test ci-dessus</li>
+                                    <li>Vous serez redirigé vers la page de suivi avec le GUID dans l'URL</li>
+                                    <li>La page affichera les détails de la commande, son statut et sa progression</li>
+                                    <li>Pour tester un GUID invalide, modifiez l'URL manuellement</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-warning mt-4">
+                            <i class="bi bi-exclamation-triangle"></i>
+                            <strong>Note:</strong> Dans un système réel, le GUID serait envoyé au client par courriel après la confirmation de sa commande.
+                        </div>
+
+                        <div class="mt-4 text-center">
+                            <a href="../index.html" class="btn btn-outline-primary">
+                                <i class="bi bi-house"></i> Retour à l'accueil
+                            </a>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <h5 class="mb-3">Fonctionnalités implémentées:</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <ul class="list-unstyled">
+                                    <li><i class="bi bi-check-circle-fill text-success"></i> Recherche de commande par GUID</li>
+                                    <li><i class="bi bi-check-circle-fill text-success"></i> Affichage du statut avec timeline visuelle</li>
+                                    <li><i class="bi bi-check-circle-fill text-success"></i> Progression en temps réel pour statut "Production"</li>
+                                    <li><i class="bi bi-check-circle-fill text-success"></i> Détails de la commande et produits</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="list-unstyled">
+                                    <li><i class="bi bi-check-circle-fill text-success"></i> Section commentaires pour le client</li>
+                                    <li><i class="bi bi-check-circle-fill text-success"></i> Design responsive (desktop, tablette, mobile)</li>
+                                    <li><i class="bi bi-check-circle-fill text-success"></i> Support bilingue (FR/EN)</li>
+                                    <li><i class="bi bi-check-circle-fill text-success"></i> Option d'impression</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="card bg-light mt-4">
+                            <div class="card-body">
+                                <h5 class="card-title mb-3">
+                                    <i class="bi bi-bar-chart-steps"></i> États des commandes
+                                </h5>
+                                <div class="row g-2">
+                                    <div class="col-md-4">
+                                        <div class="small">
+                                            <span class="badge bg-info">Reçu</span> → 
+                                            <span class="badge bg-warning text-dark">Planifié</span> → 
+                                            <span class="badge bg-primary">Production</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="small">
+                                            <span class="badge bg-success">Prête</span> → 
+                                            <span class="badge bg-secondary">Récupérée</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="small">
+                                            <span class="badge bg-danger">Annulée</span> (tout moment)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
