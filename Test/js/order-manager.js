@@ -12,6 +12,18 @@ class OrderManager {
     }
 
     /**
+     * Génère un GUID (UUID v4)
+     * @returns {string} Un GUID unique
+     */
+    generateGuid() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            const r = Math.random() * 16 | 0;
+            const v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+
+    /**
      * Initialise le gestionnaire de commandes
      * Charge les données depuis les fichiers JSON
      */
@@ -48,6 +60,7 @@ class OrderManager {
         // Créer la nouvelle commande avec le statut "New"
         const newOrder = {
             orderId: orderId,
+            orderGuid: this.generateGuid(),
             customerLastName: orderData.customerLastName || '',
             customerFirstName: orderData.customerFirstName || '',
             email: orderData.email || '',
@@ -390,6 +403,15 @@ class OrderManager {
     }
 
     /**
+     * Récupère une commande par son GUID
+     * @param {string} orderGuid - GUID de la commande
+     * @returns {Object|null} La commande ou null si non trouvée
+     */
+    getOrderByGuid(orderGuid) {
+        return this.orders.find(order => order.orderGuid === orderGuid) || null;
+    }
+
+    /**
      * Récupère toutes les commandes
      * @returns {Array} Liste des commandes
      */
@@ -506,6 +528,7 @@ class OrderManager {
 ========================================
 COMMANDE #${order.orderId}
 ========================================
+GUID: ${order.orderGuid}
 Client: ${order.customerFirstName} ${order.customerLastName}
 Email: ${order.email}
 Téléphone: ${order.phone}
