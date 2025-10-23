@@ -38,6 +38,11 @@ class ShoppingCart {
     saveCart() {
         localStorage.setItem('shoppingCart', JSON.stringify(this.items));
         this.updateCartDisplay();
+        
+        // Mettre à jour le panier mobile si la fonction existe
+        if (typeof updateMobileCart === 'function') {
+            updateMobileCart();
+        }
     }
 
     /**
@@ -111,6 +116,31 @@ class ShoppingCart {
      */
     getTotalItems() {
         return this.items.reduce((total, item) => total + item.quantity, 0);
+    }
+
+    /**
+     * Alias pour getTotalItems (compatibilité)
+     */
+    getItemCount() {
+        return this.getTotalItems();
+    }
+
+    /**
+     * Obtenir tous les items du panier avec les détails des produits
+     */
+    getItems() {
+        return this.items.map(item => {
+            const product = this.products.find(p => p.id === item.productId);
+            if (!product) return null;
+            
+            return {
+                id: item.productId,
+                name: product.title[this.currentLang],
+                icon: product.icon,
+                price: item.price,
+                quantity: item.quantity
+            };
+        }).filter(item => item !== null);
     }
 
     /**
