@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gestion des commandes - La mie du coin">
+    <title>Gestion des Commandes - La mie du coin</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="css/admin-orders.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="../index.html">
+                <i class="bi bi-shop"></i> La mie du coin - Admin
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="bi bi-house"></i> Accueil
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="gestion-commandes.html">
+                            <i class="bi bi-cart-check"></i> Commandes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gestion-produits.html">
+                            <i class="bi bi-basket"></i> Produits
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gestion-inventaire.html">
+                            <i class="bi bi-box-seam"></i> Inventaire
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gestion-production.html">
+                            <i class="bi bi-gear-fill"></i> Production
+                        </a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="nav-link" href="../index.html">
+                            <i class="bi bi-box-arrow-left"></i> Retour au site
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid py-4">
+        <div class="row mb-4">
+            <div class="col">
+                <h1 class="display-5 fw-bold mb-2">
+                    <i class="bi bi-cart-check"></i> Gestion des Commandes
+                </h1>
+                <p class="text-muted">Vue d'ensemble et gestion de toutes les commandes</p>
+            </div>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="row mb-4">
+            <div class="col-md-3 mb-3">
+                <div class="card stat-card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="stat-icon bg-primary bg-opacity-10 text-primary me-3">
+                                <i class="bi bi-inbox-fill"></i>
+                            </div>
+                            <div>
+                                <h6 class="text-muted mb-1">Nouvelles</h6>
+                                <h3 class="mb-0 fw-bold" id="stat-new">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card stat-card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="stat-icon bg-warning bg-opacity-10 text-warning me-3">
+                                <i class="bi bi-calendar-check"></i>
+                            </div>
+                            <div>
+                                <h6 class="text-muted mb-1">Planifiées</h6>
+                                <h3 class="mb-0 fw-bold" id="stat-plan">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card stat-card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="stat-icon bg-info bg-opacity-10 text-info me-3">
+                                <i class="bi bi-gear-fill"></i>
+                            </div>
+                            <div>
+                                <h6 class="text-muted mb-1">En Production</h6>
+                                <h3 class="mb-0 fw-bold" id="stat-production">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card stat-card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="stat-icon bg-success bg-opacity-10 text-success me-3">
+                                <i class="bi bi-check-circle-fill"></i>
+                            </div>
+                            <div>
+                                <h6 class="text-muted mb-1">Total Actives</h6>
+                                <h3 class="mb-0 fw-bold" id="stat-total">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filters and Search -->
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label for="searchInput" class="form-label">
+                            <i class="bi bi-search"></i> Rechercher
+                        </label>
+                        <input type="text" class="form-control" id="searchInput" 
+                               placeholder="Nom, email, téléphone...">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="statusFilter" class="form-label">
+                            <i class="bi bi-funnel"></i> Statut
+                        </label>
+                        <select class="form-select" id="statusFilter">
+                            <option value="active" selected>Actives seulement</option>
+                            <option value="all">Toutes</option>
+                            <option value="New">Nouvelles</option>
+                            <option value="Plan">Planifiées</option>
+                            <option value="Production">En Production</option>
+                            <option value="Completed">Prêtes</option>
+                            <option value="Done">Récupérées</option>
+                            <option value="Cancel">Annulées</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="dateFilter" class="form-label">
+                            <i class="bi bi-calendar"></i> Date de livraison
+                        </label>
+                        <input type="date" class="form-control" id="dateFilter">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label d-block">&nbsp;</label>
+                        <button class="btn btn-secondary w-100" id="resetFilters">
+                            <i class="bi bi-arrow-clockwise"></i> Réinitialiser
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Orders Table -->
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white border-bottom">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">
+                        <i class="bi bi-list-ul"></i> Liste des Commandes
+                        <span class="badge bg-primary ms-2" id="orderCount">0</span>
+                    </h5>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-sm btn-outline-secondary active" data-view="table">
+                            <i class="bi bi-table"></i> Tableau
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary" data-view="cards">
+                            <i class="bi bi-grid-3x3-gap"></i> Cartes
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <!-- Table View -->
+                <div id="tableView" class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="sortable" data-sort="orderId">
+                                    # Commande <i class="bi bi-chevron-expand"></i>
+                                </th>
+                                <th class="sortable" data-sort="customer">
+                                    Client <i class="bi bi-chevron-expand"></i>
+                                </th>
+                                <th class="sortable" data-sort="deliveryDate">
+                                    Date Livraison <i class="bi bi-chevron-expand"></i>
+                                </th>
+                                <th class="sortable" data-sort="itemCount">
+                                    Nb Items <i class="bi bi-chevron-expand"></i>
+                                </th>
+                                <th class="sortable" data-sort="totalAmount">
+                                    Montant <i class="bi bi-chevron-expand"></i>
+                                </th>
+                                <th class="sortable" data-sort="status">
+                                    Statut <i class="bi bi-chevron-expand"></i>
+                                </th>
+                                <th>Contact</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                            <tr>
+                                <td colspan="8" class="text-center py-5">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Chargement...</span>
+                                    </div>
+                                    <p class="mt-2 text-muted">Chargement des commandes...</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Cards View (hidden by default) -->
+                <div id="cardsView" class="d-none p-3">
+                    <div class="row" id="ordersCardsContainer">
+                        <!-- Cards will be inserted here -->
+                    </div>
+                </div>
+
+                <!-- Empty State -->
+                <div id="emptyState" class="text-center py-5 d-none">
+                    <i class="bi bi-inbox fs-1 text-muted"></i>
+                    <p class="mt-3 text-muted">Aucune commande trouvée</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Detail Modal -->
+    <div class="modal fade" id="orderDetailModal" tabindex="-1" aria-labelledby="orderDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="orderDetailModalLabel">
+                        <i class="bi bi-receipt"></i> Détails de la Commande
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="orderDetailContent">
+                    <!-- Order details will be inserted here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <button type="button" class="btn btn-primary" id="printOrder">
+                        <i class="bi bi-printer"></i> Imprimer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="js/admin-orders.js"></script>
+</body>
+</html>

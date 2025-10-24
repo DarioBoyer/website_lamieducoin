@@ -100,6 +100,16 @@ function displayCategory(category) {
     });
 }
 
+// Get translated status
+function getStatusTranslation(status) {
+    if (!productsData || !productsData.metadata || !productsData.metadata.productStatuses) {
+        return status; // Fallback to original status if translations not available
+    }
+    
+    const statusData = productsData.metadata.productStatuses[status];
+    return statusData ? statusData[currentLanguage] : status;
+}
+
 // Create a product card element
 function createProductCard(product) {
     const col = document.createElement('div');
@@ -128,6 +138,18 @@ function createProductCard(product) {
     const title = document.createElement('h4');
     title.textContent = product.title[currentLanguage];
 
+    // Product status badge
+    const statusBadge = document.createElement('div');
+    statusBadge.className = 'product-status-badge';
+    
+    // Add status-specific class for styling
+    const statusClass = product.status ? product.status.toLowerCase() : 'active';
+    statusBadge.classList.add(`status-${statusClass}`);
+    
+    // Get translated status text
+    const statusText = product.status ? getStatusTranslation(product.status) : getStatusTranslation('Active');
+    statusBadge.textContent = statusText;
+    
     // Product description
     const description = document.createElement('p');
     description.textContent = product.description[currentLanguage];
@@ -161,6 +183,7 @@ function createProductCard(product) {
     // Assemble card
     card.appendChild(icon);
     card.appendChild(title);
+    card.appendChild(statusBadge);
     card.appendChild(description);
     card.appendChild(price);
     // Optionally add weight: card.appendChild(weight);

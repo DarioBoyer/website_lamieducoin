@@ -80,10 +80,10 @@ class CheckoutManager {
             </div>
         `).join('');
 
-        // Calculer la date minimale (demain)
-        const tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        const minDate = tomorrow.toISOString().split('T')[0];
+        // Calculer la date minimale (3 jours à partir d'aujourd'hui)
+        const minDeliveryDate = new Date();
+        minDeliveryDate.setDate(minDeliveryDate.getDate() + 3);
+        const minDate = minDeliveryDate.toISOString().split('T')[0];
 
         modal.innerHTML = `
             <div class="checkout-modal-content">

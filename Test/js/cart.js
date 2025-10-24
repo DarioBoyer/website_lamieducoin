@@ -150,7 +150,8 @@ class ShoppingCart {
         try {
             const response = await fetch('../data/products.json');
             const data = await response.json();
-            this.products = data.products.filter(p => p.available);
+            // Filtrer uniquement les produits disponibles et de type "retail"
+            this.products = data.products.filter(p => p.available && p.productType === 'retail');
             return this.products;
         } catch (error) {
             console.error('Erreur lors du chargement des produits:', error);

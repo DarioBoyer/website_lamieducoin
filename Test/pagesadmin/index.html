@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tableau de bord administratif - La mie du coin">
+    <title>Tableau de Bord - La mie du coin</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="css/admin-styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="bi bi-shop"></i> La mie du coin - Admin
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">
+                            <i class="bi bi-house"></i> Accueil
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gestion-commandes.html">
+                            <i class="bi bi-cart-check"></i> Commandes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gestion-produits.html">
+                            <i class="bi bi-basket"></i> Produits
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gestion-inventaire.html">
+                            <i class="bi bi-box-seam"></i> Inventaire
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gestion-production.html">
+                            <i class="bi bi-gear-fill"></i> Production
+                        </a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="nav-link" href="../index.html">
+                            <i class="bi bi-box-arrow-left"></i> Retour au site
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid py-4">
+        <div class="row mb-4">
+            <div class="col">
+                <h1 class="display-5 fw-bold mb-2">
+                    <i class="bi bi-speedometer2"></i> Tableau de Bord
+                </h1>
+                <p class="text-muted">Vue d'ensemble de vos opérations quotidiennes</p>
+            </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="row mb-4">
+            <div class="col-md-3 mb-3">
+                <div class="card stat-card border-0 shadow-sm h-100 border-start border-primary border-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div>
+                                <h6 class="text-muted mb-1">Nouvelles Commandes</h6>
+                                <h2 class="mb-0 fw-bold text-primary" id="stat-new-orders">0</h2>
+                                <small class="text-muted">À planifier</small>
+                            </div>
+                            <div class="stat-icon bg-primary bg-opacity-10 text-primary">
+                                <i class="bi bi-inbox-fill fs-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent border-0">
+                        <a href="gestion-commandes.html?status=New" class="btn btn-sm btn-outline-primary w-100">
+                            <i class="bi bi-eye"></i> Voir les commandes
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 mb-3">
+                <div class="card stat-card border-0 shadow-sm h-100 border-start border-warning border-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div>
+                                <h6 class="text-muted mb-1">Production du Jour</h6>
+                                <h2 class="mb-0 fw-bold text-warning" id="stat-today-production">0</h2>
+                                <small class="text-muted">Articles à produire</small>
+                            </div>
+                            <div class="stat-icon bg-warning bg-opacity-10 text-warning">
+                                <i class="bi bi-gear-fill fs-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent border-0">
+                        <a href="gestion-production.html" class="btn btn-sm btn-outline-warning w-100">
+                            <i class="bi bi-eye"></i> Voir la production
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 mb-3">
+                <div class="card stat-card border-0 shadow-sm h-100 border-start border-success border-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div>
+                                <h6 class="text-muted mb-1">Commandes Prêtes</h6>
+                                <h2 class="mb-0 fw-bold text-success" id="stat-ready-orders">0</h2>
+                                <small class="text-muted">À récupérer</small>
+                            </div>
+                            <div class="stat-icon bg-success bg-opacity-10 text-success">
+                                <i class="bi bi-check-circle-fill fs-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent border-0">
+                        <a href="gestion-commandes.html?status=Completed" class="btn btn-sm btn-outline-success w-100">
+                            <i class="bi bi-eye"></i> Voir les commandes
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 mb-3">
+                <div class="card stat-card border-0 shadow-sm h-100 border-start border-info border-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div>
+                                <h6 class="text-muted mb-1">Stock Bas</h6>
+                                <h2 class="mb-0 fw-bold text-info" id="stat-low-stock">0</h2>
+                                <small class="text-muted">Articles à commander</small>
+                            </div>
+                            <div class="stat-icon bg-info bg-opacity-10 text-info">
+                                <i class="bi bi-exclamation-triangle-fill fs-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent border-0">
+                        <a href="gestion-inventaire.html" class="btn btn-sm btn-outline-info w-100">
+                            <i class="bi bi-eye"></i> Voir l'inventaire
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tasks and Alerts -->
+        <div class="row">
+            <!-- Today's Tasks -->
+            <div class="col-lg-6 mb-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-header bg-white border-bottom">
+                        <h5 class="mb-0">
+                            <i class="bi bi-list-check"></i> Tâches du Jour
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="list-group list-group-flush" id="todayTasks">
+                            <div class="text-center py-4 text-muted">
+                                <i class="bi bi-hourglass-split fs-1"></i>
+                                <p class="mt-2">Chargement des tâches...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity / Alerts -->
+            <div class="col-lg-6 mb-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-header bg-white border-bottom">
+                        <h5 class="mb-0">
+                            <i class="bi bi-bell"></i> Alertes et Notifications
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="list-group list-group-flush" id="alerts">
+                            <div class="text-center py-4 text-muted">
+                                <i class="bi bi-check-circle fs-1"></i>
+                                <p class="mt-2">Aucune alerte pour le moment</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upcoming Deliveries -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white border-bottom">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">
+                                <i class="bi bi-calendar-check"></i> Livraisons à Venir
+                            </h5>
+                            <a href="gestion-commandes.html" class="btn btn-sm btn-outline-primary">
+                                Voir toutes les commandes <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Commande</th>
+                                        <th>Client</th>
+                                        <th>Articles</th>
+                                        <th>Statut</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="upcomingDeliveries">
+                                    <tr>
+                                        <td colspan="6" class="text-center py-4 text-muted">
+                                            <i class="bi bi-hourglass-split"></i> Chargement des livraisons...
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="js/admin-dashboard.js"></script>
+</body>
+</html>
