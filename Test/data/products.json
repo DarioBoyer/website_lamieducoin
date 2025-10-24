@@ -1,1104 +1,1104 @@
-﻿{
-    "products":  [
-                     {
-                         "id":  "pain-blanc-classique",
-                         "category":  "pains-base",
-                         "title":  {
-                                       "fr":  "Pain Blanc Classique",
-                                       "en":  "Classic White Bread"
-                                   },
-                         "description":  {
-                                             "fr":  "Le pain traditionnel par excellence, moelleux Ã  l\u0027intÃ©rieur avec une croÃ»te dorÃ©e et croustillante. Parfait pour tous les repas.",
-                                             "en":  "The quintessential traditional bread, soft inside with a golden, crispy crust. Perfect for all meals."
-                                         },
-                         "price":  5.99,
-                         "currency":  "CAD",
-                         "unit":  "loaf",
-                         "icon":  "ðŸž",
-                         "image":  "/img/products/pain-blanc-classique.jpg",
-                         "weight":  "675g",
-                         "allergens":  [
-                                           "gluten",
-                                           "wheat"
-                                       ],
-                         "ingredients":  [
-                                             "farine blanche",
-                                             "eau",
-                                             "levure",
-                                             "sel",
-                                             "sucre"
-                                         ],
-                         "available":  true,
-                         "featured":  false,
-                         "inventoryQuantity":  50,
-                         "productType":  "retail",
-                         "status":  "Active"
-                     },
-                     {
-                         "id":  "pain-blanc-sans-sucre",
-                         "category":  "pains-base",
-                         "title":  {
-                                       "fr":  "Pain Blanc Sans Sucre",
-                                       "en":  "Sugar-Free White Bread"
-                                   },
-                         "description":  {
-                                             "fr":  "Notre pain blanc classique sans sucre ajoutÃ©, pour une option plus santÃ© sans compromis sur le goÃ»t.",
-                                             "en":  "Our classic white bread with no added sugar, for a healthier option without compromising on taste."
-                                         },
-                         "price":  5.99,
-                         "currency":  "CAD",
-                         "unit":  "loaf",
-                         "icon":  "ðŸž",
-                         "image":  "/img/products/pain-blanc-sans-sucre.jpg",
-                         "weight":  "675g",
-                         "allergens":  [
-                                           "gluten",
-                                           "wheat"
-                                       ],
-                         "ingredients":  [
-                                             "farine blanche",
-                                             "eau",
-                                             "levure",
-                                             "sel"
-                                         ],
-                         "available":  true,
-                         "featured":  false,
-                         "inventoryQuantity":  50,
-                         "productType":  "retail",
-                         "status":  "Active"
-                     },
-                     {
-                         "id":  "baguette-francaise",
-                         "category":  "pains-base",
-                         "title":  {
-                                       "fr":  "Baguette FranÃ§aise",
-                                       "en":  "French Baguette"
-                                   },
-                         "description":  {
-                                             "fr":  "La vraie baguette Ã  la franÃ§aise, croustillante Ã  souhait avec une mie aÃ©rÃ©e. Comme si vous Ã©tiez Ã  Paris!",
-                                             "en":  "The authentic French baguette, perfectly crispy with an airy crumb. Like being in Paris!"
-                                         },
-                         "price":  3.99,
-                         "currency":  "CAD",
-                         "unit":  "piece",
-                         "icon":  "ðŸ¥–",
-                         "image":  "/img/products/baguette-francaise.jpg",
-                         "weight":  "250g",
-                         "allergens":  [
-                                           "gluten",
-                                           "wheat"
-                                       ],
-                         "ingredients":  [
-                                             "farine de tradition",
-                                             "eau",
-                                             "levure",
-                                             "sel"
-                                         ],
-                         "available":  true,
-                         "featured":  true,
-                         "inventoryQuantity":  50,
-                         "productType":  "retail",
-                         "status":  "Active"
-                     },
-                     {
-                         "id":  "baguette-tradition",
-                         "category":  "pains-base",
-                         "title":  {
-                                       "fr":  "Baguette Tradition",
-                                       "en":  "Traditional Baguette"
-                                   },
-                         "description":  {
-                                             "fr":  "Baguette artisanale selon la recette traditionnelle franÃ§aise. Saveur authentique et texture incomparable.",
-                                             "en":  "Artisan baguette following the traditional French recipe. Authentic flavor and incomparable texture."
-                                         },
-                         "price":  4.49,
-                         "currency":  "CAD",
-                         "unit":  "piece",
-                         "icon":  "ðŸ¥–",
-                         "image":  "/img/products/baguette-tradition.jpg",
-                         "weight":  "250g",
-                         "allergens":  [
-                                           "gluten",
-                                           "wheat"
-                                       ],
-                         "ingredients":  [
-                                             "farine de tradition",
-                                             "eau",
-                                             "levain",
-                                             "sel"
-                                         ],
-                         "available":  true,
-                         "featured":  true,
-                         "inventoryQuantity":  50,
-                         "productType":  "retail",
-                         "status":  "Active"
-                     },
-                     {
-                         "id":  "pain-de-campagne",
-                         "category":  "pains-base",
-                         "title":  {
-                                       "fr":  "Pain de Campagne",
-                                       "en":  "Country Bread"
-                                   },
-                         "description":  {
-                                             "fr":  "Pain rustique authentique avec une mie dense et savoureuse. IdÃ©al pour accompagner fromages et charcuteries.",
-                                             "en":  "Authentic rustic bread with a dense, flavorful crumb. Ideal with cheeses and cold cuts."
-                                         },
-                         "price":  6.49,
-                         "currency":  "CAD",
-                         "unit":  "loaf",
-                         "icon":  "ðŸŒ¾",
-                         "image":  "/img/products/pain-de-campagne.jpg",
-                         "weight":  "800g",
-                         "allergens":  [
-                                           "gluten",
-                                           "wheat"
-                                       ],
-                         "ingredients":  [
-                                             "farine blanche",
-                                             "farine de seigle",
-                                             "eau",
-                                             "levain",
-                                             "sel"
-                                         ],
-                         "available":  true,
-                         "featured":  false,
-                         "inventoryQuantity":  50,
-                         "productType":  "retail",
-                         "status":  "Active"
-                     },
-                     {
-                         "id":  "pain-integral-classique",
-                         "category":  "pains-base",
-                         "title":  {
-                                       "fr":  "Pain IntÃ©gral Classique",
-                                       "en":  "Classic Whole Wheat Bread"
-                                   },
-                         "description":  {
-                                             "fr":  "Pain complet 100% farine intÃ©grale, riche en fibres et nutriments. SantÃ© et goÃ»t rÃ©unis!",
-                                             "en":  "100% whole wheat bread, rich in fiber and nutrients. Health and taste combined!"
-                                         },
-                         "price":  6.99,
-                         "currency":  "CAD",
-                         "unit":  "loaf",
-                         "icon":  "ðŸŒ¿",
-                         "image":  "/img/products/pain-integral-classique.jpg",
-                         "weight":  "675g",
-                         "allergens":  [
-                                           "gluten",
-                                           "wheat"
-                                       ],
-                         "ingredients":  [
-                                             "farine intÃ©grale",
-                                             "eau",
-                                             "levure",
-                                             "sel",
-                                             "miel"
-                                         ],
-                         "available":  true,
-                         "featured":  false,
-                         "inventoryQuantity":  50,
-                         "productType":  "retail",
-                         "status":  "Active"
-                     },
-                     {
-                         "id":  "pain-integral-graines",
-                         "category":  "pains-base",
-                         "title":  {
-                                       "fr":  "Pain IntÃ©gral aux Graines",
-                                       "en":  "Whole Wheat Seed Bread"
-                                   },
-                         "description":  {
-                                             "fr":  "Pain complet enrichi de graines de tournesol et de lin. Un concentrÃ© de nutrition et de saveur!",
-                                             "en":  "Whole wheat bread enriched with sunflower and flax seeds. A concentrate of nutrition and flavor!"
-                                         },
-                         "price":  7.49,
-                         "currency":  "CAD",
-                         "unit":  "loaf",
-                         "icon":  "ðŸŒ¾",
-                         "image":  "/img/products/pain-integral-graines.jpg",
-                         "weight":  "675g",
-                         "allergens":  [
-                                           "gluten",
-                                           "wheat",
-                                           "sesame"
-                                       ],
-                         "ingredients":  [
-                                             "farine intÃ©grale",
-                                             "graines de tournesol",
-                                             "graines de lin",
-                                             "eau",
-                                             "levure",
-                                             "sel",
-                                             "miel"
-                                         ],
-                         "available":  true,
-                         "featured":  false,
-                         "inventoryQuantity":  50,
-                         "productType":  "retail",
-                         "status":  "Active"
-                     },
-                     {
-                         "id":  "pain-integral-levain",
-                         "category":  "pains-base",
-                         "title":  {
-                                       "fr":  "Pain IntÃ©gral au Levain",
-                                       "en":  "Sourdough Whole Wheat Bread"
-                                   },
-                         "description":  {
-                                             "fr":  "Pain intÃ©gral au levain naturel, fermentation longue pour une digestibilitÃ© optimale et un goÃ»t unique.",
-                                             "en":  "Whole wheat sourdough bread, long fermentation for optimal digestibility and unique taste."
-                                         },
-                         "price":  7.99,
-                         "currency":  "CAD",
-                         "unit":  "loaf",
-                         "icon":  "ðŸŒ¾",
-                         "image":  "/img/products/pain-integral-levain.jpg",
-                         "weight":  "800g",
-                         "allergens":  [
-                                           "gluten",
-                                           "wheat"
-                                       ],
-                         "ingredients":  [
-                                             "farine intÃ©grale",
-                                             "eau",
-                                             "levain naturel",
-                                             "sel"
-                                         ],
-                         "available":  true,
-                         "featured":  false,
-                         "inventoryQuantity":  50,
-                         "productType":  "retail",
-                         "status":  "Active"
-                     },
-                     {
-                         "id":  "pain-aux-noix",
-                         "category":  "pains-specialises",
-                         "title":  {
-                                       "fr":  "Pain aux Noix",
-                                       "en":  "Walnut Bread"
-                                   },
-                         "description":  {
-                                             "fr":  "Pain artisanal gÃ©nÃ©reusement garni de noix de Grenoble. Parfait avec du fromage bleu ou en toast.",
-                                             "en":  "Artisan bread generously filled with walnuts. Perfect with blue cheese or as toast."
-                                         },
-                         "price":  8.99,
-                         "currency":  "CAD",
-                         "unit":  "loaf",
-                         "icon":  "ðŸŒ°",
-                         "image":  "/img/products/pain-aux-noix.jpg",
-                         "weight":  "650g",
-                         "allergens":  [
-                                           "gluten",
-                                           "wheat",
-                                           "tree nuts"
-                                       ],
-                         "ingredients":  [
-                                             "farine blanche",
-                                             "noix de Grenoble",
-                                             "eau",
-                                             "levain",
-                                             "sel",
-                                             "miel"
-                                         ],
-                         "available":  true,
-                         "featured":  true,
-                         "inventoryQuantity":  50,
-                         "productType":  "retail",
-                         "status":  "Active"
-                     },
-                     {
-                         "id":  "pain-au-fromage",
-                         "category":  "pains-specialises",
-                         "title":  {
-                                       "fr":  "Pain au Fromage",
-                                       "en":  "Cheese Bread"
-                                   },
-                         "description":  {
-                                             "fr":  "Pain moelleux avec du fromage cheddar fondu Ã  l\u0027intÃ©rieur. Un dÃ©lice rÃ©confortant Ã  chaque bouchÃ©e!",
-                                             "en":  "Soft bread with melted cheddar cheese inside. A comforting delight in every bite!"
-                                         },
-                         "price":  7.99,
-                         "currency":  "CAD",
-                         "unit":  "loaf",
-                         "icon":  "ðŸ§€",
-                         "image":  "/img/products/pain-au-fromage.jpg",
-                         "weight":  "600g",
-                         "allergens":  [
-                                           "gluten",
-                                           "wheat",
-                                           "milk"
-                                       ],
-                         "ingredients":  [
-                                             "farine blanche",
-                                             "fromage cheddar",
-                                             "eau",
-                                             "levure",
-                                             "sel",
-                                             "beurre"
-                                         ],
-                         "available":  true,
-                         "featured":  false,
-                         "inventoryQuantity":  50,
-                         "productType":  "retail",
-                         "status":  "Active"
-                     },
-                     {
-                         "id":  "pain-grilled-cheese",
-                         "category":  "pains-specialises",
-                         "title":  {
-                                       "fr":  "Pain Grilled Cheese",
-                                       "en":  "Grilled Cheese Bread"
-                                   },
-                         "description":  {
-                                             "fr":  "SpÃ©cialement conÃ§u pour faire les meilleurs grilled cheese! Texture parfaite qui grille Ã  la perfection.",
-                                             "en":  "Specially designed for the best grilled cheese! Perfect texture that grills to perfection."
-                                         },
-                         "price":  6.99,
-                         "currency":  "CAD",
-                         "unit":  "loaf",
-                         "icon":  "ðŸ§€",
-                         "image":  "/img/products/pain-grilled-cheese.jpg",
-                         "weight":  "675g",
-                         "allergens":  [
-                                           "gluten",
-                                           "wheat",
-                                           "milk"
-                                       ],
-                         "ingredients":  [
-                                             "farine blanche",
-                                             "lait",
-                                             "beurre",
-                                             "eau",
-                                             "levure",
-                                             "sel",
-                                             "sucre"
-                                         ],
-                         "available":  true,
-                         "featured":  false,
-                         "inventoryQuantity":  50,
-                         "productType":  "retail",
-                         "status":  "Active"
-                     },
-                     {
-                         "id":  "miche-a-soupe",
-                         "category":  "pains-specialises",
-                         "title":  {
-                                       "fr":  "Miche Ã  Soupe",
-                                       "en":  "Bread Bowl"
-                                   },
-                         "description":  {
-                                             "fr":  "Pain rond parfait pour servir vos soupes et potages. Une prÃ©sentation spectaculaire et dÃ©licieuse!",
-                                             "en":  "Round bread perfect for serving your soups and stews. A spectacular and delicious presentation!"
-                                         },
-                         "price":  5.99,
-                         "currency":  "CAD",
-                         "unit":  "piece",
-                         "icon":  "ðŸ¥£",
-                         "image":  "/img/products/miche-a-soupe.jpg",
-                         "weight":  "400g",
-                         "allergens":  [
-                                           "gluten",
-                                           "wheat"
-                                       ],
-                         "ingredients":  [
-                                             "farine blanche",
-                                             "eau",
-                                             "levure",
-                                             "sel"
-                                         ],
-                         "available":  true,
-                         "featured":  false,
-                         "inventoryQuantity":  50,
-                         "productType":  "retail",
-                         "status":  "Active"
-                     },
-                     {
-                         "id":  "petits-pains-salade",
-                         "category":  "pains-specialises",
-                         "title":  {
-                                       "fr":  "Petits Pains Ã  Salade",
-                                       "en":  "Salad Rolls"
-                                   },
-                         "description":  {
-                                             "fr":  "Petits pains moelleux parfaits pour vos salades et accompagnements. LÃ©gers et savoureux!",
-                                             "en":  "Soft rolls perfect for your salads and side dishes. Light and tasty!"
-                                         },
-                         "price":  5.99,
-                         "currency":  "CAD",
-                         "unit":  "pack of 6",
-                         "icon":  "ðŸ¥—",
-                         "image":  "/img/products/petits-pains-salade.jpg",
-                         "weight":  "300g",
-                         "allergens":  [
-                                           "gluten",
-                                           "wheat"
-                                       ],
-                         "ingredients":  [
-                                             "farine blanche",
-                                             "eau",
-                                             "levure",
-                                             "sel",
-                                             "sucre"
-                                         ],
-                         "available":  true,
-                         "featured":  false,
-                         "inventoryQuantity":  50,
-                         "productType":  "retail",
-                         "status":  "Active"
-                     },
-                     {
-                         "id":  "pain-sous-marin",
-                         "category":  "pains-specialises",
-                         "title":  {
-                                       "fr":  "Pain Sous-Marin 12\"",
-                                       "en":  "12\" Submarine Bread"
-                                   },
-                         "description":  {
-                                             "fr":  "Pain long de 12 pouces idÃ©al pour vos sandwichs sous-marins. Croustillant Ã  l\u0027extÃ©rieur, moelleux Ã  l\u0027intÃ©rieur!",
-                                             "en":  "12-inch long bread ideal for your submarine sandwiches. Crispy outside, soft inside!"
-                                         },
-                         "price":  4.99,
-                         "currency":  "CAD",
-                         "unit":  "piece",
-                         "icon":  "ðŸ¥ª",
-                         "image":  "/img/products/pain-sous-marin.jpg",
-                         "weight":  "300g",
-                         "allergens":  [
-                                           "gluten",
-                                           "wheat"
-                                       ],
-                         "ingredients":  [
-                                             "farine blanche",
-                                             "eau",
-                                             "levure",
-                                             "sel",
-                                             "sucre",
-                                             "huile"
-                                         ],
-                         "available":  true,
-                         "featured":  false,
-                         "inventoryQuantity":  50,
-                         "productType":  "retail",
-                         "status":  "Active"
-                     },
-                     {
-                         "id":  "muffins-anglais",
-                         "category":  "pains-specialises",
-                         "title":  {
-                                       "fr":  "Muffins Anglais",
-                                       "en":  "English Muffins"
-                                   },
-                         "description":  {
-                                             "fr":  "Parfaits pour vos petits dÃ©jeuners! GrillÃ©s avec du beurre, ils sont irrÃ©sistibles.",
-                                             "en":  "Perfect for your breakfasts! Toasted with butter, they\u0027re irresistible."
-                                         },
-                         "price":  5.49,
-                         "currency":  "CAD",
-                         "unit":  "pack of 6",
-                         "icon":  "ðŸ¥¯",
-                         "image":  "/img/products/muffins-anglais.jpg",
-                         "weight":  "360g",
-                         "allergens":  [
-                                           "gluten",
-                                           "wheat"
-                                       ],
-                         "ingredients":  [
-                                             "farine blanche",
-                                             "eau",
-                                             "levure",
-                                             "sel",
-                                             "sucre",
-                                             "semoule de maÃ¯s"
-                                         ],
-                         "available":  true,
-                         "featured":  false,
-                         "inventoryQuantity":  50,
-                         "productType":  "retail",
-                         "status":  "Active"
-                     },
-                     {
-                         "id":  "croissants-francais",
-                         "category":  "viennoiseries",
-                         "title":  {
-                                       "fr":  "Croissants FranÃ§ais",
-                                       "en":  "French Croissants"
-                                   },
-                         "description":  {
-                                             "fr":  "Croissants pur beurre feuilletÃ©s Ã  la perfection. Croustillants, aÃ©rÃ©s et fondants comme Ã  Paris!",
-                                             "en":  "Pure butter croissants perfectly laminated. Crispy, airy and melt-in-your-mouth like in Paris!"
-                                         },
-                         "price":  3.49,
-                         "currency":  "CAD",
-                         "unit":  "piece",
-                         "icon":  "ðŸ¥",
-                         "image":  "/img/products/croissants-francais.jpg",
-                         "weight":  "80g",
-                         "allergens":  [
-                                           "gluten",
-                                           "wheat",
-                                           "milk",
-                                           "eggs"
-                                       ],
-                         "ingredients":  [
-                                             "farine blanche",
-                                             "beurre",
-                                             "lait",
-                                             "Å“ufs",
-                                             "levure",
-                                             "sel",
-                                             "sucre"
-                                         ],
-                         "available":  true,
-                         "featured":  true,
-                         "inventoryQuantity":  50,
-                         "productType":  "retail",
-                         "status":  "Active"
-                     },
-                     {
-                         "id":  "pains-au-chocolat",
-                         "category":  "viennoiseries",
-                         "title":  {
-                                       "fr":  "Pains au Chocolat",
-                                       "en":  "Chocolate Croissants"
-                                   },
-                         "description":  {
-                                             "fr":  "Viennoiserie feuilletÃ©e avec deux barres de chocolat noir de qualitÃ©. Le petit plaisir parfait!",
-                                             "en":  "Flaky pastry with two bars of quality dark chocolate. The perfect little treat!"
-                                         },
-                         "price":  3.99,
-                         "currency":  "CAD",
-                         "unit":  "piece",
-                         "icon":  "ðŸ«",
-                         "image":  "/img/products/pains-au-chocolat.jpg",
-                         "weight":  "90g",
-                         "allergens":  [
-                                           "gluten",
-                                           "wheat",
-                                           "milk",
-                                           "eggs",
-                                           "soy"
-                                       ],
-                         "ingredients":  [
-                                             "farine blanche",
-                                             "beurre",
-                                             "chocolat noir",
-                                             "lait",
-                                             "Å“ufs",
-                                             "levure",
-                                             "sel",
-                                             "sucre"
-                                         ],
-                         "available":  true,
-                         "featured":  true,
-                         "inventoryQuantity":  50,
-                         "productType":  "retail",
-                         "status":  "Active"
-                     },
-                     {
-                         "id":  "brioche-maison",
-                         "category":  "viennoiseries",
-                         "title":  {
-                                       "fr":  "Brioche Maison",
-                                       "en":  "Homemade Brioche"
-                                   },
-                         "description":  {
-                                             "fr":  "Brioche dorÃ©e, moelleuse et lÃ©gÃ¨rement sucrÃ©e. Parfaite pour le petit dÃ©jeuner ou le dessert!",
-                                             "en":  "Golden brioche, soft and lightly sweetened. Perfect for breakfast or dessert!"
-                                         },
-                         "price":  7.99,
-                         "currency":  "CAD",
-                         "unit":  "loaf",
-                         "icon":  "ðŸž",
-                         "image":  "/img/products/brioche-maison.jpg",
-                         "weight":  "500g",
-                         "allergens":  [
-                                           "gluten",
-                                           "wheat",
-                                           "milk",
-                                           "eggs"
-                                       ],
-                         "ingredients":  [
-                                             "farine blanche",
-                                             "beurre",
-                                             "Å“ufs",
-                                             "lait",
-                                             "levure",
-                                             "sel",
-                                             "sucre"
-                                         ],
-                         "available":  true,
-                         "featured":  false,
-                         "inventoryQuantity":  50,
-                         "productType":  "retail",
-                         "status":  "Active"
-                     },
-                     {
-                         "id":  "bagel-classique",
-                         "category":  "pains-forme",
-                         "title":  {
-                                       "fr":  "Bagel Classique",
-                                       "en":  "Classic Bagel"
-                                   },
-                         "description":  {
-                                             "fr":  "Bagel traditionnel nature ou au sÃ©same, bouilli puis cuit au four. Texture dense et savoureuse!",
-                                             "en":  "Traditional plain or sesame bagel, boiled then baked. Dense and flavorful texture!"
-                                         },
-                         "price":  2.99,
-                         "currency":  "CAD",
-                         "unit":  "piece",
-                         "icon":  "ðŸ¥¯",
-                         "image":  "/img/products/bagel-classique.jpg",
-                         "weight":  "110g",
-                         "allergens":  [
-                                           "gluten",
-                                           "wheat",
-                                           "sesame"
-                                       ],
-                         "ingredients":  [
-                                             "farine blanche",
-                                             "eau",
-                                             "levure",
-                                             "sel",
-                                             "sucre",
-                                             "graines de sÃ©same"
-                                         ],
-                         "available":  true,
-                         "featured":  false,
-                         "inventoryQuantity":  50,
-                         "productType":  "retail",
-                         "status":  "Active"
-                     },
-                     {
-                         "id":  "bagel-everything",
-                         "category":  "pains-forme",
-                         "title":  {
-                                       "fr":  "Bagel Everything",
-                                       "en":  "Everything Bagel"
-                                   },
-                         "description":  {
-                                             "fr":  "Bagel garni de tout: sÃ©same, pavot, ail sÃ©chÃ©, oignon sÃ©chÃ© et gros sel. Un festival de saveurs!",
-                                             "en":  "Bagel topped with everything: sesame, poppy, dried garlic, dried onion and coarse salt. A festival of flavors!"
-                                         },
-                         "price":  3.49,
-                         "currency":  "CAD",
-                         "unit":  "piece",
-                         "icon":  "ðŸ¥¯",
-                         "image":  "/img/products/bagel-everything.jpg",
-                         "weight":  "120g",
-                         "allergens":  [
-                                           "gluten",
-                                           "wheat",
-                                           "sesame"
-                                       ],
-                         "ingredients":  [
-                                             "farine blanche",
-                                             "eau",
-                                             "levure",
-                                             "sel",
-                                             "sucre",
-                                             "graines de sÃ©same",
-                                             "graines de pavot",
-                                             "ail",
-                                             "oignon"
-                                         ],
-                         "available":  true,
-                         "featured":  true,
-                         "inventoryQuantity":  50,
-                         "productType":  "retail",
-                         "status":  "Active"
-                     },
-                     {
-                         "id":  "bretzel-classique",
-                         "category":  "pains-forme",
-                         "title":  {
-                                       "fr":  "Bretzel Classique",
-                                       "en":  "Classic Pretzel"
-                                   },
-                         "description":  {
-                                             "fr":  "Bretzel bavarois traditionnel Ã  la croÃ»te dorÃ©e et au gros sel. Texture unique et goÃ»t incomparable!",
-                                             "en":  "Traditional Bavarian pretzel with golden crust and coarse salt. Unique texture and incomparable taste!"
-                                         },
-                         "price":  3.99,
-                         "currency":  "CAD",
-                         "unit":  "piece",
-                         "icon":  "ðŸ¥¨",
-                         "image":  "/img/products/bretzel-classique.jpg",
-                         "weight":  "120g",
-                         "allergens":  [
-                                           "gluten",
-                                           "wheat"
-                                       ],
-                         "ingredients":  [
-                                             "farine blanche",
-                                             "eau",
-                                             "levure",
-                                             "gros sel",
-                                             "bicarbonate de soude"
-                                         ],
-                         "available":  true,
-                         "featured":  false,
-                         "inventoryQuantity":  50,
-                         "productType":  "retail",
-                         "status":  "Active"
-                     },
-                     {
-                         "id":  "bretzel-bouchees",
-                         "category":  "pains-forme",
-                         "title":  {
-                                       "fr":  "BouchÃ©es de Bretzel",
-                                       "en":  "Pretzel Bites"
-                                   },
-                         "description":  {
-                                             "fr":  "Petites bouchÃ©es de bretzel parfaites pour l\u0027apÃ©ro ou en collation. IdÃ©ales avec vos trempettes prÃ©fÃ©rÃ©es!",
-                                             "en":  "Small pretzel bites perfect for appetizers or snacks. Ideal with your favorite dips!"
-                                         },
-                         "price":  6.99,
-                         "currency":  "CAD",
-                         "unit":  "bag",
-                         "icon":  "ðŸ¥¨",
-                         "image":  "/img/products/bretzel-bouchees.jpg",
-                         "weight":  "300g",
-                         "allergens":  [
-                                           "gluten",
-                                           "wheat"
-                                       ],
-                         "ingredients":  [
-                                             "farine blanche",
-                                             "eau",
-                                             "levure",
-                                             "gros sel",
-                                             "bicarbonate de soude"
-                                         ],
-                         "available":  true,
-                         "featured":  false,
-                         "inventoryQuantity":  50,
-                         "productType":  "retail",
-                         "status":  "Active"
-                     },
-                     {
-                         "id":  "bretzel-cannelle-sucre",
-                         "category":  "pains-forme",
-                         "title":  {
-                                       "fr":  "Bretzel Cannelle-Sucre",
-                                       "en":  "Cinnamon Sugar Pretzel"
-                                   },
-                         "description":  {
-                                             "fr":  "Version sucrÃ©e du bretzel avec cannelle et sucre. Un dessert original et dÃ©licieux!",
-                                             "en":  "Sweet version of the pretzel with cinnamon and sugar. An original and delicious dessert!"
-                                         },
-                         "price":  4.49,
-                         "currency":  "CAD",
-                         "unit":  "piece",
-                         "icon":  "ðŸ¥¨",
-                         "image":  "/img/products/bretzel-cannelle-sucre.jpg",
-                         "weight":  "120g",
-                         "allergens":  [
-                                           "gluten",
-                                           "wheat"
-                                       ],
-                         "ingredients":  [
-                                             "farine blanche",
-                                             "eau",
-                                             "levure",
-                                             "cannelle",
-                                             "sucre",
-                                             "bicarbonate de soude",
-                                             "beurre"
-                                         ],
-                         "available":  true,
-                         "featured":  false,
-                         "inventoryQuantity":  50,
-                         "productType":  "retail",
-                         "status":  "Active"
-                     },
-                     {
-                         "id":  "pain-sans-gluten-classique",
-                         "category":  "sans-gluten",
-                         "title":  {
-                                       "fr":  "Pain Sans Gluten Classique",
-                                       "en":  "Classic Gluten-Free Bread"
-                                   },
-                         "description":  {
-                                             "fr":  "Pain sans gluten au goÃ»t authentique de pain traditionnel. Texture moelleuse et saveur incomparable!",
-                                             "en":  "Gluten-free bread with authentic traditional bread taste. Soft texture and incomparable flavor!"
-                                         },
-                         "price":  8.99,
-                         "currency":  "CAD",
-                         "unit":  "loaf",
-                         "icon":  "ðŸŒ¾",
-                         "image":  "/img/products/pain-sans-gluten-classique.jpg",
-                         "weight":  "500g",
-                         "allergens":  [
-                                           "eggs"
-                                       ],
-                         "ingredients":  [
-                                             "farine de riz",
-                                             "fÃ©cule de tapioca",
-                                             "fÃ©cule de pomme de terre",
-                                             "Å“ufs",
-                                             "eau",
-                                             "levure",
-                                             "sel",
-                                             "gomme xanthane"
-                                         ],
-                         "available":  true,
-                         "featured":  false,
-                         "inventoryQuantity":  50,
-                         "productType":  "retail",
-                         "status":  "Active"
-                     },
-                     {
-                         "id":  "baguette-sans-gluten",
-                         "category":  "sans-gluten",
-                         "title":  {
-                                       "fr":  "Baguette Sans Gluten",
-                                       "en":  "Gluten-Free Baguette"
-                                   },
-                         "description":  {
-                                             "fr":  "Baguette croustillante sans gluten qui ne fait aucun compromis sur la texture et le goÃ»t!",
-                                             "en":  "Crispy gluten-free baguette that makes no compromise on texture and taste!"
-                                         },
-                         "price":  6.99,
-                         "currency":  "CAD",
-                         "unit":  "piece",
-                         "icon":  "ðŸ¥–",
-                         "image":  "/img/products/baguette-sans-gluten.jpg",
-                         "weight":  "250g",
-                         "allergens":  [
-                                           "eggs"
-                                       ],
-                         "ingredients":  [
-                                             "farine de riz",
-                                             "fÃ©cule de tapioca",
-                                             "Å“ufs",
-                                             "eau",
-                                             "levure",
-                                             "sel",
-                                             "gomme xanthane"
-                                         ],
-                         "available":  true,
-                         "featured":  false,
-                         "inventoryQuantity":  50,
-                         "productType":  "retail",
-                         "status":  "Active"
-                     },
-                     {
-                         "id":  "pain-sans-gluten-graines",
-                         "category":  "sans-gluten",
-                         "title":  {
-                                       "fr":  "Pain Sans Gluten aux Graines",
-                                       "en":  "Gluten-Free Seed Bread"
-                                   },
-                         "description":  {
-                                             "fr":  "Pain sans gluten enrichi de graines nutritives de tournesol, lin et chia. SantÃ© et saveur garanties!",
-                                             "en":  "Gluten-free bread enriched with nutritious sunflower, flax and chia seeds. Health and flavor guaranteed!"
-                                         },
-                         "price":  9.49,
-                         "currency":  "CAD",
-                         "unit":  "loaf",
-                         "icon":  "ðŸŒ°",
-                         "image":  "/img/products/pain-sans-gluten-graines.jpg",
-                         "weight":  "500g",
-                         "allergens":  [
-                                           "eggs",
-                                           "sesame"
-                                       ],
-                         "ingredients":  [
-                                             "farine de riz",
-                                             "fÃ©cule de tapioca",
-                                             "graines de tournesol",
-                                             "graines de lin",
-                                             "graines de chia",
-                                             "Å“ufs",
-                                             "eau",
-                                             "levure",
-                                             "sel",
-                                             "gomme xanthane"
-                                         ],
-                         "available":  true,
-                         "featured":  false,
-                         "inventoryQuantity":  50,
-                         "productType":  "retail",
-                         "status":  "Active"
-                     },
-                     {
-                         "id":  "focaccia-italienne",
-                         "category":  "pains-mediterraneens",
-                         "title":  {
-                                       "fr":  "Focaccia Italienne",
-                                       "en":  "Italian Focaccia"
-                                   },
-                         "description":  {
-                                             "fr":  "Pain plat italien gÃ©nÃ©reux en huile d\u0027olive extra vierge et herbes de Provence. Un voyage en Italie!",
-                                             "en":  "Italian flatbread generous in extra virgin olive oil and Provence herbs. A trip to Italy!"
-                                         },
-                         "price":  7.99,
-                         "currency":  "CAD",
-                         "unit":  "piece",
-                         "icon":  "ðŸ‡®ðŸ‡¹",
-                         "image":  "/img/products/focaccia-italienne.jpg",
-                         "weight":  "400g",
-                         "allergens":  [
-                                           "gluten",
-                                           "wheat"
-                                       ],
-                         "ingredients":  [
-                                             "farine blanche",
-                                             "huile d\u0027olive",
-                                             "eau",
-                                             "levure",
-                                             "sel",
-                                             "romarin",
-                                             "thym"
-                                         ],
-                         "available":  true,
-                         "featured":  true,
-                         "inventoryQuantity":  50,
-                         "productType":  "retail",
-                         "status":  "Active"
-                     },
-                     {
-                         "id":  "fougasse-provencale",
-                         "category":  "pains-mediterraneens",
-                         "title":  {
-                                       "fr":  "Fougasse ProvenÃ§ale",
-                                       "en":  "ProvenÃ§al Fougasse"
-                                   },
-                         "description":  {
-                                             "fr":  "Pain provenÃ§al traditionnel aux olives noires et fines herbes. Les saveurs du sud de la France!",
-                                             "en":  "Traditional ProvenÃ§al bread with black olives and fine herbs. The flavors of southern France!"
-                                         },
-                         "price":  8.49,
-                         "currency":  "CAD",
-                         "unit":  "piece",
-                         "icon":  "ðŸ¥–",
-                         "image":  "/img/products/fougasse-provencale.jpg",
-                         "weight":  "350g",
-                         "allergens":  [
-                                           "gluten",
-                                           "wheat"
-                                       ],
-                         "ingredients":  [
-                                             "farine blanche",
-                                             "olives noires",
-                                             "huile d\u0027olive",
-                                             "eau",
-                                             "levure",
-                                             "sel",
-                                             "herbes de Provence"
-                                         ],
-                         "available":  true,
-                         "featured":  true,
-                         "inventoryQuantity":  50,
-                         "productType":  "retail",
-                         "status":  "Active"
-                     }
-                 ],
-    "categories":  [
-                       {
-                           "id":  "pains-base",
-                           "name":  {
-                                        "fr":  "Pains de Base",
-                                        "en":  "Basic Breads"
-                                    },
-                           "icon":  "ðŸž",
-                           "description":  {
-                                               "fr":  "Nos classiques, la base de toute bonne boulangerie",
-                                               "en":  "Our classics, the foundation of any good bakery"
-                                           },
-                           "order":  1
-                       },
-                       {
-                           "id":  "pains-specialises",
-                           "name":  {
-                                        "fr":  "Pains SpÃ©cialisÃ©s",
-                                        "en":  "Specialty Breads"
-                                    },
-                           "icon":  "ðŸŒ°",
-                           "description":  {
-                                               "fr":  "Des crÃ©ations uniques pour des saveurs exceptionnelles",
-                                               "en":  "Unique creations for exceptional flavors"
-                                           },
-                           "order":  2
-                       },
-                       {
-                           "id":  "viennoiseries",
-                           "name":  {
-                                        "fr":  "Viennoiseries",
-                                        "en":  "Pastries"
-                                    },
-                           "icon":  "ðŸ¥",
-                           "description":  {
-                                               "fr":  "Le dÃ©lice du matin, fraÃ®chement sorti du four",
-                                               "en":  "Morning delights, fresh from the oven"
-                                           },
-                           "order":  3
-                       },
-                       {
-                           "id":  "pains-forme",
-                           "name":  {
-                                        "fr":  "Pains en Forme",
-                                        "en":  "Shaped Breads"
-                                    },
-                           "icon":  "ðŸ¥¨",
-                           "description":  {
-                                               "fr":  "Des formes traditionnelles pour des saveurs authentiques",
-                                               "en":  "Traditional shapes for authentic flavors"
-                                           },
-                           "order":  4
-                       },
-                       {
-                           "id":  "sans-gluten",
-                           "name":  {
-                                        "fr":  "Options Sans Gluten",
-                                        "en":  "Gluten-Free Options"
-                                    },
-                           "icon":  "ðŸŒ¾",
-                           "description":  {
-                                               "fr":  "Pour tous les goÃ»ts et toutes les diÃ¨tes",
-                                               "en":  "For all tastes and all diets"
-                                           },
-                           "order":  5
-                       },
-                       {
-                           "id":  "pains-mediterraneens",
-                           "name":  {
-                                        "fr":  "SpÃ©cialitÃ©s MÃ©diterranÃ©ennes",
-                                        "en":  "Mediterranean Specialties"
-                                    },
-                           "icon":  "ðŸ‡®ðŸ‡¹",
-                           "description":  {
-                                               "fr":  "Un voyage culinaire en MÃ©diterranÃ©e",
-                                               "en":  "A culinary journey through the Mediterranean"
-                                           },
-                           "order":  6
-                       }
-                   ],
-    "metadata":  {
-                     "version":  "1.0.0",
-                     "lastUpdated":  "2025-10-21",
-                     "currency":  "CAD",
-                     "locale":  {
-                                    "default":  "fr",
-                                    "available":  [
-                                                      "fr",
-                                                      "en"
-                                                  ]
-                                },
-                     "productStatuses":  {
-                                             "Discontinued":  {
-                                                                  "en":  "Discontinued",
-                                                                  "fr":  "DiscontinuÃ©"
-                                                              },
-                                             "Active":  {
-                                                            "en":  "Active",
-                                                            "fr":  "Actif"
-                                                        },
-                                             "Inactive":  {
-                                                              "en":  "Inactive",
-                                                              "fr":  "Inactif"
-                                                          }
-                                         }
-                 }
+{
+    "products": [
+        {
+            "id": "pain-blanc-classique",
+            "category": "pains-base",
+            "title": {
+                "fr": "Pain Blanc Classique",
+                "en": "Classic White Bread"
+            },
+            "description": {
+                "fr": "Le pain traditionnel par excellence, moelleux à l'intérieur avec une croûte dorée et croustillante. Parfait pour tous les repas.",
+                "en": "The quintessential traditional bread, soft inside with a golden, crispy crust. Perfect for all meals."
+            },
+            "price": 5.99,
+            "currency": "CAD",
+            "unit": "loaf",
+            "icon": "🍞",
+            "image": "/img/products/pain-blanc-classique.jpg",
+            "weight": "675g",
+            "allergens": [
+                "gluten",
+                "wheat"
+            ],
+            "ingredients": [
+                "farine blanche",
+                "eau",
+                "levure",
+                "sel",
+                "sucre"
+            ],
+            "available": true,
+            "featured": false,
+            "inventoryQuantity": 50,
+            "productType": "retail",
+            "status": "Active"
+        },
+        {
+            "id": "pain-blanc-sans-sucre",
+            "category": "pains-base",
+            "title": {
+                "fr": "Pain Blanc Sans Sucre",
+                "en": "Sugar-Free White Bread"
+            },
+            "description": {
+                "fr": "Notre pain blanc classique sans sucre ajouté, pour une option plus santé sans compromis sur le goût.",
+                "en": "Our classic white bread with no added sugar, for a healthier option without compromising on taste."
+            },
+            "price": 5.99,
+            "currency": "CAD",
+            "unit": "loaf",
+            "icon": "🍞",
+            "image": "/img/products/pain-blanc-sans-sucre.jpg",
+            "weight": "675g",
+            "allergens": [
+                "gluten",
+                "wheat"
+            ],
+            "ingredients": [
+                "farine blanche",
+                "eau",
+                "levure",
+                "sel"
+            ],
+            "available": true,
+            "featured": false,
+            "inventoryQuantity": 50,
+            "productType": "retail",
+            "status": "Active"
+        },
+        {
+            "id": "baguette-francaise",
+            "category": "pains-base",
+            "title": {
+                "fr": "Baguette Française",
+                "en": "French Baguette"
+            },
+            "description": {
+                "fr": "La vraie baguette à la française, croustillante à souhait avec une mie aérée. Comme si vous étiez à Paris!",
+                "en": "The authentic French baguette, perfectly crispy with an airy crumb. Like being in Paris!"
+            },
+            "price": 3.99,
+            "currency": "CAD",
+            "unit": "piece",
+            "icon": "🥖",
+            "image": "/img/products/baguette-francaise.jpg",
+            "weight": "250g",
+            "allergens": [
+                "gluten",
+                "wheat"
+            ],
+            "ingredients": [
+                "farine de tradition",
+                "eau",
+                "levure",
+                "sel"
+            ],
+            "available": true,
+            "featured": true,
+            "inventoryQuantity": 50,
+            "productType": "retail",
+            "status": "Active"
+        },
+        {
+            "id": "baguette-tradition",
+            "category": "pains-base",
+            "title": {
+                "fr": "Baguette Tradition",
+                "en": "Traditional Baguette"
+            },
+            "description": {
+                "fr": "Baguette artisanale selon la recette traditionnelle française. Saveur authentique et texture incomparable.",
+                "en": "Artisan baguette following the traditional French recipe. Authentic flavor and incomparable texture."
+            },
+            "price": 4.49,
+            "currency": "CAD",
+            "unit": "piece",
+            "icon": "🥖",
+            "image": "/img/products/baguette-tradition.jpg",
+            "weight": "250g",
+            "allergens": [
+                "gluten",
+                "wheat"
+            ],
+            "ingredients": [
+                "farine de tradition",
+                "eau",
+                "levain",
+                "sel"
+            ],
+            "available": true,
+            "featured": true,
+            "inventoryQuantity": 50,
+            "productType": "retail",
+            "status": "Active"
+        },
+        {
+            "id": "pain-de-campagne",
+            "category": "pains-base",
+            "title": {
+                "fr": "Pain de Campagne",
+                "en": "Country Bread"
+            },
+            "description": {
+                "fr": "Pain rustique authentique avec une mie dense et savoureuse. Idéal pour accompagner fromages et charcuteries.",
+                "en": "Authentic rustic bread with a dense, flavorful crumb. Ideal with cheeses and cold cuts."
+            },
+            "price": 6.49,
+            "currency": "CAD",
+            "unit": "loaf",
+            "icon": "🌾",
+            "image": "/img/products/pain-de-campagne.jpg",
+            "weight": "800g",
+            "allergens": [
+                "gluten",
+                "wheat"
+            ],
+            "ingredients": [
+                "farine blanche",
+                "farine de seigle",
+                "eau",
+                "levain",
+                "sel"
+            ],
+            "available": true,
+            "featured": false,
+            "inventoryQuantity": 50,
+            "productType": "retail",
+            "status": "Active"
+        },
+        {
+            "id": "pain-integral-classique",
+            "category": "pains-base",
+            "title": {
+                "fr": "Pain Intégral Classique",
+                "en": "Classic Whole Wheat Bread"
+            },
+            "description": {
+                "fr": "Pain complet 100% farine intégrale, riche en fibres et nutriments. Santé et goût réunis!",
+                "en": "100% whole wheat bread, rich in fiber and nutrients. Health and taste combined!"
+            },
+            "price": 6.99,
+            "currency": "CAD",
+            "unit": "loaf",
+            "icon": "🌾",
+            "image": "/img/products/pain-integral-classique.jpg",
+            "weight": "675g",
+            "allergens": [
+                "gluten",
+                "wheat"
+            ],
+            "ingredients": [
+                "farine intégrale",
+                "eau",
+                "levure",
+                "sel",
+                "miel"
+            ],
+            "available": true,
+            "featured": false,
+            "inventoryQuantity": 50,
+            "productType": "retail",
+            "status": "Active"
+        },
+        {
+            "id": "pain-integral-graines",
+            "category": "pains-base",
+            "title": {
+                "fr": "Pain Intégral aux Graines",
+                "en": "Whole Wheat Seed Bread"
+            },
+            "description": {
+                "fr": "Pain complet enrichi de graines de tournesol et de lin. Un concentré de nutrition et de saveur!",
+                "en": "Whole wheat bread enriched with sunflower and flax seeds. A concentrate of nutrition and flavor!"
+            },
+            "price": 7.49,
+            "currency": "CAD",
+            "unit": "loaf",
+            "icon": "🌾",
+            "image": "/img/products/pain-integral-graines.jpg",
+            "weight": "675g",
+            "allergens": [
+                "gluten",
+                "wheat",
+                "sesame"
+            ],
+            "ingredients": [
+                "farine intégrale",
+                "graines de tournesol",
+                "graines de lin",
+                "eau",
+                "levure",
+                "sel",
+                "miel"
+            ],
+            "available": true,
+            "featured": false,
+            "inventoryQuantity": 50,
+            "productType": "retail",
+            "status": "Active"
+        },
+        {
+            "id": "pain-integral-levain",
+            "category": "pains-base",
+            "title": {
+                "fr": "Pain Intégral au Levain",
+                "en": "Sourdough Whole Wheat Bread"
+            },
+            "description": {
+                "fr": "Pain intégral au levain naturel, fermentation longue pour une digestibilité optimale et un goût unique.",
+                "en": "Whole wheat sourdough bread, long fermentation for optimal digestibility and unique taste."
+            },
+            "price": 7.99,
+            "currency": "CAD",
+            "unit": "loaf",
+            "icon": "🌾",
+            "image": "/img/products/pain-integral-levain.jpg",
+            "weight": "800g",
+            "allergens": [
+                "gluten",
+                "wheat"
+            ],
+            "ingredients": [
+                "farine intégrale",
+                "eau",
+                "levain naturel",
+                "sel"
+            ],
+            "available": true,
+            "featured": false,
+            "inventoryQuantity": 50,
+            "productType": "retail",
+            "status": "Active"
+        },
+        {
+            "id": "pain-aux-noix",
+            "category": "pains-specialises",
+            "title": {
+                "fr": "Pain aux Noix",
+                "en": "Walnut Bread"
+            },
+            "description": {
+                "fr": "Pain artisanal généreusement garni de noix de Grenoble. Parfait avec du fromage bleu ou en toast.",
+                "en": "Artisan bread generously filled with walnuts. Perfect with blue cheese or as toast."
+            },
+            "price": 8.99,
+            "currency": "CAD",
+            "unit": "loaf",
+            "icon": "🌰",
+            "image": "/img/products/pain-aux-noix.jpg",
+            "weight": "650g",
+            "allergens": [
+                "gluten",
+                "wheat",
+                "tree nuts"
+            ],
+            "ingredients": [
+                "farine blanche",
+                "noix de Grenoble",
+                "eau",
+                "levain",
+                "sel",
+                "miel"
+            ],
+            "available": true,
+            "featured": true,
+            "inventoryQuantity": 50,
+            "productType": "retail",
+            "status": "Active"
+        },
+        {
+            "id": "pain-au-fromage",
+            "category": "pains-specialises",
+            "title": {
+                "fr": "Pain au Fromage",
+                "en": "Cheese Bread"
+            },
+            "description": {
+                "fr": "Pain moelleux avec du fromage cheddar fondu à l'intérieur. Un délice réconfortant à chaque bouchée!",
+                "en": "Soft bread with melted cheddar cheese inside. A comforting delight in every bite!"
+            },
+            "price": 7.99,
+            "currency": "CAD",
+            "unit": "loaf",
+            "icon": "🧀",
+            "image": "/img/products/pain-au-fromage.jpg",
+            "weight": "600g",
+            "allergens": [
+                "gluten",
+                "wheat",
+                "milk"
+            ],
+            "ingredients": [
+                "farine blanche",
+                "fromage cheddar",
+                "eau",
+                "levure",
+                "sel",
+                "beurre"
+            ],
+            "available": true,
+            "featured": false,
+            "inventoryQuantity": 50,
+            "productType": "retail",
+            "status": "Active"
+        },
+        {
+            "id": "pain-grilled-cheese",
+            "category": "pains-specialises",
+            "title": {
+                "fr": "Pain Grilled Cheese",
+                "en": "Grilled Cheese Bread"
+            },
+            "description": {
+                "fr": "Spécialement conçu pour faire les meilleurs grilled cheese! Texture parfaite qui grille à la perfection.",
+                "en": "Specially designed for the best grilled cheese! Perfect texture that grills to perfection."
+            },
+            "price": 6.99,
+            "currency": "CAD",
+            "unit": "loaf",
+            "icon": "🧀",
+            "image": "/img/products/pain-grilled-cheese.jpg",
+            "weight": "675g",
+            "allergens": [
+                "gluten",
+                "wheat",
+                "milk"
+            ],
+            "ingredients": [
+                "farine blanche",
+                "lait",
+                "beurre",
+                "eau",
+                "levure",
+                "sel",
+                "sucre"
+            ],
+            "available": true,
+            "featured": false,
+            "inventoryQuantity": 50,
+            "productType": "retail",
+            "status": "Active"
+        },
+        {
+            "id": "miche-a-soupe",
+            "category": "pains-specialises",
+            "title": {
+                "fr": "Miche à Soupe",
+                "en": "Bread Bowl"
+            },
+            "description": {
+                "fr": "Pain rond parfait pour servir vos soupes et potages. Une présentation spectaculaire et délicieuse!",
+                "en": "Round bread perfect for serving your soups and stews. A spectacular and delicious presentation!"
+            },
+            "price": 5.99,
+            "currency": "CAD",
+            "unit": "piece",
+            "icon": "🥣",
+            "image": "/img/products/miche-a-soupe.jpg",
+            "weight": "400g",
+            "allergens": [
+                "gluten",
+                "wheat"
+            ],
+            "ingredients": [
+                "farine blanche",
+                "eau",
+                "levure",
+                "sel"
+            ],
+            "available": true,
+            "featured": false,
+            "inventoryQuantity": 50,
+            "productType": "retail",
+            "status": "Active"
+        },
+        {
+            "id": "petits-pains-salade",
+            "category": "pains-specialises",
+            "title": {
+                "fr": "Petits Pains à Salade",
+                "en": "Salad Rolls"
+            },
+            "description": {
+                "fr": "Petits pains moelleux parfaits pour vos salades et accompagnements. Légers et savoureux!",
+                "en": "Soft rolls perfect for your salads and side dishes. Light and tasty!"
+            },
+            "price": 5.99,
+            "currency": "CAD",
+            "unit": "pack of 6",
+            "icon": "ðŸ¥—",
+            "image": "/img/products/petits-pains-salade.jpg",
+            "weight": "300g",
+            "allergens": [
+                "gluten",
+                "wheat"
+            ],
+            "ingredients": [
+                "farine blanche",
+                "eau",
+                "levure",
+                "sel",
+                "sucre"
+            ],
+            "available": true,
+            "featured": false,
+            "inventoryQuantity": 50,
+            "productType": "retail",
+            "status": "Active"
+        },
+        {
+            "id": "pain-sous-marin",
+            "category": "pains-specialises",
+            "title": {
+                "fr": "Pain Sous-Marin 12\"",
+                "en": "12\" Submarine Bread"
+            },
+            "description": {
+                "fr": "Pain long de 12 pouces idéal pour vos sandwichs sous-marins. Croustillant à l'extérieur, moelleux à l'intérieur!",
+                "en": "12-inch long bread ideal for your submarine sandwiches. Crispy outside, soft inside!"
+            },
+            "price": 4.99,
+            "currency": "CAD",
+            "unit": "piece",
+            "icon": "ðŸ¥ª",
+            "image": "/img/products/pain-sous-marin.jpg",
+            "weight": "300g",
+            "allergens": [
+                "gluten",
+                "wheat"
+            ],
+            "ingredients": [
+                "farine blanche",
+                "eau",
+                "levure",
+                "sel",
+                "sucre",
+                "huile"
+            ],
+            "available": true,
+            "featured": false,
+            "inventoryQuantity": 50,
+            "productType": "retail",
+            "status": "Active"
+        },
+        {
+            "id": "muffins-anglais",
+            "category": "pains-specialises",
+            "title": {
+                "fr": "Muffins Anglais",
+                "en": "English Muffins"
+            },
+            "description": {
+                "fr": "Parfaits pour vos petits déjeuners! Grillés avec du beurre, ils sont irrésistibles.",
+                "en": "Perfect for your breakfasts! Toasted with butter, they're irresistible."
+            },
+            "price": 5.49,
+            "currency": "CAD",
+            "unit": "pack of 6",
+            "icon": "🥐",
+            "image": "/img/products/muffins-anglais.jpg",
+            "weight": "360g",
+            "allergens": [
+                "gluten",
+                "wheat"
+            ],
+            "ingredients": [
+                "farine blanche",
+                "eau",
+                "levure",
+                "sel",
+                "sucre",
+                "semoule de maïs"
+            ],
+            "available": true,
+            "featured": false,
+            "inventoryQuantity": 50,
+            "productType": "retail",
+            "status": "Active"
+        },
+        {
+            "id": "croissants-francais",
+            "category": "viennoiseries",
+            "title": {
+                "fr": "Croissants Français",
+                "en": "French Croissants"
+            },
+            "description": {
+                "fr": "Croissants pur beurre feuilletés à la perfection. Croustillants, aérés et fondants comme à Paris!",
+                "en": "Pure butter croissants perfectly laminated. Crispy, airy and melt-in-your-mouth like in Paris!"
+            },
+            "price": 3.49,
+            "currency": "CAD",
+            "unit": "piece",
+            "icon": "🥐",
+            "image": "/img/products/croissants-francais.jpg",
+            "weight": "80g",
+            "allergens": [
+                "gluten",
+                "wheat",
+                "milk",
+                "eggs"
+            ],
+            "ingredients": [
+                "farine blanche",
+                "beurre",
+                "lait",
+                "Å“ufs",
+                "levure",
+                "sel",
+                "sucre"
+            ],
+            "available": true,
+            "featured": true,
+            "inventoryQuantity": 50,
+            "productType": "retail",
+            "status": "Active"
+        },
+        {
+            "id": "pains-au-chocolat",
+            "category": "viennoiseries",
+            "title": {
+                "fr": "Pains au Chocolat",
+                "en": "Chocolate Croissants"
+            },
+            "description": {
+                "fr": "Viennoiserie feuilletée avec deux barres de chocolat noir de qualité. Le petit plaisir parfait!",
+                "en": "Flaky pastry with two bars of quality dark chocolate. The perfect little treat!"
+            },
+            "price": 3.99,
+            "currency": "CAD",
+            "unit": "piece",
+            "icon": "ðŸ«",
+            "image": "/img/products/pains-au-chocolat.jpg",
+            "weight": "90g",
+            "allergens": [
+                "gluten",
+                "wheat",
+                "milk",
+                "eggs",
+                "soy"
+            ],
+            "ingredients": [
+                "farine blanche",
+                "beurre",
+                "chocolat noir",
+                "lait",
+                "Å“ufs",
+                "levure",
+                "sel",
+                "sucre"
+            ],
+            "available": true,
+            "featured": true,
+            "inventoryQuantity": 50,
+            "productType": "retail",
+            "status": "Active"
+        },
+        {
+            "id": "brioche-maison",
+            "category": "viennoiseries",
+            "title": {
+                "fr": "Brioche Maison",
+                "en": "Homemade Brioche"
+            },
+            "description": {
+                "fr": "Brioche dorée, moelleuse et légèrement sucrée. Parfaite pour le petit déjeuner ou le dessert!",
+                "en": "Golden brioche, soft and lightly sweetened. Perfect for breakfast or dessert!"
+            },
+            "price": 7.99,
+            "currency": "CAD",
+            "unit": "loaf",
+            "icon": "🥐",
+            "image": "/img/products/brioche-maison.jpg",
+            "weight": "500g",
+            "allergens": [
+                "gluten",
+                "wheat",
+                "milk",
+                "eggs"
+            ],
+            "ingredients": [
+                "farine blanche",
+                "beurre",
+                "Å“ufs",
+                "lait",
+                "levure",
+                "sel",
+                "sucre"
+            ],
+            "available": true,
+            "featured": false,
+            "inventoryQuantity": 50,
+            "productType": "retail",
+            "status": "Active"
+        },
+        {
+            "id": "bagel-classique",
+            "category": "pains-forme",
+            "title": {
+                "fr": "Bagel Classique",
+                "en": "Classic Bagel"
+            },
+            "description": {
+                "fr": "Bagel traditionnel nature ou au sésame, bouilli puis cuit au four. Texture dense et savoureuse!",
+                "en": "Traditional plain or sesame bagel, boiled then baked. Dense and flavorful texture!"
+            },
+            "price": 2.99,
+            "currency": "CAD",
+            "unit": "piece",
+            "icon": "🥯",
+            "image": "/img/products/bagel-classique.jpg",
+            "weight": "110g",
+            "allergens": [
+                "gluten",
+                "wheat",
+                "sesame"
+            ],
+            "ingredients": [
+                "farine blanche",
+                "eau",
+                "levure",
+                "sel",
+                "sucre",
+                "graines de sésame"
+            ],
+            "available": true,
+            "featured": false,
+            "inventoryQuantity": 50,
+            "productType": "retail",
+            "status": "Active"
+        },
+        {
+            "id": "bagel-everything",
+            "category": "pains-forme",
+            "title": {
+                "fr": "Bagel Everything",
+                "en": "Everything Bagel"
+            },
+            "description": {
+                "fr": "Bagel garni de tout: sésame, pavot, ail séché, oignon séché et gros sel. Un festival de saveurs!",
+                "en": "Bagel topped with everything: sesame, poppy, dried garlic, dried onion and coarse salt. A festival of flavors!"
+            },
+            "price": 3.49,
+            "currency": "CAD",
+            "unit": "piece",
+            "icon": "🥯",
+            "image": "/img/products/bagel-everything.jpg",
+            "weight": "120g",
+            "allergens": [
+                "gluten",
+                "wheat",
+                "sesame"
+            ],
+            "ingredients": [
+                "farine blanche",
+                "eau",
+                "levure",
+                "sel",
+                "sucre",
+                "graines de sésame",
+                "graines de pavot",
+                "ail",
+                "oignon"
+            ],
+            "available": true,
+            "featured": true,
+            "inventoryQuantity": 50,
+            "productType": "retail",
+            "status": "Active"
+        },
+        {
+            "id": "bretzel-classique",
+            "category": "pains-forme",
+            "title": {
+                "fr": "Bretzel Classique",
+                "en": "Classic Pretzel"
+            },
+            "description": {
+                "fr": "Bretzel bavarois traditionnel à la croûte dorée et au gros sel. Texture unique et goût incomparable!",
+                "en": "Traditional Bavarian pretzel with golden crust and coarse salt. Unique texture and incomparable taste!"
+            },
+            "price": 3.99,
+            "currency": "CAD",
+            "unit": "piece",
+            "icon": "🥨",
+            "image": "/img/products/bretzel-classique.jpg",
+            "weight": "120g",
+            "allergens": [
+                "gluten",
+                "wheat"
+            ],
+            "ingredients": [
+                "farine blanche",
+                "eau",
+                "levure",
+                "gros sel",
+                "bicarbonate de soude"
+            ],
+            "available": true,
+            "featured": false,
+            "inventoryQuantity": 50,
+            "productType": "retail",
+            "status": "Active"
+        },
+        {
+            "id": "bretzel-bouchees",
+            "category": "pains-forme",
+            "title": {
+                "fr": "Bouchées de Bretzel",
+                "en": "Pretzel Bites"
+            },
+            "description": {
+                "fr": "Petites bouchées de bretzel parfaites pour l'apéro ou en collation. Idéales avec vos trempettes préférées!",
+                "en": "Small pretzel bites perfect for appetizers or snacks. Ideal with your favorite dips!"
+            },
+            "price": 6.99,
+            "currency": "CAD",
+            "unit": "bag",
+            "icon": "🥨",
+            "image": "/img/products/bretzel-bouchees.jpg",
+            "weight": "300g",
+            "allergens": [
+                "gluten",
+                "wheat"
+            ],
+            "ingredients": [
+                "farine blanche",
+                "eau",
+                "levure",
+                "gros sel",
+                "bicarbonate de soude"
+            ],
+            "available": true,
+            "featured": false,
+            "inventoryQuantity": 50,
+            "productType": "retail",
+            "status": "Active"
+        },
+        {
+            "id": "bretzel-cannelle-sucre",
+            "category": "pains-forme",
+            "title": {
+                "fr": "Bretzel Cannelle-Sucre",
+                "en": "Cinnamon Sugar Pretzel"
+            },
+            "description": {
+                "fr": "Version sucrée du bretzel avec cannelle et sucre. Un dessert original et délicieux!",
+                "en": "Sweet version of the pretzel with cinnamon and sugar. An original and delicious dessert!"
+            },
+            "price": 4.49,
+            "currency": "CAD",
+            "unit": "piece",
+            "icon": "🥨",
+            "image": "/img/products/bretzel-cannelle-sucre.jpg",
+            "weight": "120g",
+            "allergens": [
+                "gluten",
+                "wheat"
+            ],
+            "ingredients": [
+                "farine blanche",
+                "eau",
+                "levure",
+                "cannelle",
+                "sucre",
+                "bicarbonate de soude",
+                "beurre"
+            ],
+            "available": true,
+            "featured": false,
+            "inventoryQuantity": 50,
+            "productType": "retail",
+            "status": "Active"
+        },
+        {
+            "id": "pain-sans-gluten-classique",
+            "category": "sans-gluten",
+            "title": {
+                "fr": "Pain Sans Gluten Classique",
+                "en": "Classic Gluten-Free Bread"
+            },
+            "description": {
+                "fr": "Pain sans gluten au goût authentique de pain traditionnel. Texture moelleuse et saveur incomparable!",
+                "en": "Gluten-free bread with authentic traditional bread taste. Soft texture and incomparable flavor!"
+            },
+            "price": 8.99,
+            "currency": "CAD",
+            "unit": "loaf",
+            "icon": "ðŸŒ¾",
+            "image": "/img/products/pain-sans-gluten-classique.jpg",
+            "weight": "500g",
+            "allergens": [
+                "eggs"
+            ],
+            "ingredients": [
+                "farine de riz",
+                "fécule de tapioca",
+                "fécule de pomme de terre",
+                "Å“ufs",
+                "eau",
+                "levure",
+                "sel",
+                "gomme xanthane"
+            ],
+            "available": true,
+            "featured": false,
+            "inventoryQuantity": 50,
+            "productType": "retail",
+            "status": "Active"
+        },
+        {
+            "id": "baguette-sans-gluten",
+            "category": "sans-gluten",
+            "title": {
+                "fr": "Baguette Sans Gluten",
+                "en": "Gluten-Free Baguette"
+            },
+            "description": {
+                "fr": "Baguette croustillante sans gluten qui ne fait aucun compromis sur la texture et le goût!",
+                "en": "Crispy gluten-free baguette that makes no compromise on texture and taste!"
+            },
+            "price": 6.99,
+            "currency": "CAD",
+            "unit": "piece",
+            "icon": "🌿",
+            "image": "/img/products/baguette-sans-gluten.jpg",
+            "weight": "250g",
+            "allergens": [
+                "eggs"
+            ],
+            "ingredients": [
+                "farine de riz",
+                "fécule de tapioca",
+                "Å“ufs",
+                "eau",
+                "levure",
+                "sel",
+                "gomme xanthane"
+            ],
+            "available": true,
+            "featured": false,
+            "inventoryQuantity": 50,
+            "productType": "retail",
+            "status": "Active"
+        },
+        {
+            "id": "pain-sans-gluten-graines",
+            "category": "sans-gluten",
+            "title": {
+                "fr": "Pain Sans Gluten aux Graines",
+                "en": "Gluten-Free Seed Bread"
+            },
+            "description": {
+                "fr": "Pain sans gluten enrichi de graines nutritives de tournesol, lin et chia. Santé et saveur garanties!",
+                "en": "Gluten-free bread enriched with nutritious sunflower, flax and chia seeds. Health and flavor guaranteed!"
+            },
+            "price": 9.49,
+            "currency": "CAD",
+            "unit": "loaf",
+            "icon": "ðŸŒ°",
+            "image": "/img/products/pain-sans-gluten-graines.jpg",
+            "weight": "500g",
+            "allergens": [
+                "eggs",
+                "sesame"
+            ],
+            "ingredients": [
+                "farine de riz",
+                "fécule de tapioca",
+                "graines de tournesol",
+                "graines de lin",
+                "graines de chia",
+                "Å“ufs",
+                "eau",
+                "levure",
+                "sel",
+                "gomme xanthane"
+            ],
+            "available": true,
+            "featured": false,
+            "inventoryQuantity": 50,
+            "productType": "retail",
+            "status": "Active"
+        },
+        {
+            "id": "focaccia-italienne",
+            "category": "pains-mediterraneens",
+            "title": {
+                "fr": "Focaccia Italienne",
+                "en": "Italian Focaccia"
+            },
+            "description": {
+                "fr": "Pain plat italien généreux en huile d'olive extra vierge et herbes de Provence. Un voyage en Italie!",
+                "en": "Italian flatbread generous in extra virgin olive oil and Provence herbs. A trip to Italy!"
+            },
+            "price": 7.99,
+            "currency": "CAD",
+            "unit": "piece",
+            "icon": "🍅",
+            "image": "/img/products/focaccia-italienne.jpg",
+            "weight": "400g",
+            "allergens": [
+                "gluten",
+                "wheat"
+            ],
+            "ingredients": [
+                "farine blanche",
+                "huile d'olive",
+                "eau",
+                "levure",
+                "sel",
+                "romarin",
+                "thym"
+            ],
+            "available": true,
+            "featured": true,
+            "inventoryQuantity": 50,
+            "productType": "retail",
+            "status": "Active"
+        },
+        {
+            "id": "fougasse-provencale",
+            "category": "pains-mediterraneens",
+            "title": {
+                "fr": "Fougasse Provençale",
+                "en": "Provençal Fougasse"
+            },
+            "description": {
+                "fr": "Pain provençal traditionnel aux olives noires et fines herbes. Les saveurs du sud de la France!",
+                "en": "Traditional Provençal bread with black olives and fine herbs. The flavors of southern France!"
+            },
+            "price": 8.49,
+            "currency": "CAD",
+            "unit": "piece",
+            "icon": "🫒",
+            "image": "/img/products/fougasse-provencale.jpg",
+            "weight": "350g",
+            "allergens": [
+                "gluten",
+                "wheat"
+            ],
+            "ingredients": [
+                "farine blanche",
+                "olives noires",
+                "huile d'olive",
+                "eau",
+                "levure",
+                "sel",
+                "herbes de Provence"
+            ],
+            "available": true,
+            "featured": true,
+            "inventoryQuantity": 50,
+            "productType": "retail",
+            "status": "Active"
+        }
+    ],
+    "categories": [
+        {
+            "id": "pains-base",
+            "name": {
+                "fr": "Pains de Base",
+                "en": "Basic Breads"
+            },
+            "icon": "ðŸž",
+            "description": {
+                "fr": "Nos classiques, la base de toute bonne boulangerie",
+                "en": "Our classics, the foundation of any good bakery"
+            },
+            "order": 1
+        },
+        {
+            "id": "pains-specialises",
+            "name": {
+                "fr": "Pains Spécialisés",
+                "en": "Specialty Breads"
+            },
+            "icon": "ðŸŒ°",
+            "description": {
+                "fr": "Des créations uniques pour des saveurs exceptionnelles",
+                "en": "Unique creations for exceptional flavors"
+            },
+            "order": 2
+        },
+        {
+            "id": "viennoiseries",
+            "name": {
+                "fr": "Viennoiseries",
+                "en": "Pastries"
+            },
+            "icon": "ðŸ¥",
+            "description": {
+                "fr": "Le délice du matin, fraîchement sorti du four",
+                "en": "Morning delights, fresh from the oven"
+            },
+            "order": 3
+        },
+        {
+            "id": "pains-forme",
+            "name": {
+                "fr": "Pains en Forme",
+                "en": "Shaped Breads"
+            },
+            "icon": "ðŸ¥¨",
+            "description": {
+                "fr": "Des formes traditionnelles pour des saveurs authentiques",
+                "en": "Traditional shapes for authentic flavors"
+            },
+            "order": 4
+        },
+        {
+            "id": "sans-gluten",
+            "name": {
+                "fr": "Options Sans Gluten",
+                "en": "Gluten-Free Options"
+            },
+            "icon": "ðŸŒ¾",
+            "description": {
+                "fr": "Pour tous les goûts et toutes les diètes",
+                "en": "For all tastes and all diets"
+            },
+            "order": 5
+        },
+        {
+            "id": "pains-mediterraneens",
+            "name": {
+                "fr": "Spécialités Méditerranéennes",
+                "en": "Mediterranean Specialties"
+            },
+            "icon": "ðŸ‡®ðŸ‡¹",
+            "description": {
+                "fr": "Un voyage culinaire en Méditerranée",
+                "en": "A culinary journey through the Mediterranean"
+            },
+            "order": 6
+        }
+    ],
+    "metadata": {
+        "version": "1.0.0",
+        "lastUpdated": "2025-10-21",
+        "currency": "CAD",
+        "locale": {
+            "default": "fr",
+            "available": [
+                "fr",
+                "en"
+            ]
+        },
+        "productStatuses": {
+            "Discontinued": {
+                "en": "Discontinued",
+                "fr": "Discontinué"
+            },
+            "Active": {
+                "en": "Active",
+                "fr": "Actif"
+            },
+            "Inactive": {
+                "en": "Inactive",
+                "fr": "Inactif"
+            }
+        }
+    }
 }
