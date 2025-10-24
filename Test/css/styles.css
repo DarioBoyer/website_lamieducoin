@@ -182,24 +182,79 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+}
+
+.product-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover::before {
+    transform: scaleX(1);
 }
 
 .product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(139, 69, 19, 0.15);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 35px rgba(139, 69, 19, 0.2);
     border-color: var(--primary-light);
 }
 
+.product-card.featured {
+    border-color: var(--accent-color);
+    background: linear-gradient(to bottom, #fffef8, white);
+}
+
+.product-card.featured::after {
+    content: '⭐';
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    animation: pulse 2s infinite;
+}
+
 .product-icon {
-    font-size: 3.5rem;
+    font-size: 4rem;
     margin-bottom: 1rem;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.product-card h4 {
+    color: var(--dark-color);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+}
+
+.product-card p {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    flex-grow: 1;
 }
 
 .product-price {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     font-weight: bold;
     color: var(--primary-color);
-    margin-top: 1rem;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 2px solid #f0f0f0;
 }
 
 /* Page Header */
@@ -320,9 +375,8 @@ footer .hover-link:hover {
     .hero-section {
         min-height: 60vh;
     }
-}
-
-@keyframes fadeInUp {
+    
+    .hero-title {
         font-size: 2.5rem;
     }
     
@@ -333,6 +387,17 @@ footer .hover-link:hover {
     
     .page-header {
         padding: 2rem 0 1.5rem;
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 

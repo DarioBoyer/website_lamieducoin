@@ -1002,7 +1002,7 @@
                 "fr": "Pains de Base",
                 "en": "Basic Breads"
             },
-            "icon": "ðŸž",
+            "icon": "🍞",
             "description": {
                 "fr": "Nos classiques, la base de toute bonne boulangerie",
                 "en": "Our classics, the foundation of any good bakery"
@@ -1015,7 +1015,7 @@
                 "fr": "Pains Spécialisés",
                 "en": "Specialty Breads"
             },
-            "icon": "ðŸŒ°",
+            "icon": "🌰",
             "description": {
                 "fr": "Des créations uniques pour des saveurs exceptionnelles",
                 "en": "Unique creations for exceptional flavors"
@@ -1028,7 +1028,7 @@
                 "fr": "Viennoiseries",
                 "en": "Pastries"
             },
-            "icon": "ðŸ¥",
+            "icon": "🥐",
             "description": {
                 "fr": "Le délice du matin, fraîchement sorti du four",
                 "en": "Morning delights, fresh from the oven"
@@ -1041,7 +1041,7 @@
                 "fr": "Pains en Forme",
                 "en": "Shaped Breads"
             },
-            "icon": "ðŸ¥¨",
+            "icon": "🥨",
             "description": {
                 "fr": "Des formes traditionnelles pour des saveurs authentiques",
                 "en": "Traditional shapes for authentic flavors"
@@ -1054,7 +1054,7 @@
                 "fr": "Options Sans Gluten",
                 "en": "Gluten-Free Options"
             },
-            "icon": "ðŸŒ¾",
+            "icon": "🌾",
             "description": {
                 "fr": "Pour tous les goûts et toutes les diètes",
                 "en": "For all tastes and all diets"
@@ -1067,7 +1067,7 @@
                 "fr": "Spécialités Méditerranéennes",
                 "en": "Mediterranean Specialties"
             },
-            "icon": "ðŸ‡®ðŸ‡¹",
+            "icon": "🇮🇹",
             "description": {
                 "fr": "Un voyage culinaire en Méditerranée",
                 "en": "A culinary journey through the Mediterranean"
