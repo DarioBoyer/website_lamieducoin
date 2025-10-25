@@ -89,7 +89,10 @@ class OrderManager {
         // Ajouter la commande à la liste
         this.orders.push(newOrder);
 
-        console.log(`Order ${orderId} created successfully`);
+        // Sauvegarder dans localStorage
+        this.saveOrdersToLocalStorage();
+
+        console.log(`Order ${orderId} created successfully and saved to localStorage`);
         return newOrder;
     }
 
@@ -141,6 +144,7 @@ class OrderManager {
 
         order.orderLines.splice(lineIndex, 1);
         this.calculateOrderTotal(order);
+        this.saveOrdersToLocalStorage();
 
         console.log(`Line ${lineIndex} removed from order ${orderId}`);
         return true;
@@ -170,6 +174,7 @@ class OrderManager {
         line.lineTotal = line.quantityOrdered * line.price;
 
         this.calculateOrderTotal(order);
+        this.saveOrdersToLocalStorage();
 
         console.log(`Line ${lineIndex} quantity updated in order ${orderId}`);
         return true;
@@ -221,6 +226,7 @@ class OrderManager {
         order.cancellationReason = cancellationReason;
         order.cancelledOn = new Date().toISOString();
 
+        this.saveOrdersToLocalStorage();
         console.log(`Order ${orderId} cancelled: ${cancellationReason}`);
         return true;
     }
@@ -244,6 +250,7 @@ class OrderManager {
         }
 
         order.status = newStatus;
+        this.saveOrdersToLocalStorage();
         console.log(`Order ${orderId} status changed to ${newStatus}`);
         return true;
     }
@@ -305,6 +312,7 @@ class OrderManager {
         }
 
         order.orderLines[lineIndex].lineStatus = newStatus;
+        this.saveOrdersToLocalStorage();
         console.log(`Order ${orderId} line ${lineIndex} status changed to ${newStatus}`);
         return true;
     }
@@ -473,17 +481,60 @@ class OrderManager {
     }
 
     /**
-     * Sauvegarde les données (simulation - en production, cela ferait un appel API)
+     * Charge les commandes depuis le localStorage
+     * @returns {Array} Liste des commandes du localStorage
+     */
+    loadOrdersFromLocalStorage() {
+        try {
+            const storedOrders = localStorage.getItem('localOrders');
+            if (!storedOrders) return [];
+            
+            const orders = JSON.parse(storedOrders);
+            console.log(`Loaded ${orders.length} orders from localStorage`);
+            return orders;
+        } catch (error) {
+            console.error('Error loading orders from localStorage:', error);
+            return [];
+        }
+    }
+
+    /**
+     * Sauvegarde les commandes locales dans le localStorage
+     * @returns {boolean} Succès de la sauvegarde
+     */
+    saveOrdersToLocalStorage() {
+        try {
+            // Ne sauvegarder que les commandes créées localement (celles qui ne sont pas dans orders.json)
+            const localOrders = this.orders.filter(order => {
+                // Une commande est locale si son ID est >= 6 (le prochain ID après ceux du fichier JSON)
+                return order.orderId >= 6;
+            });
+            
+            localStorage.setItem('localOrders', JSON.stringify(localOrders));
+            console.log(`Saved ${localOrders.length} orders to localStorage`);;
+            return true;
+        } catch (error) {
+            console.error('Error saving orders to localStorage:', error);
+            return false;
+        }
+    }
+
+    /**
+     * Sauvegarde les données (sauvegarde dans localStorage)
      * @returns {Object} Données à sauvegarder
      */
     saveData() {
+        // Sauvegarder dans localStorage
+        this.saveOrdersToLocalStorage();
+        
         const dataToSave = {
             orderStatuses: this.orderStatuses,
             lineStatuses: this.lineStatuses,
-            orders: this.orders
+            orders: this.orders,
+            savedAt: new Date().toISOString()
         };
 
-        console.log('Data ready to save:', dataToSave);
+        console.log('Data saved to localStorage:', dataToSave);
         
         // En production, vous feriez un appel API ici pour sauvegarder les données
         // fetch('/api/orders', { method: 'POST', body: JSON.stringify(dataToSave) })

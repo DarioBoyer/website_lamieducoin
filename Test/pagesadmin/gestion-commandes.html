@@ -73,6 +73,16 @@
                 </h1>
                 <p class="text-muted">Vue d'ensemble et gestion de toutes les commandes</p>
             </div>
+            <div class="col-auto">
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="exportAllOrdersJSON()">
+                        <i class="bi bi-download"></i> Exporter tout (JSON)
+                    </button>
+                    <button class="btn btn-outline-primary" onclick="exportLocalOrdersJSON()">
+                        <i class="bi bi-file-earmark-arrow-down"></i> Exporter locales
+                    </button>
+                </div>
+            </div>
         </div>
 
         <!-- Statistics Cards -->

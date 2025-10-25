@@ -35,16 +35,31 @@ async function initializeApp() {
     }
 }
 
-// Load orders from JSON file
+// Load orders from JSON file and localStorage
 async function loadOrders() {
     try {
         const response = await fetch('../data/orders.json');
         if (!response.ok) throw new Error('Failed to load orders');
         
         const data = await response.json();
-        allOrders = data.orders || [];
+        let jsonOrders = data.orders || [];
         
-        console.log(`Loaded ${allOrders.length} orders`);
+        // Load local orders from localStorage
+        let localOrders = [];
+        try {
+            const storedOrders = localStorage.getItem('localOrders');
+            if (storedOrders) {
+                localOrders = JSON.parse(storedOrders);
+                console.log(`Loaded ${localOrders.length} orders from localStorage`);
+            }
+        } catch (error) {
+            console.error('Error loading local orders:', error);
+        }
+        
+        // Merge orders from JSON file and localStorage
+        allOrders = [...jsonOrders, ...localOrders];
+        
+        console.log(`Loaded ${allOrders.length} orders (${jsonOrders.length} from JSON, ${localOrders.length} local)`);
     } catch (error) {
         console.error('Error loading orders:', error);
         throw error;
@@ -574,6 +589,79 @@ function resetFilters() {
 // Print current order
 function printOrder() {
     window.print();
+}
+
+// Export Functions
+
+// Export all orders as JSON
+function exportAllOrdersJSON() {
+    const dataToExport = {
+        exportDate: new Date().toISOString(),
+        totalOrders: allOrders.length,
+        orders: allOrders
+    };
+    
+    downloadJSON(dataToExport, `toutes-commandes-${getTodayDate()}.json`);
+    
+    // Show success message
+    showSuccess(`${allOrders.length} commandes exportées avec succès`);
+}
+
+// Export only local orders (from localStorage)
+function exportLocalOrdersJSON() {
+    const localOrders = JSON.parse(localStorage.getItem('localOrders') || '[]');
+    
+    if (localOrders.length === 0) {
+        alert('Aucune commande locale à exporter');
+        return;
+    }
+    
+    const dataToExport = {
+        exportDate: new Date().toISOString(),
+        totalOrders: localOrders.length,
+        orders: localOrders
+    };
+    
+    downloadJSON(dataToExport, `commandes-locales-${getTodayDate()}.json`);
+    
+    // Show success message
+    showSuccess(`${localOrders.length} commandes locales exportées avec succès`);
+}
+
+// Download JSON file
+function downloadJSON(data, filename) {
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+// Get today's date in YYYY-MM-DD format
+function getTodayDate() {
+    return new Date().toISOString().split('T')[0];
+}
+
+// Show success message
+function showSuccess(message) {
+    // Create a temporary toast/alert
+    const toast = document.createElement('div');
+    toast.className = 'alert alert-success alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3';
+    toast.style.zIndex = '9999';
+    toast.innerHTML = `
+        <i class="bi bi-check-circle-fill me-2"></i>${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+    document.body.appendChild(toast);
+    
+    // Auto-remove after 3 seconds
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
 }
 
 // Utility Functions

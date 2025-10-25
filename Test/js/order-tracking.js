@@ -122,10 +122,26 @@
 
             const data = await response.json();
             
+            // Load local orders from localStorage
+            let localOrders = [];
+            try {
+                const storedOrders = localStorage.getItem('localOrders');
+                if (storedOrders) {
+                    localOrders = JSON.parse(storedOrders);
+                    console.log(`Loaded ${localOrders.length} orders from localStorage`);
+                }
+            } catch (error) {
+                console.error('Error loading local orders:', error);
+            }
+            
+            // Merge orders from JSON file and localStorage
+            const allOrders = [...data.orders, ...localOrders];
+            
             // Find order by GUID
-            const order = data.orders.find(o => o.orderGuid === orderGuid);
+            const order = allOrders.find(o => o.orderGuid === orderGuid);
             
             if (!order) {
+                console.error('Order not found:', orderGuid);
                 showOrderNotFound();
                 return;
             }
