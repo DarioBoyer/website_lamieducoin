@@ -4,9 +4,11 @@
 
 import dbConnection from './config/database.js';
 import productService from './services/productService.js';
+import categoryService from './services/categoryService.js';
 
 // État global
 let allProducts = [];
+let allCategories = [];
 let currentEditId = null;
 
 /**
@@ -55,25 +57,73 @@ async function loadProducts() {
 }
 
 /**
- * Charge les catégories pour le filtre
+ * Charge les catégories depuis la base de données
  */
 async function loadCategories() {
     try {
-        const categories = await productService.getCategories();
-        const select = document.getElementById('filterCategory');
+        // Charger les catégories depuis la table BreadCategory
+        allCategories = await categoryService.getAllCategories();
+        console.log('📂 Catégories chargées:', allCategories);
         
-        // Garder l'option "Toutes les catégories"
-        select.innerHTML = '<option value="">Toutes les catégories</option>';
+        // Mettre à jour le filtre de catégories
+        const filterSelect = document.getElementById('filterCategory');
+        filterSelect.innerHTML = '<option value="">Toutes les catégories</option>';
         
-        categories.forEach(category => {
+        allCategories.forEach(category => {
             const option = document.createElement('option');
-            option.value = category;
-            option.textContent = formatCategory(category);
-            select.appendChild(option);
+            option.value = category.id;
+            option.textContent = `${category.icon || '📦'} ${category.NameFR}`;
+            filterSelect.appendChild(option);
         });
+        
+        // Mettre à jour le select du formulaire de produit
+        const productCategorySelect = document.getElementById('productCategory');
+        productCategorySelect.innerHTML = '';
+        
+        allCategories.forEach(category => {
+            const option = document.createElement('option');
+            option.value = category.id;
+            option.textContent = `${category.icon || '📦'} ${category.NameFR}`;
+            productCategorySelect.appendChild(option);
+        });
+        
     } catch (error) {
         console.error('Erreur lors du chargement des catégories:', error);
+        // En cas d'erreur, charger des catégories par défaut
+        loadDefaultCategories();
     }
+}
+
+/**
+ * Charge des catégories par défaut si la BD n'est pas accessible
+ */
+function loadDefaultCategories() {
+    const defaultCategories = [
+        { id: 'pains-base', NameFR: 'Pains de base', icon: '🍞' },
+        { id: 'pains-specialite', NameFR: 'Pains spécialisés', icon: '🥖' },
+        { id: 'viennoiseries', NameFR: 'Viennoiseries', icon: '🥐' },
+        { id: 'sans-gluten', NameFR: 'Sans gluten', icon: '🌾' }
+    ];
+    
+    allCategories = defaultCategories;
+    
+    const filterSelect = document.getElementById('filterCategory');
+    const productCategorySelect = document.getElementById('productCategory');
+    
+    filterSelect.innerHTML = '<option value="">Toutes les catégories</option>';
+    productCategorySelect.innerHTML = '';
+    
+    defaultCategories.forEach(category => {
+        const filterOption = document.createElement('option');
+        filterOption.value = category.id;
+        filterOption.textContent = `${category.icon} ${category.NameFR}`;
+        filterSelect.appendChild(filterOption);
+        
+        const productOption = document.createElement('option');
+        productOption.value = category.id;
+        productOption.textContent = `${category.icon} ${category.NameFR}`;
+        productCategorySelect.appendChild(productOption);
+    });
 }
 
 /**
@@ -359,14 +409,23 @@ function getArrayItems(type) {
 /**
  * Utilitaires
  */
-function formatCategory(category) {
-    const categories = {
-        'pains-base': 'Pains de base',
-        'pains-specialite': 'Pains spécialisés',
-        'viennoiseries': 'Viennoiseries',
-        'sans-gluten': 'Sans gluten'
+function formatCategory(categoryId) {
+    // Chercher la catégorie dans les catégories chargées
+    const category = allCategories.find(cat => cat.id === categoryId);
+    if (category) {
+        return `${category.icon || '📦'} ${category.NameFR}`;
+    }
+    
+    // Fallback si la catégorie n'est pas trouvée
+    const fallbackCategories = {
+        'pains-base': '🍞 Pains de base',
+        'pains-specialite': '🥖 Pains spécialisés',
+        'pains-forme': '🎨 Pains de forme',
+        'pains-mediterraneens': '🌍 Pains méditerranéens',
+        'viennoiseries': '🥐 Viennoiseries',
+        'sans-gluten': '🌾 Sans gluten'
     };
-    return categories[category] || category;
+    return fallbackCategories[categoryId] || categoryId;
 }
 
 function getStatusBadgeClass(status) {
