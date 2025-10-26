@@ -149,7 +149,7 @@ function displayProducts(products) {
             <td class="product-icon">${product.icon}</td>
             <td><strong>${product.code}</strong></td>
             <td>${product.title_fr}</td>
-            <td>${formatCategory(product.category)}</td>
+            <td>${formatCategory(product.categoryId)}</td>
             <td>${product.price.toFixed(2)} ${product.currency}</td>
             <td>${product.inventoryQuantity}</td>
             <td><span class="badge ${getStatusBadgeClass(product.status)}">${product.status}</span></td>
@@ -174,7 +174,7 @@ function applyFilters() {
     let filtered = allProducts;
     
     if (categoryFilter) {
-        filtered = filtered.filter(p => p.category === categoryFilter);
+        filtered = filtered.filter(p => p.categoryId === categoryFilter);
     }
     
     if (statusFilter) {
@@ -235,7 +235,7 @@ async function loadProductData(productId) {
         
         document.getElementById('productId').value = product.id;
         document.getElementById('productCode').value = product.code;
-        document.getElementById('productCategory').value = product.category;
+        document.getElementById('productCategory').value = product.categoryId;
         document.getElementById('productTitleFr').value = product.title_fr;
         document.getElementById('productTitleEn').value = product.title_en;
         document.getElementById('productDescFr').value = product.description_fr;
@@ -292,7 +292,7 @@ async function saveProduct() {
     try {
         const productData = {
             code: document.getElementById('productCode').value,
-            category: document.getElementById('productCategory').value,
+            categoryId: document.getElementById('productCategory').value,
             title_fr: document.getElementById('productTitleFr').value,
             title_en: document.getElementById('productTitleEn').value,
             description_fr: document.getElementById('productDescFr').value,

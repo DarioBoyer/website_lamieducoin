@@ -21,8 +21,8 @@ class ProductService {
             let query = client.from(this.tableName).select('*');
 
             // Appliquer les filtres
-            if (filters.category) {
-                query = query.eq('category', filters.category);
+            if (filters.categoryId) {
+                query = query.eq('categoryId', filters.categoryId);
             }
             if (filters.available !== undefined) {
                 query = query.eq('available', filters.available);
@@ -108,7 +108,7 @@ class ProductService {
             // Préparer les données avec valeurs par défaut
             const product = {
                 code: productData.code || '',
-                category: productData.category || 'pains-base',
+                categoryId: productData.categoryId || 'pains-base',
                 title_fr: productData.title_fr || '',
                 title_en: productData.title_en || '',
                 description_fr: productData.description_fr || '',
@@ -233,16 +233,16 @@ class ProductService {
      */
     async getCategories() {
         try {
-            const client = dbConnection.getClient();
+            const client = this.dbConnection.getClient();
             const { data, error } = await client
                 .from(this.tableName)
-                .select('category')
+                .select('categoryId')
                 .neq('status', 'Deleted');
 
             if (error) throw error;
             
             // Extraire les catégories uniques
-            const categories = [...new Set(data.map(item => item.category))];
+            const categories = [...new Set(data.map(item => item.categoryId))];
             return categories.sort();
         } catch (error) {
             console.error('Erreur lors de la récupération des catégories:', error);
