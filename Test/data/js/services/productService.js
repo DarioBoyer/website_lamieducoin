@@ -33,6 +33,9 @@ class ProductService {
             if (filters.status) {
                 query = query.eq('status', filters.status);
             }
+            if (filters.productType) {
+                query = query.eq('productType', filters.productType);
+            }
 
             // Trier par date de mise à jour
             query = query.order('updated_at', { ascending: false });

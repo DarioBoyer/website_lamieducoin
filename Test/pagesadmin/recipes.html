@@ -570,6 +570,7 @@
     <script type="module">
         import dbConnection from '../data/js/config/database.js';
         import recipesService from '../data/js/services/recipes.service.js';
+        import productService from '../data/js/services/productService.js';
 
         // État de l'application
         let state = {
@@ -619,17 +620,21 @@
         // Charger les produits
         async function loadProducts() {
             try {
-                const db = dbConnection.getClient();
-                const { data, error } = await db
-                    .from('Products')
-                    .select('id, Name')
-                    .order('Name');
-
-                if (error) throw error;
-                state.products = data || [];
+                // Charger tous les produits de type Retail (en minuscule)
+                const allProducts = await productService.getAllProducts({ productType: 'retail' });
+                
+                // Stocker les produits avec leur statut
+                state.products = allProducts.map(p => ({
+                    id: p.id,
+                    Name: p.Name || p.title_fr || 'Produit sans nom',
+                    status: p.status || 'Active'
+                }));
+                
+                console.log(`✅ ${state.products.length} produits Retail chargés`);
                 populateProductSelect();
             } catch (error) {
                 console.error('Erreur lors du chargement des produits:', error);
+                showError('Erreur lors du chargement des produits: ' + error.message);
             }
         }
 
@@ -641,7 +646,17 @@
             state.products.forEach(product => {
                 const option = document.createElement('option');
                 option.value = product.id;
-                option.textContent = product.Name;
+                
+                // Ajouter (Inactif) si le produit n'est pas actif
+                const statusText = product.status !== 'Active' ? ' (Inactif)' : '';
+                option.textContent = product.Name + statusText;
+                
+                // Optionnel: griser les produits inactifs
+                if (product.status !== 'Active') {
+                    option.style.color = '#999';
+                    option.style.fontStyle = 'italic';
+                }
+                
                 select.appendChild(option);
             });
         }
