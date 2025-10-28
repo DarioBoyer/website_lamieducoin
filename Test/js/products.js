@@ -1,198 +1,345 @@
-// Products Management Script
-// Loads and displays products dynamically from products.json
+/**
+ * Gestion de l'affichage des produits pour les clients
+ * Charge les produits depuis Supabase et les affiche de manière attractive
+ */
 
-let productsData = null;
+import dbConnection from './config/database.js';
+import productService from './services/productService.js';
+import categoryService from './services/categoryService.js';
+
+// État global
+let allProducts = [];
+let allCategories = [];
 let currentLanguage = localStorage.getItem('language') || 'fr';
 
-// Load products from JSON file
+// Mapping des catégories avec leurs sections HTML
+const CATEGORY_SECTIONS = {
+    'pains-base': 'pains-base',
+    'pains-specialite': 'pains-specialises',
+    'viennoiseries': 'viennoiseries',
+    'pains-forme': 'pains-forme',
+    'sans-gluten': 'sans-gluten',
+    'pains-mediterraneens': 'pains-mediterraneens'
+};
+
+/**
+ * Initialisation et chargement des produits
+ */
 async function loadProducts() {
     try {
-        console.log('🔄 Chargement des produits depuis JSON...');
-        const response = await fetch('../data/products.json');
-        console.log('📡 Réponse reçue:', response.status, response.statusText);
+        console.log('🔄 Chargement des produits depuis Supabase...');
         
-        if (!response.ok) {
-            throw new Error(`Failed to load products: ${response.status} ${response.statusText}`);
+        // Afficher l'indicateur de chargement
+        showLoadingState(true);
+        
+        // Initialiser la connexion à la base de données
+        await dbConnection.init();
+        
+        // Vérifier la connexion
+        const isConnected = await dbConnection.checkConnection();
+        if (!isConnected) {
+            throw new Error('Impossible de se connecter à la base de données');
         }
         
-        productsData = await response.json();
-        console.log('✅ Produits chargés:', productsData.products.length, 'produits');
+        // Charger les catégories et les produits en parallèle
+        [allCategories, allProducts] = await Promise.all([
+            categoryService.getAllCategories(),
+            productService.getAllProducts()
+        ]);
+        
+        console.log('✅ Produits chargés:', allProducts.length);
+        console.log('✅ Catégories chargées:', allCategories.length);
+        
+        // Afficher les produits
         displayProducts();
+        
+        showLoadingState(false);
+        
     } catch (error) {
         console.error('❌ Erreur lors du chargement des produits:', error);
-        console.error('💡 Assurez-vous d\'utiliser un serveur local (ex: python -m http.server 8000)');
-        // Fallback: keep static content if JSON fails to load
+        showError('Une erreur est survenue lors du chargement des produits. Veuillez réessayer plus tard.');
+        showLoadingState(false);
     }
 }
 
-// Display all products grouped by category
+/**
+ * Affiche tous les produits groupés par catégorie
+ */
 function displayProducts() {
-    if (!productsData) {
-        console.warn('⚠️ Pas de données produits à afficher');
+    if (!allProducts || allProducts.length === 0) {
+        console.warn('⚠️ Aucun produit à afficher');
+        showEmptyState();
         return;
     }
 
     console.log('🎨 Affichage des produits...');
     
-    // Get current language from localStorage or default to French
+    // Mettre à jour la langue courante
     currentLanguage = localStorage.getItem('language') || 'fr';
-    console.log('🌐 Langue courante:', currentLanguage);
-
-    // Sort categories by order
-    const sortedCategories = [...productsData.categories].sort((a, b) => a.order - b.order);
-    console.log('📦 Catégories à afficher:', sortedCategories.length);
-
-    // Process each category
-    sortedCategories.forEach(category => {
-        displayCategory(category);
+    
+    // Grouper les produits par catégorie
+    const productsByCategory = groupProductsByCategory(allProducts);
+    
+    // Afficher chaque catégorie
+    allCategories.forEach(category => {
+        const categoryProducts = productsByCategory[category.id] || [];
+        displayCategory(category, categoryProducts);
     });
     
     console.log('✅ Affichage terminé');
 }
 
-// Display products for a specific category
-function displayCategory(category) {
-    const sectionId = category.id;
+/**
+ * Groupe les produits par catégorie
+ */
+function groupProductsByCategory(products) {
+    const grouped = {};
+    
+    products.forEach(product => {
+        if (!grouped[product.categoryId]) {
+            grouped[product.categoryId] = [];
+        }
+        grouped[product.categoryId].push(product);
+    });
+    
+    return grouped;
+}
+
+/**
+ * Affiche une catégorie avec ses produits
+ */
+function displayCategory(category, products) {
+    const sectionId = CATEGORY_SECTIONS[category.id];
     const section = document.getElementById(sectionId);
     
     if (!section) {
-        console.warn(`Section ${sectionId} not found`);
+        console.warn(`Section ${sectionId} non trouvée pour la catégorie ${category.id}`);
         return;
     }
-
-    // Update section title and description
+    
+    // Si aucun produit, masquer la section
+    if (!products || products.length === 0) {
+        section.style.display = 'none';
+        return;
+    }
+    
+    section.style.display = 'block';
+    
+    // Mettre à jour le titre et la description
     const titleElement = section.querySelector('.section-title h2');
     const descriptionElement = section.querySelector('.section-title p');
     
     if (titleElement) {
-        titleElement.innerHTML = `${category.icon} ${category.name[currentLanguage]}`;
+        const categoryName = currentLanguage === 'fr' ? category.NameFR : category.NameEN;
+        titleElement.innerHTML = `${category.icon || '🍞'} ${categoryName}`;
     }
     
     if (descriptionElement) {
-        descriptionElement.textContent = category.description[currentLanguage];
+        const categoryDesc = currentLanguage === 'fr' ? category.DescriptionFR : category.DescriptionEN;
+        descriptionElement.textContent = categoryDesc || '';
     }
-
-    // Get products for this category
-    const categoryProducts = productsData.products.filter(p => p.category === category.id && p.available);
     
-    // Sort products by title in current language
-    categoryProducts.sort((a, b) => {
-        const titleA = a.title[currentLanguage].toLowerCase();
-        const titleB = b.title[currentLanguage].toLowerCase();
-        return titleA.localeCompare(titleB, currentLanguage);
-    });
-
-    // Get or create products container
+    // Obtenir ou créer le conteneur de produits
     let productsContainer = section.querySelector('.row.g-4');
     if (!productsContainer) {
         productsContainer = document.createElement('div');
         productsContainer.className = 'row g-4';
         section.appendChild(productsContainer);
     }
-
-    // Clear existing products
+    
+    // Vider le conteneur
     productsContainer.innerHTML = '';
-
-    // Add products to container
-    categoryProducts.forEach(product => {
+    
+    // Trier les produits : vedettes d'abord, puis par titre
+    const sortedProducts = products.sort((a, b) => {
+        if (a.featured && !b.featured) return -1;
+        if (!a.featured && b.featured) return 1;
+        const titleA = (currentLanguage === 'fr' ? a.title_fr : a.title_en).toLowerCase();
+        const titleB = (currentLanguage === 'fr' ? b.title_fr : b.title_en).toLowerCase();
+        return titleA.localeCompare(titleB);
+    });
+    
+    // Ajouter les cartes de produits
+    sortedProducts.forEach(product => {
         const productCard = createProductCard(product);
         productsContainer.appendChild(productCard);
     });
 }
 
-// Get translated status
-function getStatusTranslation(status) {
-    if (!productsData || !productsData.metadata || !productsData.metadata.productStatuses) {
-        return status; // Fallback to original status if translations not available
-    }
-    
-    const statusData = productsData.metadata.productStatuses[status];
-    return statusData ? statusData[currentLanguage] : status;
-}
-
-// Create a product card element
+/**
+ * Crée une carte de produit
+ */
 function createProductCard(product) {
     const col = document.createElement('div');
     
-    // Determine column width based on category
-    if (product.category === 'pains-mediterraneens') {
+    // Adapter la largeur selon la catégorie
+    if (product.categoryId === 'pains-mediterraneens') {
         col.className = 'col-md-6';
     } else {
         col.className = 'col-md-6 col-lg-4';
     }
-
+    
     const card = document.createElement('div');
     card.className = 'product-card';
     
-    // Add featured class if applicable
+    // Ajouter la classe featured si applicable
     if (product.featured) {
         card.classList.add('featured');
     }
-
-    // Product icon
+    
+    // Icône du produit
     const icon = document.createElement('div');
     icon.className = 'product-icon';
-    icon.textContent = product.icon;
-
-    // Product title
+    icon.textContent = product.icon || '🍞';
+    
+    // Titre du produit
     const title = document.createElement('h4');
-    title.textContent = product.title[currentLanguage];
-
-    // Product status badge
-    const statusBadge = document.createElement('div');
-    statusBadge.className = 'product-status-badge';
+    const productTitle = currentLanguage === 'fr' ? product.title_fr : product.title_en;
+    title.textContent = productTitle;
     
-    // Add status-specific class for styling
-    const statusClass = product.status ? product.status.toLowerCase() : 'active';
-    statusBadge.classList.add(`status-${statusClass}`);
-    
-    // Get translated status text
-    const statusText = product.status ? getStatusTranslation(product.status) : getStatusTranslation('Active');
-    statusBadge.textContent = statusText;
-    
-    // Product description
-    const description = document.createElement('p');
-    description.textContent = product.description[currentLanguage];
-
-    // Product price
-    const price = document.createElement('div');
-    price.className = 'product-price';
-    
-    // Format price with unit if needed
-    let priceText = `${product.price.toFixed(2)}$`;
-    if (product.unit !== 'loaf' && product.unit !== 'piece') {
-        const unitTranslations = {
-            'pack of 6': { fr: '/ paquet de 6', en: '/ pack of 6' },
-            'bag': { fr: '/ sac', en: '/ bag' }
-        };
-        if (unitTranslations[product.unit]) {
-            priceText += ` ${unitTranslations[product.unit][currentLanguage]}`;
-        }
-    } else if (product.unit === 'piece') {
-        const pieceText = currentLanguage === 'fr' ? '/ pièce' : '/ piece';
-        priceText += ` ${pieceText}`;
+    // Badge vedette (si applicable)
+    if (product.featured) {
+        const featuredBadge = document.createElement('div');
+        featuredBadge.className = 'product-featured-badge';
+        featuredBadge.innerHTML = '⭐ ' + (currentLanguage === 'fr' ? 'Vedette' : 'Featured');
+        card.appendChild(featuredBadge);
     }
     
-    price.textContent = priceText;
-
-    // Product weight (optional display)
-    const weight = document.createElement('small');
-    weight.className = 'text-muted d-block mt-2';
-    weight.textContent = product.weight;
-
-    // Assemble card
+    // Description du produit
+    const description = document.createElement('p');
+    const productDesc = currentLanguage === 'fr' ? product.description_fr : product.description_en;
+    description.className = 'product-description';
+    description.textContent = productDesc;
+    
+    // Prix du produit
+    const priceDiv = document.createElement('div');
+    priceDiv.className = 'product-price';
+    
+    let priceText = `${product.price.toFixed(2)} ${product.currency || 'CDN'}`;
+    
+    // Ajouter l'unité si nécessaire
+    const unitTranslations = {
+        'loaf': { fr: '', en: '' },
+        'piece': { fr: '/ pièce', en: '/ piece' },
+        'pack of 6': { fr: '/ paquet de 6', en: '/ pack of 6' },
+        'bag': { fr: '/ sac', en: '/ bag' }
+    };
+    
+    if (product.unit && unitTranslations[product.unit]) {
+        const unitText = unitTranslations[product.unit][currentLanguage];
+        if (unitText) {
+            priceText += ` ${unitText}`;
+        }
+    }
+    
+    priceDiv.textContent = priceText;
+    
+    // Informations supplémentaires (poids, allergènes)
+    const infoDiv = document.createElement('div');
+    infoDiv.className = 'product-info mt-3';
+    
+    // Poids
+    if (product.weight && product.weight > 0) {
+        const weightSpan = document.createElement('small');
+        weightSpan.className = 'text-muted d-block';
+        weightSpan.innerHTML = `<i class="bi bi-box"></i> ${product.weight} ${product.weightUnit || 'g'}`;
+        infoDiv.appendChild(weightSpan);
+    }
+    
+    // Allergènes
+    if (product.allergens && product.allergens.length > 0) {
+        const allergensSpan = document.createElement('small');
+        allergensSpan.className = 'text-warning d-block mt-1';
+        const allergensList = product.allergens.join(', ');
+        allergensSpan.innerHTML = `<i class="bi bi-exclamation-triangle"></i> ${currentLanguage === 'fr' ? 'Allergènes' : 'Allergens'}: ${allergensList}`;
+        infoDiv.appendChild(allergensSpan);
+    }
+    
+    // Bouton commander (optionnel)
+    const orderButton = document.createElement('button');
+    orderButton.className = 'btn btn-primary btn-sm mt-3 w-100';
+    orderButton.innerHTML = '<i class="bi bi-cart-plus"></i> ' + (currentLanguage === 'fr' ? 'Commander' : 'Order');
+    orderButton.onclick = () => addToOrder(product);
+    
+    // Assembler la carte
     card.appendChild(icon);
     card.appendChild(title);
-    card.appendChild(statusBadge);
     card.appendChild(description);
-    card.appendChild(price);
-    // Optionally add weight: card.appendChild(weight);
-
+    card.appendChild(priceDiv);
+    card.appendChild(infoDiv);
+    card.appendChild(orderButton);
+    
     col.appendChild(card);
     return col;
 }
 
-// Update products when language changes
+/**
+ * Ajoute un produit à la commande (à implémenter avec le système de panier)
+ */
+function addToOrder(product) {
+    console.log('Ajout au panier:', product);
+    // TODO: Intégrer avec le système de panier existant
+    alert((currentLanguage === 'fr' ? 'Produit ajouté au panier!' : 'Product added to cart!'));
+}
+
+/**
+ * Affiche un état de chargement
+ */
+function showLoadingState(show) {
+    const sections = document.querySelectorAll('#products-main section');
+    sections.forEach(section => {
+        if (show) {
+            const productsContainer = section.querySelector('.row.g-4');
+            if (productsContainer) {
+                productsContainer.innerHTML = `
+                    <div class="col-12 text-center py-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Chargement...</span>
+                        </div>
+                        <p class="mt-3 text-muted">${currentLanguage === 'fr' ? 'Chargement des produits...' : 'Loading products...'}</p>
+                    </div>
+                `;
+            }
+        }
+    });
+}
+
+/**
+ * Affiche un message d'erreur
+ */
+function showError(message) {
+    const main = document.getElementById('products-main');
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'alert alert-danger text-center my-5';
+    errorDiv.innerHTML = `
+        <i class="bi bi-exclamation-circle fs-1 d-block mb-3"></i>
+        <h4>${currentLanguage === 'fr' ? 'Erreur' : 'Error'}</h4>
+        <p>${message}</p>
+        <button class="btn btn-primary mt-3" onclick="location.reload()">
+            ${currentLanguage === 'fr' ? 'Réessayer' : 'Try Again'}
+        </button>
+    `;
+    main.prepend(errorDiv);
+}
+
+/**
+ * Affiche un état vide
+ */
+function showEmptyState() {
+    const main = document.getElementById('products-main');
+    const emptyDiv = document.createElement('div');
+    emptyDiv.className = 'alert alert-info text-center my-5';
+    emptyDiv.innerHTML = `
+        <i class="bi bi-inbox fs-1 d-block mb-3"></i>
+        <h4>${currentLanguage === 'fr' ? 'Aucun produit disponible' : 'No products available'}</h4>
+        <p>${currentLanguage === 'fr' ? 'Revenez bientôt pour découvrir nos nouveautés!' : 'Come back soon to discover our new products!'}</p>
+    `;
+    main.prepend(emptyDiv);
+}
+
+/**
+ * Met à jour l'affichage lors d'un changement de langue
+ */
 function updateProductsLanguage() {
     const newLanguage = localStorage.getItem('language') || 'fr';
     if (newLanguage !== currentLanguage) {
@@ -201,13 +348,13 @@ function updateProductsLanguage() {
     }
 }
 
-// Listen for language change events
+// Écouter les changements de langue
 window.addEventListener('languageChanged', updateProductsLanguage);
 
-// Initialize products on page load
+// Initialiser au chargement de la page
 document.addEventListener('DOMContentLoaded', () => {
     loadProducts();
 });
 
-// Also expose for manual refresh if needed
-window.refreshProducts = displayProducts;
+// Exposer pour rafraîchissement manuel
+window.refreshProducts = loadProducts;

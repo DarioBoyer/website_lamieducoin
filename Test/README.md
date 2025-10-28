@@ -201,17 +201,97 @@ Pour plus de détails, consultez `Docs/README-PANIER.md`.
 - **Bootstrap 5.3.2** - Framework CSS responsive
 - **Bootstrap Icons 1.11.1** - Bibliothèque d'icônes
 - **JavaScript ES6+** - Classes, Modules, Fetch API, Observers, i18n
-- **JSON** - Base de données des produits
+- **Supabase** - Base de données PostgreSQL cloud (🆕 NOUVEAU)
+- **Supabase JS v2** - Client JavaScript officiel
+- **JSON** - Base de données locale des produits (legacy)
 - **LocalStorage** - Persistance du panier et des préférences
 - **Responsive Design** - Adaptatif tous écrans
 - **Système i18n** - Traduction FR/EN intégrée
 - **Architecture MVC** - Séparation logique/présentation
+
+## 🗄️ Intégration Supabase - 🆕 NOUVEAU
+
+Le site est maintenant connecté à **Supabase** pour une gestion dynamique des produits en temps réel!
+
+### Fonctionnalités Supabase
+- **Connexion automatique** à la base de données cloud
+- **Chargement dynamique** des produits depuis PostgreSQL
+- **Filtrage intelligent** (status='Active', available=true)
+- **Tri automatique** (produits vedettes en premier)
+- **Support multilingue** (FR/EN)
+- **Gestion des catégories** depuis la BD
+- **Service Layer** pour isolation de la logique
+
+### Architecture
+```
+Test/
+├── js/
+│   ├── config/
+│   │   └── database.js          # 🆕 Configuration Supabase
+│   ├── services/
+│   │   ├── productService.js    # 🆕 Service produits
+│   │   └── categoryService.js   # 🆕 Service catégories
+│   └── products.js               # ✏️ Réécrit pour Supabase
+└── pages/
+    ├── produits.html             # ✏️ Intégration Supabase
+    └── test-supabase-produits.html # 🆕 Page de test
+```
+
+### Tables Supabase
+1. **Products** - Tous les produits (28+)
+   - id, code, categoryId
+   - title_fr, title_en
+   - description_fr, description_en
+   - price, currency, unit
+   - icon, image, weight
+   - allergens[], ingredients[]
+   - available, featured, status
+
+2. **BreadCategory** - Catégories de produits
+   - id, NameFR, NameEN
+   - DescriptionFR, DescriptionEN
+   - icon
+
+### Scripts de Test
+```bash
+# Lancer la page de test Supabase
+.\lancer-test-produits.ps1   # PowerShell
+# ou
+.\lancer-test-produits.bat   # Batch
+
+# Puis choisir:
+# 1. Page produits complète
+# 2. Page de test Supabase (recommandé pour déboguer)
+```
+
+### Documentation Supabase
+- **`RESUME-MODIFICATIONS-PRODUITS.md`** - Vue d'ensemble complète
+- **`pages/PRODUITS-README.md`** - Documentation technique détaillée
+- **`pages/GUIDE-TEST-PRODUITS.md`** - Procédures de test
+- **`pages/APERCU-VISUEL.md`** - Mockups et design
+- **`DEMARRAGE-RAPIDE-PRODUITS.md`** - Guide de démarrage
+
+### URLs de Test
+```
+Page produits Supabase:
+http://localhost:8000/pages/produits.html
+
+Page de test interactive:
+http://localhost:8000/pages/test-supabase-produits.html
+```
 
 ## 📋 Fonctionnalités
 
 ### ✅ Implémentées
 - Navigation responsive avec liens actifs
 - **Système de traduction FR/EN** avec sélecteur de langue
+- **Intégration Supabase complète** 🆕 NOUVEAU
+  - Connexion base de données cloud PostgreSQL
+  - Chargement dynamique des produits
+  - Gestion des catégories depuis la BD
+  - Services isolés (productService, categoryService)
+  - Page de test interactive
+  - Documentation complète
 - **Système de panier d'achat complet**
   - Ajout/modification/suppression de produits
   - Calcul du total en temps réel
@@ -219,7 +299,7 @@ Pour plus de détails, consultez `Docs/README-PANIER.md`.
   - Interface responsive
 - Hero section animée avec dégradé
 - Catalogue de produits complet (28 produits)
-- Chargement dynamique depuis JSON
+- Chargement dynamique depuis JSON ou Supabase
 - Page de contact avec formulaire validé
 - Composants réutilisables (navbar, footer)
 - Animations au scroll (Intersection Observer)
@@ -229,6 +309,7 @@ Pour plus de détails, consultez `Docs/README-PANIER.md`.
 - **Persistance de la langue** (localStorage)
 - **Notifications visuelles** pour les actions
 - **Compteur d'articles** dans le panier
+- **Badge "Vedette"** pour produits mis en avant
 
 ### 🚧 À Développer
 - Compléter la traduction des pages restantes
