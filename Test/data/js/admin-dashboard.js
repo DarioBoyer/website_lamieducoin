@@ -1,9 +1,21 @@
 // Admin Dashboard JavaScript
+import dbConnection from './config/database.js';
+import orderService from './services/orderService.js';
 
 // Initialize dashboard when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    loadDashboardData();
-    initializeEventListeners();
+document.addEventListener('DOMContentLoaded', async function() {
+    try {
+        // Initialize database connection
+        await dbConnection.init();
+        console.log('✅ Database initialized for dashboard');
+        
+        // Load dashboard data
+        await loadDashboardData();
+        initializeEventListeners();
+    } catch (error) {
+        console.error('❌ Error initializing dashboard:', error);
+        displayConnectionError();
+    }
 });
 
 // Load all dashboard data
@@ -24,36 +36,14 @@ function getOrderCountByStatus(orders, status) {
     return orders.filter(order => order.status === status).length;
 }
 
-// Load all orders from JSON file and localStorage
+// Load all orders from Supabase
 async function loadAllOrders() {
     try {
-        // Fetch orders from JSON file
-        const response = await fetch('../data/orders.json');
-        let jsonOrders = [];
-        if (response.ok) {
-            const data = await response.json();
-            jsonOrders = data.orders || [];
-        }
-        
-        // Fetch orders from localStorage
-        const localOrders = JSON.parse(localStorage.getItem('localOrders') || '[]');
-        
-        // Merge both sources (localStorage takes precedence for duplicates)
-        const allOrders = [...jsonOrders];
-        localOrders.forEach(localOrder => {
-            const existingIndex = allOrders.findIndex(o => o.orderId === localOrder.orderId);
-            if (existingIndex >= 0) {
-                allOrders[existingIndex] = localOrder;
-            } else {
-                allOrders.push(localOrder);
-            }
-        });
-        
-        return allOrders;
+        const orders = await orderService.getAllOrders();
+        return orders || [];
     } catch (error) {
-        console.error('Error loading orders:', error);
-        // Fallback to localStorage only
-        return JSON.parse(localStorage.getItem('localOrders') || '[]');
+        console.error('Error loading orders from Supabase:', error);
+        return [];
     }
 }
 
@@ -70,14 +60,20 @@ async function loadStatistics() {
         // Get today's date for production calculation
         const today = new Date().toISOString().split('T')[0];
         const todayOrders = orders.filter(o => {
-            const deliveryDate = new Date(o.deliveryDate).toISOString().split('T')[0];
+            const deliveryDate = o.deliveryDate ? new Date(o.deliveryDate).toISOString().split('T')[0] : null;
             return deliveryDate === today && (o.status === 'Plan' || o.status === 'Production');
         });
         
+        // Count items from order lines
         let todayProductionCount = 0;
-        todayOrders.forEach(order => {
-            todayProductionCount += (order.items?.length || order.orderLines?.length || 0);
-        });
+        for (const order of todayOrders) {
+            try {
+                const lines = await orderService.getOrderLines(order.id);
+                todayProductionCount += lines.length;
+            } catch (error) {
+                console.error(`Error loading lines for order ${order.id}:`, error);
+            }
+        }
         
         // Update UI
         document.getElementById('stat-new-orders').textContent = newOrders;
@@ -116,7 +112,7 @@ async function loadTodayTasks() {
         
         // Task: Today's production
         const todayProduction = orders.filter(o => {
-            const deliveryDate = new Date(o.deliveryDate).toISOString().split('T')[0];
+            const deliveryDate = o.deliveryDate ? new Date(o.deliveryDate).toISOString().split('T')[0] : null;
             return deliveryDate === today && o.status === 'Plan';
         });
         if (todayProduction.length > 0) {
@@ -195,7 +191,10 @@ async function loadAlerts() {
         tomorrow.setDate(tomorrow.getDate() + 1);
         
         orders.forEach(order => {
+            if (!order.deliveryDate) return;
+            
             const deliveryDate = new Date(order.deliveryDate);
+            const orderRef = order.GuidId || order.id;
             
             // Alert for tomorrow's deliveries not in production
             if (deliveryDate.toDateString() === tomorrow.toDateString() && 
@@ -203,7 +202,7 @@ async function loadAlerts() {
                 alerts.push({
                     type: 'warning',
                     icon: 'bi-exclamation-triangle-fill',
-                    message: `Commande #${order.orderId} pour demain n'est pas en production`,
+                    message: `Commande #${orderRef} pour demain n'est pas en production`,
                     time: 'Maintenant'
                 });
             }
@@ -213,7 +212,7 @@ async function loadAlerts() {
                 alerts.push({
                     type: 'danger',
                     icon: 'bi-exclamation-circle-fill',
-                    message: `Commande #${order.orderId} est en retard!`,
+                    message: `Commande #${orderRef} est en retard!`,
                     time: 'Urgent'
                 });
             }
@@ -263,6 +262,7 @@ async function loadUpcomingDeliveries() {
         // Get orders for the next 7 days
         const upcomingOrders = orders
             .filter(order => {
+                if (!order.deliveryDate) return false;
                 const deliveryDate = new Date(order.deliveryDate);
                 return deliveryDate >= today && 
                        deliveryDate <= nextWeek && 
@@ -271,6 +271,16 @@ async function loadUpcomingDeliveries() {
             })
             .sort((a, b) => new Date(a.deliveryDate) - new Date(b.deliveryDate))
             .slice(0, 5); // Show only next 5 deliveries
+        
+        // Load order lines for each order
+        for (const order of upcomingOrders) {
+            try {
+                order.orderLines = await orderService.getOrderLines(order.id);
+            } catch (error) {
+                console.error(`Error loading lines for order ${order.id}:`, error);
+                order.orderLines = [];
+            }
+        }
         
         renderUpcomingDeliveries(upcomingOrders);
     } catch (error) {
@@ -296,17 +306,19 @@ function renderUpcomingDeliveries(orders) {
     tbody.innerHTML = orders.map(order => {
         const statusClass = getStatusClass(order.status);
         const statusText = getStatusText(order.status);
-        const itemCount = order.items?.length || order.orderLines?.length || 0;
+        const itemCount = order.orderLines?.length || 0;
+        const orderRef = order.GuidId || order.id;
+        const customerName = `${order.customerFirstName || ''} ${order.customerLastName || ''}`.trim();
         
         return `
             <tr>
                 <td>${formatDate(order.deliveryDate)}</td>
-                <td><strong>#${order.orderId}</strong></td>
-                <td>${order.customerFirstName || order.firstName || ''} ${order.customerLastName || order.lastName || ''}</td>
+                <td><strong>#${orderRef}</strong></td>
+                <td>${customerName}</td>
                 <td>${itemCount} article${itemCount > 1 ? 's' : ''}</td>
                 <td><span class="status-badge ${statusClass}">${statusText}</span></td>
                 <td>
-                    <a href="gestion-commandes.html?order=${order.orderId}" 
+                    <a href="gestion-commandes.html?order=${orderRef}" 
                        class="btn btn-sm btn-outline-primary">
                         <i class="bi bi-eye"></i> Détails
                     </a>
@@ -344,6 +356,22 @@ function getStatusText(status) {
         'Cancel': 'Annulée'
     };
     return statusMap[status] || status;
+}
+
+// Display connection error
+function displayConnectionError() {
+    const containers = ['todayTasks', 'alerts', 'upcomingDeliveries'];
+    containers.forEach(containerId => {
+        const container = document.getElementById(containerId);
+        if (container) {
+            container.innerHTML = `
+                <div class="text-center py-4 text-danger">
+                    <i class="bi bi-exclamation-triangle fs-1"></i>
+                    <p class="mt-2">Erreur de connexion à la base de données</p>
+                </div>
+            `;
+        }
+    });
 }
 
 // Initialize event listeners
