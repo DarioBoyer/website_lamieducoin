@@ -1,0 +1,244 @@
+{
+  "products": [
+    {
+      "id": "pain-blanc",
+      "code": "PB001",
+      "title": {
+        "fr": "Pain Blanc Classique",
+        "en": "Classic White Bread"
+      },
+      "description": {
+        "fr": "Pain blanc moelleux et savoureux, parfait pour tous les jours",
+        "en": "Soft and tasty white bread, perfect for everyday"
+      },
+      "icon": "🍞",
+      "category": "pains-base",
+      "price": 4.50,
+      "weight": "500g",
+      "unit": "loaf",
+      "available": true,
+      "productType": "retail",
+      "featured": true
+    },
+    {
+      "id": "baguette",
+      "code": "BG001",
+      "title": {
+        "fr": "Baguette Française",
+        "en": "French Baguette"
+      },
+      "description": {
+        "fr": "Baguette croustillante traditionnelle à la croûte dorée",
+        "en": "Traditional crispy baguette with golden crust"
+      },
+      "icon": "🥖",
+      "category": "pains-base",
+      "price": 3.50,
+      "weight": "350g",
+      "unit": "piece",
+      "available": true,
+      "productType": "retail",
+      "featured": true
+    },
+    {
+      "id": "pain-campagne",
+      "code": "PC001",
+      "title": {
+        "fr": "Pain de Campagne",
+        "en": "Country Bread"
+      },
+      "description": {
+        "fr": "Pain rustique au levain naturel",
+        "en": "Rustic sourdough bread"
+      },
+      "icon": "🍞",
+      "category": "pains-base",
+      "price": 5.50,
+      "weight": "700g",
+      "unit": "loaf",
+      "available": true,
+      "productType": "retail",
+      "featured": false
+    },
+    {
+      "id": "pain-noix",
+      "code": "PN001",
+      "title": {
+        "fr": "Pain aux Noix",
+        "en": "Walnut Bread"
+      },
+      "description": {
+        "fr": "Pain artisanal garni de noix fraîches",
+        "en": "Artisan bread filled with fresh walnuts"
+      },
+      "icon": "🥜",
+      "category": "pains-specialises",
+      "price": 6.50,
+      "weight": "600g",
+      "unit": "loaf",
+      "available": true,
+      "productType": "retail",
+      "featured": false
+    },
+    {
+      "id": "pain-fromage",
+      "code": "PF001",
+      "title": {
+        "fr": "Pain au Fromage",
+        "en": "Cheese Bread"
+      },
+      "description": {
+        "fr": "Pain savoureux garni de fromage cheddar",
+        "en": "Tasty bread filled with cheddar cheese"
+      },
+      "icon": "🧀",
+      "category": "pains-specialises",
+      "price": 7.00,
+      "weight": "550g",
+      "unit": "loaf",
+      "available": true,
+      "productType": "retail",
+      "featured": true
+    },
+    {
+      "id": "croissant",
+      "code": "CR001",
+      "title": {
+        "fr": "Croissant au Beurre",
+        "en": "Butter Croissant"
+      },
+      "description": {
+        "fr": "Croissant feuilleté au beurre pur",
+        "en": "Flaky pure butter croissant"
+      },
+      "icon": "🥐",
+      "category": "viennoiseries",
+      "price": 2.50,
+      "weight": "80g",
+      "unit": "piece",
+      "available": true,
+      "productType": "retail",
+      "featured": true
+    },
+    {
+      "id": "brioche",
+      "code": "BR001",
+      "title": {
+        "fr": "Brioche Maison",
+        "en": "Homemade Brioche"
+      },
+      "description": {
+        "fr": "Brioche moelleuse et parfumée",
+        "en": "Soft and fragrant brioche"
+      },
+      "icon": "🍰",
+      "category": "viennoiseries",
+      "price": 5.00,
+      "weight": "400g",
+      "unit": "loaf",
+      "available": true,
+      "productType": "retail",
+      "featured": false
+    },
+    {
+      "id": "pain-chocolat",
+      "code": "PCH001",
+      "title": {
+        "fr": "Pain au Chocolat",
+        "en": "Chocolate Croissant"
+      },
+      "description": {
+        "fr": "Viennoiserie feuilletée au chocolat",
+        "en": "Flaky chocolate pastry"
+      },
+      "icon": "🍫",
+      "category": "viennoiseries",
+      "price": 3.00,
+      "weight": "90g",
+      "unit": "piece",
+      "available": true,
+      "productType": "retail",
+      "featured": true
+    },
+    {
+      "id": "bagel",
+      "code": "BGL001",
+      "title": {
+        "fr": "Bagel Nature",
+        "en": "Plain Bagel"
+      },
+      "description": {
+        "fr": "Bagel traditionnel cuit à la perfection",
+        "en": "Traditional bagel cooked to perfection"
+      },
+      "icon": "🥯",
+      "category": "pains-forme",
+      "price": 2.00,
+      "weight": "100g",
+      "unit": "piece",
+      "available": true,
+      "productType": "retail",
+      "featured": false
+    },
+    {
+      "id": "bretzel",
+      "code": "BRZ001",
+      "title": {
+        "fr": "Bretzel Classique",
+        "en": "Classic Pretzel"
+      },
+      "description": {
+        "fr": "Bretzel allemand traditionnel au sel",
+        "en": "Traditional German salted pretzel"
+      },
+      "icon": "🥨",
+      "category": "pains-forme",
+      "price": 3.50,
+      "weight": "120g",
+      "unit": "piece",
+      "available": true,
+      "productType": "retail",
+      "featured": false
+    },
+    {
+      "id": "pain-sg-classique",
+      "code": "SG001",
+      "title": {
+        "fr": "Pain Sans Gluten",
+        "en": "Gluten-Free Bread"
+      },
+      "description": {
+        "fr": "Pain moelleux sans gluten pour tous",
+        "en": "Soft gluten-free bread for everyone"
+      },
+      "icon": "🌾",
+      "category": "sans-gluten",
+      "price": 7.50,
+      "weight": "450g",
+      "unit": "loaf",
+      "available": true,
+      "productType": "retail",
+      "featured": false
+    },
+    {
+      "id": "focaccia",
+      "code": "FC001",
+      "title": {
+        "fr": "Focaccia Italienne",
+        "en": "Italian Focaccia"
+      },
+      "description": {
+        "fr": "Pain plat italien aux herbes et à l'huile d'olive",
+        "en": "Italian flatbread with herbs and olive oil"
+      },
+      "icon": "🫓",
+      "category": "pains-mediterraneens",
+      "price": 6.00,
+      "weight": "500g",
+      "unit": "piece",
+      "available": true,
+      "productType": "retail",
+      "featured": true
+    }
+  ]
+}

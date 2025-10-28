@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide - Page de Commandes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+        }
+        h2 {
+            color: #764ba2;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+        h3 {
+            color: #8B4513;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin: 0.25rem;
+        }
+        .badge-success {
+            background: #28a745;
+            color: white;
+        }
+        .badge-info {
+            background: #17a2b8;
+            color: white;
+        }
+        .badge-warning {
+            background: #ffc107;
+            color: #333;
+        }
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .feature-list li {
+            padding: 0.5rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .file-list {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+        .file-list code {
+            background: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            margin: 1rem 0.5rem 1rem 0;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        .alert {
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+        .alert-info {
+            background: #d1ecf1;
+            border-left: 4px solid #0c5460;
+            color: #0c5460;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+        }
+        .card h4 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+        .emoji {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛒 Page de Commandes - Guide d'implémentation</h1>
+        <p class="lead" style="font-size: 1.2rem; color: #666; margin-bottom: 2rem;">
+            Système complet de commandes en ligne avec panier interactif et support multilingue
+        </p>
+
+        <div class="alert alert-info">
+            <strong>📌 Note importante:</strong> Tous les fichiers ont été créés et configurés. La page est prête à être utilisée!
+        </div>
+
+        <h2>✨ Fonctionnalités Implémentées</h2>
+        <ul class="feature-list">
+            <li>Affichage des produits organisés par catégories repliables</li>
+            <li>Cartes produits compactes avec icône, nom, description courte, poids et prix</li>
+            <li>Sélection de quantité avec boutons +/- et champ numérique</li>
+            <li>Panier permanent affiché à droite sur desktop</li>
+            <li>Panier modal flottant sur mobile avec badge de compteur</li>
+            <li>Support complet français/anglais avec changement dynamique</li>
+            <li>Sauvegarde du panier dans localStorage (persistance)</li>
+            <li>Animations et transitions fluides</li>
+            <li>Design responsive pour tous les écrans</li>
+            <li>Intégration avec order-manager.js pour créer des commandes</li>
+        </ul>
+
+        <h2>📦 Fichiers Créés</h2>
+        <div class="file-list">
+            <p><strong>Nouveaux fichiers:</strong></p>
+            <ul>
+                <li><code>Test/js/orders-display.js</code> - Affichage des produits sur la page commandes</li>
+                <li><code>Test/css/orders.css</code> - Styles pour les cartes produits compactes</li>
+                <li><code>Test/data/products.json</code> - Base de données des produits (12 produits)</li>
+                <li><code>Test/README-COMMANDES.md</code> - Documentation complète</li>
+            </ul>
+            <p style="margin-top: 1rem;"><strong>Fichiers modifiés:</strong></p>
+            <ul>
+                <li><code>Test/pages/commandes.html</code> - Structure HTML mise à jour</li>
+                <li><code>Test/js/cart.js</code> - Optimisé pour l'affichage du panier</li>
+            </ul>
+        </div>
+
+        <h2>🎨 Design et Style</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="emoji">🎯</div>
+                <h4>Compact</h4>
+                <p>Cartes produits plus petites qu'en page produits avec info essentielle</p>
+            </div>
+            <div class="card">
+                <div class="emoji">📱</div>
+                <h4>Responsive</h4>
+                <p>Panier latéral sur desktop, modal sur mobile</p>
+            </div>
+            <div class="card">
+                <div class="emoji">🌍</div>
+                <h4>Multilingue</h4>
+                <p>Basculement FR/EN instantané sans rechargement</p>
+            </div>
+            <div class="card">
+                <div class="emoji">⚡</div>
+                <h4>Performant</h4>
+                <p>Chargement optimisé avec cache localStorage</p>
+            </div>
+        </div>
+
+        <h2>🏪 Catégories de Produits</h2>
+        <div>
+            <span class="badge badge-info">🍞 Pains de Base (3 produits)</span>
+            <span class="badge badge-info">🥖 Pains Spécialisés (2 produits)</span>
+            <span class="badge badge-info">🥐 Viennoiseries (3 produits)</span>
+            <span class="badge badge-info">🥯 Pains en Forme (2 produits)</span>
+            <span class="badge badge-info">🌾 Sans Gluten (1 produit)</span>
+            <span class="badge badge-info">🫓 Méditerranéens (1 produit)</span>
+        </div>
+
+        <h2>🚀 Comment Tester</h2>
+        <ol style="line-height: 2;">
+            <li>Ouvrir <code>Test/pages/commandes.html</code> dans un navigateur</li>
+            <li>Les produits se chargent automatiquement par catégorie</li>
+            <li>Sélectionner une quantité et cliquer sur "Ajouter"</li>
+            <li>Le panier se met à jour en temps réel à droite</li>
+            <li>Tester le changement de langue avec les boutons FR/EN</li>
+            <li>Sur mobile, tester le bouton flottant du panier</li>
+            <li>Cliquer sur "Passer la commande" pour le formulaire checkout</li>
+        </ol>
+
+        <h2>🔧 Intégration</h2>
+        <h3>Avec le système existant:</h3>
+        <ul class="feature-list">
+            <li>Compatible avec <code>order-manager.js</code> pour créer des commandes</li>
+            <li>Utilise <code>translations.js</code> pour le multilingue</li>
+            <li>S'intègre avec <code>checkout.js</code> pour le paiement</li>
+            <li>Partage le style avec <code>produits.html</code></li>
+        </ul>
+
+        <h2>📱 Aperçu des Vues</h2>
+        <div class="grid">
+            <div class="card">
+                <h4>🖥️ Desktop</h4>
+                <p>• Liste produits à gauche (8 colonnes)<br>
+                   • Panier fixe à droite (4 colonnes)<br>
+                   • Catégories repliables<br>
+                   • Total toujours visible</p>
+            </div>
+            <div class="card">
+                <h4>📱 Mobile</h4>
+                <p>• Liste produits pleine largeur<br>
+                   • Bouton panier flottant en bas<br>
+                   • Badge avec nombre d'articles<br>
+                   • Modal panier plein écran</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 2px solid #e9ecef;">
+            <a href="../pages/commandes.html" class="btn">🚀 Ouvrir la page de commandes</a>
+            <a href="../README-COMMANDES.md" class="btn" style="background: linear-gradient(135deg, #8B4513, #D2691E);">📖 Lire la documentation</a>
+        </div>
+
+        <p style="margin-top: 2rem; text-align: center; color: #999;">
+            <small>Dernière mise à jour: Octobre 2025 | La mie du coin</small>
+        </p>
+    </div>
+</body>
+</html>

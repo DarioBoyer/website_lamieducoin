@@ -1,0 +1,133 @@
+/**
+ * Styles pour la page de commandes
+ * Version compacte des cartes produits
+ */
+
+/* Carte produit compacte */
+.product-card-compact {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    overflow: visible;
+}
+
+.product-card-compact:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15) !important;
+}
+
+.product-icon-small {
+    font-size: 2.5rem;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.product-price-compact {
+    font-size: 1.25rem;
+}
+
+/* Section de catégorie */
+.category-section {
+    scroll-margin-top: 100px;
+}
+
+.category-title {
+    color: #8B4513;
+    font-weight: bold;
+    border-bottom: 3px solid #F4A460;
+    padding-bottom: 10px;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.category-title:hover {
+    color: #D2691E;
+}
+
+.category-icon {
+    font-size: 1.5rem;
+    margin-right: 10px;
+}
+
+.category-toggle {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.category-products {
+    max-height: 5000px;
+    overflow: hidden;
+    transition: max-height 0.4s ease, opacity 0.4s ease;
+    opacity: 1;
+}
+
+.category-products:not(.show) {
+    max-height: 0;
+    opacity: 0;
+}
+
+/* Input quantité compact */
+.input-group-sm input[type="number"] {
+    max-width: 60px;
+}
+
+.input-group-sm .btn {
+    padding: 0.25rem 0.5rem;
+}
+
+/* Bouton ajout au panier */
+.btn-primary.btn-sm {
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.btn-primary.btn-sm:hover {
+    transform: scale(1.02);
+}
+
+/* Badge populaire */
+.product-card-compact .badge {
+    font-size: 0.7rem;
+    z-index: 1;
+}
+
+/* Animation d'ajout au panier */
+@keyframes addToCart {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.btn-primary.btn-sm:active {
+    animation: addToCart 0.3s ease;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .product-icon-small {
+        font-size: 2rem;
+    }
+    
+    .product-price-compact {
+        font-size: 1.1rem;
+    }
+    
+    .card-title.fs-6 {
+        font-size: 0.95rem !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .col-md-6 {
+        width: 100%;
+    }
+}
