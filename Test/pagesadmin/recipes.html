@@ -708,12 +708,12 @@
                 }));
                 
                 // Charger les produits de type Production pour les étapes
-                const prodProducts = await productService.getAllProducts({ productType: 'production' });
+                const prodProducts = await productService.getAllProducts({ productType: 'gros' });
                 state.productionProducts = prodProducts.map(p => ({
                     id: p.id,
                     Name: p.Name || p.title_fr || 'Produit sans nom',
                     status: p.status || 'Active',
-                    productType: 'production'
+                    productType: 'gros'
                 }));
                 
                 // Ajouter le produit "None" (ID 29) au début de la liste de production
