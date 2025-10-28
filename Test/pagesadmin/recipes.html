@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion des Recettes - Administration</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    
     <style>
         * {
             margin: 0;
@@ -462,7 +469,54 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="bi bi-shop"></i> La mie du coin - Admin
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="bi bi-house"></i> Accueil
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gestion-commandes.html">
+                            <i class="bi bi-cart-check"></i> Commandes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="products.html">
+                            <i class="bi bi-basket"></i> Produits
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gestion-production.html">
+                            <i class="bi bi-gear-fill"></i> Production
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="recipes.html">
+                            <i class="bi bi-book"></i> Recettes
+                        </a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="nav-link" href="../index.html">
+                            <i class="bi bi-box-arrow-left"></i> Retour au site
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" style="padding-top: 20px;">
         <header>
             <h1>🍴 Gestion des Recettes</h1>
             <p>Créez et gérez les recettes de production de vos produits</p>
@@ -473,9 +527,6 @@
                 <button class="btn btn-secondary" id="refreshBtn">
                     🔄 Actualiser
                 </button>
-                <a href="index.html" class="btn btn-secondary">
-                    🏠 Retour à l'accueil
-                </a>
             </div>
         </header>
 
@@ -563,6 +614,9 @@
         </div>
     </div>
 
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
     <!-- Charger Supabase JS -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
@@ -575,7 +629,8 @@
         // État de l'application
         let state = {
             recipes: [],
-            products: [],
+            products: [], // Produits retail pour le produit de sortie
+            productionProducts: [], // Produits production pour les étapes
             currentRecipeId: null,
             isEditMode: false,
             stepCounter: 0
@@ -620,17 +675,33 @@
         // Charger les produits
         async function loadProducts() {
             try {
-                // Charger tous les produits de type Retail (en minuscule)
-                const allProducts = await productService.getAllProducts({ productType: 'retail' });
-                
-                // Stocker les produits avec leur statut
-                state.products = allProducts.map(p => ({
+                // Charger les produits de type Retail pour le produit de sortie
+                const retailProducts = await productService.getAllProducts({ productType: 'retail' });
+                state.products = retailProducts.map(p => ({
                     id: p.id,
                     Name: p.Name || p.title_fr || 'Produit sans nom',
                     status: p.status || 'Active'
                 }));
                 
+                // Charger les produits de type Production pour les étapes
+                const prodProducts = await productService.getAllProducts({ productType: 'production' });
+                state.productionProducts = prodProducts.map(p => ({
+                    id: p.id,
+                    Name: p.Name || p.title_fr || 'Produit sans nom',
+                    status: p.status || 'Active',
+                    productType: 'production'
+                }));
+                
+                // Ajouter le produit "None" (ID 29) au début de la liste de production
+                state.productionProducts.unshift({
+                    id: EMPTY_PRODUCT_ID,
+                    Name: 'None',
+                    status: 'Active',
+                    productType: 'none'
+                });
+                
                 console.log(`✅ ${state.products.length} produits Retail chargés`);
+                console.log(`✅ ${state.productionProducts.length} produits Production chargés (incluant None)`);
                 populateProductSelect();
             } catch (error) {
                 console.error('Erreur lors du chargement des produits:', error);
@@ -827,7 +898,7 @@
             const disabled = (state.currentRecipeId === PROTECTED_RECIPE_ID) || !state.isEditMode;
 
             const html = steps.map((step, index) => {
-                const product = state.products.find(p => p.id === step.ProductId);
+                const product = state.productionProducts.find(p => p.id === step.ProductId);
                 const showQty = step.ProductId !== EMPTY_PRODUCT_ID;
 
                 return `
@@ -851,10 +922,10 @@
                             <div class="step-field">
                                 <label>Produit:</label>
                                 <select class="step-product" data-step-index="${index}" ${disabled ? 'disabled' : ''}>
-                                    <option value="${EMPTY_PRODUCT_ID}" ${step.ProductId === EMPTY_PRODUCT_ID ? 'selected' : ''}>None (Action simple)</option>
-                                    ${state.products.map(p => 
-                                        `<option value="${p.id}" ${p.id === step.ProductId ? 'selected' : ''}>${p.Name}</option>`
-                                    ).join('')}
+                                    ${state.productionProducts.map(p => {
+                                        const statusText = p.status !== 'Active' ? ' (Inactif)' : '';
+                                        return `<option value="${p.id}" ${p.id === step.ProductId ? 'selected' : ''}>${p.Name}${statusText}</option>`;
+                                    }).join('')}
                                 </select>
                             </div>
                             ${showQty ? `
@@ -1024,7 +1095,7 @@
                 const delay = item.querySelector('.step-delay')?.value || 0;
                 
                 // Reconstruire le contenu
-                const product = state.products.find(p => p.id === productId);
+                const product = state.productionProducts.find(p => p.id === productId);
                 const showQty = productId !== EMPTY_PRODUCT_ID;
 
                 let html = `
@@ -1036,10 +1107,10 @@
                     <div class="step-field">
                         <label>Produit:</label>
                         <select class="step-product" data-step-index="${index}">
-                            <option value="${EMPTY_PRODUCT_ID}" ${productId === EMPTY_PRODUCT_ID ? 'selected' : ''}>None (Action simple)</option>
-                            ${state.products.map(p => 
-                                `<option value="${p.id}" ${p.id === productId ? 'selected' : ''}>${p.Name}</option>`
-                            ).join('')}
+                            ${state.productionProducts.map(p => {
+                                const statusText = p.status !== 'Active' ? ' (Inactif)' : '';
+                                return `<option value="${p.id}" ${p.id === productId ? 'selected' : ''}>${p.Name}${statusText}</option>`;
+                            }).join('')}
                         </select>
                     </div>
                 `;
@@ -1108,8 +1179,11 @@
                     <div class="step-field">
                         <label>Produit:</label>
                         <select class="step-product" data-step-index="${stepItems.length}">
-                            <option value="${EMPTY_PRODUCT_ID}" selected>None (Action simple)</option>
-                            ${state.products.map(p => `<option value="${p.id}">${p.Name}</option>`).join('')}
+                            ${state.productionProducts.map(p => {
+                                const statusText = p.status !== 'Active' ? ' (Inactif)' : '';
+                                const selected = p.id === EMPTY_PRODUCT_ID ? 'selected' : '';
+                                return `<option value="${p.id}" ${selected}>${p.Name}${statusText}</option>`;
+                            }).join('')}
                         </select>
                     </div>
                     <div class="step-field">
