@@ -341,3 +341,16 @@ body {
 .tooltip-icon:hover {
     color: var(--admin-primary);
 }
+
+/* Toast Notifications */
+.toast {
+    min-width: 300px;
+}
+
+.toast-body {
+    padding: 0.75rem;
+}
+
+.toast .btn-close {
+    padding: 0.5rem;
+}

@@ -1,9 +1,11 @@
 // Admin Orders Management - JavaScript
+import dbConnection from './config/database.js';
+import orderService from './services/orderService.js';
 
 // Global variables
 let allOrders = [];
 let filteredOrders = [];
-let currentSort = { field: 'orderId', direction: 'asc' };
+let currentSort = { field: 'id', direction: 'desc' };
 let currentView = 'table';
 
 // Order statuses configuration
@@ -26,43 +28,45 @@ document.addEventListener('DOMContentLoaded', function() {
 // Initialize the application
 async function initializeApp() {
     try {
+        // Initialize database connection
+        await dbConnection.init();
+        console.log('✅ Database initialized for orders management');
+        
+        // Load orders and setup UI
         await loadOrders();
         setupEventListeners();
-        applyFilters();
     } catch (error) {
-        console.error('Error initializing app:', error);
-        showError('Erreur lors du chargement des commandes');
+        console.error('❌ Error initializing orders management:', error);
+        showError('Erreur lors de l\'initialisation de la page');
     }
 }
 
-// Load orders from JSON file and localStorage
+// Load orders from Supabase
 async function loadOrders() {
     try {
-        const response = await fetch('../data/orders.json');
-        if (!response.ok) throw new Error('Failed to load orders');
+        // Load all orders from Supabase
+        const orders = await orderService.getAllOrders();
         
-        const data = await response.json();
-        let jsonOrders = data.orders || [];
-        
-        // Load local orders from localStorage
-        let localOrders = [];
-        try {
-            const storedOrders = localStorage.getItem('localOrders');
-            if (storedOrders) {
-                localOrders = JSON.parse(storedOrders);
-                console.log(`Loaded ${localOrders.length} orders from localStorage`);
+        // Load order lines for each order
+        for (const order of orders) {
+            try {
+                order.orderLines = await orderService.getOrderLines(order.id);
+            } catch (error) {
+                console.error(`Error loading lines for order ${order.id}:`, error);
+                order.orderLines = [];
             }
-        } catch (error) {
-            console.error('Error loading local orders:', error);
         }
         
-        // Merge orders from JSON file and localStorage
-        allOrders = [...jsonOrders, ...localOrders];
+        allOrders = orders;
+        console.log(`✅ Loaded ${allOrders.length} orders from Supabase`);
         
-        console.log(`Loaded ${allOrders.length} orders (${jsonOrders.length} from JSON, ${localOrders.length} local)`);
+        // Apply filters and render
+        applyFilters();
     } catch (error) {
-        console.error('Error loading orders:', error);
-        throw error;
+        console.error('Error loading orders from Supabase:', error);
+        showError('Erreur lors du chargement des commandes');
+        allOrders = [];
+        applyFilters();
     }
 }
 
@@ -87,55 +91,64 @@ function setupEventListeners() {
     // View toggle buttons
     const viewButtons = document.querySelectorAll('[data-view]');
     viewButtons.forEach(btn => {
-        btn.addEventListener('click', function() {
-            switchView(this.dataset.view);
-        });
+        btn.addEventListener('click', () => switchView(btn.dataset.view));
     });
     
     // Table sorting
     const sortableHeaders = document.querySelectorAll('.sortable');
     sortableHeaders.forEach(header => {
-        header.addEventListener('click', function() {
-            sortTable(this.dataset.sort);
-        });
+        header.addEventListener('click', () => sortTable(header.dataset.sort));
     });
     
     // Print button in modal
     const printBtn = document.getElementById('printOrder');
-    printBtn.addEventListener('click', printOrder);
+    if (printBtn) {
+        printBtn.addEventListener('click', printOrder);
+    }
 }
 
 // Apply filters to orders
 function applyFilters() {
-    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-    const statusFilter = document.getElementById('statusFilter').value;
-    const dateFilter = document.getElementById('dateFilter').value;
+    const searchInput = document.getElementById('searchInput');
+    const statusFilter = document.getElementById('statusFilter');
+    const dateFilter = document.getElementById('dateFilter');
+    
+    if (!searchInput || !statusFilter || !dateFilter) {
+        console.error('Filter elements not found');
+        return;
+    }
+    
+    const searchTerm = searchInput.value.toLowerCase();
+    const statusValue = statusFilter.value;
+    const dateValue = dateFilter.value;
     
     filteredOrders = allOrders.filter(order => {
         // Status filter
-        if (statusFilter === 'active') {
+        if (statusValue === 'active') {
             if (!activeStatuses.includes(order.status)) return false;
-        } else if (statusFilter !== 'all' && order.status !== statusFilter) {
+        } else if (statusValue !== 'all' && order.status !== statusValue) {
             return false;
         }
         
         // Date filter
-        if (dateFilter) {
+        if (dateValue && order.deliveryDate) {
             const orderDate = order.deliveryDate.split('T')[0];
-            if (orderDate !== dateFilter) return false;
+            if (orderDate !== dateValue) return false;
         }
         
         // Search filter
         if (searchTerm) {
-            const customerName = `${order.customerFirstName} ${order.customerLastName}`.toLowerCase();
+            const customerName = `${order.customerFirstName || ''} ${order.customerLastName || ''}`.toLowerCase();
             const email = (order.email || '').toLowerCase();
             const phone = (order.phone || '').toLowerCase();
-            const orderId = order.orderId.toString();
+            const orderId = order.id.toString();
+            const guidId = (order.GuidId || '').toLowerCase();
             
             if (!customerName.includes(searchTerm) && 
                 !email.includes(searchTerm) && 
                 !phone.includes(searchTerm) &&
-                !orderId.includes(searchTerm)) {
+                !orderId.includes(searchTerm) &&
+                !guidId.includes(searchTerm)) {
                 return false;
             }
         }
@@ -166,10 +179,15 @@ function updateStatistics() {
         }
     });
     
-    document.getElementById('stat-new').textContent = stats.new;
-    document.getElementById('stat-plan').textContent = stats.plan;
-    document.getElementById('stat-production').textContent = stats.production;
-    document.getElementById('stat-total').textContent = stats.total;
+    const statNew = document.getElementById('stat-new');
+    const statPlan = document.getElementById('stat-plan');
+    const statProduction = document.getElementById('stat-production');
+    const statTotal = document.getElementById('stat-total');
+    
+    if (statNew) statNew.textContent = stats.new;
+    if (statPlan) statPlan.textContent = stats.plan;
+    if (statProduction) statProduction.textContent = stats.production;
+    if (statTotal) statTotal.textContent = stats.total;
 }
 
 // Sort orders
@@ -178,25 +196,25 @@ function sortOrders() {
         let aVal, bVal;
         
         switch (currentSort.field) {
-            case 'orderId':
-                aVal = a.orderId;
-                bVal = b.orderId;
+            case 'id':
+                aVal = a.id;
+                bVal = b.id;
                 break;
             case 'customer':
-                aVal = `${a.customerLastName} ${a.customerFirstName}`.toLowerCase();
-                bVal = `${b.customerLastName} ${b.customerFirstName}`.toLowerCase();
+                aVal = `${a.customerLastName || ''} ${a.customerFirstName || ''}`.toLowerCase();
+                bVal = `${b.customerLastName || ''} ${b.customerFirstName || ''}`.toLowerCase();
                 break;
             case 'deliveryDate':
-                aVal = new Date(a.deliveryDate);
-                bVal = new Date(b.deliveryDate);
+                aVal = new Date(a.deliveryDate || 0);
+                bVal = new Date(b.deliveryDate || 0);
                 break;
             case 'itemCount':
-                aVal = a.orderLines.length;
-                bVal = b.orderLines.length;
+                aVal = a.orderLines?.length || 0;
+                bVal = b.orderLines?.length || 0;
                 break;
             case 'totalAmount':
-                aVal = a.totalAmount;
-                bVal = b.totalAmount;
+                aVal = a.totalAmount || 0;
+                bVal = b.totalAmount || 0;
                 break;
             case 'status':
                 aVal = a.status;
@@ -227,7 +245,9 @@ function sortTable(field) {
     });
     
     const sortedHeader = document.querySelector(`[data-sort="${field}"]`);
-    sortedHeader.classList.add(`sort-${currentSort.direction}`);
+    if (sortedHeader) {
+        sortedHeader.classList.add(`sort-${currentSort.direction}`);
+    }
     
     sortOrders();
     renderOrders();
@@ -241,12 +261,16 @@ function renderOrders() {
         renderCardsView();
     }
     
-    document.getElementById('orderCount').textContent = filteredOrders.length;
+    const orderCount = document.getElementById('orderCount');
+    if (orderCount) {
+        orderCount.textContent = filteredOrders.length;
+    }
 }
 
 // Render table view
 function renderTableView() {
     const tbody = document.getElementById('ordersTableBody');
+    if (!tbody) return;
     
     if (filteredOrders.length === 0) {
         tbody.innerHTML = `
@@ -261,32 +285,20 @@ function renderTableView() {
     }
     
     tbody.innerHTML = filteredOrders.map(order => {
-        const itemCount = order.orderLines.length;
-        const totalQty = order.orderLines.reduce((sum, line) => sum + line.quantityOrdered, 0);
         const statusInfo = orderStatuses[order.status] || { label: order.status, icon: 'question-circle' };
+        const itemCount = order.orderLines?.length || 0;
+        const customerName = `${order.customerFirstName || ''} ${order.customerLastName || ''}`.trim();
+        const orderRef = order.id;
         
         return `
-            <tr class="fade-in">
-                <td class="fw-bold">#${order.orderId}</td>
-                <td>
-                    <div class="fw-semibold">${order.customerLastName} ${order.customerFirstName}</div>
-                    <small class="text-muted">${order.language === 'fr' ? '🇫🇷' : '🇬🇧'}</small>
-                </td>
-                <td>
-                    <div>${formatDate(order.deliveryDate)}</div>
-                    <small class="text-muted">${formatTime(order.scheduledOn)}</small>
-                </td>
-                <td>
-                    <span class="badge bg-secondary">${itemCount} item${itemCount > 1 ? 's' : ''}</span>
-                    <small class="text-muted d-block">${totalQty} unité${totalQty > 1 ? 's' : ''}</small>
-                </td>
-                <td>
-                    <div class="fw-bold">${formatCurrency(order.totalAmount)}</div>
-                    ${order.paid ? 
-                        '<small class="payment-status payment-paid"><i class="bi bi-check-circle-fill"></i> Payé</small>' :
-                        '<small class="payment-status payment-unpaid"><i class="bi bi-exclamation-circle-fill"></i> Non payé</small>'
-                    }
-                </td>
+            <tr>
+                <td><strong>#${orderRef}</strong></td>
+                <td>${customerName}</td>
+                <td>${order.email || 'N/A'}</td>
+                <td>${order.phone || 'N/A'}</td>
+                <td>${formatDate(order.deliveryDate)}</td>
+                <td>${itemCount}</td>
+                <td>${formatCurrency(order.totalAmount || 0)}</td>
                 <td>
                     <span class="status-badge status-${order.status}">
                         <i class="bi bi-${statusInfo.icon}"></i>
@@ -294,14 +306,8 @@ function renderTableView() {
                     </span>
                 </td>
                 <td>
-                    <div class="small">
-                        <div><i class="bi bi-envelope"></i> ${order.email}</div>
-                        <div><i class="bi bi-telephone"></i> ${order.phone}</div>
-                    </div>
-                </td>
-                <td>
-                    <button class="btn btn-sm btn-primary action-btn" onclick="showOrderDetail(${order.orderId})">
-                        <i class="bi bi-eye"></i> Voir
+                    <button class="btn btn-sm btn-outline-primary" onclick="showOrderDetail(${orderRef})">
+                        <i class="bi bi-eye"></i>
                     </button>
                 </td>
             </tr>
@@ -312,6 +318,7 @@ function renderTableView() {
 // Render cards view
 function renderCardsView() {
     const container = document.getElementById('ordersCardsContainer');
+    if (!container) return;
     
     if (filteredOrders.length === 0) {
         container.innerHTML = `
@@ -324,60 +331,50 @@ function renderCardsView() {
     }
     
     container.innerHTML = filteredOrders.map(order => {
-        const itemCount = order.orderLines.length;
-        const totalQty = order.orderLines.reduce((sum, line) => sum + line.quantityOrdered, 0);
         const statusInfo = orderStatuses[order.status] || { label: order.status, icon: 'question-circle' };
+        const itemCount = order.orderLines?.length || 0;
+        const customerName = `${order.customerFirstName || ''} ${order.customerLastName || ''}`.trim();
+        const orderRef = order.id;
         
         return `
             <div class="col-md-6 col-lg-4 mb-3">
-                <div class="card order-card fade-in">
+                <div class="card order-card">
                     <div class="order-card-header">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h6 class="mb-0">Commande #${order.orderId}</h6>
-                            <span class="badge bg-light text-dark">${order.language === 'fr' ? '🇫🇷' : '🇬🇧'}</span>
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h6 class="mb-1">Commande #${orderRef}</h6>
+                                <small>${formatDate(order.deliveryDate)}</small>
+                            </div>
+                            <span class="status-badge status-${order.status}">
+                                <i class="bi bi-${statusInfo.icon}"></i>
+                                ${statusInfo.label}
+                            </span>
                         </div>
                     </div>
                     <div class="order-card-body">
                         <div class="order-info-row">
-                            <span class="order-info-label">Client</span>
-                            <span class="order-info-value fw-semibold">${order.customerLastName} ${order.customerFirstName}</span>
+                            <span class="order-info-label">Client:</span>
+                            <span class="order-info-value">${customerName}</span>
                         </div>
                         <div class="order-info-row">
-                            <span class="order-info-label">Livraison</span>
-                            <span class="order-info-value">${formatDate(order.deliveryDate)}</span>
+                            <span class="order-info-label">Email:</span>
+                            <span class="order-info-value">${order.email || 'N/A'}</span>
                         </div>
                         <div class="order-info-row">
-                            <span class="order-info-label">Items</span>
-                            <span class="order-info-value">
-                                <span class="badge bg-secondary">${itemCount}</span>
-                                <small class="text-muted ms-1">(${totalQty} unités)</small>
-                            </span>
+                            <span class="order-info-label">Téléphone:</span>
+                            <span class="order-info-value">${order.phone || 'N/A'}</span>
                         </div>
                         <div class="order-info-row">
-                            <span class="order-info-label">Montant</span>
-                            <span class="order-info-value fw-bold">${formatCurrency(order.totalAmount)}</span>
+                            <span class="order-info-label">Articles:</span>
+                            <span class="order-info-value">${itemCount}</span>
                         </div>
                         <div class="order-info-row">
-                            <span class="order-info-label">Paiement</span>
-                            <span class="order-info-value">
-                                ${order.paid ? 
-                                    '<span class="payment-status payment-paid"><i class="bi bi-check-circle-fill"></i> Payé</span>' :
-                                    '<span class="payment-status payment-unpaid"><i class="bi bi-exclamation-circle-fill"></i> Non payé</span>'
-                                }
-                            </span>
-                        </div>
-                        <div class="order-info-row">
-                            <span class="order-info-label">Statut</span>
-                            <span class="order-info-value">
-                                <span class="status-badge status-${order.status}">
-                                    <i class="bi bi-${statusInfo.icon}"></i>
-                                    ${statusInfo.label}
-                                </span>
-                            </span>
+                            <span class="order-info-label">Total:</span>
+                            <span class="order-info-value fw-bold">${formatCurrency(order.totalAmount || 0)}</span>
                         </div>
                         <div class="mt-3">
-                            <button class="btn btn-primary btn-sm w-100" onclick="showOrderDetail(${order.orderId})">
-                                <i class="bi bi-eye"></i> Voir les détails
+                            <button class="btn btn-sm btn-primary w-100" onclick="showOrderDetail(${orderRef})">
+                                <i class="bi bi-eye"></i> Voir détails
                             </button>
                         </div>
                     </div>
@@ -389,12 +386,16 @@ function renderCardsView() {
 
 // Show order detail modal
 function showOrderDetail(orderId) {
-    const order = allOrders.find(o => o.orderId === orderId);
-    if (!order) return;
+    const order = allOrders.find(o => o.id === parseInt(orderId));
+    if (!order) {
+        console.error(`Order ${orderId} not found`);
+        return;
+    }
     
     const statusInfo = orderStatuses[order.status] || { label: order.status, icon: 'question-circle' };
-    const itemCount = order.orderLines.length;
-    const totalQty = order.orderLines.reduce((sum, line) => sum + line.quantityOrdered, 0);
+    const itemCount = order.orderLines?.length || 0;
+    const totalQty = order.orderLines?.reduce((sum, line) => sum + (line.quantityOrdered || 0), 0) || 0;
+    const orderRef = order.id;
     
     const content = `
         <!-- Customer Info -->
@@ -402,19 +403,19 @@ function showOrderDetail(orderId) {
             <h6><i class="bi bi-person-circle"></i> Informations Client</h6>
             <div class="detail-row">
                 <span class="detail-label">Nom complet:</span>
-                <span class="detail-value">${order.customerFirstName} ${order.customerLastName}</span>
+                <span class="detail-value">${order.customerFirstName || ''} ${order.customerLastName || ''}</span>
             </div>
             <div class="detail-row">
                 <span class="detail-label">Email:</span>
-                <span class="detail-value">${order.email}</span>
+                <span class="detail-value">${order.email || 'N/A'}</span>
             </div>
             <div class="detail-row">
                 <span class="detail-label">Téléphone:</span>
-                <span class="detail-value">${order.phone}</span>
+                <span class="detail-value">${order.phone || 'N/A'}</span>
             </div>
             <div class="detail-row">
                 <span class="detail-label">Langue:</span>
-                <span class="detail-value">${order.language === 'fr' ? 'Français 🇫🇷' : 'English 🇬🇧'}</span>
+                <span class="detail-value">${order.language === 'EN' ? 'English 🇬🇧' : 'Français 🇫🇷'}</span>
             </div>
             ${order.orderNote ? `
                 <div class="detail-row">
@@ -429,11 +430,11 @@ function showOrderDetail(orderId) {
             <h6><i class="bi bi-receipt"></i> Informations Commande</h6>
             <div class="detail-row">
                 <span class="detail-label">Numéro:</span>
-                <span class="detail-value fw-bold">#${order.orderId}</span>
+                <span class="detail-value fw-bold">#${orderRef}</span>
             </div>
             <div class="detail-row">
                 <span class="detail-label">GUID:</span>
-                <span class="detail-value"><small>${order.orderGuid}</small></span>
+                <span class="detail-value"><small>${order.GuidId || 'N/A'}</small></span>
             </div>
             <div class="detail-row">
                 <span class="detail-label">Statut:</span>
@@ -463,15 +464,15 @@ function showOrderDetail(orderId) {
             <h6><i class="bi bi-credit-card"></i> Informations Paiement</h6>
             <div class="detail-row">
                 <span class="detail-label">Montant total:</span>
-                <span class="detail-value fw-bold fs-5">${formatCurrency(order.totalAmount)}</span>
+                <span class="detail-value fw-bold fs-5">${formatCurrency(order.totalAmount || 0)}</span>
             </div>
             <div class="detail-row">
                 <span class="detail-label">Dépôt:</span>
-                <span class="detail-value">${formatCurrency(order.deposit)}</span>
+                <span class="detail-value">${formatCurrency(order.deposit || 0)}</span>
             </div>
             <div class="detail-row">
                 <span class="detail-label">Solde restant:</span>
-                <span class="detail-value">${formatCurrency(order.totalAmount - order.deposit)}</span>
+                <span class="detail-value">${formatCurrency((order.totalAmount || 0) - (order.deposit || 0))}</span>
             </div>
             <div class="detail-row">
                 <span class="detail-label">Statut paiement:</span>
@@ -500,32 +501,28 @@ function showOrderDetail(orderId) {
                         </tr>
                     </thead>
                     <tbody>
-                        ${order.orderLines.map(line => {
-                            const lineStatusInfo = getLineStatusInfo(line.lineStatus);
-                            return `
-                                <tr>
-                                    <td>${formatProductName(line.productId)}</td>
-                                    <td class="text-center">${line.quantityOrdered}</td>
-                                    <td class="text-center">
-                                        <span class="${line.quantityProduced === line.quantityOrdered ? 'text-success' : 'text-warning'} fw-semibold">
-                                            ${line.quantityProduced}
-                                        </span>
-                                    </td>
-                                    <td class="text-end">${formatCurrency(line.price)}</td>
-                                    <td class="text-end fw-semibold">${formatCurrency(line.lineTotal)}</td>
-                                    <td>
-                                        <span class="badge bg-${lineStatusInfo.color}">
-                                            ${lineStatusInfo.label}
-                                        </span>
-                                    </td>
-                                </tr>
-                            `;
-                        }).join('')}
+                        ${(order.orderLines || []).map(line => `
+                            <tr>
+                                <td>
+                                    <i class="bi bi-${line.Products?.icon || 'basket'}"></i>
+                                    ${line.Products?.title_fr || line.productId}
+                                </td>
+                                <td class="text-center">${line.quantityOrdered || 0}</td>
+                                <td class="text-center">${line.quantityProduced || 0}</td>
+                                <td class="text-end">${formatCurrency(line.unitPrice || 0)}</td>
+                                <td class="text-end">${formatCurrency((line.quantityOrdered || 0) * (line.unitPrice || 0))}</td>
+                                <td>
+                                    <span class="badge bg-${getLineStatusInfo(line.lineStatus).color}">
+                                        ${getLineStatusInfo(line.lineStatus).label}
+                                    </span>
+                                </td>
+                            </tr>
+                        `).join('')}
                     </tbody>
                     <tfoot>
                         <tr class="table-light">
                             <td colspan="4" class="text-end fw-bold">Total:</td>
-                            <td class="text-end fw-bold">${formatCurrency(order.totalAmount)}</td>
+                            <td class="text-end fw-bold">${formatCurrency(order.totalAmount || 0)}</td>
                             <td></td>
                         </tr>
                     </tfoot>
@@ -534,7 +531,10 @@ function showOrderDetail(orderId) {
         </div>
     `;
     
-    document.getElementById('orderDetailContent').innerHTML = content;
+    const modalContent = document.getElementById('orderDetailContent');
+    if (modalContent) {
+        modalContent.innerHTML = content;
+    }
     
     const modal = new bootstrap.Modal(document.getElementById('orderDetailModal'));
     modal.show();
@@ -568,11 +568,11 @@ function switchView(view) {
     const cardsView = document.getElementById('cardsView');
     
     if (view === 'table') {
-        tableView.classList.remove('d-none');
-        cardsView.classList.add('d-none');
+        tableView?.classList.remove('d-none');
+        cardsView?.classList.add('d-none');
     } else {
-        tableView.classList.add('d-none');
-        cardsView.classList.remove('d-none');
+        tableView?.classList.add('d-none');
+        cardsView?.classList.remove('d-none');
     }
     
     renderOrders();
@@ -580,9 +580,14 @@ function switchView(view) {
 
 // Reset all filters
 function resetFilters() {
-    document.getElementById('searchInput').value = '';
-    document.getElementById('statusFilter').value = 'active';
-    document.getElementById('dateFilter').value = '';
+    const searchInput = document.getElementById('searchInput');
+    const statusFilter = document.getElementById('statusFilter');
+    const dateFilter = document.getElementById('dateFilter');
+    
+    if (searchInput) searchInput.value = '';
+    if (statusFilter) statusFilter.value = 'active';
+    if (dateFilter) dateFilter.value = '';
+    
     applyFilters();
 }
 
@@ -595,50 +600,54 @@ function printOrder() {
 
 // Export all orders as JSON
 function exportAllOrdersJSON() {
-    const dataToExport = {
-        exportDate: new Date().toISOString(),
-        totalOrders: allOrders.length,
-        orders: allOrders
-    };
+    const dataStr = JSON.stringify(allOrders, null, 2);
+    const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
     
-    downloadJSON(dataToExport, `toutes-commandes-${getTodayDate()}.json`);
+    const exportFileDefaultName = `orders_all_${getTodayDate()}.json`;
     
-    // Show success message
-    showSuccess(`${allOrders.length} commandes exportées avec succès`);
+    const linkElement = document.createElement('a');
+    linkElement.setAttribute('href', dataUri);
+    linkElement.setAttribute('download', exportFileDefaultName);
+    linkElement.click();
+    
+    showSuccess(`${allOrders.length} commandes exportées`);
 }
 
-// Export only local orders (from localStorage)
+// Export only today's orders
 function exportLocalOrdersJSON() {
-    const localOrders = JSON.parse(localStorage.getItem('localOrders') || '[]');
+    const today = getTodayDate();
+    const localOrders = allOrders.filter(order => {
+        const createdDate = order.created_at ? order.created_at.split('T')[0] : null;
+        return createdDate === today;
+    });
     
     if (localOrders.length === 0) {
-        alert('Aucune commande locale à exporter');
+        showError('Aucune commande créée aujourd\'hui');
         return;
     }
     
-    const dataToExport = {
-        exportDate: new Date().toISOString(),
-        totalOrders: localOrders.length,
-        orders: localOrders
-    };
+    const dataStr = JSON.stringify(localOrders, null, 2);
+    const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
     
-    downloadJSON(dataToExport, `commandes-locales-${getTodayDate()}.json`);
+    const exportFileDefaultName = `orders_today_${today}.json`;
     
-    // Show success message
-    showSuccess(`${localOrders.length} commandes locales exportées avec succès`);
+    const linkElement = document.createElement('a');
+    linkElement.setAttribute('href', dataUri);
+    linkElement.setAttribute('download', exportFileDefaultName);
+    linkElement.click();
+    
+    showSuccess(`${localOrders.length} commande(s) d'aujourd'hui exportée(s)`);
 }
 
 // Download JSON file
 function downloadJSON(data, filename) {
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    const dataStr = JSON.stringify(data, null, 2);
+    const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+    
+    const linkElement = document.createElement('a');
+    linkElement.setAttribute('href', dataUri);
+    linkElement.setAttribute('download', filename);
+    linkElement.click();
 }
 
 // Get today's date in YYYY-MM-DD format
@@ -648,20 +657,28 @@ function getTodayDate() {
 
 // Show success message
 function showSuccess(message) {
-    // Create a temporary toast/alert
+    // Create toast element
     const toast = document.createElement('div');
-    toast.className = 'alert alert-success alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3';
-    toast.style.zIndex = '9999';
+    toast.className = 'toast align-items-center text-white bg-success border-0';
+    toast.setAttribute('role', 'alert');
+    toast.setAttribute('aria-live', 'assertive');
+    toast.setAttribute('aria-atomic', 'true');
     toast.innerHTML = `
-        <i class="bi bi-check-circle-fill me-2"></i>${message}
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <div class="d-flex">
+            <div class="toast-body">
+                <i class="bi bi-check-circle-fill me-2"></i>${message}
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
     `;
-    document.body.appendChild(toast);
     
-    // Auto-remove after 3 seconds
-    setTimeout(() => {
-        toast.remove();
-    }, 3000);
+    // Add to page and show
+    document.body.appendChild(toast);
+    const bsToast = new bootstrap.Toast(toast, { delay: 3000 });
+    bsToast.show();
+    
+    // Remove after hiding
+    toast.addEventListener('hidden.bs.toast', () => toast.remove());
 }
 
 // Utility Functions
@@ -676,29 +693,23 @@ function formatCurrency(amount) {
 
 // Format date
 function formatDate(dateString) {
+    if (!dateString) return 'N/A';
     const date = new Date(dateString);
-    return new Intl.DateTimeFormat('fr-CA', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    }).format(date);
+    const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+    return date.toLocaleDateString('fr-CA', options);
 }
 
 // Format time
 function formatTime(dateString) {
+    if (!dateString) return 'N/A';
     const date = new Date(dateString);
-    return new Intl.DateTimeFormat('fr-CA', {
-        hour: '2-digit',
-        minute: '2-digit'
-    }).format(date);
+    return date.toLocaleTimeString('fr-CA', { hour: '2-digit', minute: '2-digit' });
 }
 
 // Format product name
 function formatProductName(productId) {
-    return productId
-        .split('-')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
+    // This could be enhanced to look up product names from a products table
+    return `Produit #${productId}`;
 }
 
 // Debounce function for search
@@ -716,13 +727,25 @@ function debounce(func, wait) {
 
 // Show error message
 function showError(message) {
-    const tbody = document.getElementById('ordersTableBody');
-    tbody.innerHTML = `
-        <tr>
-            <td colspan="8" class="text-center py-5">
-                <i class="bi bi-exclamation-triangle fs-1 text-danger"></i>
-                <p class="mt-3 text-danger">${message}</p>
-            </td>
-        </tr>
+    const toast = document.createElement('div');
+    toast.className = 'toast align-items-center text-white bg-danger border-0';
+    toast.setAttribute('role', 'alert');
+    toast.innerHTML = `
+        <div class="d-flex">
+            <div class="toast-body">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>${message}
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
     `;
+    
+    document.body.appendChild(toast);
+    const bsToast = new bootstrap.Toast(toast, { delay: 5000 });
+    bsToast.show();
+    toast.addEventListener('hidden.bs.toast', () => toast.remove());
 }
+
+// Make functions available globally for onclick handlers
+window.showOrderDetail = showOrderDetail;
+window.exportAllOrdersJSON = exportAllOrdersJSON;
+window.exportLocalOrdersJSON = exportLocalOrdersJSON;

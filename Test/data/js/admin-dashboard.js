@@ -307,7 +307,7 @@ function renderUpcomingDeliveries(orders) {
         const statusClass = getStatusClass(order.status);
         const statusText = getStatusText(order.status);
         const itemCount = order.orderLines?.length || 0;
-        const orderRef = order.GuidId || order.id;
+        const orderRef = order.id;//order.GuidId || order.id;
         const customerName = `${order.customerFirstName || ''} ${order.customerLastName || ''}`.trim();
         
         return `
