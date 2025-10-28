@@ -313,8 +313,8 @@ class CheckoutManager {
             email: emailInput.value.trim(),
             phone: phoneInput.value.trim(),
             orderNote: form.querySelector('#checkout-note').value.trim(),
-            deliveryDate: form.querySelector('#checkout-delivery-date').value || '',
-            language: this.currentLang
+            deliveryDate: form.querySelector('#checkout-delivery-date').value || null,
+            language: this.currentLang.toUpperCase()
         };
         
         // Préparer les lignes de commande
@@ -325,43 +325,66 @@ class CheckoutManager {
             price: item.price
         }));
         
-        // Créer la commande
+        // Désactiver le bouton de soumission pendant le traitement
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> ' + this.t('orders.processing');
+        
+        // Créer la commande dans Supabase
         try {
-            // Initialiser le gestionnaire si nécessaire
-            if (!this.orderManager) {
-                await this.initialize();
+            // Vérifier que le service de commandes est disponible
+            if (typeof orderService === 'undefined') {
+                throw new Error('Le service de commandes n\'est pas disponible');
             }
             
-            const newOrder = this.orderManager.createOrder(formData);
+            // Créer la commande dans Supabase
+            const result = await orderService.createOrder(formData);
             
-            // Sauvegarder (en production, cela ferait un appel API)
-            console.log('Order created:', newOrder);
+            console.log('✅ Commande créée avec succès:', result);
             
             // Vider le panier
             cart.clearCart();
             
             // Fermer le modal de checkout
             modal.classList.remove('show');
+            document.body.style.overflow = '';
             setTimeout(() => modal.remove(), 300);
             
             // Afficher le modal de succès
-            this.showSuccessModal(newOrder);
+            this.showSuccessModal({
+                orderGuid: result.orderGuid,
+                orderId: result.order.id,
+                email: formData.email,
+                totalAmount: result.totalAmount
+            });
             
         } catch (error) {
-            console.error('Error creating order:', error);
-            alert('Une erreur est survenue lors de la création de la commande. Veuillez réessayer.');
+            console.error('❌ Erreur lors de la création de la commande:', error);
+            
+            // Réactiver le bouton
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnText;
+            
+            // Afficher un message d'erreur détaillé
+            let errorMessage = this.t('orders.orderError');
+            if (error.message) {
+                errorMessage += '\n\nDétails: ' + error.message;
+            }
+            
+            alert(errorMessage);
         }
     }
 
     /**
      * Afficher le modal de succès
      */
-    showSuccessModal(order) {
+    showSuccessModal(orderData) {
         const modal = document.createElement('div');
         modal.className = 'checkout-modal show';
         modal.id = 'success-modal';
         
-        const trackingUrl = `suivi-commande.html?order=${order.orderGuid}`;
+        const trackingUrl = `suivi-commande.html?order=${orderData.orderGuid}`;
         
         modal.innerHTML = `
             <div class="checkout-modal-content">
@@ -373,14 +396,14 @@ class CheckoutManager {
                     <p class="lead mb-4">${this.t('orders.orderSuccessMessage')}</p>
                     
                     <div class="alert alert-info mb-4">
-                        <strong>${this.t('orders.orderNumber')}:</strong> #${order.orderId}
+                        <strong>${this.t('orders.orderNumber')}:</strong> #${orderData.orderId}
                     </div>
                     
                     <p class="text-muted mb-4">
                         ${this.currentLang === 'fr' 
                             ? 'Un courriel de confirmation a été envoyé à' 
                             : 'A confirmation email has been sent to'} 
-                        <strong>${order.email}</strong>
+                        <strong>${orderData.email}</strong>
                     </p>
                     
                     <div class="d-grid gap-2 col-md-6 mx-auto">
