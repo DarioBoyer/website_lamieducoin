@@ -1,0 +1,236 @@
+/* Admin Production Styles */
+
+.stat-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Order Cards */
+.order-card {
+    border-left: 4px solid #6c757d;
+    transition: all 0.2s ease;
+}
+
+.order-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.order-card.status-new {
+    border-left-color: #ffc107;
+}
+
+.order-card.status-plan {
+    border-left-color: #0dcaf0;
+}
+
+.order-card.status-production {
+    border-left-color: #0d6efd;
+}
+
+.order-card.status-completed {
+    border-left-color: #198754;
+}
+
+/* Production Items */
+.production-item {
+    transition: background-color 0.2s ease;
+}
+
+.production-item:hover {
+    background-color: #f8f9fa;
+}
+
+.production-item.completed {
+    background-color: #d1e7dd;
+    opacity: 0.7;
+}
+
+.production-item input[type="checkbox"] {
+    width: 1.2rem;
+    height: 1.2rem;
+    cursor: pointer;
+}
+
+/* Day Section */
+.day-section {
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.day-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 1rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.day-header.today {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.day-content {
+    padding: 1rem;
+}
+
+/* Product Badge */
+.product-badge {
+    font-size: 0.85rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 0.35rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.status-badge.status-new {
+    background-color: #fff3cd;
+    color: #664d03;
+}
+
+.status-badge.status-plan {
+    background-color: #cff4fc;
+    color: #055160;
+}
+
+.status-badge.status-production {
+    background-color: #cfe2ff;
+    color: #084298;
+}
+
+.status-badge.status-completed {
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
+/* Action Buttons */
+.btn-schedule {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    color: white;
+    transition: transform 0.2s ease;
+}
+
+.btn-schedule:hover {
+    transform: scale(1.05);
+    color: white;
+}
+
+.btn-mark-complete {
+    background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
+    border: none;
+    color: white;
+    transition: transform 0.2s ease;
+}
+
+.btn-mark-complete:hover {
+    transform: scale(1.05);
+    color: white;
+}
+
+/* Loading States */
+.loading-spinner {
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #667eea;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Toast Notifications */
+.toast {
+    min-width: 300px;
+}
+
+/* Checkbox Selection */
+.select-all-day {
+    width: 1.5rem;
+    height: 1.5rem;
+    cursor: pointer;
+}
+
+/* Order Info */
+.order-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.order-customer {
+    font-weight: 600;
+    color: #212529;
+}
+
+/* Production Table */
+.production-table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.production-table td {
+    vertical-align: middle;
+}
+
+/* Empty State */
+.empty-state {
+    padding: 3rem 1rem;
+    text-align: center;
+}
+
+.empty-state i {
+    font-size: 4rem;
+    color: #dee2e6;
+}
+
+.empty-state p {
+    color: #6c757d;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .stat-icon {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .day-header {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: flex-start;
+    }
+    
+    .production-item {
+        font-size: 0.9rem;
+    }
+}
