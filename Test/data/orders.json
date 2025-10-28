@@ -1,0 +1,47 @@
+{
+  "orders": [],
+  "orderStatuses": {
+    "New": {
+      "fr": "Nouvelle",
+      "en": "New"
+    },
+    "Plan": {
+      "fr": "Planifiée",
+      "en": "Planned"
+    },
+    "Production": {
+      "fr": "En production",
+      "en": "In production"
+    },
+    "Completed": {
+      "fr": "Complétée",
+      "en": "Completed"
+    },
+    "Done": {
+      "fr": "Récupérée",
+      "en": "Picked up"
+    },
+    "Cancel": {
+      "fr": "Annulée",
+      "en": "Cancelled"
+    }
+  },
+  "lineStatuses": {
+    "ToDo": {
+      "fr": "À faire",
+      "en": "To do"
+    },
+    "Plan": {
+      "fr": "Planifiée",
+      "en": "Planned"
+    },
+    "Production": {
+      "fr": "En production",
+      "en": "In production"
+    },
+    "Completed": {
+      "fr": "Complétée",
+      "en": "Completed"
+    }
+  }
+}

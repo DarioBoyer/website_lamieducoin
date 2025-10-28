@@ -172,6 +172,87 @@ class ShoppingCart {
     }
 
     /**
+     * Mettre à jour l'affichage du panier
+     */
+    updateCartDisplay() {
+        const cartItems = document.getElementById('cart-items');
+        const cartCount = document.getElementById('cart-count');
+        const cartTotal = document.getElementById('cart-total');
+        const emptyCart = document.getElementById('empty-cart');
+        const cartContent = document.getElementById('cart-content');
+        const cartTotalSection = document.getElementById('cart-total-section');
+
+        if (!cartItems) return;
+
+        // Mettre à jour le compteur
+        const totalItems = this.getTotalItems();
+        if (cartCount) {
+            if (totalItems > 0) {
+                cartCount.textContent = `(${totalItems})`;
+                cartCount.style.display = 'inline';
+            } else {
+                cartCount.style.display = 'none';
+            }
+        }
+
+        // Afficher/masquer message panier vide
+        if (this.items.length === 0) {
+            if (emptyCart) emptyCart.style.display = 'block';
+            if (cartContent) cartContent.style.display = 'none';
+            if (cartTotalSection) cartTotalSection.style.display = 'none';
+            return;
+        }
+
+        if (emptyCart) emptyCart.style.display = 'none';
+        if (cartContent) cartContent.style.display = 'block';
+        if (cartTotalSection) cartTotalSection.style.display = 'block';
+
+        // Afficher les articles
+        cartItems.innerHTML = '';
+        this.items.forEach(item => {
+            const product = this.getProduct(item.productId);
+            if (!product) return;
+
+            const itemElement = document.createElement('div');
+            itemElement.className = 'cart-item mb-2 p-2 border rounded bg-white';
+            itemElement.innerHTML = `
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <div class="flex-grow-1">
+                        <h6 class="mb-1 small fw-bold">${product.icon} ${product.title[this.currentLang]}</h6>
+                        <small class="text-muted">${product.price.toFixed(2)} $ × ${item.quantity}</small>
+                    </div>
+                    <button class="btn btn-sm btn-outline-danger p-1" onclick="cart.removeItem('${item.productId}')" 
+                            title="${this.currentLang === 'fr' ? 'Retirer' : 'Remove'}">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="input-group input-group-sm" style="max-width: 120px;">
+                        <button class="btn btn-outline-secondary py-0 px-2" type="button" onclick="cart.updateQuantity('${item.productId}', ${item.quantity - 1})">
+                            <i class="bi bi-dash"></i>
+                        </button>
+                        <input type="number" class="form-control text-center py-0" value="${item.quantity}" 
+                               onchange="cart.updateQuantity('${item.productId}', parseInt(this.value))" min="0" style="max-width: 50px;">
+                        <button class="btn btn-outline-secondary py-0 px-2" type="button" onclick="cart.updateQuantity('${item.productId}', ${item.quantity + 1})">
+                            <i class="bi bi-plus"></i>
+                        </button>
+                    </div>
+                    <strong class="text-success">
+                        ${(product.price * item.quantity).toFixed(2)} $
+                    </strong>
+                </div>
+            `;
+            cartItems.appendChild(itemElement);
+        });
+
+        // Mettre à jour le total
+        const total = this.getTotal();
+        if (cartTotal) {
+            cartTotal.textContent = total.toFixed(2);
+        }
+    }
+
+    /**
      * Afficher une notification
      */
     showNotification(message) {

@@ -1,0 +1,11 @@
+{
+  "NextOrderId": 1001,
+  "CompanyName": "La mie du coin",
+  "CompanyEmail": "commandes@lamieducoin.ca",
+  "CompanyPhone": "(555) 123-4567",
+  "CompanyAddress": "123 Rue du Coin, Montréal, QC H1A 1A1",
+  "TaxRate": 0,
+  "Currency": "CAD",
+  "MinimumOrder": 10.00,
+  "DefaultLanguage": "fr"
+}
