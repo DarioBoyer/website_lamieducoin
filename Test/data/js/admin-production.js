@@ -4,7 +4,7 @@
  * Planification et suivi des commandes en production
  */
 
-import dbConnection from '../config/database.js';
+import dbConnection from './config/database.js';
 import orderService from './services/orderService.js';
 
 // Global variables
