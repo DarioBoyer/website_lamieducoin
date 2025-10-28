@@ -3,9 +3,9 @@
  * Charge les produits depuis Supabase et les affiche de manière attractive
  */
 
-import dbConnection from './config/database.js';
-import productService from './services/productService.js';
-import categoryService from './services/categoryService.js';
+import dbConnection from '../data/js/config/database.js';
+import productService from '../data/js/services/productService.js';
+import categoryService from '../data/js/categoryService.js';
 
 // État global
 let allProducts = [];
@@ -42,10 +42,15 @@ async function loadProducts() {
         }
         
         // Charger les catégories et les produits en parallèle
+        // Filtrer uniquement les produits Active et Inactive
         [allCategories, allProducts] = await Promise.all([
             categoryService.getAllCategories(),
-            productService.getAllProducts()
+            productService.getAllProducts({ status: 'Active' })
         ]);
+        
+        // Ajouter les produits Inactive
+        const inactiveProducts = await productService.getAllProducts({ status: 'Inactive' });
+        allProducts = [...allProducts, ...inactiveProducts];
         
         console.log('✅ Produits chargés:', allProducts.length);
         console.log('✅ Catégories chargées:', allCategories.length);
@@ -77,13 +82,36 @@ function displayProducts() {
     // Mettre à jour la langue courante
     currentLanguage = localStorage.getItem('language') || 'fr';
     
-    // Grouper les produits par catégorie
-    const productsByCategory = groupProductsByCategory(allProducts);
+    // Filtrer uniquement les produits Active ou Inactive
+    const filteredProducts = allProducts.filter(p => 
+        p.status === 'Active' || p.status === 'Inactive'
+    );
     
-    // Afficher chaque catégorie
+    console.log(`📊 Produits filtrés: ${filteredProducts.length} (Active/Inactive uniquement)`);
+    
+    // Grouper les produits par catégorie
+    const productsByCategory = groupProductsByCategory(filteredProducts);
+    
+    // Récupérer le conteneur principal
+    const mainContainer = document.getElementById('products-main');
+    if (!mainContainer) {
+        console.error('❌ Conteneur principal non trouvé');
+        return;
+    }
+    
+    // Vider les sections existantes (sauf le Call to Action)
+    const sections = mainContainer.querySelectorAll('section:not(.text-center)');
+    sections.forEach(section => section.remove());
+    
+    // Afficher chaque catégorie dynamiquement
     allCategories.forEach(category => {
         const categoryProducts = productsByCategory[category.id] || [];
-        displayCategory(category, categoryProducts);
+        // Filtrer pour n'afficher que les produits Active et disponibles
+        const availableProducts = categoryProducts.filter(p => p.status === 'Active' && p.available);
+        
+        if (availableProducts.length > 0) {
+            createAndDisplayCategorySection(category, categoryProducts);
+        }
     });
     
     console.log('✅ Affichage terminé');
@@ -106,6 +134,59 @@ function groupProductsByCategory(products) {
 }
 
 /**
+ * Crée et affiche une section de catégorie
+ */
+function createAndDisplayCategorySection(category, products) {
+    // Créer la section
+    const section = document.createElement('section');
+    section.id = category.id;
+    section.className = 'mb-5';
+    
+    // Créer le titre de la section
+    const sectionTitle = document.createElement('div');
+    sectionTitle.className = 'section-title mb-4';
+    
+    const categoryName = currentLanguage === 'fr' ? category.NameFR : category.NameEN;
+    const categoryDesc = currentLanguage === 'fr' ? category.DescriptionFR : category.DescriptionEN;
+    
+    sectionTitle.innerHTML = `
+        <h2 class="display-6 fw-bold">${category.icon || '🍞'} ${categoryName}</h2>
+        <p class="text-muted">${categoryDesc || ''}</p>
+    `;
+    
+    section.appendChild(sectionTitle);
+    
+    // Créer le conteneur de produits
+    const productsContainer = document.createElement('div');
+    productsContainer.className = 'row g-4';
+    
+    // Filtrer pour afficher uniquement les produits Active et disponibles
+    const displayProducts = products.filter(p => p.status === 'Active' && p.available);
+    
+    // Trier les produits : vedettes d'abord, puis par titre
+    const sortedProducts = displayProducts.sort((a, b) => {
+        if (a.featured && !b.featured) return -1;
+        if (!a.featured && b.featured) return 1;
+        const titleA = (currentLanguage === 'fr' ? a.title_fr : a.title_en).toLowerCase();
+        const titleB = (currentLanguage === 'fr' ? b.title_fr : b.title_en).toLowerCase();
+        return titleA.localeCompare(titleB);
+    });
+    
+    // Ajouter les cartes de produits
+    sortedProducts.forEach(product => {
+        const productCard = createProductCard(product);
+        productsContainer.appendChild(productCard);
+    });
+    
+    section.appendChild(productsContainer);
+    
+    // Insérer la section avant le Call to Action
+    const mainContainer = document.getElementById('products-main');
+    const callToAction = mainContainer.querySelector('section.text-center');
+    mainContainer.insertBefore(section, callToAction);
+}
+
+/**
  * Affiche une catégorie avec ses produits
  */
 function displayCategory(category, products) {
@@ -117,8 +198,9 @@ function displayCategory(category, products) {
         return;
     }
     
-    // Si aucun produit, masquer la section
-    if (!products || products.length === 0) {
+    // Si aucun produit disponible (Active), masquer la section
+    const availableProducts = products.filter(p => p.status === 'Active' && p.available);
+    if (!availableProducts || availableProducts.length === 0) {
         section.style.display = 'none';
         return;
     }
@@ -150,8 +232,11 @@ function displayCategory(category, products) {
     // Vider le conteneur
     productsContainer.innerHTML = '';
     
+    // Filtrer pour afficher uniquement les produits Active et disponibles
+    const displayProducts = products.filter(p => p.status === 'Active' && p.available);
+    
     // Trier les produits : vedettes d'abord, puis par titre
-    const sortedProducts = products.sort((a, b) => {
+    const sortedProducts = displayProducts.sort((a, b) => {
         if (a.featured && !b.featured) return -1;
         if (!a.featured && b.featured) return 1;
         const titleA = (currentLanguage === 'fr' ? a.title_fr : a.title_en).toLowerCase();

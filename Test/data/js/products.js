@@ -4,7 +4,7 @@
 
 import dbConnection from './config/database.js';
 import productService from './services/productService.js';
-import categoryService from './services/categoryService.js';
+import categoryService from './categoryService.js';
 
 // État global
 let allProducts = [];

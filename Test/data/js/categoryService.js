@@ -3,7 +3,7 @@
  * Gère toutes les opérations CRUD pour la table BreadCategory
  */
 
-import dbConnection from '../config/database.js';
+import dbConnection from './config/database.js';
 
 class CategoryService {
     constructor() {
