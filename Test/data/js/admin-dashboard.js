@@ -16,15 +16,56 @@ async function loadDashboardData() {
     ]);
 }
 
+// Get count of orders by status (generic function)
+function getOrderCountByStatus(orders, status) {
+    if (!Array.isArray(orders)) {
+        return 0;
+    }
+    return orders.filter(order => order.status === status).length;
+}
+
+// Load all orders from JSON file and localStorage
+async function loadAllOrders() {
+    try {
+        // Fetch orders from JSON file
+        const response = await fetch('../data/orders.json');
+        let jsonOrders = [];
+        if (response.ok) {
+            const data = await response.json();
+            jsonOrders = data.orders || [];
+        }
+        
+        // Fetch orders from localStorage
+        const localOrders = JSON.parse(localStorage.getItem('localOrders') || '[]');
+        
+        // Merge both sources (localStorage takes precedence for duplicates)
+        const allOrders = [...jsonOrders];
+        localOrders.forEach(localOrder => {
+            const existingIndex = allOrders.findIndex(o => o.orderId === localOrder.orderId);
+            if (existingIndex >= 0) {
+                allOrders[existingIndex] = localOrder;
+            } else {
+                allOrders.push(localOrder);
+            }
+        });
+        
+        return allOrders;
+    } catch (error) {
+        console.error('Error loading orders:', error);
+        // Fallback to localStorage only
+        return JSON.parse(localStorage.getItem('localOrders') || '[]');
+    }
+}
+
 // Load statistics
 async function loadStatistics() {
     try {
-        // Fetch orders from localStorage
-        const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+        // Load all orders
+        const orders = await loadAllOrders();
         
-        // Calculate statistics
-        const newOrders = orders.filter(o => o.status === 'New').length;
-        const readyOrders = orders.filter(o => o.status === 'Completed').length;
+        // Calculate statistics using generic function
+        const newOrders = getOrderCountByStatus(orders, 'New');
+        const readyOrders = getOrderCountByStatus(orders, 'Completed');
         
         // Get today's date for production calculation
         const today = new Date().toISOString().split('T')[0];
@@ -35,7 +76,7 @@ async function loadStatistics() {
         
         let todayProductionCount = 0;
         todayOrders.forEach(order => {
-            todayProductionCount += order.items?.length || 0;
+            todayProductionCount += (order.items?.length || order.orderLines?.length || 0);
         });
         
         // Update UI
@@ -45,23 +86,28 @@ async function loadStatistics() {
         document.getElementById('stat-low-stock').textContent = '0'; // Placeholder for inventory system
     } catch (error) {
         console.error('Error loading statistics:', error);
+        // Display 0 on error
+        document.getElementById('stat-new-orders').textContent = '0';
+        document.getElementById('stat-today-production').textContent = '0';
+        document.getElementById('stat-ready-orders').textContent = '0';
+        document.getElementById('stat-low-stock').textContent = '0';
     }
 }
 
 // Load today's tasks
 async function loadTodayTasks() {
     try {
-        const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+        const orders = await loadAllOrders();
         const today = new Date().toISOString().split('T')[0];
         
         const tasks = [];
         
         // Task: New orders to plan
-        const newOrders = orders.filter(o => o.status === 'New');
-        if (newOrders.length > 0) {
+        const newOrdersCount = getOrderCountByStatus(orders, 'New');
+        if (newOrdersCount > 0) {
             tasks.push({
                 id: 'plan-orders',
-                text: `Planifier ${newOrders.length} nouvelle(s) commande(s)`,
+                text: `Planifier ${newOrdersCount} nouvelle(s) commande(s)`,
                 priority: 'high',
                 link: 'gestion-commandes.html?status=New',
                 completed: false
@@ -84,11 +130,11 @@ async function loadTodayTasks() {
         }
         
         // Task: Ready for pickup
-        const readyOrders = orders.filter(o => o.status === 'Completed');
-        if (readyOrders.length > 0) {
+        const readyOrdersCount = getOrderCountByStatus(orders, 'Completed');
+        if (readyOrdersCount > 0) {
             tasks.push({
                 id: 'ready-pickup',
-                text: `${readyOrders.length} commande(s) prête(s) pour récupération`,
+                text: `${readyOrdersCount} commande(s) prête(s) pour récupération`,
                 priority: 'medium',
                 link: 'gestion-commandes.html?status=Completed',
                 completed: false
@@ -141,7 +187,7 @@ function renderTasks(tasks) {
 async function loadAlerts() {
     try {
         const alerts = [];
-        const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+        const orders = await loadAllOrders();
         
         // Check for orders needing attention
         const now = new Date();
@@ -209,7 +255,7 @@ function renderAlerts(alerts) {
 // Load upcoming deliveries
 async function loadUpcomingDeliveries() {
     try {
-        const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+        const orders = await loadAllOrders();
         const today = new Date();
         const nextWeek = new Date(today);
         nextWeek.setDate(nextWeek.getDate() + 7);
@@ -250,13 +296,13 @@ function renderUpcomingDeliveries(orders) {
     tbody.innerHTML = orders.map(order => {
         const statusClass = getStatusClass(order.status);
         const statusText = getStatusText(order.status);
-        const itemCount = order.items?.length || 0;
+        const itemCount = order.items?.length || order.orderLines?.length || 0;
         
         return `
             <tr>
                 <td>${formatDate(order.deliveryDate)}</td>
                 <td><strong>#${order.orderId}</strong></td>
-                <td>${order.firstName} ${order.lastName}</td>
+                <td>${order.customerFirstName || order.firstName || ''} ${order.customerLastName || order.lastName || ''}</td>
                 <td>${itemCount} article${itemCount > 1 ? 's' : ''}</td>
                 <td><span class="status-badge ${statusClass}">${statusText}</span></td>
                 <td>
@@ -314,5 +360,7 @@ window.dashboardAPI = {
     loadStatistics,
     loadTasks: loadTodayTasks,
     loadAlerts,
-    loadUpcomingDeliveries
+    loadUpcomingDeliveries,
+    getOrderCountByStatus,
+    loadAllOrders
 };
