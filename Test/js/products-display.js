@@ -41,6 +41,12 @@ async function init() {
         // Afficher les produits
         displayProductsByCategory();
         
+        // Écouter les changements de langue
+        window.addEventListener('languageChanged', () => {
+            console.log('🌐 Changement de langue détecté - Rafraîchissement de l\'affichage');
+            displayProductsByCategory();
+        });
+        
         showLoading(false);
         console.log('✅ Page produits initialisée avec succès');
         
@@ -176,18 +182,22 @@ function createProductCard(product) {
     const weight = product.weight ? `${product.weight}${product.weightUnit}` : '';
     
     // Badge pour les produits en vedette
+    const featuredText = currentLang === 'fr' ? 'Vedette' : 'Featured';
     const featuredBadge = product.featured ? 
         `<span class="badge bg-warning text-dark position-absolute top-0 end-0 m-2">
-            <i class="bi bi-star-fill"></i> Vedette
+            <i class="bi bi-star-fill"></i> ${featuredText}
         </span>` : '';
     
     // Indicateur de disponibilité en inventaire
+    const availableText = currentLang === 'fr' ? 'Disponible' : 'Available';
+    const onOrderText = currentLang === 'fr' ? 'Sur commande' : 'On order';
+    
     const stockIndicator = product.inventoryQuantity > 0 ? 
         `<span class="stock-indicator text-success">
-            <i class="bi bi-check-circle-fill"></i> Disponible
+            <i class="bi bi-check-circle-fill"></i> ${availableText}
         </span>` : 
         `<span class="stock-indicator text-warning">
-            <i class="bi bi-clock-fill"></i> Sur commande
+            <i class="bi bi-clock-fill"></i> ${onOrderText}
         </span>`;
     
     // Construire le chemin de l'image
@@ -222,7 +232,7 @@ function createProductCard(product) {
                         ${product.allergens && product.allergens.length > 0 ? `
                             <div class="product-allergens">
                                 <i class="bi bi-exclamation-triangle"></i> 
-                                <small>Allergènes: ${product.allergens.join(', ')}</small>
+                                <small>${currentLang === 'fr' ? 'Allergènes' : 'Allergens'}: ${product.allergens.join(', ')}</small>
                             </div>
                         ` : ''}
                     </div>
@@ -236,7 +246,7 @@ function createProductCard(product) {
                     </div>
                     
                     <button class="btn btn-primary w-100 mt-3" onclick="addToCart('${product.code}')">
-                        <i class="bi bi-cart-plus"></i> Ajouter au panier
+                        <i class="bi bi-cart-plus"></i> ${currentLang === 'fr' ? 'Ajouter au panier' : 'Add to cart'}
                     </button>
                 </div>
             </div>
@@ -280,7 +290,7 @@ function addToCart(productCode) {
  * Obtient la langue courante
  */
 function getCurrentLanguage() {
-    return localStorage.getItem('preferredLanguage') || 'fr';
+    return localStorage.getItem('language') || 'fr';
 }
 
 /**

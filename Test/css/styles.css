@@ -259,16 +259,44 @@ body {
 
 /* Page Header */
 .page-header {
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    background: linear-gradient(135deg, rgba(139, 69, 19, 0.95), rgba(210, 105, 30, 0.95)), 
+                url('https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1920') center/cover;
     padding: 4rem 0 3rem;
     margin-bottom: 0;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 0;
+}
+
+.page-header .container {
+    position: relative;
+    z-index: 1;
 }
 
 .page-header h1,
 .page-header p {
     color: white;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.7);
+}
+
+.page-header h1 {
+    font-weight: 700;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.page-header p {
+    font-size: 1.25rem;
+    animation: fadeInUp 1s ease-out;
 }
 
 /* Section Title */
@@ -386,7 +414,15 @@ footer .hover-link:hover {
     }
     
     .page-header {
-        padding: 2rem 0 1.5rem;
+        padding: 2.5rem 0 2rem;
+    }
+    
+    .page-header h1 {
+        font-size: 2rem;
+    }
+    
+    .page-header p {
+        font-size: 1rem;
     }
 }
 
