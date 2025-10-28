@@ -190,13 +190,21 @@ function createProductCard(product) {
             <i class="bi bi-clock-fill"></i> Sur commande
         </span>`;
     
+    // Construire le chemin de l'image
+    let imageSrc = '';
+    if (product.image) {
+        // Convertir le chemin de la BD en chemin relatif pour la page
+        imageSrc = product.image.startsWith('/') ? '..' + product.image : product.image;
+    }
+    
     return `
         <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
             <div class="product-card h-100">
                 ${featuredBadge}
                 <div class="product-image">
-                    ${product.image && product.image !== '/img/products/pain-blanc-classique.jpg' ? 
-                        `<img src="${product.image}" alt="${title}" loading="lazy">` :
+                    ${product.image ? 
+                        `<img src="${imageSrc}" alt="${title}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                         <div class="product-icon-large" style="display: none;">${product.icon}</div>` :
                         `<div class="product-icon-large">${product.icon}</div>`
                     }
                 </div>
