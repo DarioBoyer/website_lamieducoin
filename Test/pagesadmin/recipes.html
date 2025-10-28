@@ -738,6 +738,12 @@
 
         // Éditer une recette
         async function editRecipe(recipeId) {
+            // Vérifier si c'est la recette protégée
+            if (recipeId === PROTECTED_RECIPE_ID) {
+                showError('La recette "None" est protégée et ne peut pas être modifiée.');
+                return;
+            }
+            
             state.currentRecipeId = recipeId;
             state.isEditMode = true;
             await loadRecipeDetails(recipeId);
@@ -750,7 +756,7 @@
                 const result = await recipesService.getRecipeById(recipeId);
                 
                 if (result.success) {
-                    const recipe = result.data.data;
+                    const recipe = result.data;
                     displayRecipeForm(recipe);
                 } else {
                     throw new Error(result.error);
@@ -1180,8 +1186,8 @@
                 if (result.success) {
                     showSuccess(recipeId ? 'Recette mise à jour avec succès!' : 'Recette créée avec succès!');
                     await loadRecipes();
-                    if (result.data && result.data.data) {
-                        state.currentRecipeId = result.data.data.id;
+                    if (result.data && result.data.id) {
+                        state.currentRecipeId = result.data.id;
                         state.isEditMode = false;
                         await loadRecipeDetails(state.currentRecipeId);
                     } else {
