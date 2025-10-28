@@ -62,10 +62,19 @@ const translations = {
             glutenFree: 'Options Sans Gluten',
             mediterranean: 'Spécialités Méditerranéennes',
             
+            // Messages
+            noProducts: 'Aucun produit disponible pour le moment',
+            checkBackSoon: 'Revenez bientôt pour découvrir nos nouveautés!',
+            addToCart: 'Ajouter au panier',
+            available: 'Disponible',
+            onOrder: 'Sur commande',
+            featured: 'Vedette',
+            allergens: 'Allergènes',
+            
             // CTA
-            ctaTitle: 'Prêt à commander?',
-            ctaSubtitle: 'Passez votre commande dès maintenant',
-            btnOrder: 'Commander'
+            readyToOrder: 'Prêt à commander?',
+            orderNow: 'Passez votre commande dès maintenant et venez la chercher fraîche!',
+            orderButton: 'Passer une commande'
         },
         
         // Page Commandes
@@ -287,10 +296,19 @@ const translations = {
             glutenFree: 'Gluten-Free Options',
             mediterranean: 'Mediterranean Specialties',
             
+            // Messages
+            noProducts: 'No products available at the moment',
+            checkBackSoon: 'Check back soon for our latest creations!',
+            addToCart: 'Add to cart',
+            available: 'Available',
+            onOrder: 'On order',
+            featured: 'Featured',
+            allergens: 'Allergens',
+            
             // CTA
-            ctaTitle: 'Ready to order?',
-            ctaSubtitle: 'Place your order now',
-            btnOrder: 'Order'
+            readyToOrder: 'Ready to order?',
+            orderNow: 'Place your order now and pick it up fresh!',
+            orderButton: 'Place an order'
         },
         
         // Orders Page

@@ -17,6 +17,7 @@
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/products.css">
     
     <!-- Translations -->
     <script src="../js/translations.js"></script>
@@ -70,16 +71,13 @@
 
     <!-- Main Content -->
     <main class="container my-5" id="products-main">
-        <!-- Les sections de catégories seront générées dynamiquement -->
-        
-        <!-- Call to Action -->
-        <section class="text-center my-5 p-5 bg-light rounded">
-            <h3 class="fw-bold mb-3">Prêt à commander?</h3>
-            <p class="lead mb-4">Passez votre commande dès maintenant et venez la chercher fraîche!</p>
-            <a href="commandes.html" class="btn btn-primary btn-lg px-5 py-3">
-                <i class="bi bi-cart-check"></i> Passer une commande
-            </a>
-        </section>
+        <!-- Loading spinner -->
+        <div id="loading-spinner" style="display: flex; justify-content: center; align-items: center; min-height: 400px;">
+            <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+                <span class="visually-hidden">Chargement des produits...</span>
+            </div>
+        </div>
+        <!-- Les sections de catégories seront générées dynamiquement par products-display.js -->
     </main>
 
     <!-- Footer -->
@@ -94,7 +92,7 @@
     <!-- Custom JS -->
     <script src="../js/utils.js"></script>
     <script src="../js/main.js"></script>
-    <script type="module" src="../js/products.js"></script>
+    <script type="module" src="../js/products-display.js"></script>
     
     <!-- Load Components -->
     <script>
