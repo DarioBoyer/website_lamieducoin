@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Recettes - Administration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background-color: #008CBA;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #007399;
+        }
+
+        .btn-danger {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #da190b;
+        }
+
+        .btn-warning {
+            background-color: #ff9800;
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background-color: #e68900;
+        }
+
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 1200px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .recipes-list {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .recipe-item {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .recipe-item:hover {
+            background-color: #f8f9fa;
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .recipe-item.active {
+            background-color: #e8eaf6;
+            border-color: #667eea;
+            border-width: 2px;
+        }
+
+        .recipe-item.protected {
+            background-color: #fff3cd;
+            border-color: #ffc107;
+        }
+
+        .recipe-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .recipe-meta {
+            font-size: 0.85rem;
+            color: #666;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .recipe-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .recipe-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .form-row-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+        }
+
+        .steps-container {
+            border: 2px dashed #ddd;
+            border-radius: 6px;
+            padding: 15px;
+            min-height: 100px;
+            margin-bottom: 15px;
+        }
+
+        .step-item {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: move;
+            transition: all 0.3s ease;
+        }
+
+        .step-item:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .step-item.dragging {
+            opacity: 0.5;
+            transform: rotate(2deg);
+        }
+
+        .step-item.drag-over {
+            border-color: #667eea;
+            border-width: 2px;
+            background-color: #e8eaf6;
+        }
+
+        .step-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .step-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .step-content {
+            display: grid;
+            gap: 10px;
+        }
+
+        .step-field {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .step-field label {
+            min-width: 80px;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .step-field input,
+        .step-field select {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .step-field input[type="number"] {
+            max-width: 100px;
+        }
+
+        .step-field select {
+            max-width: 100px;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .alert-info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .loading::after {
+            content: '...';
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+
+        @keyframes dots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60%, 100% { content: '...'; }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+
+        .empty-state svg {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge-version {
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .badge-protected {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .product-qty-display {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .total-delay {
+            background: #e8f5e9;
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: 600;
+            color: #2e7d32;
+            margin-bottom: 15px;
+        }
+
+        .drag-handle {
+            cursor: grab;
+            color: #999;
+            margin-right: 10px;
+            user-select: none;
+        }
+
+        .drag-handle:active {
+            cursor: grabbing;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+        }
+
+        .no-product-info {
+            color: #999;
+            font-style: italic;
+            font-size: 0.9em;
+        }
+
+        /* Scrollbar personnalisé */
+        .recipes-list::-webkit-scrollbar,
+        .steps-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .recipes-list::-webkit-scrollbar-track,
+        .steps-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .recipes-list::-webkit-scrollbar-thumb,
+        .steps-container::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+
+        .recipes-list::-webkit-scrollbar-thumb:hover,
+        .steps-container::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🍴 Gestion des Recettes</h1>
+            <p>Créez et gérez les recettes de production de vos produits</p>
+            <div class="header-actions">
+                <button class="btn btn-primary" id="newRecipeBtn">
+                    ➕ Nouvelle Recette
+                </button>
+                <button class="btn btn-secondary" id="refreshBtn">
+                    🔄 Actualiser
+                </button>
+                <a href="index.html" class="btn btn-secondary">
+                    🏠 Retour à l'accueil
+                </a>
+            </div>
+        </header>
+
+        <div class="alert alert-success" id="successAlert"></div>
+        <div class="alert alert-error" id="errorAlert"></div>
+
+        <div class="content-wrapper">
+            <!-- Liste des recettes -->
+            <div class="card">
+                <h2>📋 Liste des Recettes</h2>
+                <div id="recipesList" class="recipes-list">
+                    <div class="loading">Chargement des recettes</div>
+                </div>
+            </div>
+
+            <!-- Formulaire d'édition -->
+            <div class="card">
+                <h2 id="formTitle">📝 Détails de la Recette</h2>
+                
+                <div id="emptyFormState" class="empty-state">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    <p>Sélectionnez une recette ou créez-en une nouvelle</p>
+                </div>
+
+                <form id="recipeForm" style="display: none;">
+                    <input type="hidden" id="recipeId">
+                    
+                    <!-- En-tête de la recette -->
+                    <div class="form-group">
+                        <label for="recipeName">Nom de la recette *</label>
+                        <input type="text" id="recipeName" required placeholder="Ex: Pain blanc tradition">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productId">Produit de sortie</label>
+                            <select id="productId">
+                                <option value="">Sélectionner un produit...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="productionQty">Quantité produite *</label>
+                            <input type="number" id="productionQty" min="1" value="1" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="notes">Notes</label>
+                        <textarea id="notes" placeholder="Informations supplémentaires..."></textarea>
+                    </div>
+
+                    <div class="total-delay" id="totalDelay">
+                        ⏱️ Délai total de production: <span id="totalDelayValue">0</span> min
+                    </div>
+
+                    <!-- Étapes de la recette -->
+                    <div class="form-group">
+                        <label>Étapes de production</label>
+                        <div class="steps-container" id="stepsContainer">
+                            <div class="empty-state">
+                                <p>Aucune étape. Cliquez sur "Ajouter une étape"</p>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-secondary btn-small" id="addStepBtn">
+                            ➕ Ajouter une étape
+                        </button>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            💾 Enregistrer
+                        </button>
+                        <button type="button" class="btn btn-danger" id="deleteRecipeBtn" style="display: none;">
+                            🗑️ Supprimer
+                        </button>
+                        <button type="button" class="btn btn-secondary" id="cancelBtn">
+                            ❌ Annuler
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charger Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Charger le script de gestion des recettes -->
+    <script type="module">
+        import dbConnection from '../data/js/config/database.js';
+        import recipesService from '../data/js/services/recipes.service.js';
+
+        // État de l'application
+        let state = {
+            recipes: [],
+            products: [],
+            currentRecipeId: null,
+            isEditMode: false,
+            stepCounter: 0
+        };
+
+        // Constantes
+        const EMPTY_PRODUCT_ID = 29;
+        const PROTECTED_RECIPE_ID = 1;
+
+        // Éléments DOM
+        const elements = {
+            recipesList: document.getElementById('recipesList'),
+            recipeForm: document.getElementById('recipeForm'),
+            emptyFormState: document.getElementById('emptyFormState'),
+            formTitle: document.getElementById('formTitle'),
+            successAlert: document.getElementById('successAlert'),
+            errorAlert: document.getElementById('errorAlert'),
+            newRecipeBtn: document.getElementById('newRecipeBtn'),
+            refreshBtn: document.getElementById('refreshBtn'),
+            deleteRecipeBtn: document.getElementById('deleteRecipeBtn'),
+            cancelBtn: document.getElementById('cancelBtn'),
+            addStepBtn: document.getElementById('addStepBtn'),
+            stepsContainer: document.getElementById('stepsContainer'),
+            totalDelayValue: document.getElementById('totalDelayValue')
+        };
+
+        // Initialisation
+        async function init() {
+            try {
+                showLoading('Initialisation...');
+                await dbConnection.init();
+                await recipesService.init();
+                await loadProducts();
+                await loadRecipes();
+                setupEventListeners();
+                hideLoading();
+            } catch (error) {
+                showError('Erreur lors de l\'initialisation: ' + error.message);
+            }
+        }
+
+        // Charger les produits
+        async function loadProducts() {
+            try {
+                const db = dbConnection.getClient();
+                const { data, error } = await db
+                    .from('Products')
+                    .select('id, Name')
+                    .order('Name');
+
+                if (error) throw error;
+                state.products = data || [];
+                populateProductSelect();
+            } catch (error) {
+                console.error('Erreur lors du chargement des produits:', error);
+            }
+        }
+
+        // Remplir le select des produits
+        function populateProductSelect() {
+            const select = document.getElementById('productId');
+            select.innerHTML = '<option value="">Sélectionner un produit...</option>';
+            
+            state.products.forEach(product => {
+                const option = document.createElement('option');
+                option.value = product.id;
+                option.textContent = product.Name;
+                select.appendChild(option);
+            });
+        }
+
+        // Charger les recettes
+        async function loadRecipes() {
+            try {
+                showLoading('Chargement des recettes...');
+                const result = await recipesService.getAllRecipes();
+                
+                if (result.success) {
+                    state.recipes = result.data || [];
+                    renderRecipesList();
+                } else {
+                    throw new Error(result.error);
+                }
+            } catch (error) {
+                showError('Erreur lors du chargement des recettes: ' + error.message);
+                elements.recipesList.innerHTML = '<div class="empty-state"><p>Erreur de chargement</p></div>';
+            }
+        }
+
+        // Afficher la liste des recettes
+        function renderRecipesList() {
+            if (state.recipes.length === 0) {
+                elements.recipesList.innerHTML = `
+                    <div class="empty-state">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        <p>Aucune recette disponible</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const html = state.recipes.map(recipe => {
+                const product = state.products.find(p => p.id === recipe.ProductId);
+                const isProtected = recipe.id === PROTECTED_RECIPE_ID;
+                const isActive = recipe.id === state.currentRecipeId;
+
+                return `
+                    <div class="recipe-item ${isActive ? 'active' : ''} ${isProtected ? 'protected' : ''}" 
+                         data-recipe-id="${recipe.id}">
+                        <div class="recipe-info">
+                            <h3>
+                                ${recipe.Name}
+                                ${isProtected ? '<span class="badge badge-protected">Protégée</span>' : ''}
+                                <span class="badge badge-version">v${recipe.Version}</span>
+                            </h3>
+                            <div class="recipe-meta">
+                                <span>📦 ${product ? product.Name : 'Aucun produit'}</span>
+                                <span>🔢 Qté: ${recipe.ProductionQty}</span>
+                                <span>⏱️ ${recipe.ProductionDelayMin} min</span>
+                            </div>
+                        </div>
+                        <div class="recipe-actions">
+                            <button class="btn btn-warning btn-small edit-recipe-btn" data-recipe-id="${recipe.id}">
+                                ✏️ Éditer
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            elements.recipesList.innerHTML = html;
+
+            // Ajouter les événements
+            document.querySelectorAll('.recipe-item').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    if (!e.target.closest('.edit-recipe-btn')) {
+                        const recipeId = parseInt(item.dataset.recipeId);
+                        viewRecipe(recipeId);
+                    }
+                });
+            });
+
+            document.querySelectorAll('.edit-recipe-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const recipeId = parseInt(btn.dataset.recipeId);
+                    editRecipe(recipeId);
+                });
+            });
+        }
+
+        // Voir une recette
+        async function viewRecipe(recipeId) {
+            state.currentRecipeId = recipeId;
+            state.isEditMode = false;
+            await loadRecipeDetails(recipeId);
+            renderRecipesList();
+        }
+
+        // Éditer une recette
+        async function editRecipe(recipeId) {
+            state.currentRecipeId = recipeId;
+            state.isEditMode = true;
+            await loadRecipeDetails(recipeId);
+            renderRecipesList();
+        }
+
+        // Charger les détails d'une recette
+        async function loadRecipeDetails(recipeId) {
+            try {
+                const result = await recipesService.getRecipeById(recipeId);
+                
+                if (result.success) {
+                    const recipe = result.data.data;
+                    displayRecipeForm(recipe);
+                } else {
+                    throw new Error(result.error);
+                }
+            } catch (error) {
+                showError('Erreur lors du chargement de la recette: ' + error.message);
+            }
+        }
+
+        // Afficher le formulaire avec les données
+        function displayRecipeForm(recipe) {
+            elements.emptyFormState.style.display = 'none';
+            elements.recipeForm.style.display = 'block';
+
+            const isProtected = recipe.id === PROTECTED_RECIPE_ID;
+            elements.formTitle.textContent = isProtected ? 
+                '🔒 Recette Protégée (lecture seule)' : 
+                (state.isEditMode ? '✏️ Éditer la Recette' : '👁️ Voir la Recette');
+
+            document.getElementById('recipeId').value = recipe.id;
+            document.getElementById('recipeName').value = recipe.Name;
+            document.getElementById('productId').value = recipe.ProductId || '';
+            document.getElementById('productionQty').value = recipe.ProductionQty;
+            document.getElementById('notes').value = recipe.Notes || '';
+
+            // Désactiver les champs si protégé ou mode lecture
+            const disabled = isProtected || !state.isEditMode;
+            document.getElementById('recipeName').disabled = disabled;
+            document.getElementById('productId').disabled = disabled;
+            document.getElementById('productionQty').disabled = disabled;
+            document.getElementById('notes').disabled = disabled;
+            elements.addStepBtn.disabled = disabled;
+            elements.deleteRecipeBtn.style.display = (state.isEditMode && !isProtected) ? 'block' : 'none';
+
+            if (disabled) {
+                elements.addStepBtn.style.display = 'none';
+            } else {
+                elements.addStepBtn.style.display = 'inline-flex';
+            }
+
+            // Afficher les étapes
+            renderSteps(recipe.steps || []);
+            updateTotalDelay();
+        }
+
+        // Afficher les étapes
+        function renderSteps(steps) {
+            if (steps.length === 0) {
+                elements.stepsContainer.innerHTML = '<div class="empty-state"><p>Aucune étape</p></div>';
+                return;
+            }
+
+            const disabled = (state.currentRecipeId === PROTECTED_RECIPE_ID) || !state.isEditMode;
+
+            const html = steps.map((step, index) => {
+                const product = state.products.find(p => p.id === step.ProductId);
+                const showQty = step.ProductId !== EMPTY_PRODUCT_ID;
+
+                return `
+                    <div class="step-item" draggable="${!disabled}" data-step-index="${index}">
+                        <div class="step-header">
+                            <div style="display: flex; align-items: center;">
+                                ${!disabled ? '<span class="drag-handle">☰</span>' : ''}
+                                <div class="step-number">${step.Step}</div>
+                            </div>
+                            <div class="step-actions">
+                                ${!disabled ? `<button type="button" class="btn btn-danger btn-small remove-step-btn" data-step-index="${index}">🗑️</button>` : ''}
+                            </div>
+                        </div>
+                        <div class="step-content">
+                            <div class="step-field">
+                                <label>Action:</label>
+                                <input type="text" class="step-action" data-step-index="${index}" 
+                                       value="${step.Action || ''}" ${disabled ? 'disabled' : ''} 
+                                       placeholder="Ex: Mélanger les ingrédients">
+                            </div>
+                            <div class="step-field">
+                                <label>Produit:</label>
+                                <select class="step-product" data-step-index="${index}" ${disabled ? 'disabled' : ''}>
+                                    <option value="${EMPTY_PRODUCT_ID}" ${step.ProductId === EMPTY_PRODUCT_ID ? 'selected' : ''}>None (Action simple)</option>
+                                    ${state.products.map(p => 
+                                        `<option value="${p.id}" ${p.id === step.ProductId ? 'selected' : ''}>${p.Name}</option>`
+                                    ).join('')}
+                                </select>
+                            </div>
+                            ${showQty ? `
+                                <div class="step-field">
+                                    <label>Quantité:</label>
+                                    <input type="number" class="step-qty" data-step-index="${index}" 
+                                           value="${step.Qty}" ${disabled ? 'disabled' : ''} 
+                                           step="0.1" min="0">
+                                    <select class="step-unit" data-step-index="${index}" ${disabled ? 'disabled' : ''}>
+                                        <option value="g" ${step.QtyUnit === 'g' ? 'selected' : ''}>g</option>
+                                        <option value="ml" ${step.QtyUnit === 'ml' ? 'selected' : ''}>ml</option>
+                                        <option value="kg" ${step.QtyUnit === 'kg' ? 'selected' : ''}>kg</option>
+                                        <option value="L" ${step.QtyUnit === 'L' ? 'selected' : ''}>L</option>
+                                        <option value="unité" ${step.QtyUnit === 'unité' ? 'selected' : ''}>unité</option>
+                                    </select>
+                                    <span class="product-qty-display">${product ? product.Name : ''}</span>
+                                </div>
+                                <div class="step-field">
+                                    <label>Délai (min):</label>
+                                    <input type="number" class="step-delay" data-step-index="${index}" 
+                                           value="${step.DelayMin}" ${disabled ? 'disabled' : ''} 
+                                           min="0">
+                                </div>
+                            ` : `
+                                <div class="step-field">
+                                    <span class="no-product-info">Action simple sans produit</span>
+                                </div>
+                            `}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            elements.stepsContainer.innerHTML = html;
+
+            // Événements pour les étapes
+            if (!disabled) {
+                setupStepEvents();
+                setupDragAndDrop();
+            }
+        }
+
+        // Configurer les événements des étapes
+        function setupStepEvents() {
+            // Changement de produit
+            document.querySelectorAll('.step-product').forEach(select => {
+                select.addEventListener('change', (e) => {
+                    const index = parseInt(e.target.dataset.stepIndex);
+                    updateStepDisplay();
+                    updateTotalDelay();
+                });
+            });
+
+            // Changement de délai
+            document.querySelectorAll('.step-delay').forEach(input => {
+                input.addEventListener('input', updateTotalDelay);
+            });
+
+            // Suppression d'étape
+            document.querySelectorAll('.remove-step-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const index = parseInt(e.target.dataset.stepIndex);
+                    removeStep(index);
+                });
+            });
+        }
+
+        // Configurer le drag and drop
+        function setupDragAndDrop() {
+            const stepItems = document.querySelectorAll('.step-item');
+            
+            stepItems.forEach(item => {
+                item.addEventListener('dragstart', handleDragStart);
+                item.addEventListener('dragend', handleDragEnd);
+                item.addEventListener('dragover', handleDragOver);
+                item.addEventListener('drop', handleDrop);
+                item.addEventListener('dragenter', handleDragEnter);
+                item.addEventListener('dragleave', handleDragLeave);
+            });
+        }
+
+        let draggedElement = null;
+
+        function handleDragStart(e) {
+            draggedElement = this;
+            this.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/html', this.innerHTML);
+        }
+
+        function handleDragEnd(e) {
+            this.classList.remove('dragging');
+            document.querySelectorAll('.step-item').forEach(item => {
+                item.classList.remove('drag-over');
+            });
+        }
+
+        function handleDragOver(e) {
+            if (e.preventDefault) {
+                e.preventDefault();
+            }
+            e.dataTransfer.dropEffect = 'move';
+            return false;
+        }
+
+        function handleDragEnter(e) {
+            if (this !== draggedElement) {
+                this.classList.add('drag-over');
+            }
+        }
+
+        function handleDragLeave(e) {
+            this.classList.remove('drag-over');
+        }
+
+        function handleDrop(e) {
+            if (e.stopPropagation) {
+                e.stopPropagation();
+            }
+
+            if (draggedElement !== this) {
+                const allSteps = Array.from(elements.stepsContainer.querySelectorAll('.step-item'));
+                const draggedIndex = allSteps.indexOf(draggedElement);
+                const targetIndex = allSteps.indexOf(this);
+
+                if (draggedIndex < targetIndex) {
+                    this.parentNode.insertBefore(draggedElement, this.nextSibling);
+                } else {
+                    this.parentNode.insertBefore(draggedElement, this);
+                }
+
+                updateStepNumbers();
+                updateTotalDelay();
+            }
+
+            return false;
+        }
+
+        // Mettre à jour les numéros d'étapes après réorganisation
+        function updateStepNumbers() {
+            const stepItems = elements.stepsContainer.querySelectorAll('.step-item');
+            stepItems.forEach((item, index) => {
+                item.dataset.stepIndex = index;
+                const stepNumber = item.querySelector('.step-number');
+                if (stepNumber) {
+                    stepNumber.textContent = index + 1;
+                }
+                // Mettre à jour les data-step-index de tous les éléments enfants
+                item.querySelectorAll('[data-step-index]').forEach(el => {
+                    el.dataset.stepIndex = index;
+                });
+            });
+        }
+
+        // Mettre à jour l'affichage des étapes
+        function updateStepDisplay() {
+            const stepItems = elements.stepsContainer.querySelectorAll('.step-item');
+            stepItems.forEach((item, index) => {
+                const productSelect = item.querySelector('.step-product');
+                const productId = parseInt(productSelect.value);
+                const stepContent = item.querySelector('.step-content');
+                
+                // Récupérer les valeurs actuelles
+                const action = item.querySelector('.step-action')?.value || '';
+                const qty = item.querySelector('.step-qty')?.value || 0;
+                const unit = item.querySelector('.step-unit')?.value || 'g';
+                const delay = item.querySelector('.step-delay')?.value || 0;
+                
+                // Reconstruire le contenu
+                const product = state.products.find(p => p.id === productId);
+                const showQty = productId !== EMPTY_PRODUCT_ID;
+
+                let html = `
+                    <div class="step-field">
+                        <label>Action:</label>
+                        <input type="text" class="step-action" data-step-index="${index}" 
+                               value="${action}" placeholder="Ex: Mélanger les ingrédients">
+                    </div>
+                    <div class="step-field">
+                        <label>Produit:</label>
+                        <select class="step-product" data-step-index="${index}">
+                            <option value="${EMPTY_PRODUCT_ID}" ${productId === EMPTY_PRODUCT_ID ? 'selected' : ''}>None (Action simple)</option>
+                            ${state.products.map(p => 
+                                `<option value="${p.id}" ${p.id === productId ? 'selected' : ''}>${p.Name}</option>`
+                            ).join('')}
+                        </select>
+                    </div>
+                `;
+
+                if (showQty) {
+                    html += `
+                        <div class="step-field">
+                            <label>Quantité:</label>
+                            <input type="number" class="step-qty" data-step-index="${index}" 
+                                   value="${qty}" step="0.1" min="0">
+                            <select class="step-unit" data-step-index="${index}">
+                                <option value="g" ${unit === 'g' ? 'selected' : ''}>g</option>
+                                <option value="ml" ${unit === 'ml' ? 'selected' : ''}>ml</option>
+                                <option value="kg" ${unit === 'kg' ? 'selected' : ''}>kg</option>
+                                <option value="L" ${unit === 'L' ? 'selected' : ''}>L</option>
+                                <option value="unité" ${unit === 'unité' ? 'selected' : ''}>unité</option>
+                            </select>
+                            <span class="product-qty-display">${product ? product.Name : ''}</span>
+                        </div>
+                        <div class="step-field">
+                            <label>Délai (min):</label>
+                            <input type="number" class="step-delay" data-step-index="${index}" 
+                                   value="${delay}" min="0">
+                        </div>
+                    `;
+                } else {
+                    html += `
+                        <div class="step-field">
+                            <span class="no-product-info">Action simple sans produit</span>
+                        </div>
+                    `;
+                }
+
+                stepContent.innerHTML = html;
+            });
+
+            setupStepEvents();
+        }
+
+        // Ajouter une étape
+        function addStep() {
+            const stepItems = elements.stepsContainer.querySelectorAll('.step-item');
+            const newStepNumber = stepItems.length + 1;
+
+            const newStep = document.createElement('div');
+            newStep.className = 'step-item';
+            newStep.draggable = true;
+            newStep.dataset.stepIndex = stepItems.length;
+
+            newStep.innerHTML = `
+                <div class="step-header">
+                    <div style="display: flex; align-items: center;">
+                        <span class="drag-handle">☰</span>
+                        <div class="step-number">${newStepNumber}</div>
+                    </div>
+                    <div class="step-actions">
+                        <button type="button" class="btn btn-danger btn-small remove-step-btn" data-step-index="${stepItems.length}">🗑️</button>
+                    </div>
+                </div>
+                <div class="step-content">
+                    <div class="step-field">
+                        <label>Action:</label>
+                        <input type="text" class="step-action" data-step-index="${stepItems.length}" 
+                               placeholder="Ex: Mélanger les ingrédients">
+                    </div>
+                    <div class="step-field">
+                        <label>Produit:</label>
+                        <select class="step-product" data-step-index="${stepItems.length}">
+                            <option value="${EMPTY_PRODUCT_ID}" selected>None (Action simple)</option>
+                            ${state.products.map(p => `<option value="${p.id}">${p.Name}</option>`).join('')}
+                        </select>
+                    </div>
+                    <div class="step-field">
+                        <span class="no-product-info">Action simple sans produit</span>
+                    </div>
+                </div>
+            `;
+
+            if (stepItems.length === 0) {
+                elements.stepsContainer.innerHTML = '';
+            }
+
+            elements.stepsContainer.appendChild(newStep);
+            setupStepEvents();
+            setupDragAndDrop();
+        }
+
+        // Supprimer une étape
+        function removeStep(index) {
+            const stepItems = Array.from(elements.stepsContainer.querySelectorAll('.step-item'));
+            if (stepItems[index]) {
+                stepItems[index].remove();
+                updateStepNumbers();
+                updateTotalDelay();
+
+                if (elements.stepsContainer.querySelectorAll('.step-item').length === 0) {
+                    elements.stepsContainer.innerHTML = '<div class="empty-state"><p>Aucune étape</p></div>';
+                }
+            }
+        }
+
+        // Mettre à jour le délai total
+        function updateTotalDelay() {
+            let total = 0;
+            document.querySelectorAll('.step-delay').forEach(input => {
+                total += parseInt(input.value) || 0;
+            });
+            elements.totalDelayValue.textContent = total || 0;
+        }
+
+        // Récupérer les données du formulaire
+        function getFormData() {
+            const stepItems = elements.stepsContainer.querySelectorAll('.step-item');
+            const steps = Array.from(stepItems).map((item, index) => {
+                const action = item.querySelector('.step-action')?.value || '';
+                const productId = parseInt(item.querySelector('.step-product')?.value || EMPTY_PRODUCT_ID);
+                const qty = parseFloat(item.querySelector('.step-qty')?.value || 0);
+                const unit = item.querySelector('.step-unit')?.value || 'g';
+                const delay = parseInt(item.querySelector('.step-delay')?.value || 0);
+
+                return {
+                    Step: index + 1,
+                    Action: action,
+                    ProductId: productId,
+                    Qty: productId !== EMPTY_PRODUCT_ID ? qty : 0,
+                    QtyUnit: unit,
+                    DelayMin: productId !== EMPTY_PRODUCT_ID ? delay : 0
+                };
+            });
+
+            return {
+                recipeData: {
+                    Name: document.getElementById('recipeName').value,
+                    ProductId: parseInt(document.getElementById('productId').value) || null,
+                    ProductionQty: parseInt(document.getElementById('productionQty').value),
+                    Notes: document.getElementById('notes').value || null
+                },
+                steps: steps
+            };
+        }
+
+        // Sauvegarder la recette
+        async function saveRecipe(e) {
+            e.preventDefault();
+
+            try {
+                const recipeId = document.getElementById('recipeId').value;
+                const { recipeData, steps } = getFormData();
+
+                let result;
+                if (recipeId) {
+                    // Mise à jour
+                    result = await recipesService.updateRecipe(parseInt(recipeId), recipeData, steps);
+                } else {
+                    // Création
+                    result = await recipesService.createRecipe(recipeData, steps);
+                }
+
+                if (result.success) {
+                    showSuccess(recipeId ? 'Recette mise à jour avec succès!' : 'Recette créée avec succès!');
+                    await loadRecipes();
+                    if (result.data && result.data.data) {
+                        state.currentRecipeId = result.data.data.id;
+                        state.isEditMode = false;
+                        await loadRecipeDetails(state.currentRecipeId);
+                    } else {
+                        resetForm();
+                    }
+                } else {
+                    throw new Error(result.error);
+                }
+            } catch (error) {
+                showError('Erreur lors de la sauvegarde: ' + error.message);
+            }
+        }
+
+        // Supprimer la recette
+        async function deleteRecipe() {
+            const recipeId = parseInt(document.getElementById('recipeId').value);
+            
+            if (!recipeId || recipeId === PROTECTED_RECIPE_ID) {
+                return;
+            }
+
+            if (!confirm('Êtes-vous sûr de vouloir supprimer cette recette ?')) {
+                return;
+            }
+
+            try {
+                const result = await recipesService.deleteRecipe(recipeId);
+
+                if (result.success) {
+                    showSuccess('Recette supprimée avec succès!');
+                    await loadRecipes();
+                    resetForm();
+                } else {
+                    throw new Error(result.error);
+                }
+            } catch (error) {
+                showError('Erreur lors de la suppression: ' + error.message);
+            }
+        }
+
+        // Nouvelle recette
+        function newRecipe() {
+            state.currentRecipeId = null;
+            state.isEditMode = true;
+
+            elements.emptyFormState.style.display = 'none';
+            elements.recipeForm.style.display = 'block';
+            elements.formTitle.textContent = '➕ Nouvelle Recette';
+
+            document.getElementById('recipeId').value = '';
+            document.getElementById('recipeName').value = '';
+            document.getElementById('productId').value = '';
+            document.getElementById('productionQty').value = 1;
+            document.getElementById('notes').value = '';
+
+            document.getElementById('recipeName').disabled = false;
+            document.getElementById('productId').disabled = false;
+            document.getElementById('productionQty').disabled = false;
+            document.getElementById('notes').disabled = false;
+            elements.addStepBtn.disabled = false;
+            elements.addStepBtn.style.display = 'inline-flex';
+            elements.deleteRecipeBtn.style.display = 'none';
+
+            elements.stepsContainer.innerHTML = '<div class="empty-state"><p>Aucune étape</p></div>';
+            elements.totalDelayValue.textContent = '0';
+
+            renderRecipesList();
+        }
+
+        // Réinitialiser le formulaire
+        function resetForm() {
+            state.currentRecipeId = null;
+            state.isEditMode = false;
+
+            elements.recipeForm.style.display = 'none';
+            elements.emptyFormState.style.display = 'block';
+
+            renderRecipesList();
+        }
+
+        // Configurer les écouteurs d'événements
+        function setupEventListeners() {
+            elements.newRecipeBtn.addEventListener('click', newRecipe);
+            elements.refreshBtn.addEventListener('click', loadRecipes);
+            elements.addStepBtn.addEventListener('click', addStep);
+            elements.deleteRecipeBtn.addEventListener('click', deleteRecipe);
+            elements.cancelBtn.addEventListener('click', resetForm);
+            elements.recipeForm.addEventListener('submit', saveRecipe);
+        }
+
+        // Afficher un message de succès
+        function showSuccess(message) {
+            elements.successAlert.textContent = message;
+            elements.successAlert.classList.add('show');
+            elements.errorAlert.classList.remove('show');
+
+            setTimeout(() => {
+                elements.successAlert.classList.remove('show');
+            }, 5000);
+        }
+
+        // Afficher un message d'erreur
+        function showError(message) {
+            elements.errorAlert.textContent = message;
+            elements.errorAlert.classList.add('show');
+            elements.successAlert.classList.remove('show');
+
+            setTimeout(() => {
+                elements.errorAlert.classList.remove('show');
+            }, 8000);
+        }
+
+        // Afficher le chargement
+        function showLoading(message = 'Chargement...') {
+            elements.recipesList.innerHTML = `<div class="loading">${message}</div>`;
+        }
+
+        // Cacher le chargement
+        function hideLoading() {
+            const loading = elements.recipesList.querySelector('.loading');
+            if (loading) {
+                loading.remove();
+            }
+        }
+
+        // Démarrer l'application
+        init();
+    </script>
+</body>
+</html>
