@@ -716,6 +716,9 @@
                     productType: 'wholesale'
                 }));
                 
+                // Trier les produits par ordre alphabétique
+                state.productionProducts.sort((a, b) => a.Name.localeCompare(b.Name));
+                
                 // Ajouter le produit "None" (ID 29) au début de la liste de production
                 state.productionProducts.unshift({
                     id: EMPTY_PRODUCT_ID,
