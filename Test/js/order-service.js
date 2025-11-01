@@ -7,6 +7,7 @@ class OrderService {
         this.supabaseUrl = 'https://mtuimnyoimiqhuyidyjv.supabase.co';
         this.supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im10dWltbnlvaW1pcWh1eWlkeWp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEyNjc3NjksImV4cCI6MjA3Njg0Mzc2OX0.SuB-0Kwaakff6pbZhKgWbGaAfL9h_NWaRBR9rNnaMIw';
         this.client = null;
+        this.productsCache = null; // Cache des produits pour le mapping
     }
 
     /**
@@ -22,11 +23,36 @@ class OrderService {
 
             // Créer le client Supabase
             this.client = supabase.createClient(this.supabaseUrl, this.supabaseKey);
+            
+            // Charger les produits pour le mapping code -> id
+            await this.loadProductsMapping();
+            
             console.log('✅ Service de commandes initialisé avec Supabase');
             return true;
         } catch (error) {
             console.error('❌ Erreur lors de l\'initialisation du service de commandes:', error);
             return false;
+        }
+    }
+
+    /**
+     * Charger les produits depuis Supabase pour créer le mapping code -> id
+     */
+    async loadProductsMapping() {
+        try {
+            const { data, error } = await this.client
+                .from('Products')
+                .select('id, code')
+                .eq('productType', 'retail')
+                .eq('status', 'Active');
+
+            if (error) throw error;
+            
+            this.productsCache = data || [];
+            console.log(`✅ ${this.productsCache.length} produits chargés pour le mapping`);
+        } catch (error) {
+            console.error('❌ Erreur lors du chargement des produits:', error);
+            this.productsCache = [];
         }
     }
 
@@ -95,16 +121,25 @@ class OrderService {
             console.log('✅ Commande créée avec succès:', order);
 
             // Préparer les lignes de commande
-            const orderLines = orderData.orderLines.map(line => ({
-                orderId: order.id,
-                productId: this.getProductIdFromCode(line.productId),
-                quantityOrdered: line.quantityOrdered,
-                quantityProduced: 0,
-                price: line.price,
-                lineTotal: line.price * line.quantityOrdered,
-                lineStatus: 'ToDo',
-                scheduledOn: null
-            }));
+            const orderLines = orderData.orderLines.map(line => {
+                const productId = this.getProductIdFromCode(line.productId);
+                
+                if (!productId) {
+                    console.error(`❌ Impossible de trouver le produit avec le code: ${line.productId}`);
+                    throw new Error(`Produit introuvable: ${line.productId}`);
+                }
+                
+                return {
+                    orderId: order.id,
+                    productId: productId,
+                    quantityOrdered: line.quantityOrdered,
+                    quantityProduced: 0,
+                    price: line.price,
+                    lineTotal: line.price * line.quantityOrdered,
+                    lineStatus: 'ToDo',
+                    scheduledOn: null
+                };
+            });
 
             console.log('📝 Création des lignes de commande:', orderLines);
 
@@ -140,27 +175,23 @@ class OrderService {
 
     /**
      * Obtenir l'ID numérique d'un produit à partir de son code/id string
-     * Cette fonction doit mapper les IDs de produits du panier avec les IDs de la base de données
+     * Utilise le cache des produits chargés depuis Supabase
      */
     getProductIdFromCode(productCode) {
-        // Mapping des codes de produits vers les IDs numériques de Supabase
-        const productMapping = {
-            'pain-blanc': 1,
-            'baguette': 2,
-            'pain-campagne': 3,
-            'pain-noix': 4,
-            'pain-fromage': 5,
-            'croissant': 6,
-            'brioche': 7,
-            'pain-chocolat': 8,
-            'bagel': 9,
-            'bretzel': 10,
-            'pain-sg-classique': 11,
-            'focaccia': 12
-        };
+        if (!this.productsCache || this.productsCache.length === 0) {
+            console.error('❌ Cache des produits non initialisé. Appelez init() d\'abord.');
+            return null;
+        }
 
-        // Retourner l'ID numérique ou null si non trouvé
-        return productMapping[productCode] || null;
+        // Chercher le produit par son code
+        const product = this.productsCache.find(p => p.code === productCode);
+        
+        if (!product) {
+            console.warn(`⚠️ Produit non trouvé pour le code: ${productCode}`);
+            return null;
+        }
+
+        return product.id;
     }
 
     /**
