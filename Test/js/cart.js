@@ -148,10 +148,43 @@ class ShoppingCart {
     }
 
     /**
-     * Charger les produits depuis le JSON
+     * Charger les produits depuis Supabase
      */
     async loadProducts() {
         try {
+            // Essayer de charger depuis Supabase si disponible
+            if (typeof supabase !== 'undefined' && typeof window.supabaseClient !== 'undefined') {
+                console.log('🔄 Chargement des produits depuis Supabase pour le panier');
+                const { data, error } = await window.supabaseClient
+                    .from('Products')
+                    .select('*')
+                    .eq('productType', 'retail')
+                    .eq('available', true)
+                    .eq('status', 'Active');
+
+                if (error) throw error;
+                
+                // Convertir les produits Supabase au format attendu par le panier
+                this.products = data.map(p => ({
+                    id: p.code, // Utiliser le code comme ID
+                    title: {
+                        fr: p.title_fr,
+                        en: p.title_en
+                    },
+                    icon: p.icon,
+                    price: p.price,
+                    unit: p.unit,
+                    weight: p.weight ? `${p.weight}${p.weightUnit}` : '',
+                    available: p.available,
+                    productType: p.productType
+                }));
+                
+                console.log(`✅ ${this.products.length} produits chargés depuis Supabase pour le panier`);
+                return this.products;
+            }
+            
+            // Fallback: charger depuis le JSON
+            console.log('📂 Chargement des produits depuis products.json (fallback)');
             const response = await fetch('../data/products.json');
             const data = await response.json();
             // Filtrer uniquement les produits disponibles et de type "retail"
@@ -160,7 +193,16 @@ class ShoppingCart {
             return this.products;
         } catch (error) {
             console.error('Erreur lors du chargement des produits:', error);
-            return [];
+            // En cas d'erreur, essayer le fallback JSON
+            try {
+                const response = await fetch('../data/products.json');
+                const data = await response.json();
+                this.products = data.products.filter(p => p.available && p.productType === 'retail');
+                return this.products;
+            } catch (fallbackError) {
+                console.error('Erreur lors du chargement du fallback:', fallbackError);
+                return [];
+            }
         }
     }
 
