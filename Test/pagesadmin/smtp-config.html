@@ -306,9 +306,11 @@
             try {
                 // Initialiser la connexion
                 await dbConnection.init();
+                console.log('✅ Connexion Supabase établie');
                 
                 // Récupérer les paramètres
                 const params = await parametersService.getParameters();
+                console.log('📋 Paramètres chargés:', { ...params, smtp_password: params.smtp_password ? '***' : null });
                 
                 // Vérifier si configuré
                 const isConfigured = !!(params.smtp && params.port && params.smtp_account && params.smtp_password);

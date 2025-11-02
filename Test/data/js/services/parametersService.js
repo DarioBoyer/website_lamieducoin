@@ -82,10 +82,18 @@ class ParametersService {
                 .single();
 
             if (error) {
-                // Si aucun enregistrement n'existe, en créer un
+                // Si aucun enregistrement n'existe, retourner des valeurs par défaut
                 if (error.code === 'PGRST116') {
-                    console.log('Aucun paramètre trouvé, création d\'un nouvel enregistrement...');
-                    return await this.createDefaultParameters();
+                    console.log('Aucun paramètre trouvé, retour de valeurs par défaut...');
+                    this.parameters = {
+                        id: null,
+                        lastUpdated: null,
+                        smtp: null,
+                        port: null,
+                        smtp_account: null,
+                        smtp_password: null
+                    };
+                    return this.parameters;
                 }
                 throw error;
             }
@@ -110,37 +118,20 @@ class ParametersService {
 
     /**
      * Crée un enregistrement de paramètres par défaut
+     * Cette méthode n'est plus utilisée - les paramètres doivent être créés
+     * via l'interface admin ou automatiquement lors de la première mise à jour
      * @returns {Promise<Object>} Nouveaux paramètres
      */
     async createDefaultParameters() {
-        try {
-            const client = dbConnection.getClient();
-            const { data, error } = await client
-                .from(this.tableName)
-                .insert([{
-                    smtp: null,
-                    port: null,
-                    smtp_account: null,
-                    smtp_password: null
-                }])
-                .select()
-                .single();
-
-            if (error) throw error;
-            
-            console.log('✅ Paramètres par défaut créés');
-            return {
-                id: data.id,
-                lastUpdated: data.LastUpdated,
-                smtp: null,
-                port: null,
-                smtp_account: null,
-                smtp_password: null
-            };
-        } catch (error) {
-            console.error('❌ Erreur lors de la création des paramètres par défaut:', error);
-            throw error;
-        }
+        console.warn('⚠️ Création automatique désactivée. Les paramètres seront créés lors de la première sauvegarde.');
+        return {
+            id: null,
+            lastUpdated: null,
+            smtp: null,
+            port: null,
+            smtp_account: null,
+            smtp_password: null
+        };
     }
 
     /**
@@ -161,51 +152,36 @@ class ParametersService {
                 LastUpdated: new Date().toISOString()
             };
 
-            // Si on a des paramètres existants, faire une mise à jour
-            if (this.parameters && this.parameters.id) {
-                const { data, error } = await client
-                    .from(this.tableName)
-                    .update(updateData)
-                    .eq('id', this.parameters.id)
-                    .select()
-                    .single();
-
-                if (error) throw error;
-                
-                // Mettre à jour le cache local avec données déchiffrées
-                this.parameters = {
-                    id: data.id,
-                    lastUpdated: data.LastUpdated,
-                    smtp: data.smtp,
-                    port: data.port,
-                    smtp_account: smtpConfig.smtp_account,
-                    smtp_password: smtpConfig.smtp_password
-                };
-                
-                console.log('✅ Paramètres SMTP mis à jour avec succès');
-                return this.parameters;
-            } else {
-                // Sinon, créer un nouvel enregistrement
-                const { data, error } = await client
-                    .from(this.tableName)
-                    .insert([updateData])
-                    .select()
-                    .single();
-
-                if (error) throw error;
-                
-                this.parameters = {
-                    id: data.id,
-                    lastUpdated: data.LastUpdated,
-                    smtp: data.smtp,
-                    port: data.port,
-                    smtp_account: smtpConfig.smtp_account,
-                    smtp_password: smtpConfig.smtp_password
-                };
-                
-                console.log('✅ Nouveaux paramètres SMTP créés avec succès');
-                return this.parameters;
+            // Récupérer les paramètres actuels si pas encore en cache
+            if (!this.parameters) {
+                await this.getParameters();
             }
+
+            // Utiliser upsert pour créer ou mettre à jour (id=1 par défaut)
+            const targetId = this.parameters?.id || 1;
+            const { data, error } = await client
+                .from(this.tableName)
+                .upsert([{ id: targetId, ...updateData }], { 
+                    onConflict: 'id',
+                    ignoreDuplicates: false 
+                })
+                .select()
+                .single();
+
+            if (error) throw error;
+            
+            // Mettre à jour le cache local avec données déchiffrées
+            this.parameters = {
+                id: data.id,
+                lastUpdated: data.LastUpdated,
+                smtp: data.smtp,
+                port: data.port,
+                smtp_account: smtpConfig.smtp_account,
+                smtp_password: smtpConfig.smtp_password
+            };
+            
+            console.log('✅ Paramètres SMTP enregistrés avec succès');
+            return this.parameters;
         } catch (error) {
             console.error('❌ Erreur lors de la mise à jour des paramètres SMTP:', error);
             throw error;
