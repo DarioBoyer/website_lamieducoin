@@ -1,0 +1,28 @@
+{
+  "name": "la-mie-du-coin",
+  "version": "1.0.0",
+  "description": "Site web de La Mie du Coin - Boulangerie artisanale avec système de commandes en ligne",
+  "main": "index.html",
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "echo 'No build required for static site'",
+    "deploy": "netlify deploy --prod"
+  },
+  "keywords": [
+    "boulangerie",
+    "pain",
+    "commandes",
+    "netlify"
+  ],
+  "author": "La Mie du Coin",
+  "license": "MIT",
+  "dependencies": {
+    "nodemailer": "^6.9.7"
+  },
+  "devDependencies": {
+    "netlify-cli": "^17.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

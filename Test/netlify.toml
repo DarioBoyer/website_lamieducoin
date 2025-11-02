@@ -1,0 +1,60 @@
+# Configuration Netlify pour La Mie du Coin
+
+[build]
+  # Dossier de publication (racine du site)
+  publish = "."
+  
+  # Commande de build (aucune nécessaire pour site statique)
+  command = "echo 'No build required'"
+
+# Configuration des fonctions serverless
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# Variables d'environnement (à configurer dans Netlify Dashboard)
+# Ne pas mettre les vraies valeurs ici!
+# [build.environment]
+#   SMTP_HOST = ""
+#   SMTP_PORT = ""
+#   SMTP_USER = ""
+#   SMTP_PASS = ""
+
+# Redirections et règles
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# Headers de sécurité
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Headers pour les fonctions serverless
+[[headers]]
+  for = "/.netlify/functions/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, POST, OPTIONS"
+    Access-Control-Allow-Headers = "Content-Type"
+
+# Configuration du cache
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

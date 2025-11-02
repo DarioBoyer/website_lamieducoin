@@ -11,8 +11,23 @@ class EmailService {
     constructor() {
         this.smtpConfig = null;
         this.emailQueue = [];
-        this.apiEndpoint = 'http://localhost:3001/api/send-email'; // API backend
-        this.useBackendApi = true; // Activer/désactiver l'utilisation de l'API
+        
+        // Détection automatique de l'environnement
+        const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        
+        // API Endpoint selon l'environnement
+        this.apiEndpoint = isLocalhost 
+            ? 'http://localhost:8888/.netlify/functions/send-email'  // Netlify Dev
+            : '/.netlify/functions/send-email';                       // Netlify Production
+        
+        this.testEndpoint = isLocalhost
+            ? 'http://localhost:8888/.netlify/functions/test-smtp'
+            : '/.netlify/functions/test-smtp';
+        
+        this.useBackendApi = true; // Toujours activer l'API Netlify
+        
+        console.log('📧 EmailService initialisé');
+        console.log('🌐 Endpoint:', this.apiEndpoint);
     }
 
     /**
@@ -395,7 +410,7 @@ ${t.orderDetails}
             console.log('📨 Destinataire:', emailData.to);
             console.log('📋 Sujet:', emailData.subject);
             
-            // Essayer d'envoyer via l'API backend si disponible
+            // Essayer d'envoyer via l'API Netlify Functions
             if (this.useBackendApi) {
                 try {
                     const response = await fetch(this.apiEndpoint, {
@@ -404,14 +419,11 @@ ${t.orderDetails}
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({
-                            smtp: {
+                            smtpConfig: {
                                 host: this.smtpConfig.smtp,
                                 port: this.smtpConfig.port,
-                                secure: false, // TLS
-                                auth: {
-                                    user: this.smtpConfig.account,
-                                    pass: this.smtpConfig.password
-                                }
+                                user: this.smtpConfig.account,
+                                pass: this.smtpConfig.password
                             },
                             email: emailData
                         })
@@ -424,8 +436,9 @@ ${t.orderDetails}
                     const result = await response.json();
                     
                     if (result.success) {
-                        console.log('✅ Email envoyé via l\'API backend');
+                        console.log('✅ Email envoyé via Netlify Functions');
                         console.log('📬 Message ID:', result.messageId);
+                        console.log('🕐 Timestamp:', result.timestamp);
                         
                         this.emailQueue.push({
                             timestamp: new Date(),
@@ -441,7 +454,8 @@ ${t.orderDetails}
                     }
                     
                 } catch (apiError) {
-                    console.warn('⚠️ API backend non disponible ou erreur:', apiError.message);
+                    console.warn('⚠️ Netlify Functions non disponible ou erreur:', apiError.message);
+                    console.log('💡 Vérifiez que Netlify Dev est démarré: npm run dev');
                     console.log('🔄 Passage en mode simulation...');
                     // Continuer avec la simulation ci-dessous
                 }
