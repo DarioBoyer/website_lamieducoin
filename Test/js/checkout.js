@@ -343,6 +343,46 @@ class CheckoutManager {
             
             console.log('✅ Commande créée avec succès:', result);
             
+            // Envoyer l'email de confirmation
+            try {
+                console.log('📧 Envoi de l\'email de confirmation...');
+                
+                // Importer dynamiquement le service d'email
+                const { default: emailService } = await import('../data/js/services/emailService.js');
+                
+                // Initialiser le service d'email
+                await emailService.initialize();
+                
+                // Préparer les données pour l'email
+                const emailData = {
+                    order: {
+                        id: result.order.id,
+                        customerFirstName: formData.customerFirstName,
+                        customerLastName: formData.customerLastName,
+                        email: formData.email,
+                        orderNote: formData.orderNote,
+                        deliveryDate: formData.deliveryDate,
+                        language: this.currentLang,
+                        created_at: new Date().toISOString()
+                    },
+                    lines: result.lines,
+                    totalAmount: result.totalAmount,
+                    orderGuid: result.orderGuid
+                };
+                
+                // Envoyer l'email
+                const emailSent = await emailService.sendOrderConfirmation(emailData);
+                
+                if (emailSent) {
+                    console.log('✅ Email de confirmation envoyé');
+                } else {
+                    console.warn('⚠️ L\'email n\'a pas pu être envoyé, mais la commande est enregistrée');
+                }
+            } catch (emailError) {
+                console.error('⚠️ Erreur lors de l\'envoi de l\'email:', emailError);
+                // Ne pas bloquer si l'email échoue, la commande est déjà créée
+            }
+            
             // Vider le panier
             cart.clearCart();
             

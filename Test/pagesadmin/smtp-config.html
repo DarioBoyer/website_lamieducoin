@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuration SMTP - La mie du coin</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .config-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        .config-header {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px 15px 0 0;
+            text-align: center;
+        }
+        
+        .config-header i {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        
+        .config-body {
+            padding: 30px;
+        }
+        
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        
+        .status-configured {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .status-not-configured {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .password-toggle {
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 38px;
+            z-index: 10;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #6d340f 0%, #b8561a 100%);
+        }
+        
+        .alert-custom {
+            border-radius: 10px;
+            border-left: 4px solid;
+        }
+        
+        .spinner-border-sm {
+            width: 1rem;
+            height: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="config-card">
+        <!-- Header -->
+        <div class="config-header">
+            <i class="bi bi-envelope-at"></i>
+            <h2 class="mb-0">Configuration SMTP</h2>
+            <p class="mb-0 mt-2">Paramètres d'envoi de courriels</p>
+        </div>
+        
+        <!-- Body -->
+        <div class="config-body">
+            <!-- Status -->
+            <div class="text-center mb-4" id="status-container">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Chargement...</span>
+                </div>
+                <p class="mt-2 text-muted">Vérification de la configuration...</p>
+            </div>
+            
+            <!-- Alert Container -->
+            <div id="alert-container"></div>
+            
+            <!-- Form -->
+            <form id="smtp-config-form" style="display: none;">
+                <div class="mb-3">
+                    <label for="smtp-server" class="form-label">
+                        <i class="bi bi-server"></i> Serveur SMTP
+                    </label>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        id="smtp-server" 
+                        placeholder="smtp.gmail.com"
+                        required
+                    >
+                    <small class="form-text text-muted">
+                        Exemple: smtp.gmail.com, smtp.office365.com
+                    </small>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="smtp-port" class="form-label">
+                        <i class="bi bi-plug"></i> Port
+                    </label>
+                    <input 
+                        type="number" 
+                        class="form-control" 
+                        id="smtp-port" 
+                        placeholder="587"
+                        min="1"
+                        max="65535"
+                        required
+                    >
+                    <small class="form-text text-muted">
+                        Port standard: 587 (TLS) ou 465 (SSL)
+                    </small>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="smtp-account" class="form-label">
+                        <i class="bi bi-person"></i> Compte / Email
+                    </label>
+                    <input 
+                        type="email" 
+                        class="form-control" 
+                        id="smtp-account" 
+                        placeholder="votre-email@exemple.com"
+                        required
+                    >
+                </div>
+                
+                <div class="mb-4 position-relative">
+                    <label for="smtp-password" class="form-label">
+                        <i class="bi bi-key"></i> Mot de passe
+                    </label>
+                    <input 
+                        type="password" 
+                        class="form-control" 
+                        id="smtp-password" 
+                        placeholder="••••••••"
+                        required
+                    >
+                    <i class="bi bi-eye password-toggle" id="toggle-password" title="Afficher/Masquer"></i>
+                    <small class="form-text text-muted">
+                        Le mot de passe sera chiffré avant d'être enregistré
+                    </small>
+                </div>
+                
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary btn-lg" id="save-btn">
+                        <i class="bi bi-save"></i> Enregistrer la configuration
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary" id="test-btn" disabled>
+                        <i class="bi bi-check-circle"></i> Tester la connexion
+                    </button>
+                </div>
+            </form>
+            
+            <!-- Configuration Info (when already configured) -->
+            <div id="config-info" style="display: none;">
+                <div class="alert alert-success alert-custom mb-4">
+                    <i class="bi bi-check-circle-fill me-2"></i>
+                    <strong>Configuration active</strong>
+                </div>
+                
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h6 class="card-title mb-3"><i class="bi bi-info-circle"></i> Informations actuelles</h6>
+                        <dl class="row mb-0">
+                            <dt class="col-sm-4">Serveur:</dt>
+                            <dd class="col-sm-8" id="current-smtp">-</dd>
+                            
+                            <dt class="col-sm-4">Port:</dt>
+                            <dd class="col-sm-8" id="current-port">-</dd>
+                            
+                            <dt class="col-sm-4">Compte:</dt>
+                            <dd class="col-sm-8" id="current-account">-</dd>
+                            
+                            <dt class="col-sm-4">Dernière MAJ:</dt>
+                            <dd class="col-sm-8" id="last-updated">-</dd>
+                        </dl>
+                    </div>
+                </div>
+                
+                <div class="d-grid gap-2 mt-3">
+                    <button type="button" class="btn btn-outline-primary" id="modify-btn">
+                        <i class="bi bi-pencil"></i> Modifier la configuration
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary" id="test-existing-btn">
+                        <i class="bi bi-check-circle"></i> Tester la connexion
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Back to Admin -->
+            <div class="text-center mt-4">
+                <a href="products.html" class="text-decoration-none">
+                    <i class="bi bi-arrow-left"></i> Retour à l'administration
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Script principal -->
+    <script type="module">
+        import dbConnection from '../data/js/config/database.js';
+        import parametersService from '../data/js/services/parametersService.js';
+
+        // Éléments DOM
+        const statusContainer = document.getElementById('status-container');
+        const alertContainer = document.getElementById('alert-container');
+        const form = document.getElementById('smtp-config-form');
+        const configInfo = document.getElementById('config-info');
+        const saveBtn = document.getElementById('save-btn');
+        const testBtn = document.getElementById('test-btn');
+        const testExistingBtn = document.getElementById('test-existing-btn');
+        const modifyBtn = document.getElementById('modify-btn');
+        const togglePassword = document.getElementById('toggle-password');
+
+        /**
+         * Affiche une alerte
+         */
+        function showAlert(message, type = 'info') {
+            const alertClass = {
+                'success': 'alert-success',
+                'error': 'alert-danger',
+                'warning': 'alert-warning',
+                'info': 'alert-info'
+            }[type];
+
+            const icon = {
+                'success': 'check-circle-fill',
+                'error': 'exclamation-triangle-fill',
+                'warning': 'exclamation-circle-fill',
+                'info': 'info-circle-fill'
+            }[type];
+
+            alertContainer.innerHTML = `
+                <div class="alert ${alertClass} alert-custom alert-dismissible fade show" role="alert">
+                    <i class="bi bi-${icon} me-2"></i>
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            `;
+
+            // Auto-dismiss après 5 secondes
+            setTimeout(() => {
+                const alert = alertContainer.querySelector('.alert');
+                if (alert) {
+                    const bsAlert = new bootstrap.Alert(alert);
+                    bsAlert.close();
+                }
+            }, 5000);
+        }
+
+        /**
+         * Charge et affiche la configuration
+         */
+        async function loadConfiguration() {
+            try {
+                // Initialiser la connexion
+                await dbConnection.init();
+                
+                // Récupérer les paramètres
+                const params = await parametersService.getParameters();
+                
+                // Vérifier si configuré
+                const isConfigured = !!(params.smtp && params.port && params.smtp_account && params.smtp_password);
+                
+                if (isConfigured) {
+                    // Afficher les informations
+                    document.getElementById('current-smtp').textContent = params.smtp;
+                    document.getElementById('current-port').textContent = params.port;
+                    document.getElementById('current-account').textContent = params.smtp_account;
+                    document.getElementById('last-updated').textContent = new Date(params.lastUpdated).toLocaleString('fr-CA');
+                    
+                    statusContainer.innerHTML = `
+                        <span class="status-badge status-configured">
+                            <i class="bi bi-check-circle-fill"></i>
+                            Configuration complète
+                        </span>
+                    `;
+                    
+                    configInfo.style.display = 'block';
+                    form.style.display = 'none';
+                    testBtn.disabled = false;
+                } else {
+                    // Afficher le formulaire
+                    statusContainer.innerHTML = `
+                        <span class="status-badge status-not-configured">
+                            <i class="bi bi-exclamation-triangle-fill"></i>
+                            Configuration requise
+                        </span>
+                    `;
+                    
+                    showAlert('La configuration SMTP est requise pour envoyer des courriels.', 'warning');
+                    
+                    // Pré-remplir les champs si partiellement configuré
+                    if (params.smtp) document.getElementById('smtp-server').value = params.smtp;
+                    if (params.port) document.getElementById('smtp-port').value = params.port;
+                    if (params.smtp_account) document.getElementById('smtp-account').value = params.smtp_account;
+                    
+                    form.style.display = 'block';
+                    configInfo.style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Erreur lors du chargement de la configuration:', error);
+                statusContainer.innerHTML = `
+                    <span class="status-badge status-not-configured">
+                        <i class="bi bi-exclamation-circle-fill"></i>
+                        Erreur de chargement
+                    </span>
+                `;
+                showAlert('Erreur lors du chargement de la configuration: ' + error.message, 'error');
+            }
+        }
+
+        /**
+         * Enregistre la configuration
+         */
+        async function saveConfiguration(e) {
+            e.preventDefault();
+            
+            const smtpConfig = {
+                smtp: document.getElementById('smtp-server').value.trim(),
+                port: parseInt(document.getElementById('smtp-port').value),
+                smtp_account: document.getElementById('smtp-account').value.trim(),
+                smtp_password: document.getElementById('smtp-password').value
+            };
+            
+            // Désactiver le bouton pendant l'enregistrement
+            saveBtn.disabled = true;
+            saveBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Enregistrement...';
+            
+            try {
+                await parametersService.updateSmtpParameters(smtpConfig);
+                showAlert('Configuration SMTP enregistrée avec succès!', 'success');
+                testBtn.disabled = false;
+                
+                // Recharger après 2 secondes
+                setTimeout(() => {
+                    loadConfiguration();
+                }, 2000);
+            } catch (error) {
+                console.error('Erreur lors de l\'enregistrement:', error);
+                showAlert('Erreur lors de l\'enregistrement: ' + error.message, 'error');
+                saveBtn.disabled = false;
+                saveBtn.innerHTML = '<i class="bi bi-save"></i> Enregistrer la configuration';
+            }
+        }
+
+        /**
+         * Teste la connexion SMTP
+         */
+        async function testConnection() {
+            const btn = event.target;
+            const originalHtml = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Test en cours...';
+            
+            try {
+                const success = await parametersService.testSmtpConnection();
+                if (success) {
+                    showAlert('Test de connexion SMTP réussi!', 'success');
+                } else {
+                    showAlert('Échec du test de connexion SMTP.', 'error');
+                }
+            } catch (error) {
+                showAlert('Erreur lors du test: ' + error.message, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalHtml;
+            }
+        }
+
+        /**
+         * Affiche le formulaire de modification
+         */
+        async function showModifyForm() {
+            const params = await parametersService.getParameters();
+            
+            document.getElementById('smtp-server').value = params.smtp || '';
+            document.getElementById('smtp-port').value = params.port || '';
+            document.getElementById('smtp-account').value = params.smtp_account || '';
+            document.getElementById('smtp-password').value = ''; // Ne pas pré-remplir le mot de passe
+            
+            statusContainer.innerHTML = `
+                <span class="status-badge status-not-configured">
+                    <i class="bi bi-pencil-fill"></i>
+                    Modification en cours
+                </span>
+            `;
+            
+            form.style.display = 'block';
+            configInfo.style.display = 'none';
+        }
+
+        /**
+         * Toggle affichage du mot de passe
+         */
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('smtp-password');
+            const icon = togglePassword;
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('bi-eye-slash');
+                icon.classList.add('bi-eye');
+            }
+        }
+
+        // Event Listeners
+        form.addEventListener('submit', saveConfiguration);
+        testBtn.addEventListener('click', testConnection);
+        testExistingBtn.addEventListener('click', testConnection);
+        modifyBtn.addEventListener('click', showModifyForm);
+        togglePassword.addEventListener('click', togglePasswordVisibility);
+
+        // Initialisation
+        loadConfiguration();
+    </script>
+</body>
+</html>

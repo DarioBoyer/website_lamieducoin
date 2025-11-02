@@ -1,0 +1,30 @@
+{
+  "name": "lamieducoin-email-api",
+  "version": "1.0.0",
+  "description": "API Backend pour l'envoi d'emails via SMTP pour La mie du coin",
+  "main": "email-api-server.js",
+  "scripts": {
+    "start": "node email-api-server.js",
+    "dev": "nodemon email-api-server.js"
+  },
+  "keywords": [
+    "email",
+    "smtp",
+    "nodemailer",
+    "api"
+  ],
+  "author": "La mie du coin",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemailer": "^6.9.7",
+    "cors": "^2.8.5",
+    "body-parser": "^1.20.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
