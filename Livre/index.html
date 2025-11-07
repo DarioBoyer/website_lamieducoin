@@ -214,6 +214,31 @@
                 padding: 15px;
             }
         }
+
+        /* Effet hover sur les cartes de catégories */
+        .category-showcase:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15) !important;
+        }
+
+        .stat-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2) !important;
+        }
+
+        /* Style pour le champ de recherche */
+        #searchInput:focus {
+            border-color: #D2691E;
+            box-shadow: 0 0 0 0.25rem rgba(210, 105, 30, 0.25);
+        }
+
+        #clearSearch:hover {
+            background: #e9ecef !important;
+        }
     </style>
 </head>
 <body>
@@ -221,6 +246,11 @@
     <div class="cover-modern">
         <h1>🍞 Le Grand Livre du Pain</h1>
         <p class="subtitle">L'art de la boulangerie artisanale à la maison</p>
+        <div class="mt-4">
+            <a href="galerie.html" class="btn btn-light btn-lg" style="border-radius: 50px; padding: 12px 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.3s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+                📸 Voir la Galerie Photo
+            </a>
+        </div>
     </div>
 
     <!-- NAVIGATION PAR ONGLETS -->
@@ -263,10 +293,154 @@
             <div class="container-fluid mt-4">
                 <div class="welcome-message">
                     <h3>✨ Bienvenue dans Le Grand Livre du Pain ✨</h3>
-                    <p>Sélectionnez une catégorie ci-dessus pour explorer les recettes, techniques et astuces</p>
-                    <p>🍞 8 Pains de Base (dont 3 intégraux) • 🌰 7 Pains Spécialisés • 🥐 3 Viennoiseries • 🥨 5 Pains en Forme</p>
-                    <p>🌾 3 Recettes Sans Gluten • 🥞 2 Galettes & Crêpes • 🇮🇹 2 Pains Méditerranéens • 🍕 3 Pizzas Authentiques</p>
-                    <p>🤝 10 Techniques de Façonnage • 💡 12 Astuces et Guides • 🌾 7 Sections Guide des Farines</p>
+                    <p class="lead mb-4">Découvrez l'art de la boulangerie artisanale à la maison</p>
+                    
+                    <!-- Statistiques visuelles -->
+                    <div class="row g-4 mb-5">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="stat-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 15px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                                <div style="font-size: 3em; margin-bottom: 10px;">🍞</div>
+                                <div style="font-size: 2.5em; font-weight: bold;">35+</div>
+                                <div style="font-size: 1.1em; opacity: 0.9;">Recettes</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="stat-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 25px; border-radius: 15px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                                <div style="font-size: 3em; margin-bottom: 10px;">🤝</div>
+                                <div style="font-size: 2.5em; font-weight: bold;">11</div>
+                                <div style="font-size: 1.1em; opacity: 0.9;">Techniques</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="stat-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; padding: 25px; border-radius: 15px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                                <div style="font-size: 3em; margin-bottom: 10px;">💡</div>
+                                <div style="font-size: 2.5em; font-weight: bold;">12</div>
+                                <div style="font-size: 1.1em; opacity: 0.9;">Astuces</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="stat-card" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: white; padding: 25px; border-radius: 15px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                                <div style="font-size: 3em; margin-bottom: 10px;">🌾</div>
+                                <div style="font-size: 2.5em; font-weight: bold;">7</div>
+                                <div style="font-size: 1.1em; opacity: 0.9;">Guides Farines</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Catégories avec images représentatives -->
+                    <div class="row g-4 mt-4">
+                        <div class="col-lg-4 col-md-6">
+                            <div class="category-showcase" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); transition: transform 0.3s; cursor: pointer;" onclick="document.getElementById('recettes-tab').click();">
+                                <div style="background: linear-gradient(135deg, rgba(139, 69, 19, 0.9), rgba(210, 105, 30, 0.9)), url('https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600'); background-size: cover; background-position: center; height: 200px; display: flex; align-items: center; justify-content: center;">
+                                    <div style="text-align: center; color: white;">
+                                        <div style="font-size: 4em; margin-bottom: 10px;">🍞</div>
+                                        <h4 style="color: white; font-size: 1.8em; margin: 0;">Pains Traditionnels</h4>
+                                    </div>
+                                </div>
+                                <div style="padding: 20px;">
+                                    <p style="color: #666; margin-bottom: 15px;">8 recettes de pains de base, du pain blanc à la baguette française</p>
+                                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                        <span style="background: #fdf1e8; padding: 5px 12px; border-radius: 15px; font-size: 0.85em; color: #8B4513;">Pain Blanc</span>
+                                        <span style="background: #fdf1e8; padding: 5px 12px; border-radius: 15px; font-size: 0.85em; color: #8B4513;">Baguette</span>
+                                        <span style="background: #fdf1e8; padding: 5px 12px; border-radius: 15px; font-size: 0.85em; color: #8B4513;">Pain de Campagne</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6">
+                            <div class="category-showcase" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); transition: transform 0.3s; cursor: pointer;" onclick="document.getElementById('recettes-tab').click(); setTimeout(() => document.querySelector('[data-category=pains-specialises]').click(), 100);">
+                                <div style="background: linear-gradient(135deg, rgba(139, 69, 19, 0.9), rgba(210, 105, 30, 0.9)), url('https://images.unsplash.com/photo-1549931319-a545dcf3bc3c?w=600'); background-size: cover; background-position: center; height: 200px; display: flex; align-items: center; justify-content: center;">
+                                    <div style="text-align: center; color: white;">
+                                        <div style="font-size: 4em; margin-bottom: 10px;">🍔</div>
+                                        <h4 style="color: white; font-size: 1.8em; margin: 0;">Pains Spécialisés</h4>
+                                    </div>
+                                </div>
+                                <div style="padding: 20px;">
+                                    <p style="color: #666; margin-bottom: 15px;">9 recettes spéciales pour tous les usages</p>
+                                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                        <span style="background: #fdf1e8; padding: 5px 12px; border-radius: 15px; font-size: 0.85em; color: #8B4513;">Hamburger</span>
+                                        <span style="background: #fdf1e8; padding: 5px 12px; border-radius: 15px; font-size: 0.85em; color: #8B4513;">Hot-Dog</span>
+                                        <span style="background: #fdf1e8; padding: 5px 12px; border-radius: 15px; font-size: 0.85em; color: #8B4513;">Sous-Marin</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6">
+                            <div class="category-showcase" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); transition: transform 0.3s; cursor: pointer;" onclick="document.getElementById('recettes-tab').click(); setTimeout(() => document.querySelector('[data-category=viennoiseries]').click(), 100);">
+                                <div style="background: linear-gradient(135deg, rgba(139, 69, 19, 0.9), rgba(210, 105, 30, 0.9)), url('https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600'); background-size: cover; background-position: center; height: 200px; display: flex; align-items: center; justify-content: center;">
+                                    <div style="text-align: center; color: white;">
+                                        <div style="font-size: 4em; margin-bottom: 10px;">🥐</div>
+                                        <h4 style="color: white; font-size: 1.8em; margin: 0;">Viennoiseries</h4>
+                                    </div>
+                                </div>
+                                <div style="padding: 20px;">
+                                    <p style="color: #666; margin-bottom: 15px;">3 recettes de viennoiseries délicieuses</p>
+                                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                        <span style="background: #fdf1e8; padding: 5px 12px; border-radius: 15px; font-size: 0.85em; color: #8B4513;">Croissants</span>
+                                        <span style="background: #fdf1e8; padding: 5px 12px; border-radius: 15px; font-size: 0.85em; color: #8B4513;">Pain au Chocolat</span>
+                                        <span style="background: #fdf1e8; padding: 5px 12px; border-radius: 15px; font-size: 0.85em; color: #8B4513;">Brioche</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6">
+                            <div class="category-showcase" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); transition: transform 0.3s; cursor: pointer;" onclick="document.getElementById('recettes-tab').click(); setTimeout(() => document.querySelector('[data-category=pains-forme]').click(), 100);">
+                                <div style="background: linear-gradient(135deg, rgba(139, 69, 19, 0.9), rgba(210, 105, 30, 0.9)), url('https://images.unsplash.com/photo-1509365465985-25d11c17e812?w=600'); background-size: cover; background-position: center; height: 200px; display: flex; align-items: center; justify-content: center;">
+                                    <div style="text-align: center; color: white;">
+                                        <div style="font-size: 4em; margin-bottom: 10px;">🥨</div>
+                                        <h4 style="color: white; font-size: 1.8em; margin: 0;">Pains en Forme</h4>
+                                    </div>
+                                </div>
+                                <div style="padding: 20px;">
+                                    <p style="color: #666; margin-bottom: 15px;">5 recettes de pains façonnés</p>
+                                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                        <span style="background: #fdf1e8; padding: 5px 12px; border-radius: 15px; font-size: 0.85em; color: #8B4513;">Bagels</span>
+                                        <span style="background: #fdf1e8; padding: 5px 12px; border-radius: 15px; font-size: 0.85em; color: #8B4513;">Bretzels</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6">
+                            <div class="category-showcase" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); transition: transform 0.3s; cursor: pointer;" onclick="document.getElementById('recettes-tab').click(); setTimeout(() => document.querySelector('[data-category=pizzas]').click(), 100);">
+                                <div style="background: linear-gradient(135deg, rgba(139, 69, 19, 0.9), rgba(210, 105, 30, 0.9)), url('https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600'); background-size: cover; background-position: center; height: 200px; display: flex; align-items: center; justify-content: center;">
+                                    <div style="text-align: center; color: white;">
+                                        <div style="font-size: 4em; margin-bottom: 10px;">🍕</div>
+                                        <h4 style="color: white; font-size: 1.8em; margin: 0;">Pizzas</h4>
+                                    </div>
+                                </div>
+                                <div style="padding: 20px;">
+                                    <p style="color: #666; margin-bottom: 15px;">3 recettes de pâtes à pizza authentiques</p>
+                                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                        <span style="background: #fdf1e8; padding: 5px 12px; border-radius: 15px; font-size: 0.85em; color: #8B4513;">Napolitaine</span>
+                                        <span style="background: #fdf1e8; padding: 5px 12px; border-radius: 15px; font-size: 0.85em; color: #8B4513;">New-Yorkaise</span>
+                                        <span style="background: #fdf1e8; padding: 5px 12px; border-radius: 15px; font-size: 0.85em; color: #8B4513;">Romana</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6">
+                            <div class="category-showcase" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); transition: transform 0.3s; cursor: pointer;" onclick="document.getElementById('recettes-tab').click(); setTimeout(() => document.querySelector('[data-category=sans-gluten]').click(), 100);">
+                                <div style="background: linear-gradient(135deg, rgba(139, 69, 19, 0.9), rgba(210, 105, 30, 0.9)), url('https://images.unsplash.com/photo-1586444248902-2f64eddc13df?w=600'); background-size: cover; background-position: center; height: 200px; display: flex; align-items: center; justify-content: center;">
+                                    <div style="text-align: center; color: white;">
+                                        <div style="font-size: 4em; margin-bottom: 10px;">🌾</div>
+                                        <h4 style="color: white; font-size: 1.8em; margin: 0;">Sans Gluten</h4>
+                                    </div>
+                                </div>
+                                <div style="padding: 20px;">
+                                    <p style="color: #666; margin-bottom: 15px;">3 recettes sans gluten savoureuses</p>
+                                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                        <span style="background: #fdf1e8; padding: 5px 12px; border-radius: 15px; font-size: 0.85em; color: #8B4513;">Pain Sans Gluten</span>
+                                        <span style="background: #fdf1e8; padding: 5px 12px; border-radius: 15px; font-size: 0.85em; color: #8B4513;">Baguette SG</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -274,6 +448,28 @@
         <!-- ONGLET RECETTES -->
         <div class="tab-pane fade" id="recettes" role="tabpanel">
             <div class="container-fluid mt-4">
+                <!-- Barre de recherche -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="search-container" style="background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-text" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); border: none;">
+                                    <span style="color: white; font-size: 1.3em;">🔍</span>
+                                </span>
+                                <input type="text" id="searchInput" class="form-control" placeholder="Rechercher une recette (ex: pain, hamburger, baguette, sans gluten...)" style="border: 2px solid #e0e0e0; font-size: 1.1em;">
+                                <button class="btn" id="clearSearch" style="background: #f8f9fa; border: 2px solid #e0e0e0; display: none;">
+                                    <span style="font-size: 1.2em;">✕</span>
+                                </button>
+                            </div>
+                            <div id="searchResults" style="margin-top: 15px; display: none;">
+                                <div class="alert alert-info mb-0" style="border-radius: 10px;">
+                                    <strong id="searchCount"></strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="row">
                     <!-- Menu des catégories de recettes -->
                     <div class="col-lg-3 col-md-4 mb-4">
@@ -446,7 +642,9 @@
                 { name: '🥣 Miche à Soupe', file: 'Recettes/miche-a-soupe.html' },
                 { name: '🥗 Petits Pains à Salade', file: 'Recettes/petits-pains-salade.html' },
                 { name: '🥪 Pain Sous-Marin 12"', file: 'Recettes/pain-sous-marin.html' },
-                { name: '🥯 Muffins Anglais', file: 'Recettes/muffins-anglais.html' }
+                { name: '🥯 Muffins Anglais', file: 'Recettes/muffins-anglais.html' },
+                { name: '🍔 Pain à Hamburger', file: 'Recettes/pain-hamburger.html' },
+                { name: '🌭 Pain à Hot-Dog', file: 'Recettes/pain-hotdog.html' }
             ],
             viennoiseries: [
                 { name: '🥐 Croissants Français', file: 'Recettes/croissants-francais.html' },
@@ -611,6 +809,104 @@
         // Initialiser la première catégorie de recettes
         document.addEventListener('DOMContentLoaded', function() {
             loadRecipeList('pains-base');
+        });
+
+        // Système de recherche
+        const searchInput = document.getElementById('searchInput');
+        const clearSearchBtn = document.getElementById('clearSearch');
+        const searchResults = document.getElementById('searchResults');
+        const searchCount = document.getElementById('searchCount');
+
+        // Créer un index de recherche complet
+        function createSearchIndex() {
+            const index = [];
+            for (const [category, recipeList] of Object.entries(recipes)) {
+                recipeList.forEach(recipe => {
+                    index.push({
+                        name: recipe.name,
+                        file: recipe.file,
+                        category: category,
+                        searchText: recipe.name.toLowerCase()
+                    });
+                });
+            }
+            return index;
+        }
+
+        const searchIndex = createSearchIndex();
+
+        // Fonction de recherche
+        function performSearch(query) {
+            if (!query || query.length < 2) {
+                searchResults.style.display = 'none';
+                clearSearchBtn.style.display = 'none';
+                return;
+            }
+
+            clearSearchBtn.style.display = 'block';
+            const queryLower = query.toLowerCase();
+            const results = searchIndex.filter(item => 
+                item.searchText.includes(queryLower)
+            );
+
+            if (results.length > 0) {
+                searchResults.style.display = 'block';
+                searchCount.textContent = `${results.length} recette${results.length > 1 ? 's' : ''} trouvée${results.length > 1 ? 's' : ''}`;
+                
+                // Afficher les résultats dans la liste
+                const recipeList = document.getElementById('recipeList');
+                recipeList.innerHTML = '';
+                
+                results.forEach((result, index) => {
+                    const li = document.createElement('li');
+                    li.textContent = result.name;
+                    li.dataset.file = result.file;
+                    if (index === 0) li.classList.add('active');
+                    
+                    li.addEventListener('click', function() {
+                        document.querySelectorAll('#recipeList li').forEach(item => item.classList.remove('active'));
+                        this.classList.add('active');
+                        loadRecipe(this.dataset.file);
+                    });
+                    
+                    recipeList.appendChild(li);
+                });
+
+                // Charger automatiquement la première recette
+                if (results.length > 0) {
+                    loadRecipe(results[0].file);
+                }
+
+                // Désactiver toutes les catégories
+                document.querySelectorAll('.category-card').forEach(c => c.classList.remove('active'));
+            } else {
+                searchResults.style.display = 'block';
+                searchCount.textContent = 'Aucune recette trouvée';
+                document.getElementById('recipeList').innerHTML = '<li style="text-align: center; color: #999;">Essayez un autre terme de recherche</li>';
+            }
+        }
+
+        // Écouteur d'événement pour la recherche
+        searchInput.addEventListener('input', function(e) {
+            performSearch(e.target.value);
+        });
+
+        // Bouton pour effacer la recherche
+        clearSearchBtn.addEventListener('click', function() {
+            searchInput.value = '';
+            searchResults.style.display = 'none';
+            clearSearchBtn.style.display = 'none';
+            
+            // Réactiver la première catégorie
+            document.querySelector('.category-card').classList.add('active');
+            loadRecipeList('pains-base');
+        });
+
+        // Recherche avec Enter
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch(e.target.value);
+            }
         });
     </script>
 </body>
