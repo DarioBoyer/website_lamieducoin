@@ -17,10 +17,12 @@
   "author": "La Mie du Coin",
   "license": "MIT",
   "dependencies": {
-    "nodemailer": "^6.9.7"
+    "dotenv": "^16.6.1",
+    "resend": "^3.0.0"
   },
   "devDependencies": {
-    "netlify-cli": "^17.0.0"
+    "netlify-cli": "^17.0.0",
+    "node-fetch": "^2.7.0"
   },
   "engines": {
     "node": ">=18.0.0"

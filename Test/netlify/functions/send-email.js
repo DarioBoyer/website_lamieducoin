@@ -1,9 +1,9 @@
 /**
- * Fonction Netlify Serverless pour l'envoi d'emails via SMTP
+ * Fonction Netlify Serverless pour l'envoi d'emails via Resend
  * Endpoint: /.netlify/functions/send-email
  */
 
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 
 /**
  * Handler principal de la fonction Netlify
@@ -38,7 +38,7 @@ exports.handler = async (event, context) => {
     try {
         // Parser le body de la requête
         const payload = JSON.parse(event.body);
-        const { email, smtpConfig } = payload;
+        const { email } = payload;
 
         // Validation des données requises
         if (!email || !email.to || !email.subject || !email.html) {
@@ -52,69 +52,86 @@ exports.handler = async (event, context) => {
             };
         }
 
-        // Configuration SMTP (priorité: paramètres envoyés > variables d'environnement)
-        const smtpHost = smtpConfig?.host || process.env.SMTP_HOST;
-        const smtpPort = smtpConfig?.port || parseInt(process.env.SMTP_PORT || '587');
-        const smtpUser = smtpConfig?.user || process.env.SMTP_USER;
-        const smtpPass = smtpConfig?.pass || process.env.SMTP_PASS;
-        const smtpFrom = email.from || process.env.SMTP_FROM || `La Mie du Coin <${smtpUser}>`;
-
-        // Validation de la configuration SMTP
-        if (!smtpHost || !smtpPort || !smtpUser || !smtpPass) {
+        // Récupérer la clé API Resend depuis les variables d'environnement
+        const resendApiKey = process.env.RESEND_API_KEY;
+        
+        if (!resendApiKey) {
             return {
                 statusCode: 500,
                 headers,
                 body: JSON.stringify({ 
-                    error: 'Configuration SMTP incomplète',
-                    details: 'Vérifiez les variables d\'environnement Netlify'
+                    error: 'Configuration Resend incomplète',
+                    details: 'La clé API Resend (RESEND_API_KEY) n\'est pas configurée dans les variables d\'environnement Netlify'
                 })
             };
         }
 
-        console.log('📧 Configuration SMTP:', {
-            host: smtpHost,
-            port: smtpPort,
-            user: smtpUser,
-            secure: smtpPort === 465
-        });
+        // Initialiser le client Resend
+        const resend = new Resend(resendApiKey);
 
-        // Créer le transporteur SMTP
-        const transporter = nodemailer.createTransport({
-            host: smtpHost,
-            port: smtpPort,
-            secure: smtpPort === 465, // true pour port 465, false pour autres (TLS)
-            auth: {
-                user: smtpUser,
-                pass: smtpPass
-            },
-            tls: {
-                rejectUnauthorized: false,
-                minVersion: 'TLSv1.2'
-            }
-        });
+        // Préparer l'adresse d'expéditeur
+        // Resend nécessite un domaine vérifié pour l'expéditeur
+        const fromEmail = email.from || process.env.RESEND_FROM_EMAIL || 'La Mie du Coin <noreply@lamieducoin.ca>';
 
-        // Vérifier la connexion SMTP
-        await transporter.verify();
-        console.log('✅ Connexion SMTP vérifiée');
-
-        // Préparer les options de l'email
-        const mailOptions = {
-            from: smtpFrom,
+        console.log('📧 Envoi via Resend:', {
             to: email.to,
+            from: fromEmail,
+            subject: email.subject
+        });
+
+        // Préparer les données de l'email pour Resend
+        const emailData = {
+            from: fromEmail,
+            to: Array.isArray(email.to) ? email.to : [email.to],
             subject: email.subject,
-            html: email.html,
-            text: email.text || '', // Version texte optionnelle
-            attachments: email.attachments || []
+            html: email.html
         };
 
-        // Ajouter CC/BCC si présents
-        if (email.cc) mailOptions.cc = email.cc;
-        if (email.bcc) mailOptions.bcc = email.bcc;
+        // Ajouter le texte brut si présent
+        if (email.text) {
+            emailData.text = email.text;
+        }
 
-        // Envoyer l'email
-        const info = await transporter.sendMail(mailOptions);
-        
-        console.log('✅ Email envoyé:', info.messageId);
+        // Ajouter CC si présent
+        if (email.cc) {
+            emailData.cc = Array.isArray(email.cc) ? email.cc : [email.cc];
+        }
+
+        // Ajouter BCC si présent
+        if (email.bcc) {
+            emailData.bcc = Array.isArray(email.bcc) ? email.bcc : [email.bcc];
+        }
+
+        // Ajouter reply-to si présent
+        if (email.replyTo) {
+            emailData.reply_to = Array.isArray(email.replyTo) ? email.replyTo : [email.replyTo];
+        }
+
+        // Ajouter les pièces jointes si présentes
+        if (email.attachments && email.attachments.length > 0) {
+            emailData.attachments = email.attachments.map(att => ({
+                filename: att.filename,
+                content: att.content
+            }));
+        }
+
+        // Envoyer l'email via Resend
+        const { data, error } = await resend.emails.send(emailData);
+
+        if (error) {
+            console.error('❌ Erreur Resend:', error);
+            return {
+                statusCode: 400,
+                headers,
+                body: JSON.stringify({
+                    success: false,
+                    error: error.message || 'Erreur lors de l\'envoi de l\'email',
+                    details: error
+                })
+            };
+        }
+
+        console.log('✅ Email envoyé via Resend:', data.id);
 
         // Retourner le succès
         return {
@@ -122,7 +139,7 @@ exports.handler = async (event, context) => {
             headers,
             body: JSON.stringify({
                 success: true,
-                messageId: info.messageId,
+                messageId: data.id,
                 timestamp: new Date().toISOString()
             })
         };
@@ -132,17 +149,16 @@ exports.handler = async (event, context) => {
 
         // Déterminer le code d'erreur approprié
         let statusCode = 500;
-        let errorMessage = error.message;
+        let errorMessage = error.message || 'Erreur interne du serveur';
 
-        if (error.code === 'EAUTH') {
-            statusCode = 401;
-            errorMessage = 'Authentification SMTP échouée. Vérifiez les identifiants.';
-        } else if (error.code === 'ECONNECTION') {
-            statusCode = 503;
-            errorMessage = 'Impossible de se connecter au serveur SMTP.';
-        } else if (error.code === 'ETIMEDOUT') {
-            statusCode = 504;
-            errorMessage = 'Délai d\'attente dépassé lors de la connexion SMTP.';
+        // Gestion des erreurs spécifiques Resend
+        if (error.statusCode) {
+            statusCode = error.statusCode;
+        }
+
+        if (error.name === 'validation_error') {
+            statusCode = 400;
+            errorMessage = 'Erreur de validation des données de l\'email';
         }
 
         return {
@@ -151,7 +167,6 @@ exports.handler = async (event, context) => {
             body: JSON.stringify({
                 success: false,
                 error: errorMessage,
-                code: error.code,
                 details: process.env.NODE_ENV === 'development' ? error.stack : undefined
             })
         };

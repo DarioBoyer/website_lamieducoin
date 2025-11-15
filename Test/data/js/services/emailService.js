@@ -5,12 +5,10 @@
  * Ce service prépare les données et peut envoyer via une API
  */
 
-import parametersService from './parametersService.js';
-
 class EmailService {
     constructor() {
-        this.smtpConfig = null;
         this.emailQueue = [];
+        this.fromEmail = 'La Mie du Coin <noreply@lamieducoin.ca>';
         
         // Détection automatique de l'environnement
         const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
@@ -20,32 +18,16 @@ class EmailService {
             ? 'http://localhost:8888/.netlify/functions/send-email'  // Netlify Dev
             : '/.netlify/functions/send-email';                       // Netlify Production
         
-        this.testEndpoint = isLocalhost
-            ? 'http://localhost:8888/.netlify/functions/test-smtp'
-            : '/.netlify/functions/test-smtp';
-        
-        this.useBackendApi = true; // Toujours activer l'API Netlify
-        
-        console.log('📧 EmailService initialisé');
+        console.log('📧 EmailService initialisé avec Resend');
         console.log('🌐 Endpoint:', this.apiEndpoint);
     }
 
     /**
-     * Initialise le service avec la configuration SMTP
+     * Initialise le service d'email
      */
     async initialize() {
         try {
-            // Vérifier si SMTP est configuré
-            const isConfigured = await parametersService.isSmtpConfigured();
-            
-            if (!isConfigured) {
-                console.warn('⚠️ Configuration SMTP manquante');
-                return false;
-            }
-            
-            // Récupérer la configuration
-            this.smtpConfig = await parametersService.getSmtpConfig();
-            console.log('✅ Service d\'email initialisé');
+            console.log('✅ Service d\'email initialisé (Resend)');
             return true;
         } catch (error) {
             console.error('❌ Erreur lors de l\'initialisation du service d\'email:', error);
@@ -76,11 +58,12 @@ class EmailService {
         const textBody = this.generateOrderConfirmationText(orderData, lang);
         
         return {
+            from: this.fromEmail,
             to: order.email,
             subject: subject,
             html: htmlBody,
             text: textBody,
-            replyTo: this.smtpConfig?.account || 'noreply@lamieducoin.ca'
+            replyTo: 'contact@lamieducoin.ca'
         };
     }
 
@@ -271,7 +254,7 @@ class EmailService {
                         <td style="padding: 30px; background-color: #f8f9fa; text-align: center;">
                             <p style="margin: 0 0 10px; color: #666; font-size: 14px;">${t.footer}</p>
                             <p style="margin: 0 0 15px; color: #666; font-size: 14px;">
-                                ${t.contact} <a href="mailto:${this.smtpConfig?.account || 'contact@lamieducoin.ca'}" style="color: #8B4513; text-decoration: none;">${this.smtpConfig?.account || 'contact@lamieducoin.ca'}</a>
+                                ${t.contact} <a href="mailto:contact@lamieducoin.ca" style="color: #8B4513; text-decoration: none;">contact@lamieducoin.ca</a>
                             </p>
                             <p style="margin: 0; color: #999; font-size: 12px;">
                                 ${t.regards}<br>
@@ -376,7 +359,7 @@ ${t.orderDetails}
         text += `${t.tracking}:\n`;
         text += `http://localhost:8000/pages/suivi-commande.html?order=${orderGuid}\n\n`;
         text += `${t.footer}\n`;
-        text += `${t.contact} ${this.smtpConfig?.account || 'contact@lamieducoin.ca'}\n\n`;
+        text += `${t.contact} contact@lamieducoin.ca\n\n`;
         text += `${t.regards}\n`;
         text += `${t.team}\n`;
 
@@ -393,16 +376,6 @@ ${t.orderDetails}
      */
     async sendOrderConfirmation(orderData) {
         try {
-            // Vérifier la configuration SMTP
-            if (!this.smtpConfig) {
-                await this.initialize();
-            }
-            
-            if (!this.smtpConfig) {
-                console.error('❌ Configuration SMTP manquante');
-                return false;
-            }
-            
             // Préparer l'email
             const emailData = this.prepareOrderConfirmationEmail(orderData);
             
@@ -410,80 +383,53 @@ ${t.orderDetails}
             console.log('📨 Destinataire:', emailData.to);
             console.log('📋 Sujet:', emailData.subject);
             
-            // Essayer d'envoyer via l'API Netlify Functions
-            if (this.useBackendApi) {
-                try {
-                    const response = await fetch(this.apiEndpoint, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            smtpConfig: {
-                                host: this.smtpConfig.smtp,
-                                port: this.smtpConfig.port,
-                                user: this.smtpConfig.account,
-                                pass: this.smtpConfig.password
-                            },
-                            email: emailData
-                        })
+            // Envoyer via l'API Netlify Functions (Resend)
+            try {
+                const response = await fetch(this.apiEndpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: emailData
+                    })
+                });
+                
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || `Erreur HTTP: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    console.log('✅ Email envoyé via Resend');
+                    console.log('📬 Message ID:', result.messageId);
+                    console.log('🕐 Timestamp:', result.timestamp);
+                    
+                    this.emailQueue.push({
+                        timestamp: new Date(),
+                        to: emailData.to,
+                        subject: emailData.subject,
+                        status: 'sent',
+                        messageId: result.messageId
                     });
                     
-                    if (!response.ok) {
-                        throw new Error(`Erreur HTTP: ${response.status}`);
-                    }
-                    
-                    const result = await response.json();
-                    
-                    if (result.success) {
-                        console.log('✅ Email envoyé via Netlify Functions');
-                        console.log('📬 Message ID:', result.messageId);
-                        console.log('🕐 Timestamp:', result.timestamp);
-                        
-                        this.emailQueue.push({
-                            timestamp: new Date(),
-                            to: emailData.to,
-                            subject: emailData.subject,
-                            status: 'sent',
-                            messageId: result.messageId
-                        });
-                        
-                        return true;
-                    } else {
-                        throw new Error(result.error || 'Erreur inconnue');
-                    }
-                    
-                } catch (apiError) {
-                    console.warn('⚠️ Netlify Functions non disponible ou erreur:', apiError.message);
-                    console.log('💡 Vérifiez que Netlify Dev est démarré: npm run dev');
-                    console.log('🔄 Passage en mode simulation...');
-                    // Continuer avec la simulation ci-dessous
+                    return true;
+                } else {
+                    throw new Error(result.error || 'Erreur inconnue');
                 }
+                
+            } catch (apiError) {
+                console.error('❌ Erreur lors de l\'envoi via Resend:', apiError.message);
+                console.log('💡 Vérifiez que:');
+                console.log('   1. Netlify Dev est démarré: npm run dev');
+                console.log('   2. La variable RESEND_API_KEY est configurée dans Netlify');
+                console.log('   3. Le domaine d\'envoi est vérifié dans Resend');
+                
+                // Ne pas faire de simulation, retourner l'erreur
+                throw apiError;
             }
-            
-            // SIMULATION pour le développement (si API non disponible)
-            console.log('📧 Configuration SMTP:');
-            console.log('   Serveur:', this.smtpConfig.smtp);
-            console.log('   Port:', this.smtpConfig.port);
-            console.log('   TLS: Oui');
-            console.log('   Compte:', this.smtpConfig.account);
-            console.log('   Auth: Oui');
-            
-            // Simuler un délai d'envoi
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            
-            // Ajouter à la file d'attente (pour debug)
-            this.emailQueue.push({
-                timestamp: new Date(),
-                to: emailData.to,
-                subject: emailData.subject,
-                status: 'simulated'
-            });
-            
-            console.log('✅ Email simulé envoyé avec succès');
-            console.log('ℹ️ En production, l\'email sera envoyé via une API backend avec nodemailer');
-            
-            return true;
             
         } catch (error) {
             console.error('❌ Erreur lors de l\'envoi de l\'email:', error);
