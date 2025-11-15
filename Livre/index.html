@@ -5,239 +5,414 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Le Grand Livre du Pain - Navigation Interactive</title>
     
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS - Version 5.3.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="styles.css">
     
     <style>
+        :root {
+            --primary-brown: #8B4513;
+            --secondary-brown: #D2691E;
+            --light-cream: #fdf1e8;
+            --gradient-start: #8B4513;
+            --gradient-end: #D2691E;
+        }
+        
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8eef5 100%);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
         }
         
         .cover-modern {
-            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
             color: white;
-            padding: 40px 30px;
+            padding: 60px 30px;
             text-align: center;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
             margin-bottom: 0;
         }
         
         .cover-modern::before {
             content: '🌾';
             position: absolute;
-            font-size: 180px;
-            opacity: 0.1;
+            font-size: 250px;
+            opacity: 0.08;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(-50%, -50%) rotate(-5deg); }
+            50% { transform: translate(-50%, -52%) rotate(5deg); }
         }
         
         .cover-modern h1 {
-            font-size: 2.5em;
-            margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
             position: relative;
             z-index: 1;
+            font-weight: 700;
         }
         
         .cover-modern .subtitle {
-            font-size: 1.1em;
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
             font-style: italic;
             position: relative;
             z-index: 1;
             opacity: 0.95;
+            font-weight: 300;
         }
         
         /* Navigation Tabs */
         .nav-section {
             background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
         
         .nav-tabs {
-            border-bottom: 3px solid #D2691E;
+            border-bottom: 3px solid var(--secondary-brown);
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .nav-tabs::-webkit-scrollbar {
+            height: 4px;
+        }
+        
+        .nav-tabs::-webkit-scrollbar-thumb {
+            background: var(--secondary-brown);
+            border-radius: 10px;
         }
         
         .nav-tabs .nav-link {
-            color: #8B4513;
+            color: var(--primary-brown);
             font-weight: 600;
             border: none;
-            padding: 15px 25px;
-            transition: all 0.3s;
+            padding: 18px 30px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            border-radius: 0;
+            position: relative;
+        }
+        
+        .nav-tabs .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: var(--secondary-brown);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
         }
         
         .nav-tabs .nav-link:hover {
-            color: #D2691E;
-            background: #fdf1e8;
+            color: var(--secondary-brown);
+            background: var(--light-cream);
+        }
+        
+        .nav-tabs .nav-link:hover::after {
+            width: 100%;
         }
         
         .nav-tabs .nav-link.active {
             color: white;
-            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
             border: none;
+        }
+        
+        .nav-tabs .nav-link.active::after {
+            width: 100%;
+            background: white;
         }
         
         /* Category Cards */
         .category-card {
             background: white;
-            border-radius: 10px;
+            border-radius: 12px;
             padding: 20px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             cursor: pointer;
-            transition: all 0.3s;
-            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+            border: 2px solid #e8e8e8;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         }
         
         .category-card:hover {
-            border-color: #D2691E;
-            transform: translateX(5px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-color: var(--secondary-brown);
+            transform: translateX(8px);
+            box-shadow: 0 6px 20px rgba(139, 69, 19, 0.15);
         }
         
         .category-card.active {
-            border-color: #D2691E;
-            background: #fdf1e8;
+            border-color: var(--secondary-brown);
+            background: linear-gradient(135deg, var(--light-cream) 0%, #fff 100%);
+            box-shadow: 0 6px 20px rgba(139, 69, 19, 0.2);
         }
         
         .category-card h5 {
-            color: #8B4513;
+            color: var(--primary-brown);
             margin: 0;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            font-size: 1.05rem;
         }
         
         .category-card .icon {
-            font-size: 1.5em;
+            font-size: 1.8em;
+            transition: transform 0.3s ease;
+        }
+        
+        .category-card:hover .icon {
+            transform: scale(1.1);
         }
         
         /* Content Display */
         .content-display {
             background: white;
-            border-radius: 15px;
+            border-radius: 16px;
             padding: 30px;
-            min-height: 400px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            min-height: 450px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.05);
         }
         
         .content-display iframe {
             width: 100%;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             min-height: 600px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
         
         .welcome-message {
             text-align: center;
-            padding: 60px 20px;
-            color: #8B4513;
+            padding: 80px 20px;
+            color: var(--primary-brown);
         }
         
-        .welcome-message h3 {
-            font-size: 2em;
+        .welcome-message h3, .welcome-message h4 {
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
             margin-bottom: 20px;
+            font-weight: 600;
         }
         
         .welcome-message p {
-            font-size: 1.1em;
+            font-size: clamp(1rem, 2vw, 1.2rem);
             color: #666;
+            margin-top: 10px;
         }
         
         /* Recipe List */
         .recipe-list {
             list-style: none;
             padding: 0;
+            max-height: 600px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        
+        .recipe-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .recipe-list::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        .recipe-list::-webkit-scrollbar-thumb {
+            background: var(--secondary-brown);
+            border-radius: 10px;
         }
         
         .recipe-list li {
-            padding: 12px 15px;
-            margin-bottom: 8px;
-            background: #f8f9fa;
-            border-radius: 8px;
+            padding: 14px 16px;
+            margin-bottom: 10px;
+            background: white;
+            border-radius: 10px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             border-left: 4px solid transparent;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            font-size: 0.95rem;
         }
         
         .recipe-list li:hover {
-            background: #fdf1e8;
-            border-left-color: #D2691E;
-            transform: translateX(5px);
+            background: var(--light-cream);
+            border-left-color: var(--secondary-brown);
+            transform: translateX(6px);
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.15);
         }
         
         .recipe-list li.active {
-            background: #fdf1e8;
-            border-left-color: #D2691E;
+            background: linear-gradient(135deg, var(--light-cream) 0%, #fff 100%);
+            border-left-color: var(--secondary-brown);
             font-weight: 600;
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.2);
         }
         
         /* Loading Animation */
         .loading {
             text-align: center;
-            padding: 40px;
+            padding: 60px 20px;
         }
         
-        .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #D2691E;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
+        /* Effet hover sur les cartes de catégories */
+        .category-showcase {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .category-showcase:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.18) !important;
+        }
+
+        .stat-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.25) !important;
+        }
+
+        /* Style pour le champ de recherche */
+        .search-container {
+            transition: all 0.3s ease;
         }
         
-        /* Responsive */
+        #searchInput {
+            transition: all 0.3s ease;
+        }
+        
+        #searchInput:focus {
+            border-color: var(--secondary-brown);
+            box-shadow: 0 0 0 0.35rem rgba(210, 105, 30, 0.2);
+            transform: translateY(-2px);
+        }
+
+        #clearSearch {
+            transition: all 0.3s ease;
+        }
+        
+        #clearSearch:hover {
+            background: var(--light-cream) !important;
+            transform: scale(1.1);
+        }
+        
+        /* Badges dans les catégories */
+        .category-badge {
+            transition: all 0.3s ease;
+        }
+        
+        .category-badge:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Animations d'entrée */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .tab-pane.active {
+            animation: fadeInUp 0.5s ease;
+        }
+        
+        /* Responsive - Tablette */
+        @media (max-width: 992px) {
+            .nav-tabs .nav-link {
+                padding: 15px 20px;
+                font-size: 0.95rem;
+            }
+            
+            .content-display {
+                padding: 20px;
+            }
+            
+            .category-showcase {
+                margin-bottom: 20px;
+            }
+        }
+        
+        /* Responsive - Mobile */
         @media (max-width: 768px) {
-            .cover-modern h1 {
-                font-size: 1.8em;
+            .cover-modern {
+                padding: 40px 20px;
             }
             
             .nav-tabs .nav-link {
-                padding: 10px 15px;
-                font-size: 0.9em;
+                padding: 12px 18px;
+                font-size: 0.9rem;
             }
             
             .content-display {
                 padding: 15px;
             }
+            
+            .stat-card {
+                margin-bottom: 15px;
+            }
+            
+            .category-card h5 {
+                font-size: 0.95rem;
+            }
+            
+            .recipe-list li {
+                font-size: 0.9rem;
+                padding: 12px 14px;
+            }
         }
-
-        /* Effet hover sur les cartes de catégories */
-        .category-showcase:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.15) !important;
-        }
-
-        .stat-card {
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.2) !important;
-        }
-
-        /* Style pour le champ de recherche */
-        #searchInput:focus {
-            border-color: #D2691E;
-            box-shadow: 0 0 0 0.25rem rgba(210, 105, 30, 0.25);
-        }
-
-        #clearSearch:hover {
-            background: #e9ecef !important;
+        
+        /* Responsive - Petit Mobile */
+        @media (max-width: 576px) {
+            .cover-modern {
+                padding: 30px 15px;
+            }
+            
+            .nav-tabs .nav-link {
+                padding: 10px 12px;
+                font-size: 0.85rem;
+            }
+            
+            .stat-card {
+                padding: 20px !important;
+            }
+            
+            .stat-card .value {
+                font-size: 2rem !important;
+            }
+            
+            .category-showcase {
+                margin-bottom: 15px;
+            }
+            
+            .search-container {
+                padding: 15px !important;
+            }
         }
     </style>
 </head>
@@ -247,8 +422,8 @@
         <h1>🍞 Le Grand Livre du Pain</h1>
         <p class="subtitle">L'art de la boulangerie artisanale à la maison</p>
         <div class="mt-4">
-            <a href="galerie.html" class="btn btn-light btn-lg" style="border-radius: 50px; padding: 12px 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.3s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
-                📸 Voir la Galerie Photo
+            <a href="galerie.html" class="btn btn-light btn-lg shadow-lg" style="border-radius: 50px; padding: 14px 35px; font-weight: 600; transition: all 0.3s ease; border: 2px solid rgba(255,255,255,0.3);" onmouseover="this.style.transform='translateY(-4px) scale(1.05)'; this.style.boxShadow='0 8px 25px rgba(0,0,0,0.3)'" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)'">
+                <i class="bi bi-camera-fill me-2"></i>Voir la Galerie Photo
             </a>
         </div>
     </div>
@@ -297,32 +472,32 @@
                     
                     <!-- Statistiques visuelles -->
                     <div class="row g-4 mb-5">
-                        <div class="col-md-3 col-sm-6">
-                            <div class="stat-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 15px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                                <div style="font-size: 3em; margin-bottom: 10px;">🍞</div>
-                                <div style="font-size: 2.5em; font-weight: bold;">35+</div>
-                                <div style="font-size: 1.1em; opacity: 0.9;">Recettes</div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="stat-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 20px; text-align: center; box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3); border: 3px solid rgba(255,255,255,0.2);">
+                                <div style="font-size: 3.5em; margin-bottom: 15px;">🍞</div>
+                                <div class="value" style="font-size: 3em; font-weight: bold; margin-bottom: 5px;">35+</div>
+                                <div style="font-size: 1.15em; opacity: 0.95; font-weight: 500; letter-spacing: 1px;">Recettes</div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="stat-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 25px; border-radius: 15px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                                <div style="font-size: 3em; margin-bottom: 10px;">🤝</div>
-                                <div style="font-size: 2.5em; font-weight: bold;">11</div>
-                                <div style="font-size: 1.1em; opacity: 0.9;">Techniques</div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="stat-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 30px; border-radius: 20px; text-align: center; box-shadow: 0 8px 25px rgba(240, 147, 251, 0.3); border: 3px solid rgba(255,255,255,0.2);">
+                                <div style="font-size: 3.5em; margin-bottom: 15px;">🤝</div>
+                                <div class="value" style="font-size: 3em; font-weight: bold; margin-bottom: 5px;">11</div>
+                                <div style="font-size: 1.15em; opacity: 0.95; font-weight: 500; letter-spacing: 1px;">Techniques</div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="stat-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; padding: 25px; border-radius: 15px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                                <div style="font-size: 3em; margin-bottom: 10px;">💡</div>
-                                <div style="font-size: 2.5em; font-weight: bold;">12</div>
-                                <div style="font-size: 1.1em; opacity: 0.9;">Astuces</div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="stat-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; padding: 30px; border-radius: 20px; text-align: center; box-shadow: 0 8px 25px rgba(79, 172, 254, 0.3); border: 3px solid rgba(255,255,255,0.2);">
+                                <div style="font-size: 3.5em; margin-bottom: 15px;">💡</div>
+                                <div class="value" style="font-size: 3em; font-weight: bold; margin-bottom: 5px;">12</div>
+                                <div style="font-size: 1.15em; opacity: 0.95; font-weight: 500; letter-spacing: 1px;">Astuces</div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="stat-card" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: white; padding: 25px; border-radius: 15px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                                <div style="font-size: 3em; margin-bottom: 10px;">🌾</div>
-                                <div style="font-size: 2.5em; font-weight: bold;">7</div>
-                                <div style="font-size: 1.1em; opacity: 0.9;">Guides Farines</div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="stat-card" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: white; padding: 30px; border-radius: 20px; text-align: center; box-shadow: 0 8px 25px rgba(67, 233, 123, 0.3); border: 3px solid rgba(255,255,255,0.2);">
+                                <div style="font-size: 3.5em; margin-bottom: 15px;">🌾</div>
+                                <div class="value" style="font-size: 3em; font-weight: bold; margin-bottom: 5px;">7</div>
+                                <div style="font-size: 1.15em; opacity: 0.95; font-weight: 500; letter-spacing: 1px;">Guides Farines</div>
                             </div>
                         </div>
                     </div>
@@ -330,112 +505,112 @@
                     <!-- Catégories avec images représentatives -->
                     <div class="row g-4 mt-4">
                         <div class="col-lg-4 col-md-6">
-                            <div class="category-showcase" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); transition: transform 0.3s; cursor: pointer;" onclick="document.getElementById('recettes-tab').click();">
-                                <div style="background: linear-gradient(135deg, rgba(139, 69, 19, 0.9), rgba(210, 105, 30, 0.9)), url('https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600'); background-size: cover; background-position: center; height: 200px; display: flex; align-items: center; justify-content: center;">
-                                    <div style="text-align: center; color: white;">
-                                        <div style="font-size: 4em; margin-bottom: 10px;">🍞</div>
-                                        <h4 style="color: white; font-size: 1.8em; margin: 0;">Pains Traditionnels</h4>
+                            <div class="category-showcase" style="background: white; border-radius: 18px; overflow: hidden; box-shadow: 0 6px 25px rgba(0,0,0,0.12); cursor: pointer; border: 1px solid rgba(0,0,0,0.05);" onclick="document.getElementById('recettes-tab').click();">
+                                <div style="background: linear-gradient(135deg, rgba(139, 69, 19, 0.95), rgba(210, 105, 30, 0.95)), url('https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600'); background-size: cover; background-position: center; height: 220px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+                                    <div style="text-align: center; color: white; position: relative; z-index: 2;">
+                                        <div style="font-size: 4.5em; margin-bottom: 12px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));">🍞</div>
+                                        <h4 style="color: white; font-size: 1.9em; margin: 0; font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">Pains Traditionnels</h4>
                                     </div>
                                 </div>
-                                <div style="padding: 20px;">
-                                    <p style="color: #666; margin-bottom: 15px;">8 recettes de pains de base, du pain blanc à la baguette française</p>
-                                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                                        <span style="background: #fdf1e8; padding: 5px 12px; border-radius: 15px; font-size: 0.85em; color: #8B4513;">Pain Blanc</span>
-                                        <span style="background: #fdf1e8; padding: 5px 12px; border-radius: 15px; font-size: 0.85em; color: #8B4513;">Baguette</span>
-                                        <span style="background: #fdf1e8; padding: 5px 12px; border-radius: 15px; font-size: 0.85em; color: #8B4513;">Pain de Campagne</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-md-6">
-                            <div class="category-showcase" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); transition: transform 0.3s; cursor: pointer;" onclick="document.getElementById('recettes-tab').click(); setTimeout(() => document.querySelector('[data-category=pains-specialises]').click(), 100);">
-                                <div style="background: linear-gradient(135deg, rgba(139, 69, 19, 0.9), rgba(210, 105, 30, 0.9)), url('https://images.unsplash.com/photo-1549931319-a545dcf3bc3c?w=600'); background-size: cover; background-position: center; height: 200px; display: flex; align-items: center; justify-content: center;">
-                                    <div style="text-align: center; color: white;">
-                                        <div style="font-size: 4em; margin-bottom: 10px;">🍔</div>
-                                        <h4 style="color: white; font-size: 1.8em; margin: 0;">Pains Spécialisés</h4>
-                                    </div>
-                                </div>
-                                <div style="padding: 20px;">
-                                    <p style="color: #666; margin-bottom: 15px;">9 recettes spéciales pour tous les usages</p>
-                                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                                        <span style="background: #fdf1e8; padding: 5px 12px; border-radius: 15px; font-size: 0.85em; color: #8B4513;">Hamburger</span>
-                                        <span style="background: #fdf1e8; padding: 5px 12px; border-radius: 15px; font-size: 0.85em; color: #8B4513;">Hot-Dog</span>
-                                        <span style="background: #fdf1e8; padding: 5px 12px; border-radius: 15px; font-size: 0.85em; color: #8B4513;">Sous-Marin</span>
+                                <div style="padding: 24px;">
+                                    <p style="color: #666; margin-bottom: 18px; font-size: 0.98rem; line-height: 1.6;">8 recettes de pains de base, du pain blanc à la baguette française</p>
+                                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                        <span class="category-badge" style="background: linear-gradient(135deg, #fdf1e8 0%, #fff 100%); padding: 7px 14px; border-radius: 20px; font-size: 0.85em; color: #8B4513; font-weight: 500; border: 1px solid #f0e0d0;">Pain Blanc</span>
+                                        <span class="category-badge" style="background: linear-gradient(135deg, #fdf1e8 0%, #fff 100%); padding: 7px 14px; border-radius: 20px; font-size: 0.85em; color: #8B4513; font-weight: 500; border: 1px solid #f0e0d0;">Baguette</span>
+                                        <span class="category-badge" style="background: linear-gradient(135deg, #fdf1e8 0%, #fff 100%); padding: 7px 14px; border-radius: 20px; font-size: 0.85em; color: #8B4513; font-weight: 500; border: 1px solid #f0e0d0;">Pain de Campagne</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-lg-4 col-md-6">
-                            <div class="category-showcase" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); transition: transform 0.3s; cursor: pointer;" onclick="document.getElementById('recettes-tab').click(); setTimeout(() => document.querySelector('[data-category=viennoiseries]').click(), 100);">
-                                <div style="background: linear-gradient(135deg, rgba(139, 69, 19, 0.9), rgba(210, 105, 30, 0.9)), url('https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600'); background-size: cover; background-position: center; height: 200px; display: flex; align-items: center; justify-content: center;">
-                                    <div style="text-align: center; color: white;">
-                                        <div style="font-size: 4em; margin-bottom: 10px;">🥐</div>
-                                        <h4 style="color: white; font-size: 1.8em; margin: 0;">Viennoiseries</h4>
+                            <div class="category-showcase" style="background: white; border-radius: 18px; overflow: hidden; box-shadow: 0 6px 25px rgba(0,0,0,0.12); cursor: pointer; border: 1px solid rgba(0,0,0,0.05);" onclick="document.getElementById('recettes-tab').click(); setTimeout(() => document.querySelector('[data-category=pains-specialises]').click(), 100);">
+                                <div style="background: linear-gradient(135deg, rgba(139, 69, 19, 0.95), rgba(210, 105, 30, 0.95)), url('https://images.unsplash.com/photo-1549931319-a545dcf3bc3c?w=600'); background-size: cover; background-position: center; height: 220px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+                                    <div style="text-align: center; color: white; position: relative; z-index: 2;">
+                                        <div style="font-size: 4.5em; margin-bottom: 12px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));">🍔</div>
+                                        <h4 style="color: white; font-size: 1.9em; margin: 0; font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">Pains Spécialisés</h4>
                                     </div>
                                 </div>
-                                <div style="padding: 20px;">
-                                    <p style="color: #666; margin-bottom: 15px;">3 recettes de viennoiseries délicieuses</p>
-                                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                                        <span style="background: #fdf1e8; padding: 5px 12px; border-radius: 15px; font-size: 0.85em; color: #8B4513;">Croissants</span>
-                                        <span style="background: #fdf1e8; padding: 5px 12px; border-radius: 15px; font-size: 0.85em; color: #8B4513;">Pain au Chocolat</span>
-                                        <span style="background: #fdf1e8; padding: 5px 12px; border-radius: 15px; font-size: 0.85em; color: #8B4513;">Brioche</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-md-6">
-                            <div class="category-showcase" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); transition: transform 0.3s; cursor: pointer;" onclick="document.getElementById('recettes-tab').click(); setTimeout(() => document.querySelector('[data-category=pains-forme]').click(), 100);">
-                                <div style="background: linear-gradient(135deg, rgba(139, 69, 19, 0.9), rgba(210, 105, 30, 0.9)), url('https://images.unsplash.com/photo-1509365465985-25d11c17e812?w=600'); background-size: cover; background-position: center; height: 200px; display: flex; align-items: center; justify-content: center;">
-                                    <div style="text-align: center; color: white;">
-                                        <div style="font-size: 4em; margin-bottom: 10px;">🥨</div>
-                                        <h4 style="color: white; font-size: 1.8em; margin: 0;">Pains en Forme</h4>
-                                    </div>
-                                </div>
-                                <div style="padding: 20px;">
-                                    <p style="color: #666; margin-bottom: 15px;">5 recettes de pains façonnés</p>
-                                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                                        <span style="background: #fdf1e8; padding: 5px 12px; border-radius: 15px; font-size: 0.85em; color: #8B4513;">Bagels</span>
-                                        <span style="background: #fdf1e8; padding: 5px 12px; border-radius: 15px; font-size: 0.85em; color: #8B4513;">Bretzels</span>
+                                <div style="padding: 24px;">
+                                    <p style="color: #666; margin-bottom: 18px; font-size: 0.98rem; line-height: 1.6;">9 recettes spéciales pour tous les usages</p>
+                                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                        <span class="category-badge" style="background: linear-gradient(135deg, #fdf1e8 0%, #fff 100%); padding: 7px 14px; border-radius: 20px; font-size: 0.85em; color: #8B4513; font-weight: 500; border: 1px solid #f0e0d0;">Hamburger</span>
+                                        <span class="category-badge" style="background: linear-gradient(135deg, #fdf1e8 0%, #fff 100%); padding: 7px 14px; border-radius: 20px; font-size: 0.85em; color: #8B4513; font-weight: 500; border: 1px solid #f0e0d0;">Hot-Dog</span>
+                                        <span class="category-badge" style="background: linear-gradient(135deg, #fdf1e8 0%, #fff 100%); padding: 7px 14px; border-radius: 20px; font-size: 0.85em; color: #8B4513; font-weight: 500; border: 1px solid #f0e0d0;">Sous-Marin</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-lg-4 col-md-6">
-                            <div class="category-showcase" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); transition: transform 0.3s; cursor: pointer;" onclick="document.getElementById('recettes-tab').click(); setTimeout(() => document.querySelector('[data-category=pizzas]').click(), 100);">
-                                <div style="background: linear-gradient(135deg, rgba(139, 69, 19, 0.9), rgba(210, 105, 30, 0.9)), url('https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600'); background-size: cover; background-position: center; height: 200px; display: flex; align-items: center; justify-content: center;">
-                                    <div style="text-align: center; color: white;">
-                                        <div style="font-size: 4em; margin-bottom: 10px;">🍕</div>
-                                        <h4 style="color: white; font-size: 1.8em; margin: 0;">Pizzas</h4>
+                            <div class="category-showcase" style="background: white; border-radius: 18px; overflow: hidden; box-shadow: 0 6px 25px rgba(0,0,0,0.12); cursor: pointer; border: 1px solid rgba(0,0,0,0.05);" onclick="document.getElementById('recettes-tab').click(); setTimeout(() => document.querySelector('[data-category=viennoiseries]').click(), 100);">
+                                <div style="background: linear-gradient(135deg, rgba(139, 69, 19, 0.95), rgba(210, 105, 30, 0.95)), url('https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600'); background-size: cover; background-position: center; height: 220px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+                                    <div style="text-align: center; color: white; position: relative; z-index: 2;">
+                                        <div style="font-size: 4.5em; margin-bottom: 12px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));">🥐</div>
+                                        <h4 style="color: white; font-size: 1.9em; margin: 0; font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">Viennoiseries</h4>
                                     </div>
                                 </div>
-                                <div style="padding: 20px;">
-                                    <p style="color: #666; margin-bottom: 15px;">3 recettes de pâtes à pizza authentiques</p>
-                                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                                        <span style="background: #fdf1e8; padding: 5px 12px; border-radius: 15px; font-size: 0.85em; color: #8B4513;">Napolitaine</span>
-                                        <span style="background: #fdf1e8; padding: 5px 12px; border-radius: 15px; font-size: 0.85em; color: #8B4513;">New-Yorkaise</span>
-                                        <span style="background: #fdf1e8; padding: 5px 12px; border-radius: 15px; font-size: 0.85em; color: #8B4513;">Romana</span>
+                                <div style="padding: 24px;">
+                                    <p style="color: #666; margin-bottom: 18px; font-size: 0.98rem; line-height: 1.6;">3 recettes de viennoiseries délicieuses</p>
+                                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                        <span class="category-badge" style="background: linear-gradient(135deg, #fdf1e8 0%, #fff 100%); padding: 7px 14px; border-radius: 20px; font-size: 0.85em; color: #8B4513; font-weight: 500; border: 1px solid #f0e0d0;">Croissants</span>
+                                        <span class="category-badge" style="background: linear-gradient(135deg, #fdf1e8 0%, #fff 100%); padding: 7px 14px; border-radius: 20px; font-size: 0.85em; color: #8B4513; font-weight: 500; border: 1px solid #f0e0d0;">Pain au Chocolat</span>
+                                        <span class="category-badge" style="background: linear-gradient(135deg, #fdf1e8 0%, #fff 100%); padding: 7px 14px; border-radius: 20px; font-size: 0.85em; color: #8B4513; font-weight: 500; border: 1px solid #f0e0d0;">Brioche</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-lg-4 col-md-6">
-                            <div class="category-showcase" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); transition: transform 0.3s; cursor: pointer;" onclick="document.getElementById('recettes-tab').click(); setTimeout(() => document.querySelector('[data-category=sans-gluten]').click(), 100);">
-                                <div style="background: linear-gradient(135deg, rgba(139, 69, 19, 0.9), rgba(210, 105, 30, 0.9)), url('https://images.unsplash.com/photo-1586444248902-2f64eddc13df?w=600'); background-size: cover; background-position: center; height: 200px; display: flex; align-items: center; justify-content: center;">
-                                    <div style="text-align: center; color: white;">
-                                        <div style="font-size: 4em; margin-bottom: 10px;">🌾</div>
-                                        <h4 style="color: white; font-size: 1.8em; margin: 0;">Sans Gluten</h4>
+                            <div class="category-showcase" style="background: white; border-radius: 18px; overflow: hidden; box-shadow: 0 6px 25px rgba(0,0,0,0.12); cursor: pointer; border: 1px solid rgba(0,0,0,0.05);" onclick="document.getElementById('recettes-tab').click(); setTimeout(() => document.querySelector('[data-category=pains-forme]').click(), 100);">
+                                <div style="background: linear-gradient(135deg, rgba(139, 69, 19, 0.95), rgba(210, 105, 30, 0.95)), url('https://images.unsplash.com/photo-1509365465985-25d11c17e812?w=600'); background-size: cover; background-position: center; height: 220px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+                                    <div style="text-align: center; color: white; position: relative; z-index: 2;">
+                                        <div style="font-size: 4.5em; margin-bottom: 12px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));">🥨</div>
+                                        <h4 style="color: white; font-size: 1.9em; margin: 0; font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">Pains en Forme</h4>
                                     </div>
                                 </div>
-                                <div style="padding: 20px;">
-                                    <p style="color: #666; margin-bottom: 15px;">3 recettes sans gluten savoureuses</p>
-                                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                                        <span style="background: #fdf1e8; padding: 5px 12px; border-radius: 15px; font-size: 0.85em; color: #8B4513;">Pain Sans Gluten</span>
-                                        <span style="background: #fdf1e8; padding: 5px 12px; border-radius: 15px; font-size: 0.85em; color: #8B4513;">Baguette SG</span>
+                                <div style="padding: 24px;">
+                                    <p style="color: #666; margin-bottom: 18px; font-size: 0.98rem; line-height: 1.6;">5 recettes de pains façonnés</p>
+                                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                        <span class="category-badge" style="background: linear-gradient(135deg, #fdf1e8 0%, #fff 100%); padding: 7px 14px; border-radius: 20px; font-size: 0.85em; color: #8B4513; font-weight: 500; border: 1px solid #f0e0d0;">Bagels</span>
+                                        <span class="category-badge" style="background: linear-gradient(135deg, #fdf1e8 0%, #fff 100%); padding: 7px 14px; border-radius: 20px; font-size: 0.85em; color: #8B4513; font-weight: 500; border: 1px solid #f0e0d0;">Bretzels</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6">
+                            <div class="category-showcase" style="background: white; border-radius: 18px; overflow: hidden; box-shadow: 0 6px 25px rgba(0,0,0,0.12); cursor: pointer; border: 1px solid rgba(0,0,0,0.05);" onclick="document.getElementById('recettes-tab').click(); setTimeout(() => document.querySelector('[data-category=pizzas]').click(), 100);">
+                                <div style="background: linear-gradient(135deg, rgba(139, 69, 19, 0.95), rgba(210, 105, 30, 0.95)), url('https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600'); background-size: cover; background-position: center; height: 220px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+                                    <div style="text-align: center; color: white; position: relative; z-index: 2;">
+                                        <div style="font-size: 4.5em; margin-bottom: 12px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));">🍕</div>
+                                        <h4 style="color: white; font-size: 1.9em; margin: 0; font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">Pizzas</h4>
+                                    </div>
+                                </div>
+                                <div style="padding: 24px;">
+                                    <p style="color: #666; margin-bottom: 18px; font-size: 0.98rem; line-height: 1.6;">3 recettes de pâtes à pizza authentiques</p>
+                                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                        <span class="category-badge" style="background: linear-gradient(135deg, #fdf1e8 0%, #fff 100%); padding: 7px 14px; border-radius: 20px; font-size: 0.85em; color: #8B4513; font-weight: 500; border: 1px solid #f0e0d0;">Napolitaine</span>
+                                        <span class="category-badge" style="background: linear-gradient(135deg, #fdf1e8 0%, #fff 100%); padding: 7px 14px; border-radius: 20px; font-size: 0.85em; color: #8B4513; font-weight: 500; border: 1px solid #f0e0d0;">New-Yorkaise</span>
+                                        <span class="category-badge" style="background: linear-gradient(135deg, #fdf1e8 0%, #fff 100%); padding: 7px 14px; border-radius: 20px; font-size: 0.85em; color: #8B4513; font-weight: 500; border: 1px solid #f0e0d0;">Romana</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6">
+                            <div class="category-showcase" style="background: white; border-radius: 18px; overflow: hidden; box-shadow: 0 6px 25px rgba(0,0,0,0.12); cursor: pointer; border: 1px solid rgba(0,0,0,0.05);" onclick="document.getElementById('recettes-tab').click(); setTimeout(() => document.querySelector('[data-category=sans-gluten]').click(), 100);">
+                                <div style="background: linear-gradient(135deg, rgba(139, 69, 19, 0.95), rgba(210, 105, 30, 0.95)), url('https://images.unsplash.com/photo-1586444248902-2f64eddc13df?w=600'); background-size: cover; background-position: center; height: 220px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+                                    <div style="text-align: center; color: white; position: relative; z-index: 2;">
+                                        <div style="font-size: 4.5em; margin-bottom: 12px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));">🌾</div>
+                                        <h4 style="color: white; font-size: 1.9em; margin: 0; font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">Sans Gluten</h4>
+                                    </div>
+                                </div>
+                                <div style="padding: 24px;">
+                                    <p style="color: #666; margin-bottom: 18px; font-size: 0.98rem; line-height: 1.6;">3 recettes sans gluten savoureuses</p>
+                                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                        <span class="category-badge" style="background: linear-gradient(135deg, #fdf1e8 0%, #fff 100%); padding: 7px 14px; border-radius: 20px; font-size: 0.85em; color: #8B4513; font-weight: 500; border: 1px solid #f0e0d0;">Pain Sans Gluten</span>
+                                        <span class="category-badge" style="background: linear-gradient(135deg, #fdf1e8 0%, #fff 100%); padding: 7px 14px; border-radius: 20px; font-size: 0.85em; color: #8B4513; font-weight: 500; border: 1px solid #f0e0d0;">Baguette SG</span>
                                     </div>
                                 </div>
                             </div>
@@ -451,18 +626,19 @@
                 <!-- Barre de recherche -->
                 <div class="row mb-4">
                     <div class="col-12">
-                        <div class="search-container" style="background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                        <div class="search-container" style="background: white; padding: 25px; border-radius: 18px; box-shadow: 0 6px 25px rgba(0,0,0,0.1); border: 1px solid rgba(0,0,0,0.05);">
                             <div class="input-group input-group-lg">
-                                <span class="input-group-text" style="background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%); border: none;">
-                                    <span style="color: white; font-size: 1.3em;">🔍</span>
+                                <span class="input-group-text" style="background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%); border: none; border-radius: 12px 0 0 12px; padding: 12px 20px;">
+                                    <i class="bi bi-search" style="color: white; font-size: 1.4em;"></i>
                                 </span>
-                                <input type="text" id="searchInput" class="form-control" placeholder="Rechercher une recette (ex: pain, hamburger, baguette, sans gluten...)" style="border: 2px solid #e0e0e0; font-size: 1.1em;">
-                                <button class="btn" id="clearSearch" style="background: #f8f9fa; border: 2px solid #e0e0e0; display: none;">
-                                    <span style="font-size: 1.2em;">✕</span>
+                                <input type="text" id="searchInput" class="form-control" placeholder="Rechercher une recette (ex: pain, hamburger, baguette, sans gluten...)" style="border: 2px solid #e8e8e8; font-size: 1.05em; padding: 12px 20px; border-radius: 0 12px 12px 0;">
+                                <button class="btn" id="clearSearch" style="background: white; border: 2px solid #e8e8e8; border-left: none; border-radius: 0 12px 12px 0; margin-left: -1px; display: none; padding: 0 18px;">
+                                    <i class="bi bi-x-circle-fill" style="font-size: 1.3em; color: #999;"></i>
                                 </button>
                             </div>
-                            <div id="searchResults" style="margin-top: 15px; display: none;">
-                                <div class="alert alert-info mb-0" style="border-radius: 10px;">
+                            <div id="searchResults" style="margin-top: 18px; display: none;">
+                                <div class="alert alert-info mb-0 d-flex align-items-center" style="border-radius: 12px; border-left: 4px solid #0dcaf0;">
+                                    <i class="bi bi-info-circle-fill me-2" style="font-size: 1.3em;"></i>
                                     <strong id="searchCount"></strong>
                                 </div>
                             </div>
@@ -473,6 +649,9 @@
                 <div class="row">
                     <!-- Menu des catégories de recettes -->
                     <div class="col-lg-3 col-md-4 mb-4">
+                        <h5 class="mb-3 fw-bold" style="color: var(--primary-brown); font-size: 1.15rem;">
+                            <i class="bi bi-list-ul me-2"></i>Catégories
+                        </h5>
                         <div class="category-card active" data-category="pains-base">
                             <h5><span class="icon">🍞</span> Pains de Base</h5>
                         </div>
@@ -504,7 +683,9 @@
                         <div class="row">
                             <!-- Liste des recettes -->
                             <div class="col-lg-4 mb-3">
-                                <h5 class="mb-3" style="color: #8B4513;">Sélectionnez une recette:</h5>
+                                <h5 class="mb-3 fw-bold" style="color: var(--primary-brown); font-size: 1.15rem;">
+                                    <i class="bi bi-book me-2"></i>Sélectionnez une recette
+                                </h5>
                                 <ul class="recipe-list" id="recipeList">
                                     <!-- Sera rempli dynamiquement -->
                                 </ul>
@@ -514,8 +695,9 @@
                             <div class="col-lg-8">
                                 <div class="content-display" id="recipeDisplay">
                                     <div class="welcome-message">
+                                        <i class="bi bi-arrow-left-circle" style="font-size: 4rem; color: var(--secondary-brown); margin-bottom: 20px;"></i>
                                         <h4>Sélectionnez une recette pour l'afficher</h4>
-                                        <p>👈 Choisissez une catégorie puis une recette</p>
+                                        <p><i class="bi bi-hand-index-thumb me-2"></i>Choisissez une catégorie puis une recette</p>
                                     </div>
                                 </div>
                             </div>
@@ -530,7 +712,9 @@
             <div class="container-fluid mt-4">
                 <div class="row">
                     <div class="col-lg-3 mb-3">
-                        <h5 class="mb-3" style="color: #8B4513;">Techniques de Façonnage:</h5>
+                        <h5 class="mb-3 fw-bold" style="color: var(--primary-brown); font-size: 1.15rem;">
+                            <i class="bi bi-tools me-2"></i>Techniques de Façonnage
+                        </h5>
                         <ul class="recipe-list" id="techniquesList">
                             <li data-technique="Techniques/tresse-3-branches.html">Tresse à 3 Branches</li>
                             <li data-technique="Techniques/tresse-4-branches.html">Tresse à 4 Branches</li>
@@ -548,8 +732,9 @@
                     <div class="col-lg-9">
                         <div class="content-display" id="techniqueDisplay">
                             <div class="welcome-message">
+                                <i class="bi bi-arrow-left-circle" style="font-size: 4rem; color: var(--secondary-brown); margin-bottom: 20px;"></i>
                                 <h4>Sélectionnez une technique pour l'afficher</h4>
-                                <p>👈 Choisissez une technique de façonnage</p>
+                                <p><i class="bi bi-hand-index-thumb me-2"></i>Choisissez une technique de façonnage</p>
                             </div>
                         </div>
                     </div>
@@ -562,7 +747,9 @@
             <div class="container-fluid mt-4">
                 <div class="row">
                     <div class="col-lg-3 mb-3">
-                        <h5 class="mb-3" style="color: #8B4513;">Trucs et Astuces:</h5>
+                        <h5 class="mb-3 fw-bold" style="color: var(--primary-brown); font-size: 1.15rem;">
+                            <i class="bi bi-lightbulb me-2"></i>Trucs et Astuces
+                        </h5>
                         <ul class="recipe-list" id="astucesList">
                             <li data-astuce="Astuces/calculateur-proportions.html">🧮 Calculateur de Proportions</li>
                             <li data-astuce="Astuces/bakers-percentage.html">⚖️ Baker's Percentage</li>
@@ -581,8 +768,9 @@
                     <div class="col-lg-9">
                         <div class="content-display" id="astuceDisplay">
                             <div class="welcome-message">
+                                <i class="bi bi-arrow-left-circle" style="font-size: 4rem; color: var(--secondary-brown); margin-bottom: 20px;"></i>
                                 <h4>Sélectionnez une astuce pour l'afficher</h4>
-                                <p>👈 Choisissez un truc ou une astuce</p>
+                                <p><i class="bi bi-hand-index-thumb me-2"></i>Choisissez un truc ou une astuce</p>
                             </div>
                         </div>
                     </div>
@@ -595,7 +783,9 @@
             <div class="container-fluid mt-4">
                 <div class="row">
                     <div class="col-lg-3 mb-3">
-                        <h5 class="mb-3" style="color: #8B4513;">Guide des Farines:</h5>
+                        <h5 class="mb-3 fw-bold" style="color: var(--primary-brown); font-size: 1.15rem;">
+                            <i class="bi bi-book-half me-2"></i>Guide des Farines
+                        </h5>
                         <ul class="recipe-list" id="guideList">
                             <li data-guide="Guides/correspondance-farines.html">📊 Correspondance Europe-Québec</li>
                             <li data-guide="Guides/identifier-farines-quebec.html">🔍 Identifier au Québec</li>
@@ -609,8 +799,9 @@
                     <div class="col-lg-9">
                         <div class="content-display" id="guideDisplay">
                             <div class="welcome-message">
+                                <i class="bi bi-arrow-left-circle" style="font-size: 4rem; color: var(--secondary-brown); margin-bottom: 20px;"></i>
                                 <h4>Sélectionnez une section du guide</h4>
-                                <p>👈 Choisissez une section pour l'afficher</p>
+                                <p><i class="bi bi-hand-index-thumb me-2"></i>Choisissez une section pour l'afficher</p>
                             </div>
                         </div>
                     </div>
@@ -619,8 +810,8 @@
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS - Version 5.3.3 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     
     <script>
         // Données des recettes par catégorie
@@ -724,8 +915,12 @@
             const display = document.getElementById('recipeDisplay');
             display.innerHTML = `
                 <div class="loading">
-                    <div class="spinner"></div>
-                    <p class="mt-3">Chargement de la recette...</p>
+                    <div class="spinner-border text-warning" role="status" style="width: 4rem; height: 4rem;">
+                        <span class="visually-hidden">Chargement...</span>
+                    </div>
+                    <p class="mt-4 fw-semibold" style="color: var(--primary-brown); font-size: 1.1rem;">
+                        <i class="bi bi-hourglass-split me-2"></i>Chargement de la recette...
+                    </p>
                 </div>
             `;
             
@@ -744,8 +939,12 @@
                 const display = document.getElementById('techniqueDisplay');
                 display.innerHTML = `
                     <div class="loading">
-                        <div class="spinner"></div>
-                        <p class="mt-3">Chargement de la technique...</p>
+                        <div class="spinner-border text-warning" role="status" style="width: 4rem; height: 4rem;">
+                            <span class="visually-hidden">Chargement...</span>
+                        </div>
+                        <p class="mt-4 fw-semibold" style="color: var(--primary-brown); font-size: 1.1rem;">
+                            <i class="bi bi-hourglass-split me-2"></i>Chargement de la technique...
+                        </p>
                     </div>
                 `;
                 
@@ -765,8 +964,12 @@
                 const display = document.getElementById('astuceDisplay');
                 display.innerHTML = `
                     <div class="loading">
-                        <div class="spinner"></div>
-                        <p class="mt-3">Chargement de l'astuce...</p>
+                        <div class="spinner-border text-warning" role="status" style="width: 4rem; height: 4rem;">
+                            <span class="visually-hidden">Chargement...</span>
+                        </div>
+                        <p class="mt-4 fw-semibold" style="color: var(--primary-brown); font-size: 1.1rem;">
+                            <i class="bi bi-hourglass-split me-2"></i>Chargement de l'astuce...
+                        </p>
                     </div>
                 `;
                 
@@ -786,8 +989,12 @@
                 const display = document.getElementById('guideDisplay');
                 display.innerHTML = `
                     <div class="loading">
-                        <div class="spinner"></div>
-                        <p class="mt-3">Chargement du guide...</p>
+                        <div class="spinner-border text-warning" role="status" style="width: 4rem; height: 4rem;">
+                            <span class="visually-hidden">Chargement...</span>
+                        </div>
+                        <p class="mt-4 fw-semibold" style="color: var(--primary-brown); font-size: 1.1rem;">
+                            <i class="bi bi-hourglass-split me-2"></i>Chargement du guide...
+                        </p>
                     </div>
                 `;
                 
@@ -851,7 +1058,8 @@
 
             if (results.length > 0) {
                 searchResults.style.display = 'block';
-                searchCount.textContent = `${results.length} recette${results.length > 1 ? 's' : ''} trouvée${results.length > 1 ? 's' : ''}`;
+                const resultText = `${results.length} recette${results.length > 1 ? 's' : ''} trouvée${results.length > 1 ? 's' : ''}`;
+                searchCount.innerHTML = `<i class="bi bi-check-circle-fill me-2"></i>${resultText}`;
                 
                 // Afficher les résultats dans la liste
                 const recipeList = document.getElementById('recipeList');
@@ -881,8 +1089,8 @@
                 document.querySelectorAll('.category-card').forEach(c => c.classList.remove('active'));
             } else {
                 searchResults.style.display = 'block';
-                searchCount.textContent = 'Aucune recette trouvée';
-                document.getElementById('recipeList').innerHTML = '<li style="text-align: center; color: #999;">Essayez un autre terme de recherche</li>';
+                searchCount.innerHTML = '<i class="bi bi-exclamation-circle-fill me-2"></i>Aucune recette trouvée';
+                document.getElementById('recipeList').innerHTML = '<li style="text-align: center; color: #999; cursor: default;"><i class="bi bi-search me-2"></i>Essayez un autre terme de recherche</li>';
             }
         }
 
